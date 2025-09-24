@@ -1,5 +1,5 @@
 import React from "react";
-import brandLogo from "../assets/brandName.png";
+import brandLogo from "../assets/BrandName.png";
 import { FaFacebookF } from "react-icons/fa";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
