@@ -1,10 +1,9 @@
-import React from "react";
-import brandLogo from "../assets/BrandName.png";
-import { FaFacebookF } from "react-icons/fa";
-import InputField from "../components/InputField";
-import { Link } from "react-router-dom";
+import brandLogo from '../assets/BrandName.png'
+import { FaFacebookF } from 'react-icons/fa'
+import InputField from '../components/InputField'
+import { Link } from 'react-router-dom'
 
-const Signup: React.FC = () => {
+export default function SignUp() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
       <div className="w-full max-w-sm text-center">
@@ -36,7 +35,7 @@ const Signup: React.FC = () => {
         </button>
 
         <p className="text-sm text-gray-600 mt-3">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link
             to="/signin"
             className="text-[#222BDE] font-medium hover:underline"
@@ -77,7 +76,5 @@ const Signup: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default Signup;
+  )
+}

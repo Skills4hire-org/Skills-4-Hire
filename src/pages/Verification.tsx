@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const BackArrowIcon = () => (
   <svg
@@ -15,50 +15,50 @@ const BackArrowIcon = () => (
     <path d="M19 12H5"></path>
     <path d="M12 19L5 12 12 5"></path>
   </svg>
-);
+)
 
-interface VerificationProps {
-  onConfirm: (code: string) => void;
-}
+/* interface VerificationProps {
+  onConfirm: (code: string) => void
+} */
 
-export default function VerificationPage({ onConfirm }: VerificationProps) {
-  const [code, setCode] = useState(["", "", "", ""]);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const navigate = useNavigate();
+export default function Verification() {
+  const [code, setCode] = useState(['', '', '', ''])
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([])
+  const navigate = useNavigate()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const value = e.target.value;
-    const newCode = [...code];
+    const value = e.target.value
+    const newCode = [...code]
     if (/^\d?$/.test(value)) {
-      newCode[index] = value;
-      setCode(newCode);
+      newCode[index] = value
+      setCode(newCode)
 
       if (value && index < 3) {
-        inputRefs.current[index + 1]?.focus();
+        inputRefs.current[index + 1]?.focus()
       }
     }
-  };
+  }
 
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    if (e.key === "Backspace" && !code[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
+    if (e.key === 'Backspace' && !code[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus()
     }
-  };
+  }
 
-  const handleConfirm = () => {
-    const enteredCode = code.join("");
+  /* const handleConfirm = () => {
+    const enteredCode = code.join('')
     if (enteredCode.length === 4) {
-      onConfirm(enteredCode);
+      onConfirm(enteredCode)
     } else {
-      console.log("Please enter the complete 4-digit code.");
+      console.log('Please enter the complete 4-digit code.')
     }
-  };
+  } */
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white px-6 font-sans">
@@ -86,7 +86,7 @@ export default function VerificationPage({ onConfirm }: VerificationProps) {
             <input
               key={index}
               ref={(el: HTMLInputElement | null) => {
-                inputRefs.current[index] = el;
+                inputRefs.current[index] = el
               }}
               type="text"
               maxLength={1}
@@ -99,19 +99,19 @@ export default function VerificationPage({ onConfirm }: VerificationProps) {
         </div>
 
         <button
-          onClick={handleConfirm}
+          /* onClick={handleConfirm} */
           className="w-full bg-[#222BDE] text-white py-3 sm:py-4 rounded-lg font-medium text-base sm:text-lg hover:bg-blue-600 transition-colors"
         >
           Confirm
         </button>
 
         <p className="text-sm text-gray-600 mt-4 text-center">
-          Didn’t get the code?{" "}
+          Didn’t get the code?{' '}
           <button className="text-[#222BDE] font-medium hover:underline">
             Resend
           </button>
         </p>
       </div>
     </div>
-  );
+  )
 }
