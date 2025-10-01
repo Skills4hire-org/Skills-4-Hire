@@ -1,10 +1,17 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import SignUp from './pages/Signup'
-import SignIn from './pages/Signin'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import SignUp from './pages/SignUp'
+import SignIn from './pages/SignIn'
 import ForgotPassword from './pages/ForgotPassword'
 import Verification from './pages/Verification'
+import Landing from './pages/Landing'
+import CustomerLayout from './components/layouts/CustomerLayout'
+import CustomerHome from './pages/CustomerHome'
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Landing />,
+  },
   {
     path: 'sign-up',
     element: <SignUp />,
@@ -20,6 +27,36 @@ const router = createBrowserRouter([
   {
     path: 'verification',
     element: <Verification />,
+  },
+  {
+    path: 'customer',
+    element: <CustomerLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="home" />,
+      },
+      {
+        path: 'home',
+        element: <CustomerHome />,
+      },
+      {
+        path: 'services',
+        element: <CustomerHome />,
+      },
+      {
+        path: 'booking',
+        element: <CustomerHome />,
+      },
+      {
+        path: 'wallet',
+        element: <CustomerHome />,
+      },
+      {
+        path: 'chats',
+        element: <CustomerHome />,
+      },
+    ],
   },
 ])
 

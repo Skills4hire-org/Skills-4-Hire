@@ -1,26 +1,22 @@
-import { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import PostComposer from "../components/PostComposer";
-import PostCard from "../components/PostCard";
-import BottomNav from "../components/BottomNav";
+import { useState } from 'react'
+import PostComposer from '../components/PostComposer'
+import PostCard from '../components/PostCard'
 // Assets
-import AdminProfile from "../assets/Admin profile.jpg";
-import AdminElect from "../assets/Admin-Elect.png";
-import SmallDP from "../assets/Small-DP.png";
-import NotificationBell from "../assets/NotificationBell.png";
-import MessageIcon from "../assets/Message.png";
+import AdminProfile from '../assets/Admin profile.jpg'
+import AdminElect from '../assets/Admin-Elect.png'
+import SmallDP from '../assets/Small-DP.png'
+import NotificationBell from '../assets/NotificationBell.png'
+import MessageIcon from '../assets/Message.png'
 
-type TabKey = "posts" | "my-offers";
+type TabKey = 'posts' | 'my-offers'
 
 export default function CustomerHome() {
-  const [activeTab, setActiveTab] = useState<TabKey>("posts");
-  const [activeNav, setActiveNav] = useState("home");
+  const [activeTab, setActiveTab] = useState<TabKey>('posts')
+  const [activeNav, setActiveNav] = useState('home')
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <aside className="hidden md:block fixed left-0 top-0 h-full w-44 z-20">
-        <Sidebar active="home" />
-      </aside>
+      <aside className="hidden md:block fixed left-0 top-0 h-full w-44 z-20"></aside>
 
       <main className="flex-1 md:ml-44 flex flex-col">
         <div className="hidden md:block bg-white shadow rounded-lg w-full px-4 py-3 z-10">
@@ -66,28 +62,28 @@ export default function CustomerHome() {
             <div className="hidden md:flex items-center gap-12 border-b pb-2">
               <button
                 className={`pb-2 ${
-                  activeTab === "posts"
-                    ? "text-[#222BDE] border-b border-[#222BDE] font-semibold"
-                    : "text-gray-500"
+                  activeTab === 'posts'
+                    ? 'text-[#222BDE] border-b border-[#222BDE] font-semibold'
+                    : 'text-gray-500'
                 }`}
-                onClick={() => setActiveTab("posts")}
+                onClick={() => setActiveTab('posts')}
               >
                 Posts
               </button>
               <button
                 className={`pb-2 ${
-                  activeTab === "my-offers"
-                    ? "text-[#222BDE] border-b border-[#222BDE] font-semibold"
-                    : "text-gray-500"
+                  activeTab === 'my-offers'
+                    ? 'text-[#222BDE] border-b border-[#222BDE] font-semibold'
+                    : 'text-gray-500'
                 }`}
-                onClick={() => setActiveTab("my-offers")}
+                onClick={() => setActiveTab('my-offers')}
               >
                 My Offers
               </button>
             </div>
 
             {/* Posts feed */}
-            {activeTab === "posts" && (
+            {activeTab === 'posts' && (
               <>
                 <PostComposer variant="customer" />
 
@@ -101,7 +97,7 @@ export default function CustomerHome() {
                   reviews="234"
                   title="Affordable plumbing services"
                   description="Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years."
-                  tags={["Plumbing", "Certified", "Near you", "Emergency"]}
+                  tags={['Plumbing', 'Certified', 'Near you', 'Emergency']}
                   stats={{
                     likes: 110,
                     comments: 81,
@@ -120,13 +116,13 @@ export default function CustomerHome() {
                   reviews="294"
                   title="Expert Electrical Services"
                   description="Specialized in electrical installations, repairs and upgrades for both residential and commercial properties. Licensed electricians with a strong focus on safety and efficiency."
-                  tags={["Electrical", "Certified", "Repairs", "Residential"]}
+                  tags={['Electrical', 'Certified', 'Repairs', 'Residential']}
                   stats={{ likes: 96, comments: 44, shares: 138, downloads: 9 }}
                 />
               </>
             )}
 
-            {activeTab === "my-offers" && (
+            {activeTab === 'my-offers' && (
               <>
                 <OfferCard
                   title="Need plumber to fix leaking tap"
@@ -160,11 +156,11 @@ export default function CustomerHome() {
       </main>
 
       {/* Bottom navigation (mobile only) */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
+      {/* <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
         <BottomNav active={activeNav} onNavigate={setActiveNav} />
-      </div>
+      </div> */}
     </div>
-  );
+  )
 }
 
 function RightSidebar() {
@@ -197,7 +193,7 @@ function RightSidebar() {
       <section>
         <h3 className="font-semibold text-gray-700 mb-2">Suggested services</h3>
         <div className="flex flex-wrap gap-2 text-xs text-gray-600">
-          {["Moving", "Painting", "Handyman", "Cleaning"].map((srv) => (
+          {['Moving', 'Painting', 'Handyman', 'Cleaning'].map((srv) => (
             <span
               key={srv}
               className="px-2 py-1 bg-gray-100 rounded cursor-pointer hover:bg-gray-200"
@@ -213,10 +209,10 @@ function RightSidebar() {
         <h3 className="font-semibold text-gray-700 mb-2">Quick Tips</h3>
         <div className="space-y-3 bg-[#ECF4FB] rounded-lg p-3">
           {[
-            "Check provider reviews and ratings before hiring.",
-            "Always verify provider credentials and insurance.",
-            "Communicate clearly about your service needs.",
-            "Get multiple quotes before meeting with the provider.",
+            'Check provider reviews and ratings before hiring.',
+            'Always verify provider credentials and insurance.',
+            'Communicate clearly about your service needs.',
+            'Get multiple quotes before meeting with the provider.',
           ].map((tip, i) => (
             <div key={i} className="flex items-start gap-2">
               <svg
@@ -241,7 +237,7 @@ function RightSidebar() {
         </div>
       </section>
     </div>
-  );
+  )
 }
 function OfferCard({
   title,
@@ -251,12 +247,12 @@ function OfferCard({
   inquiries,
   status,
 }: {
-  title: string;
-  description: string;
-  posted: string;
-  views: number;
-  inquiries: number;
-  status: string;
+  title: string
+  description: string
+  posted: string
+  views: number
+  inquiries: number
+  status: string
 }) {
   return (
     <div className="bg-white rounded-lg shadow p-5 space-y-3">
@@ -286,5 +282,5 @@ function OfferCard({
         </button>
       </div>
     </div>
-  );
+  )
 }

@@ -1,23 +1,21 @@
-import BottomNav from "../components/BottomNav";
-
 // Assets
-import SmallDP from "../assets/Small-DP.png";
-import JoshuaProfile from "../assets/Joshua Friday.png";
-import BarChartImage from "../assets/BarChart.png";
-import RectangleFrames from "../assets/Rectangle-Frames.png";
+import SmallDP from '../assets/Small-DP.png'
+import JoshuaProfile from '../assets/Joshua Friday.png'
+import BarChartImage from '../assets/BarChart.png'
+import RectangleFrames from '../assets/Rectangle-Frames.png'
 
-import HomeIcon from "../assets/Home.png";
-import OverviewIcon from "../assets/Overview.png";
-import BookingIcon from "../assets/Booking.png";
-import WalletIcon from "../assets/Wallet.png";
-import ChatsIcon from "../assets/Chats.png";
-import NotificationIcon from "../assets/Notification.png";
-import SettingsIcon from "../assets/Settings.png";
-import HelpIcon from "../assets/Help.png";
+import HomeIcon from '../assets/Home.png'
+import OverviewIcon from '../assets/Overview.png'
+import BookingIcon from '../assets/Booking.png'
+import WalletIcon from '../assets/Wallet.png'
+import ChatsIcon from '../assets/Chats.png'
+import NotificationIcon from '../assets/Notification.png'
+import SettingsIcon from '../assets/Settings.png'
+import HelpIcon from '../assets/Help.png'
 
-import EarPlugIcon from "../assets/EarPlug.png";
-import BellIcon from "../assets/Bell.png";
-import MiniSettings from "../assets/Mini_Settings.png";
+import EarPlugIcon from '../assets/EarPlug.png'
+import BellIcon from '../assets/Bell.png'
+import MiniSettings from '../assets/Mini_Settings.png'
 
 export default function ProvidersOverview() {
   return (
@@ -98,7 +96,7 @@ export default function ProvidersOverview() {
             <div className="bg-gray-100 rounded-lg p-3 text-sm text-gray-700 md:min-w-[250px] flex items-center justify-between">
               <div>
                 <p>
-                  Provider Type:{" "}
+                  Provider Type:{' '}
                   <span className="font-semibold">Freelance</span>
                 </p>
                 <p>
@@ -167,10 +165,10 @@ export default function ProvidersOverview() {
       </main>
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
-        <BottomNav active="overview" />
+        {/* <BottomNav active="overview" /> */}
       </div>
     </div>
-  );
+  )
 }
 
 /* SidebarItem */
@@ -179,20 +177,20 @@ function SidebarItem({
   label,
   active = false,
 }: {
-  icon: string;
-  label: string;
-  active?: boolean;
+  icon: string
+  label: string
+  active?: boolean
 }) {
   return (
     <div
       className={`flex items-center gap-3 w-full px-3 py-2 ${
-        active ? "font-semibold text-white/100" : "text-white/80"
+        active ? 'font-semibold text-white/100' : 'text-white/80'
       }`}
     >
       <img src={icon} alt={label} className="w-6 h-6" />
       <span className="text-sm">{label}</span>
     </div>
-  );
+  )
 }
 
 /* ReviewCard */
@@ -204,12 +202,12 @@ function ReviewCard({
   rating,
   text,
 }: {
-  name: string;
-  date: string;
-  role: string;
-  avatar: string;
-  rating: string;
-  text: string;
+  name: string
+  date: string
+  role: string
+  avatar: string
+  rating: string
+  text: string
 }) {
   return (
     <div className="bg-white rounded-lg p-4 shadow flex gap-4 items-start">
@@ -232,5 +230,5 @@ function ReviewCard({
         <p className="text-sm mt-2 text-gray-600">{text}</p>
       </div>
     </div>
-  );
+  )
 }
