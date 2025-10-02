@@ -9,7 +9,7 @@ export default function CustomerLayout() {
     <div>
       <SidebarProvider defaultOpen={true}>
         <CustomerSidebars />
-        <div>
+        <div className="w-full">
           <CustomerMobileHeader />
           <div className="mb-22">
             <Outlet />

@@ -19,7 +19,39 @@ import BookingIcon from './Booking.png'
 import WalletIcon from './Wallet.png'
 import ChatsIcon from './Chats.png'
 
-export const sidebarGeneral = [
+export const sidebarMobileGeneral = [
+  {
+    icon: BsHeart,
+    label: 'favourite service',
+    url: '/',
+  },
+  {
+    icon: BsHeart,
+    label: 'favourite provider',
+    url: '/',
+  },
+  {
+    icon: BsHeart,
+    label: 'blog',
+    url: '/',
+  },
+  {
+    icon: BsHeart,
+    label: 'my rewards',
+    url: '/',
+  },
+  {
+    icon: BsHeart,
+    label: 'my reviews',
+    url: '/',
+  },
+]
+export const sidebarDesktopGeneral = [
+  {
+    icon: BsHeart,
+    label: 'profile',
+    url: '/',
+  },
   {
     icon: BsHeart,
     label: 'favourite service',

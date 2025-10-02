@@ -1,14 +1,12 @@
-import { Button } from '../ui/button'
 import { MdHandyman } from 'react-icons/md'
 
-export default function SwitchRoleButton() {
+export default function SwitchRoleButton({ className }: { className: string }) {
   return (
-    <Button
-      variant="default"
-      className="justify-start px-2 rounded-full w-max font-normal text-xs gap-2.5"
+    <button
+      className={`flex items-center justify-start px-4 py-2 rounded-full w-max text-xs gap-2.5 ${className}`}
     >
       <MdHandyman className="w-5 h-5 font-bold" />
       Switch to Service Provider
-    </Button>
+    </button>
   )
 }

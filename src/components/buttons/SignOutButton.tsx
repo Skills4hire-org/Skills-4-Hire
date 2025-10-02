@@ -1,14 +1,12 @@
 import { LogOut } from 'lucide-react'
-import { Button } from '../ui/button'
 
-export default function SignOutButton() {
+export default function SignOutButton({ className }: { className: string }) {
   return (
-    <Button
-      variant="destructive"
-      className="justify-start mx-2 rounded-full w-max font-normal text-xs gap-2.5"
+    <button
+      className={`flex items-center justify-start rounded-full w-max text-xs gap-2.5 py-2 pl-0 pr-8 ${className}`}
     >
       <LogOut className="w-5 h-5 font-bold" />
       Sign out
-    </Button>
+    </button>
   )
 }

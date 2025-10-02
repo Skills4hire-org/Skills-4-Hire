@@ -8,10 +8,10 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from '../ui/sidebar'
-import ProfileImage from '../global/ProfileImage'
 import { NavLink, useLocation } from 'react-router-dom'
 import { customerDesktopNavLinks } from '@/assets/data'
 import logo from '@/assets/images/logo.png'
+import CustomerDesktopMenu from './CustomerDesktopMenu'
 
 export default function CustomerDesktopSidebar() {
   const pathname = useLocation().pathname
@@ -52,9 +52,7 @@ export default function CustomerDesktopSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="mb-4 mt-2">
-        <div className="w-max mx-auto">
-          <ProfileImage size="lg" />
-        </div>
+        <CustomerDesktopMenu />
       </SidebarFooter>
     </Sidebar>
   )

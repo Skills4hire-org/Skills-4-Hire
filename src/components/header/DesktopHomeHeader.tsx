@@ -7,7 +7,7 @@ export default function DesktopHomeHeader() {
   return (
     <header className="hidden md:block py-4">
       <div className="flex items-center justify-between gap-8">
-        <div className="flex-1 items-center  rounded-lg">
+        <div className="flex-1 items-center max-w-4xl rounded-lg">
           <SearchBar />
         </div>
         <div className="flex items-center gap-4">

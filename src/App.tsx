@@ -5,7 +5,9 @@ import ForgotPassword from './pages/ForgotPassword'
 import Verification from './pages/Verification'
 import Landing from './pages/Landing'
 import CustomerLayout from './components/layouts/CustomerLayout'
-import CustomerHome from './pages/CustomerHome'
+import CustomerPosts from './pages/CustomerPosts'
+import CustomerOffers from './pages/CustomerOffers'
+import CustomerHomeLayout from './components/layouts/CustomerHomeLayout'
 
 const router = createBrowserRouter([
   {
@@ -38,23 +40,37 @@ const router = createBrowserRouter([
       },
       {
         path: 'home',
-        element: <CustomerHome />,
+        element: <CustomerHomeLayout />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="posts" />,
+          },
+          {
+            path: 'posts',
+            element: <CustomerPosts />,
+          },
+          {
+            path: 'my-offers',
+            element: <CustomerOffers />,
+          },
+        ],
       },
       {
         path: 'services',
-        element: <CustomerHome />,
+        element: <CustomerPosts />,
       },
       {
         path: 'bookings',
-        element: <CustomerHome />,
+        element: <CustomerPosts />,
       },
       {
         path: 'wallet',
-        element: <CustomerHome />,
+        element: <CustomerPosts />,
       },
       {
         path: 'chats',
-        element: <CustomerHome />,
+        element: <CustomerPosts />,
       },
     ],
   },

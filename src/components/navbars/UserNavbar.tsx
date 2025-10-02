@@ -2,12 +2,15 @@ import { customerMobileNavLinks, serviceProviderNavLinks } from '@/assets/data'
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import Container from '../global/Container'
+import { getBasePath } from '@/utils/format'
 
 export default function UserNavbar() {
   const [userRole, setUserRole] = useState<'customer' | 'service-provider'>(
     'customer'
   )
   const pathname = useLocation().pathname
+  const basePath = getBasePath(pathname)
+
   const navLinks =
     userRole === 'customer' ? customerMobileNavLinks : serviceProviderNavLinks
 
@@ -16,7 +19,7 @@ export default function UserNavbar() {
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background md:hidden  ">
         <div className="relative bg-primary flex items-center justify-evenly h-18 mt-6.5 ">
           {navLinks.map(({ url, icon, label }) => {
-            const active = pathname === url
+            const active = basePath === url
             const IconComponent = icon
             return (
               <NavLink

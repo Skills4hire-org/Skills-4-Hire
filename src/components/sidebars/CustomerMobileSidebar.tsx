@@ -16,7 +16,7 @@ import { TiStar } from 'react-icons/ti'
 import { user } from '@/utils/database'
 import { Badge } from '../ui/badge'
 import { Link, NavLink } from 'react-router-dom'
-import { sidebarAboutUs, sidebarGeneral } from '@/assets/data'
+import { sidebarAboutUs, sidebarMobileGeneral } from '@/assets/data'
 import SignOutButton from '../buttons/SignOutButton'
 import SwitchRoleButton from '../buttons/SwitchRoleButton'
 
@@ -67,7 +67,7 @@ export default function CustomerMobileSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
-              {sidebarGeneral.map(({ icon, label, url }) => {
+              {sidebarMobileGeneral.map(({ icon, label, url }) => {
                 const IconComponent = icon
                 return (
                   <SidebarMenuItem key={label}>
@@ -86,7 +86,7 @@ export default function CustomerMobileSidebar() {
                 )
               })}
               <div className="mt-1">
-                <SwitchRoleButton />
+                <SwitchRoleButton className="bg-primary text-white" />
               </div>
             </SidebarMenu>
           </SidebarGroupContent>
@@ -120,7 +120,7 @@ export default function CustomerMobileSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="mb-4">
-        <SignOutButton />
+        <SignOutButton className="mx-2 text-destructive" />
       </SidebarFooter>
     </Sidebar>
   )
