@@ -1,13 +1,10 @@
 import { customerMobileNavLinks, serviceProviderNavLinks } from '@/assets/data'
-import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import Container from '../global/Container'
 import { getBasePath } from '@/utils/format'
 
 export default function UserNavbar() {
-  const [userRole, setUserRole] = useState<'customer' | 'service-provider'>(
-    'customer'
-  )
+  const userRole = 'customer'
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)
 

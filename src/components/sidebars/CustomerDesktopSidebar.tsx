@@ -10,17 +10,15 @@ import {
 } from '../ui/sidebar'
 import { NavLink, useLocation } from 'react-router-dom'
 import { customerDesktopNavLinks } from '@/assets/data'
-import logo from '@/assets/images/logo.png'
 import CustomerDesktopMenu from './CustomerDesktopMenu'
+import Logo from '../global/Logo'
 
 export default function CustomerDesktopSidebar() {
   const pathname = useLocation().pathname
   return (
     <Sidebar className="rounded-r-lg">
-      <SidebarHeader className="mt-4 mb-2 px-4 ">
-        <figure className="mx-auto">
-          <img src={logo} alt="logo" className="w-20" width={108} height={62} />
-        </figure>
+      <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center ">
+        <Logo />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup className="px-0">
