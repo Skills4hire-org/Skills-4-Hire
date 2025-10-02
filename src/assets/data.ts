@@ -1,4 +1,5 @@
 import {
+  Bell,
   BriefcaseMedical,
   FileText,
   FolderCog,
@@ -7,6 +8,7 @@ import {
   Info,
   MessageSquareMore,
   PhoneCall,
+  Settings,
   ShieldAlert,
   Wallet,
 } from 'lucide-react'
@@ -73,7 +75,7 @@ export const sidebarAboutUs = [
   },
 ]
 
-export const customerNavLinks = [
+export const customerMobileNavLinks = [
   {
     label: 'Home',
     icon: House,
@@ -86,12 +88,47 @@ export const customerNavLinks = [
     url: '/customer/services',
   },
   {
-    label: 'booking',
+    label: 'bookings',
     icon: FolderCog,
-    url: '/customer/booking',
+    url: '/customer/bookings',
   },
   { label: 'wallet', icon: Wallet, url: '/customer/wallet' },
   { label: 'chats', icon: MessageSquareMore, url: '/customer/chats' },
+]
+export const customerDesktopNavLinks = [
+  {
+    label: 'Home',
+    icon: House,
+    url: '/customer/home',
+  },
+  {
+    key: 'services',
+    label: 'Services',
+    icon: BriefcaseMedical,
+    url: '/customer/services',
+  },
+  {
+    label: 'bookings',
+    icon: FolderCog,
+    url: '/customer/bookings',
+  },
+  { label: 'wallet', icon: Wallet, url: '/customer/wallet' },
+  { label: 'chats', icon: MessageSquareMore, url: '/customer/chats' },
+  {
+    label: 'notifications',
+    icon: Bell,
+    url: '/customer/notifications',
+  },
+  {
+    label: 'settings',
+    icon: Settings,
+    url: '/customer/settings',
+  },
+  {
+    label: 'help center',
+    icon: HelpCircle,
+    url: '/customer/help-center',
+  },
 ]
 export const serviceProviderNavLinks = [
   {

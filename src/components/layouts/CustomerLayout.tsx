@@ -1,23 +1,21 @@
 import { Outlet } from 'react-router-dom'
 import { SidebarProvider } from '../ui/sidebar'
-import CustomerHeader from '../header/CustomerHeader'
-import Container from '../global/Container'
-import CustomerSidebar from '../sidebars/CustomerSidebar'
+import CustomerMobileHeader from '../header/CustomerMobileHeader'
 import UserNavbar from '../navbars/UserNavbar'
+import CustomerSidebars from '../sidebars/CustomerSidebars'
 
 export default function CustomerLayout() {
   return (
     <div>
-      <SidebarProvider defaultOpen={false}>
-        <CustomerSidebar />
-        <Container>
-          <CustomerHeader />
-          <div className="relative mb-22 z-50">
+      <SidebarProvider defaultOpen={true}>
+        <CustomerSidebars />
+        <div>
+          <CustomerMobileHeader />
+          <div className="mb-22">
             <Outlet />
           </div>
-
           <UserNavbar />
-        </Container>
+        </div>
       </SidebarProvider>
     </div>
   )

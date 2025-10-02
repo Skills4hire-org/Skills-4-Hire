@@ -20,7 +20,7 @@ import { sidebarAboutUs, sidebarGeneral } from '@/assets/data'
 import SignOutButton from '../buttons/SignOutButton'
 import SwitchRoleButton from '../buttons/SwitchRoleButton'
 
-export default function CustomerSidebar() {
+export default function CustomerMobileSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="mt-4 px-4 border-b">
@@ -119,7 +119,7 @@ export default function CustomerSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="mb-2">
+      <SidebarFooter className="mb-4">
         <SignOutButton />
       </SidebarFooter>
     </Sidebar>
