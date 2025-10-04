@@ -8,11 +8,14 @@ export default function DesktopHomeHeader() {
     <header className="hidden md:block py-4">
       <div className="flex items-center justify-between gap-8">
         <div className="flex-1 items-center max-w-4xl rounded-lg">
-          <SearchBar />
+          <SearchBar
+            placeholder="Search for jobs, services or providers"
+            maxWidth="max-w-md"
+          />
         </div>
         <div className="flex items-center gap-4">
-          <RecentNotification size="lg" icon={Bell} />
-          <RecentNotification size="lg" icon={MessageSquareMore} />
+          <RecentNotification size="lg" icon={Bell} newAlert />
+          <RecentNotification size="lg" icon={MessageSquareMore} newAlert />
 
           <div className="flex items-center gap-2">
             <ProfileImage size="lg" />

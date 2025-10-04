@@ -8,6 +8,10 @@ import CustomerLayout from './components/layouts/CustomerLayout'
 import CustomerPosts from './pages/CustomerPosts'
 import CustomerOffers from './pages/CustomerOffers'
 import CustomerHomeLayout from './components/layouts/CustomerHomeLayout'
+import Services from './pages/Services'
+import AvailableServices from './pages/AvailableServices'
+import ServicesAroundYou from './pages/ServicesAroundYou'
+import ServicesLayout from './components/layouts/ServicesLayout'
 
 const router = createBrowserRouter([
   {
@@ -58,7 +62,18 @@ const router = createBrowserRouter([
       },
       {
         path: 'services',
-        element: <CustomerPosts />,
+        element: <ServicesLayout />,
+        children: [
+          { index: true, element: <Services /> },
+          {
+            path: 'available-services',
+            element: <AvailableServices />,
+          },
+          {
+            path: 'services-around-you',
+            element: <ServicesAroundYou />,
+          },
+        ],
       },
       {
         path: 'bookings',

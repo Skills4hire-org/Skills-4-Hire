@@ -3,11 +3,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
 export default function ProfileImage({ size }: { size: 'base' | 'lg' }) {
   return (
-    <div className="relative">
-      <Avatar className={`${size === 'base' ? 'size-7' : 'size-12'}`}>
+    <div className="relative w-max">
+      <Avatar className={`${size === 'base' ? 'size-8' : 'size-12'}`}>
         <AvatarImage src="" />
         <AvatarFallback>
-          <User />
+          <User className="w-4 h-4" />
         </AvatarFallback>
       </Avatar>
       <span

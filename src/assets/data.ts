@@ -13,11 +13,11 @@ import {
   Wallet,
 } from 'lucide-react'
 import { BsHeart } from 'react-icons/bs'
-import HomeIcon from './Home.png'
-import OverviewIcon from './Overview.png'
-import BookingIcon from './Booking.png'
-import WalletIcon from './Wallet.png'
-import ChatsIcon from './Chats.png'
+
+import img1 from './Rectangle 20.png'
+import img2 from './Rectangle 21.png'
+
+export const images = [img1, img2, img1]
 
 export const sidebarMobileGeneral = [
   {
@@ -165,19 +165,35 @@ export const customerDesktopNavLinks = [
 export const serviceProviderNavLinks = [
   {
     label: 'Home',
-    icon: HomeIcon,
+    icon: House,
     url: '/customer/home',
   },
   {
-    label: 'overview',
-    icon: OverviewIcon,
-    url: '/customer/overview',
+    key: 'services',
+    label: 'Services',
+    icon: BriefcaseMedical,
+    url: '/customer/services',
   },
   {
-    label: 'booking',
-    icon: BookingIcon,
-    url: '/customer/booking',
+    label: 'bookings',
+    icon: FolderCog,
+    url: '/customer/bookings',
   },
-  { label: 'wallet', icon: WalletIcon, url: '/customer/wallet' },
-  { label: 'chats', icon: ChatsIcon, url: '/customer/chats' },
+  { label: 'wallet', icon: Wallet, url: '/customer/wallet' },
+  { label: 'chats', icon: MessageSquareMore, url: '/customer/chats' },
+  {
+    label: 'notifications',
+    icon: Bell,
+    url: '/customer/notifications',
+  },
+  {
+    label: 'settings',
+    icon: Settings,
+    url: '/customer/settings',
+  },
+  {
+    label: 'help center',
+    icon: HelpCircle,
+    url: '/customer/help-center',
+  },
 ]

@@ -16,10 +16,8 @@ import SignOutButton from '../buttons/SignOutButton'
 export default function CustomerDesktopMenu() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <div className="w-max mx-auto">
-          <ProfileImage size="lg" />
-        </div>
+      <DropdownMenuTrigger className="mx-auto">
+        <ProfileImage size="lg" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         side="top"

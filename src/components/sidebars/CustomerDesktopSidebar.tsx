@@ -12,11 +12,13 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { customerDesktopNavLinks } from '@/assets/data'
 import CustomerDesktopMenu from './CustomerDesktopMenu'
 import Logo from '../global/Logo'
+import { getBasePath } from '@/utils/format'
 
 export default function CustomerDesktopSidebar() {
   const pathname = useLocation().pathname
+  const basePath = getBasePath(pathname)
   return (
-    <Sidebar className="rounded-r-lg">
+    <Sidebar className="rounded-r-lg h-full">
       <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center ">
         <Logo />
       </SidebarHeader>
@@ -26,7 +28,7 @@ export default function CustomerDesktopSidebar() {
             <SidebarMenu className="space-y-0.5">
               {customerDesktopNavLinks.map(({ icon, label, url }) => {
                 const IconComponent = icon
-                const active = url === pathname
+                const active = url === basePath
                 return (
                   <SidebarMenuItem key={label}>
                     <NavLink
