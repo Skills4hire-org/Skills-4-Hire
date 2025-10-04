@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 export default function CustomerHomeNavbar() {
   return (
-    <nav className="border-b max-w-4xl lg:w-[65%]">
+    <nav className="border-b max-w-4xl ">
       <div className="flex justify-center gap-36  ">
         <NavLink
           to="posts"

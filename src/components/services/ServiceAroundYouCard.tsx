@@ -1,5 +1,6 @@
 import { Heart, Star } from 'lucide-react'
 import { Badge } from '../ui/badge'
+import { currencyFormatter } from '@/utils/format'
 
 interface ServiceAroundYouCardProp {
   id: number
@@ -69,7 +70,7 @@ export default function ServiceAroundYouCard({
           <div className="capitalize text-sm text-muted-foreground">
             from
             <span className="font-medium text-foreground ml-1">
-              {minCharge}
+              {currencyFormatter(minCharge)}
             </span>
           </div>
         </div>

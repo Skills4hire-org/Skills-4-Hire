@@ -8,7 +8,7 @@ interface PostComposerProps {
 
 export default function PostComposer({
   variant = "feed",
-  placeholder = "Post about your latest work or services",
+  placeholder = "What job do you want to get done?",
 }: PostComposerProps) {
   if (variant === "customer") {
     return (
@@ -26,7 +26,7 @@ export default function PostComposer({
           />
         </div>
 
-        {/* Budget + Time frame */}
+        
         <div className="flex justify-between text-xs text-gray-500 px-1">
           <span>₦10,000</span>
           <span>Within 3 days</span>
@@ -75,7 +75,6 @@ export default function PostComposer({
   if (variant === "myPosts") {
     return (
       <div className="bg-white rounded-2xl shadow p-3 sm:p-4 space-y-3">
-        {/* Header */}
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <img
@@ -124,7 +123,6 @@ export default function PostComposer({
             </button>
           </div>
 
-          {/* New Post button (shrunk more) */}
           <button
             type="button"
             className="ml-3 flex items-center gap-1.5 
@@ -157,7 +155,6 @@ export default function PostComposer({
             className="w-full rounded-full border border-gray-200 px-4 py-2 sm:py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#222BDE]"
           />
           <div className="mt-3 flex items-center justify-between">
-            {/* Icons pushed fully left */}
             <div className="flex items-center gap-5 text-sm text-gray-500 justify-start ml-0">
               <button
                 className="flex items-center gap-1 hover:text-gray-700"
