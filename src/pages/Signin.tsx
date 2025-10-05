@@ -1,10 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import brandLogo from "../assets/brandName.png";
-import { FaFacebookF } from "react-icons/fa";
-import InputField from "../components/InputField";
+import { Link } from 'react-router-dom'
+import brandLogo from '../assets/BrandName.png'
+import { FaFacebookF } from 'react-icons/fa'
+import InputField from '../components/InputField'
 
-const Signin: React.FC = () => {
+export default function SignIn() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
       <div className="w-full max-w-sm text-center">
@@ -42,9 +41,9 @@ const Signin: React.FC = () => {
         </button>
 
         <p className="text-sm text-gray-600 mt-3">
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?{' '}
           <Link
-            to="/signup"
+            to="/sign-up"
             className="text-[#222BDE] font-medium hover:underline"
           >
             Sign up
@@ -52,9 +51,9 @@ const Signin: React.FC = () => {
         </p>
 
         <p className="text-xs text-gray-600 mt-3 leading-snug">
-          By clicking the{" "}
+          By clicking the{' '}
           <span className="font-medium text-black">Sign in</span> button you
-          accept the{" "}
+          accept the{' '}
           <span className="text-[#222BDE] font-medium hover:underline">
             Terms of the Privacy Policy
           </span>
@@ -92,7 +91,5 @@ const Signin: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default Signin;
+  )
+}

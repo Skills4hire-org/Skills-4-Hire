@@ -8,7 +8,7 @@ interface PostComposerProps {
 
 export default function PostComposer({
   variant = "feed",
-  placeholder = "Post about your latest work or services",
+  placeholder = "What job do you want to get done?",
 }: PostComposerProps) {
   if (variant === "customer") {
     return (
@@ -26,7 +26,7 @@ export default function PostComposer({
           />
         </div>
 
-        {/* Budget + Time frame */}
+        
         <div className="flex justify-between text-xs text-gray-500 px-1">
           <span>₦10,000</span>
           <span>Within 3 days</span>
@@ -34,31 +34,38 @@ export default function PostComposer({
 
         {/* Actions */}
         <div className="mt-1 flex items-center justify-between">
-          <div className="flex items-center gap-6 text-sm text-gray-500">
+          <div className="flex items-center gap-5 text-sm text-gray-500 justify-start ml-0">
             <button
               className="flex items-center gap-1 hover:text-gray-700"
               type="button"
             >
-              <ImageIcon className="w-4 h-4" /> Photo
+              <ImageIcon className="w-4 h-4" />
+              <span>Photo</span>
             </button>
             <button
               className="flex items-center gap-1 hover:text-gray-700"
               type="button"
             >
-              <Paperclip className="w-4 h-4" /> Attachment
+              <Paperclip className="w-4 h-4" />
+              <span>Attachment</span>
             </button>
             <button
               className="flex items-center gap-1 hover:text-gray-700"
               type="button"
             >
-              <Smile className="w-4 h-4" /> Emoji
+              <Smile className="w-4 h-4" />
+              <span>Emoji</span>
             </button>
           </div>
           <button
             type="button"
-            className="px-4 py-2 rounded-xl bg-[#222BDE] text-white text-sm sm:text-base hover:opacity-90"
+            className="flex items-center justify-center gap-1.5 
+              bg-[#222BDE] text-white font-medium 
+              px-3 py-1 rounded-md 
+              text-xs sm:text-sm 
+              hover:opacity-90"
           >
-            Posts
+            Post
           </button>
         </div>
       </div>
@@ -68,7 +75,6 @@ export default function PostComposer({
   if (variant === "myPosts") {
     return (
       <div className="bg-white rounded-2xl shadow p-3 sm:p-4 space-y-3">
-        {/* Header */}
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <img
@@ -83,14 +89,6 @@ export default function PostComposer({
               </p>
             </div>
           </div>
-
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 bg-[#222BDE] text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-base font-medium hover:opacity-90"
-          >
-            <Plus className="w-4 h-4" />
-            <span>New Post</span>
-          </button>
         </div>
 
         {/* Input */}
@@ -100,40 +98,48 @@ export default function PostComposer({
           className="w-full rounded-full border border-gray-200 px-4 py-2 sm:py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#222BDE]"
         />
 
-        {/* Actions */}
-        <div className="mt-1 flex items-center justify-between">
-          <div className="flex items-center gap-6 text-sm text-gray-500">
+        <div className="mt-3 flex items-center justify-between">
+          <div className="flex items-center gap-5 text-sm text-gray-500 justify-start ml-0">
             <button
               className="flex items-center gap-1 hover:text-gray-700"
               type="button"
             >
-              <ImageIcon className="w-4 h-4" /> Photo
+              <ImageIcon className="w-4 h-4" />
+              <span>Photo</span>
             </button>
             <button
               className="flex items-center gap-1 hover:text-gray-700"
               type="button"
             >
-              <Paperclip className="w-4 h-4" /> Attachment
+              <Paperclip className="w-4 h-4" />
+              <span>Attachment</span>
             </button>
             <button
               className="flex items-center gap-1 hover:text-gray-700"
               type="button"
             >
-              <Smile className="w-4 h-4" /> Emoji
+              <Smile className="w-4 h-4" />
+              <span>Emoji</span>
             </button>
           </div>
 
           <button
             type="button"
-            className="px-4 py-2 rounded-xl bg-[#222BDE] text-white text-sm sm:text-base hover:opacity-90"
+            className="ml-3 flex items-center gap-1.5 
+              bg-[#222BDE] text-white font-medium 
+              px-2 py-0.5 rounded-full 
+              text-xs 
+              hover:opacity-90 whitespace-nowrap"
           >
-            Post
+            <Plus className="w-3 h-3" />
+            <span>New Post</span>
           </button>
         </div>
       </div>
     );
   }
 
+  // Feed composer
   return (
     <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
       <div className="flex gap-3">
@@ -149,20 +155,37 @@ export default function PostComposer({
             className="w-full rounded-full border border-gray-200 px-4 py-2 sm:py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#222BDE]"
           />
           <div className="mt-3 flex items-center justify-between">
-            <div className="flex items-center gap-6 text-sm text-gray-500">
-              <button className="hover:text-gray-700" type="button">
-                📷 Photo
+            <div className="flex items-center gap-5 text-sm text-gray-500 justify-start ml-0">
+              <button
+                className="flex items-center gap-1 hover:text-gray-700"
+                type="button"
+              >
+                <ImageIcon className="w-4 h-4" />
+                <span>Photo</span>
               </button>
-              <button className="hover:text-gray-700" type="button">
-                📎 Attachment
+              <button
+                className="flex items-center gap-1 hover:text-gray-700"
+                type="button"
+              >
+                <Paperclip className="w-4 h-4" />
+                <span>Attachment</span>
               </button>
-              <button className="hover:text-gray-700" type="button">
-                😊 Emoji
+              <button
+                className="flex items-center gap-1 hover:text-gray-700"
+                type="button"
+              >
+                <Smile className="w-4 h-4" />
+                <span>Emoji</span>
               </button>
             </div>
+
             <button
               type="button"
-              className="px-4 py-2 rounded-xl bg-[#222BDE] text-white text-sm sm:text-base hover:opacity-90"
+              className="flex items-center justify-center gap-1.5 
+                bg-[#222BDE] text-white font-medium 
+                px-3 py-1 rounded-md 
+                text-xs sm:text-sm 
+                hover:opacity-90"
             >
               Post
             </button>

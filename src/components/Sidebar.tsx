@@ -1,24 +1,25 @@
-import SmallDP from "../assets/Small-DP.png";
+import SmallDP from '../assets/Small-DP.png'
 
 // Assets
-import HomeIcon from "../assets/Home.png";
-import OverviewIcon from "../assets/Overview.png";
-import BookingIcon from "../assets/Booking.png";
-import WalletIcon from "../assets/Wallet.png";
-import ChatsIcon from "../assets/Chats.png";
-import NotificationIcon from "../assets/Notification.png";
-import SettingsIcon from "../assets/Settings.png";
-import HelpIcon from "../assets/Help.png";
+import HomeIcon from '../assets/Home.png'
+import OverviewIcon from '../assets/Overview.png'
+import BookingIcon from '../assets/Booking.png'
+import WalletIcon from '../assets/Wallet.png'
+import ChatsIcon from '../assets/Chats.png'
+import NotificationIcon from '../assets/Notification.png'
+import SettingsIcon from '../assets/Settings.png'
+import HelpIcon from '../assets/Help.png'
+import { Sidebar } from './ui/sidebar'
 
-export default function Sidebar({ active }: { active: string }) {
+export default function CustomerSidebar({ active }: { active: string }) {
   return (
-    <aside
+    <Sidebar
       className="
         hidden md:flex flex-col
         fixed top-0 left-0
         bg-[#222BDE] text-white
         px-4 py-6 w-44 rounded-r-xl
-        h-screen   /* always full height */
+        h-screen 
         z-40
       "
     >
@@ -38,44 +39,44 @@ export default function Sidebar({ active }: { active: string }) {
           <SidebarItem
             icon={HomeIcon}
             label="Home"
-            active={active === "home"}
+            active={active === 'home'}
           />
           <SidebarItem
             icon={OverviewIcon}
             label="Overview"
-            active={active === "overview"}
+            active={active === 'overview'}
           />
           <SidebarItem
             icon={BookingIcon}
             label="Bookings"
-            active={active === "bookings"}
+            active={active === 'bookings'}
           />
           <SidebarItem
             icon={WalletIcon}
             label="Wallet"
-            active={active === "wallet"}
+            active={active === 'wallet'}
           />
           <SidebarItem
             icon={ChatsIcon}
             label="Chats"
-            active={active === "chats"}
+            active={active === 'chats'}
           />
           <SidebarItem
             icon={NotificationIcon}
             label="Notifications"
-            active={active === "notifications"}
+            active={active === 'notifications'}
           />
 
           <div className="mt-6 flex flex-col gap-3">
             <SidebarItem
               icon={SettingsIcon}
               label="Settings"
-              active={active === "settings"}
+              active={active === 'settings'}
             />
             <SidebarItem
               icon={HelpIcon}
               label="Help Center"
-              active={active === "help"}
+              active={active === 'help'}
             />
           </div>
         </nav>
@@ -92,8 +93,8 @@ export default function Sidebar({ active }: { active: string }) {
           </div>
         </div>
       </div>
-    </aside>
-  );
+    </Sidebar>
+  )
 }
 
 /* ===== Sidebar Item ===== */
@@ -102,18 +103,18 @@ function SidebarItem({
   label,
   active = false,
 }: {
-  icon: string;
-  label: string;
-  active?: boolean;
+  icon: string
+  label: string
+  active?: boolean
 }) {
   return (
     <div
       className={`flex items-center gap-3 w-full px-3 py-2 ${
-        active ? "font-semibold text-white/100" : "text-white/80"
+        active ? 'font-semibold text-white/100' : 'text-white/80'
       }`}
     >
       <img src={icon} alt={label} className="w-6 h-6" />
       <span className="text-sm">{label}</span>
     </div>
-  );
+  )
 }

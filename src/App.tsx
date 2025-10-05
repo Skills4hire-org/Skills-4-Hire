@@ -1,44 +1,102 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Signup from "./pages/Signup";
-import Signin from "./pages/Signin";
-import ForgotPassword from "./pages/ForgotPassword";
-import VerificationPage from "./pages/VerificationPage";
-import ProvidersHome from "./pages/ProvidersHome";
-import CustomerHome from "./pages/CustomerHome";
-import NotificationPage from "./pages/NotificationPage";
-import ProvidersOverview from "./pages/ProvidersOverview";
-import SearchScreen from "./pages/SearchScreen";
-import SearchAroundYou from "./pages/SearchAroundYou";
-import ProfileScreen from "./pages/ProfileScreen";
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import SignUp from './pages/Signup'
+import SignIn from './pages/Signin'
+import ForgotPassword from './pages/ForgotPassword'
+import Verification from './pages/Verification'
+import Landing from './pages/Landing'
+import CustomerLayout from './components/layouts/CustomerLayout'
+import CustomerPosts from './pages/CustomerPosts'
+import CustomerOffers from './pages/CustomerOffers'
+import CustomerHomeLayout from './components/layouts/CustomerHomeLayout'
+import Services from './pages/Services'
+import AvailableServices from './pages/AvailableServices'
+import ServicesAroundYou from './pages/ServicesAroundYou'
+import ServicesLayout from './components/layouts/ServicesLayout'
+import ServicesSearch from './pages/ServicesSearch'
+import CustomerBookings from './pages/CustomerBookings'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Landing />,
+  },
+  {
+    path: 'sign-up',
+    element: <SignUp />,
+  },
+  {
+    path: 'sign-in',
+    element: <SignIn />,
+  },
+  {
+    path: 'forgot-password',
+    element: <ForgotPassword />,
+  },
+  {
+    path: 'verification',
+    element: <Verification />,
+  },
+  {
+    path: 'customer',
+    element: <CustomerLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="home" />,
+      },
+      {
+        path: 'home',
+        element: <CustomerHomeLayout />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="posts" />,
+          },
+          {
+            path: 'posts',
+            element: <CustomerPosts />,
+          },
+          {
+            path: 'my-offers',
+            element: <CustomerOffers />,
+          },
+        ],
+      },
+      {
+        path: 'services',
+        element: <ServicesLayout />,
+        children: [
+          { index: true, element: <Services /> },
+          {
+            path: 'available-services',
+            element: <AvailableServices />,
+          },
+          {
+            path: 'services-around-you',
+            element: <ServicesAroundYou />,
+          },
+          {
+            path: 'search',
+            element: <ServicesSearch />,
+          },
+        ],
+      },
+      {
+        path: 'bookings',
+        element: <CustomerBookings />,
+      },
+      {
+        path: 'wallet',
+        element: <CustomerPosts />,
+      },
+      {
+        path: 'chats',
+        element: <CustomerPosts />,
+      },
+    ],
+  },
+])
 
 export default function App() {
-  const handleVerificationConfirm = (code: string) => {
-    console.log("User entered verification code:", code);
-  };
-
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/signup" />} />
-
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/signin" element={<Signin />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route
-        path="/verification"
-        element={<VerificationPage onConfirm={handleVerificationConfirm} />}
-      />
-
-      <Route path="/providers-home/*" element={<ProvidersHome />} />
-      <Route path="/providers-overview" element={<ProvidersOverview />} />
-
-      <Route path="/customers-home/*" element={<CustomerHome />} />
-
-      <Route path="/notifications" element={<NotificationPage />} />
-
-      <Route path="/search" element={<SearchScreen />} />
-      <Route path="/search-around-you" element={<SearchAroundYou />} />
-
-      <Route path="/profile" element={<ProfileScreen />} />
-    </Routes>
-  );
+  return <RouterProvider router={router} />
 }

@@ -1,45 +1,44 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import JobOfferCard from "../components/JobOfferCard";
-import { Filter, ArrowUpDown } from "lucide-react";
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import JobOfferCard from '../components/JobOfferCard'
+import { Filter, ArrowUpDown } from 'lucide-react'
 
-import TopBar from "../components/TopBar";
-import PostComposer from "../components/PostComposer";
-import PostCard from "../components/PostCard";
-import BottomNav from "../components/BottomNav";
+import TopBar from '../components/TopBar'
+import PostComposer from '../components/PostComposer'
+import PostCard from '../components/PostCard'
 
 // Feed avatars
-import AdminProfile from "../assets/Admin profile.jpg";
-import AdminElect from "../assets/Admin-Elect.png";
-import JoseProfile from "../assets/Jose profile.png";
-import Rect20 from "../assets/Rectangle 20.png";
-import Rect21 from "../assets/Rectangle 21.png";
+import AdminProfile from '../assets/Admin profile.jpg'
+import AdminElect from '../assets/Admin-Elect.png'
+import JoseProfile from '../assets/Jose profile.png'
+import Rect20 from '../assets/Rectangle 20.png'
+import Rect21 from '../assets/Rectangle 21.png'
 
-import Rect18 from "../assets/Rectangle 18.png";
-import Rect19 from "../assets/Rectangle 19.png";
+import Rect18 from '../assets/Rectangle 18.png'
+import Rect19 from '../assets/Rectangle 19.png'
 
-type TabKey = "posts" | "my-posts" | "jobs";
+type TabKey = 'posts' | 'my-posts' | 'jobs'
 
 export default function ProvidersHome() {
-  const [activeTab, setActiveTab] = useState<TabKey>("posts");
-  const [activeNav, setActiveNav] = useState("home");
+  const [activeTab, setActiveTab] = useState<TabKey>('posts')
+  const [activeNav, setActiveNav] = useState('home')
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const seg = location.pathname.split("/")[2];
-    if (seg === "myposts") setActiveTab("my-posts");
-    else if (seg === "jobs") setActiveTab("jobs");
-    else setActiveTab("posts");
-  }, [location.pathname]);
+    const seg = location.pathname.split('/')[2]
+    if (seg === 'myposts') setActiveTab('my-posts')
+    else if (seg === 'jobs') setActiveTab('jobs')
+    else setActiveTab('posts')
+  }, [location.pathname])
 
   const handleTabChange = (next: TabKey) => {
-    setActiveTab(next);
-    if (next === "posts") navigate("/providers-home");
-    if (next === "my-posts") navigate("/providers-home/myposts");
-    if (next === "jobs") navigate("/providers-home/jobs");
-  };
+    setActiveTab(next)
+    if (next === 'posts') navigate('/providers-home')
+    if (next === 'my-posts') navigate('/providers-home/myposts')
+    if (next === 'jobs') navigate('/providers-home/jobs')
+  }
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
@@ -49,7 +48,7 @@ export default function ProvidersHome() {
       <div className="flex-1 overflow-y-auto pt-24 pb-20">
         <div className="max-w-2xl mx-auto px-3 sm:px-5 space-y-4">
           {/* ==== POSTS FEED ==== */}
-          {activeTab === "posts" && (
+          {activeTab === 'posts' && (
             <>
               <PostComposer />
 
@@ -64,7 +63,7 @@ export default function ProvidersHome() {
                 reviews="234"
                 title="Affordable plumbing services"
                 description="Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years."
-                tags={["Plumbing", "Certified", "Near you", "Emergency"]}
+                tags={['Plumbing', 'Certified', 'Near you', 'Emergency']}
                 stats={{ likes: 110, comments: 81, shares: 212, downloads: 16 }}
               />
 
@@ -79,14 +78,14 @@ export default function ProvidersHome() {
                 reviews="294"
                 title="Expert Electrical Services"
                 description="Specialized in electrical installations, repairs and upgrades for both residential and commercial properties. Licensed electricians with a strong focus on safety and efficiency."
-                tags={["Electrical", "Certified", "Repairs", "Residential"]}
+                tags={['Electrical', 'Certified', 'Repairs', 'Residential']}
                 stats={{ likes: 96, comments: 44, shares: 138, downloads: 9 }}
               />
             </>
           )}
 
           {/* ==== MY POSTS ==== */}
-          {activeTab === "my-posts" && (
+          {activeTab === 'my-posts' && (
             <>
               <PostComposer variant="myPosts" />
 
@@ -114,7 +113,7 @@ export default function ProvidersHome() {
           )}
 
           {/* ==== JOB OFFERS ==== */}
-          {activeTab === "jobs" && (
+          {activeTab === 'jobs' && (
             <>
               <div className="flex items-center justify-between mb-2">
                 <h2 className="font-bold text-gray-900 text-lg">
@@ -161,7 +160,7 @@ export default function ProvidersHome() {
       </div>
 
       {/* Bottom navigation */}
-      <BottomNav active={activeNav} onNavigate={setActiveNav} />
+      {/*       <BottomNav active={activeNav} onNavigate={setActiveNav} /> */}
     </div>
-  );
+  )
 }
