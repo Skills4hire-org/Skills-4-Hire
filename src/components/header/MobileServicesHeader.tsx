@@ -6,7 +6,7 @@ import { SidebarTrigger } from '../ui/sidebar'
 
 export default function MobileServicesHeader() {
   return (
-    <header className="flex items-center justify-between gap-2 md:hidden">
+    <header className="flex items-center justify-between gap-2 py-2 md:hidden">
       <div className="flex items-center gap-2">
         <SidebarTrigger size="lg">
           <ProfileImage />

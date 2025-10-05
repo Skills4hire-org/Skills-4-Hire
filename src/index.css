@@ -125,13 +125,13 @@
 .swiper-pagination-bullet {
   background: white;
   opacity: 1;
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
 }
 .swiper-pagination-bullet-active {
   opacity: 1;
   background: var(--primary);
-  width: 20px;
-  height: 10px;
+  width: 28px;
+  height: 14px;
   border-radius: 8px;
 }

@@ -35,7 +35,6 @@ export default function ServiceAroundYouCard({
           src={image}
           alt={occupation}
           className="max-w-32 sm:max-w-42 h-full object-cover rounded-tr-4xl"
-          loading="lazy"
         />
       </figure>
       <div className="flex flex-1 flex-col sm:flex-row gap-2  justify-between p-4 sm:px-4">

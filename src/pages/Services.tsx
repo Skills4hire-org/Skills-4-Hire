@@ -16,10 +16,7 @@ export default function Services() {
       <DesktopServicesHeader />
       <div>
         <Link to="/customer/services/search">
-          <SearchBar
-            placeholder="Search for services"
-            maxWidth="w-full md:max-w-xl"
-          />
+          <SearchBar placeholder="Search service" maxWidth="w-full" />
         </Link>
       </div>
 

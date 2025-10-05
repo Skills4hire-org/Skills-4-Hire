@@ -11,7 +11,10 @@ export default function ProfileImage({ noStatus }: { noStatus?: boolean }) {
         </AvatarFallback>
       </Avatar>
       {noStatus || (
-        <span className="absolute border-2 border-background w-3 h-3 rounded-full top-0 right-0 bg-green-600" />
+        <span
+          className="absolute border-2 border-background w-3 h-3
+        rounded-full top-0 right-0 bg-green-600"
+        />
       )}
     </div>
   )

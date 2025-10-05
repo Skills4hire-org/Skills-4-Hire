@@ -8,7 +8,7 @@ import MobileHomeHeader from '../header/MobileHomeHeader'
 export default function CustomerHomeLayout() {
   return (
     <>
-      <Container className="py-4">
+      <Container>
         <DesktopHomeHeader />
         <MobileHomeHeader />
       </Container>

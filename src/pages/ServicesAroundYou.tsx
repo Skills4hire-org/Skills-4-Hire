@@ -23,11 +23,12 @@ export default function ServicesAroundYou() {
       <div>
         <Link to="/customer/services/search">
           <SearchBar
-            placeholder="Search for services"
+            placeholder="Search service"
             maxWidth="w-full md:max-w-xl"
           />
         </Link>
       </div>
+
       <div className="grid grid-cols-1 gap-4">
         {serviceAround.map((service) => (
           <ServiceAroundYouCard key={service.id} {...service} />

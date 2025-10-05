@@ -12,8 +12,8 @@ import Services from './pages/Services'
 import AvailableServices from './pages/AvailableServices'
 import ServicesAroundYou from './pages/ServicesAroundYou'
 import ServicesLayout from './components/layouts/ServicesLayout'
-import ServicesSearch from './pages/ServicesSearch'
 import CustomerBookings from './pages/CustomerBookings'
+import ServicesSearch from './pages/ServicesSearch'
 
 const router = createBrowserRouter([
   {

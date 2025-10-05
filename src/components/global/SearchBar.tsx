@@ -13,8 +13,8 @@ export default function SearchBar({
   return (
     <div className={`relative ${maxWidth} mx-auto`}>
       <Input
-        type="search"
-        className=" pl-8 pr-10 rounded-xl py-5 focus "
+        type="text"
+        className=" pl-8 pr-10 rounded-xl py-5 "
         placeholder={placeholder}
         autoFocus={autoFocus}
       />

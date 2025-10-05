@@ -6,7 +6,6 @@ import AdminProfile from '../assets/Admin profile.jpg'
 import AdminElect from '../assets/Admin-Elect.png'
 import Rect18 from '../assets/Rectangle 18.png'
 import Rect19 from '../assets/Rectangle 19.png'
-import type { Booking } from './types'
 
 export const user = {
   profileImage: '',
@@ -154,32 +153,29 @@ export const customerOffers = [
   },
 ]
 
-export const customerBookings: Booking[] = [
+export const customerBookings = [
   {
     service: 'plumbing',
     serviceImage: servicesAroundImage2,
     createdAt: Date.now(),
+    serviceProviderName: 'Joshua Friday',
+    serviceProviderRating: 2,
     status: 'ongoing',
-    serviceProviderName: 'Joshua Friday',
-    serviceProviderRating: 2,
-    serviceProviderAvatar: '',
   },
   {
     service: 'plumbing',
     serviceImage: servicesAroundImage2,
     createdAt: Date.now(),
-    status: 'completed',
     serviceProviderName: 'Joshua Friday',
     serviceProviderRating: 2,
-    serviceProviderAvatar: '',
+    status: 'completed',
   },
   {
     service: 'plumbing',
     serviceImage: servicesAroundImage2,
     createdAt: Date.now(),
-    status: 'completed',
     serviceProviderName: 'Joshua Friday',
     serviceProviderRating: 2,
-    serviceProviderAvatar: '',
+    status: 'completed',
   },
 ]

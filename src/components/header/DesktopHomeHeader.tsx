@@ -5,7 +5,7 @@ import SearchBar from '../global/SearchBar'
 
 export default function DesktopHomeHeader() {
   return (
-    <header className="hidden md:block">
+    <header className="hidden md:block py-4">
       <div className="flex items-center justify-between gap-8">
         <div className="flex-1 items-center max-w-4xl rounded-lg">
           <SearchBar
