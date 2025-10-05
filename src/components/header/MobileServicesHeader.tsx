@@ -6,10 +6,10 @@ import { SidebarTrigger } from '../ui/sidebar'
 
 export default function MobileServicesHeader() {
   return (
-    <header className="flex items-center justify-between gap-2 py-1 md:hidden">
+    <header className="flex items-center justify-between gap-2 py-2 md:hidden">
       <div className="flex items-center gap-2">
         <SidebarTrigger size="lg">
-          <ProfileImage size="lg" />
+          <ProfileImage />
         </SidebarTrigger>
         <div>
           <h1 className="font-semibold">
@@ -21,7 +21,7 @@ export default function MobileServicesHeader() {
       </div>
       <div className="flex items-center gap-2">
         <Headphones className="w-5 h-5" />
-        <RecentNotification size="lg" icon={Bell} />
+        <RecentNotification icon={Bell} />
       </div>
     </header>
   )

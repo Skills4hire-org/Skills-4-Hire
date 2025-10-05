@@ -1,5 +1,6 @@
 import { images } from '@/assets/data'
 import SearchBar from '@/components/global/SearchBar'
+import DesktopServicesHeader from '@/components/header/DesktopServicesHeader'
 import MobileServicesHeader from '@/components/header/MobileServicesHeader'
 import AvailableServiceCard from '@/components/services/AvailableServiceCard'
 import ImageCarousel from '@/components/services/ImageCarousel'
@@ -12,7 +13,13 @@ export default function Services() {
   return (
     <div className="space-y-6">
       <MobileServicesHeader />
-      <SearchBar placeholder="Search service" maxWidth="w-full" />
+      <DesktopServicesHeader />
+      <div>
+        <Link to="/customer/services/search">
+          <SearchBar placeholder="Search service" maxWidth="w-full" />
+        </Link>
+      </div>
+
       <ImageCarousel images={images} />
       <section className="space-y-3 mb-6">
         <div className="flex items-center justify-between gap-6">

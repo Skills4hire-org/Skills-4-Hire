@@ -152,3 +152,30 @@ export const customerOffers = [
     active: true,
   },
 ]
+
+export const customerBookings = [
+  {
+    service: 'plumbing',
+    serviceImage: servicesAroundImage2,
+    createdAt: Date.now(),
+    serviceProviderName: 'Joshua Friday',
+    serviceProviderRating: 2,
+    status: 'ongoing',
+  },
+  {
+    service: 'plumbing',
+    serviceImage: servicesAroundImage2,
+    createdAt: Date.now(),
+    serviceProviderName: 'Joshua Friday',
+    serviceProviderRating: 2,
+    status: 'completed',
+  },
+  {
+    service: 'plumbing',
+    serviceImage: servicesAroundImage2,
+    createdAt: Date.now(),
+    serviceProviderName: 'Joshua Friday',
+    serviceProviderRating: 2,
+    status: 'completed',
+  },
+]

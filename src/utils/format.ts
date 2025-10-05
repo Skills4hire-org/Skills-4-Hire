@@ -11,3 +11,27 @@ export const currencyFormatter = (price: number | undefined) => {
     return amount
   }
 }
+export const dateFormatter = (timestamp: string | undefined | number) => {
+  if (timestamp) {
+    const date = new Date(timestamp)
+    const formattedDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+    })
+
+    return formattedDate
+  }
+}
+export const timeFormatter = (timestamp: string | undefined | number) => {
+  if (timestamp) {
+    const date = new Date(timestamp)
+    const formattedDate = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    })
+
+    return formattedDate
+  }
+}

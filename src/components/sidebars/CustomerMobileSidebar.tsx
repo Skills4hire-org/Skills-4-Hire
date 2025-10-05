@@ -25,7 +25,7 @@ export default function CustomerMobileSidebar() {
     <Sidebar>
       <SidebarHeader className="mt-4 px-4 border-b">
         <div className="flex items-start justify-between">
-          <ProfileImage size="lg" />
+          <ProfileImage />
           <SidebarTrigger
             size="icon"
             variant="outline"

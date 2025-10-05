@@ -17,7 +17,7 @@ export default function CustomerDesktopMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="mx-auto">
-        <ProfileImage size="lg" />
+        <ProfileImage />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         side="top"

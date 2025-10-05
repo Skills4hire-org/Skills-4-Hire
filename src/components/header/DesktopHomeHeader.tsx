@@ -14,11 +14,11 @@ export default function DesktopHomeHeader() {
           />
         </div>
         <div className="flex items-center gap-4">
-          <RecentNotification size="lg" icon={Bell} newAlert />
-          <RecentNotification size="lg" icon={MessageSquareMore} newAlert />
+          <RecentNotification icon={Bell} newAlert />
+          <RecentNotification icon={MessageSquareMore} newAlert />
 
           <div className="flex items-center gap-2">
-            <ProfileImage size="lg" />
+            <ProfileImage />
 
             <div className="">
               <p className="text-sm font-semibold">Leo Justin</p>

@@ -197,3 +197,18 @@ export const serviceProviderNavLinks = [
     url: '/customer/help-center',
   },
 ]
+
+export const bookingsTabsList = [
+  {
+    status: 'ongoing',
+    label: 'Ongoing',
+  },
+  {
+    status: 'completed',
+    label: 'Completed',
+  },
+  {
+    status: 'canceled',
+    label: 'Canceled',
+  },
+]

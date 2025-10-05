@@ -5,7 +5,7 @@ import { serviceAround } from '@/utils/database'
 import { ChevronLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-export default function ServicesAroundYou() {
+export default function ServicesSearch() {
   return (
     <div className="space-y-6">
       <div className="relative">
@@ -17,22 +17,21 @@ export default function ServicesAroundYou() {
         </Link>
 
         <div className="text-center">
-          <SectionHeading heading="Services around you" />
+          <SectionHeading heading="What are you looking for?" />
         </div>
       </div>
-      <div>
-        <Link to="/customer/services/search">
-          <SearchBar
-            placeholder="Search service"
-            maxWidth="w-full md:max-w-xl"
-          />
-        </Link>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4">
-        {serviceAround.map((service) => (
-          <ServiceAroundYouCard key={service.id} {...service} />
-        ))}
+      <SearchBar
+        placeholder="Search for services"
+        maxWidth="w-full md:max-w-xl"
+        autoFocus
+      />
+      <div className="space-y-6">
+        <h2 className="text-base font-semibold ">Recommended for you</h2>
+        <div className="grid grid-cols-1 gap-4">
+          {serviceAround.map((service) => (
+            <ServiceAroundYouCard key={service.id} {...service} />
+          ))}
+        </div>
       </div>
     </div>
   )

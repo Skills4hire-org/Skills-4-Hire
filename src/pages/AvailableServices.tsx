@@ -28,11 +28,19 @@ export default function AvailableServices() {
           <SectionHeading heading="Available services" />
         </div>
       </div>
-      <SearchBar placeholder="Search service" maxWidth="w-full md:max-w-xl" />
-      <div className="space-y-6">
+      <div>
+        <Link to="/customer/services/search">
+          <SearchBar
+            placeholder="Search service"
+            maxWidth="w-full md:max-w-xl"
+          />
+        </Link>
+      </div>
+
+      <div className="space-y-10">
         {groupedServicesByCategoryArray.map(([category, services]) => {
           return (
-            <div key={category} className="space-y-2">
+            <div key={category} className="space-y-4">
               <h3 className="text-sm font-semibold capitalize text-center">
                 {category}
               </h3>
