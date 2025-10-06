@@ -14,30 +14,31 @@ import ServicesAroundYou from './pages/ServicesAroundYou'
 import ServicesLayout from './components/layouts/ServicesLayout'
 import CustomerBookings from './pages/CustomerBookings'
 import ServicesSearch from './pages/ServicesSearch'
+import WalletLayout from './components/layouts/WalletLayout'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Landing />,
   },
   {
-    path: 'sign-up',
+    path: "sign-up",
     element: <SignUp />,
   },
   {
-    path: 'sign-in',
+    path: "sign-in",
     element: <SignIn />,
   },
   {
-    path: 'forgot-password',
+    path: "forgot-password",
     element: <ForgotPassword />,
   },
   {
-    path: 'verification',
+    path: "verification",
     element: <Verification />,
   },
   {
-    path: 'customer',
+    path: "customer",
     element: <CustomerLayout />,
     children: [
       {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
         element: <Navigate to="home" />,
       },
       {
-        path: 'home',
+        path: "home",
         element: <CustomerHomeLayout />,
         children: [
           {
@@ -53,49 +54,49 @@ const router = createBrowserRouter([
             element: <Navigate to="posts" />,
           },
           {
-            path: 'posts',
+            path: "posts",
             element: <CustomerPosts />,
           },
           {
-            path: 'my-offers',
+            path: "my-offers",
             element: <CustomerOffers />,
           },
         ],
       },
       {
-        path: 'services',
+        path: "services",
         element: <ServicesLayout />,
         children: [
           { index: true, element: <Services /> },
           {
-            path: 'available-services',
+            path: "available-services",
             element: <AvailableServices />,
           },
           {
-            path: 'services-around-you',
+            path: "services-around-you",
             element: <ServicesAroundYou />,
           },
           {
-            path: 'search',
+            path: "search",
             element: <ServicesSearch />,
           },
         ],
       },
       {
-        path: 'bookings',
+        path: "bookings",
         element: <CustomerBookings />,
       },
       {
-        path: 'wallet',
-        element: <CustomerPosts />,
+        path: "wallet",
+        element: <WalletLayout />,
       },
       {
-        path: 'chats',
+        path: "chats",
         element: <CustomerPosts />,
       },
     ],
   },
-])
+]);
 
 export default function App() {
   return <RouterProvider router={router} />
