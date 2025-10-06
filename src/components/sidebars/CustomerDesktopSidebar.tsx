@@ -18,8 +18,8 @@ export default function CustomerDesktopSidebar() {
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)
   return (
-    <Sidebar className="rounded-r-lg h-full">
-      <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center ">
+    <Sidebar className="rounded-r-lg h-full border-none">
+      <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center">
         <Logo />
       </SidebarHeader>
       <SidebarContent>

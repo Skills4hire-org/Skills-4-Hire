@@ -16,6 +16,7 @@ export const user = {
   rating: 4,
   totalReviews: 120,
   address: '2, Gandi Street, Ikorodu, Lagos',
+  availableBalance: 77000,
 }
 
 export const availableServices = [

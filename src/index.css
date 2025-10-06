@@ -74,6 +74,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --gradient-primary: linear-gradient(
+    180deg,
+    rgba(89, 96, 200, 1) 0%,
+    rgba(70, 77, 180, 1) 100%
+  );
 }
 
 .dark {
@@ -119,6 +124,11 @@
   }
   .icon {
     font-size: 3rem;
+  }
+}
+@layer utility {
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
   }
 }
 

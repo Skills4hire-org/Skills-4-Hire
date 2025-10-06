@@ -1,5 +1,5 @@
 import SearchBar from '@/components/global/SearchBar'
-import SectionHeading from '@/components/services/SectionHeading'
+import SectionHeading from '@/components/global/SectionHeading'
 import ServiceAroundYouCard from '@/components/services/ServiceAroundYouCard'
 import { serviceAround } from '@/utils/database'
 import { ChevronLeft } from 'lucide-react'

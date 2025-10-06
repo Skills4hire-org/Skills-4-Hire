@@ -1,6 +1,6 @@
 import SearchBar from '@/components/global/SearchBar'
 import AvailableServiceCard from '@/components/services/AvailableServiceCard'
-import SectionHeading from '@/components/services/SectionHeading'
+import SectionHeading from '@/components/global/SectionHeading'
 import { availableServices } from '@/utils/database'
 import type { AvailableServices } from '@/utils/types'
 import { ChevronLeft } from 'lucide-react'

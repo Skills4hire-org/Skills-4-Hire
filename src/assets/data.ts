@@ -1,4 +1,6 @@
 import {
+  ArrowDownUp,
+  Banknote,
   Bell,
   BriefcaseMedical,
   FileText,
@@ -8,6 +10,7 @@ import {
   Info,
   MessageSquareMore,
   PhoneCall,
+  Send,
   Settings,
   ShieldAlert,
   Wallet,
@@ -211,4 +214,25 @@ export const bookingsTabsList = [
     status: 'canceled',
     label: 'Canceled',
   },
+]
+export const walletTabsList = [
+  {
+    status: 'pending',
+    label: 'Pending',
+  },
+  {
+    status: 'received',
+    label: 'Received',
+  },
+  {
+    status: 'canceled',
+    label: 'Canceled',
+  },
+]
+
+export const walletActions = [
+  { label: 'Send', icon: Send },
+  { label: 'Receive', icon: ArrowDownUp },
+  { label: 'Deposit', icon: Banknote },
+  { label: 'Withdraw', icon: Wallet },
 ]
