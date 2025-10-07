@@ -236,3 +236,14 @@ export const walletActions = [
   { label: 'Deposit', icon: Banknote },
   { label: 'Withdraw', icon: Wallet },
 ]
+
+export const customerHomeNavbar = [
+  {
+    url: 'posts',
+    label: 'Post',
+  },
+  {
+    url: 'my-offers',
+    label: 'My Offers',
+  },
+]

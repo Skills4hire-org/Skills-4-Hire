@@ -9,7 +9,7 @@ export default function CustomerLayout() {
       <SidebarProvider defaultOpen={true}>
         <CustomerSidebars />
         <div className="flex-1 overflow-hidden">
-          <div className="mb-22">
+          <div className="mb-10">
             <Outlet />
           </div>
           <UserNavbar />

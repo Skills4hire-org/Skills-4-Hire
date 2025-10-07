@@ -11,7 +11,7 @@ import {
   SidebarTrigger,
 } from '../ui/sidebar'
 import ProfileImage from '../global/ProfileImage'
-import { ChevronRight, Dot, Ellipsis } from 'lucide-react'
+import { ChevronRight, Dot, Ellipsis, X } from 'lucide-react'
 import { TiStar } from 'react-icons/ti'
 import { user } from '@/utils/database'
 import { Badge } from '../ui/badge'
@@ -23,15 +23,15 @@ import SwitchRoleButton from '../buttons/SwitchRoleButton'
 export default function CustomerMobileSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader className="mt-4 px-4 border-b">
-        <div className="flex items-start justify-between">
+      <SidebarHeader className=" border-b py-1">
+        <div className="flex items-start justify-between ">
           <ProfileImage />
           <SidebarTrigger
             size="icon"
             variant="outline"
             className="rounded-full"
           >
-            <Ellipsis />
+            <X />
           </SidebarTrigger>
         </div>
         <div>
@@ -60,7 +60,7 @@ export default function CustomerMobileSidebar() {
           </Link>
         </div>
       </SidebarHeader>
-      <SidebarContent className="px-2">
+      <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="px-0 text-lg text-primary mb-1">
             General
@@ -78,8 +78,6 @@ export default function CustomerMobileSidebar() {
                       <IconComponent className="w-5 h-5 " />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">
                         {label}
-
-                        <ChevronRight className="w-4 h-4 font-bold" />
                       </span>
                     </NavLink>
                   </SidebarMenuItem>
@@ -108,8 +106,6 @@ export default function CustomerMobileSidebar() {
                       <IconComponent className="w-5 h-5 " />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">
                         {label}
-
-                        <ChevronRight className="w-4 h-4 font-bold" />
                       </span>
                     </NavLink>
                   </SidebarMenuItem>
@@ -119,8 +115,8 @@ export default function CustomerMobileSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="mb-4">
-        <SignOutButton className="mx-2 text-destructive" />
+      <SidebarFooter>
+        <SignOutButton className=" text-destructive" />
       </SidebarFooter>
     </Sidebar>
   )

@@ -14,7 +14,7 @@ export default function UserNavbar() {
   return (
     <Container>
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background md:hidden  ">
-        <div className="relative bg-primary flex items-center justify-evenly h-18 mt-6.5 ">
+        <div className="relative bg-primary flex items-center justify-evenly h-13 ">
           {navLinks.map(({ url, icon, label }) => {
             const active = basePath === url
             const IconComponent = icon
@@ -28,7 +28,7 @@ export default function UserNavbar() {
               >
                 <div
                   className={` w-10 h-10  rounded-full flex items-center justify-center  bg-primary transition duration-150  ${
-                    active && '-translate-y-7 outline-8 outline-background'
+                    active && '-translate-y-4.5 outline-4 outline-background'
                   } `}
                 >
                   <IconComponent
@@ -39,7 +39,7 @@ export default function UserNavbar() {
                 </div>
 
                 <span
-                  className={`-mt-2 text-sm transition duration-150 ${
+                  className={`-mt-3 text-sm transition duration-150 ${
                     active && 'text-white'
                   }`}
                 >
