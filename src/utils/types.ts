@@ -11,4 +11,5 @@ export type Booking = {
   serviceProviderName: string
   serviceProviderRating: number
   status: string
+  desc: string
 }

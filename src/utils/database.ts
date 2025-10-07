@@ -162,6 +162,7 @@ export const customerBookings = [
     serviceProviderName: 'Joshua Friday',
     serviceProviderRating: 2,
     status: 'ongoing',
+    desc: 'Please come at the appointed time, be on time and come with your kits',
   },
   {
     service: 'plumbing',
@@ -170,6 +171,7 @@ export const customerBookings = [
     serviceProviderName: 'Joshua Friday',
     serviceProviderRating: 2,
     status: 'completed',
+    desc: 'Please come at the appointed time, be on time and come with your kits',
   },
   {
     service: 'plumbing',
@@ -178,5 +180,6 @@ export const customerBookings = [
     serviceProviderName: 'Joshua Friday',
     serviceProviderRating: 2,
     status: 'completed',
+    desc: 'Please come at the appointed time, be on time and come with your kits',
   },
 ]

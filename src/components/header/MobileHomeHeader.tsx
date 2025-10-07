@@ -1,7 +1,8 @@
-import { Bell, Search } from 'lucide-react'
+import { Bell } from 'lucide-react'
 import { SidebarTrigger } from '../ui/sidebar'
 import ProfileImage from '../global/ProfileImage'
 import RecentNotification from '../global/RecentNotification'
+import SearchbarDropmenu from '../global/SearchbarDropmenu'
 
 export default function MobileHomeHeader() {
   return (
@@ -10,7 +11,10 @@ export default function MobileHomeHeader() {
         <ProfileImage />
       </SidebarTrigger>
       <div className="flex items-center gap-2">
-        <Search className="w-4 h-4" />
+        <SearchbarDropmenu
+          placeholder="Search for jobs, services or providers"
+          position="-translate-x-4"
+        />
 
         <RecentNotification icon={Bell} newAlert />
       </div>

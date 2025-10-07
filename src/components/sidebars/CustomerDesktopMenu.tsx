@@ -9,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import { NavLink } from 'react-router-dom'
-import { ChevronRight } from 'lucide-react'
 import SwitchRoleButton from '../buttons/SwitchRoleButton'
 import SignOutButton from '../buttons/SignOutButton'
 
@@ -31,22 +30,24 @@ export default function CustomerDesktopMenu() {
           {sidebarDesktopGeneral.map(({ icon, label, url }) => {
             const IconComponent = icon
             return (
-              <DropdownMenuItem key={label} className="px-0">
+              <DropdownMenuItem
+                key={label}
+                className="px-1 group cursor-pointer"
+                asChild
+              >
                 <NavLink
                   to={url}
-                  className="py-1 flex items-center gap-2 w-full"
+                  className="py-2 flex items-center gap-2 w-full"
                 >
-                  <IconComponent className="w-5 h-5 text-white" />
-                  <span className="capitalize text-xs flex items-center justify-between flex-1">
+                  <IconComponent className="w-5 h-5  group-hover:text-foreground" />
+                  <span className="capitalize text-sm flex items-center justify-between group-hover:text-foreground flex-1">
                     {label}
-
-                    <ChevronRight className="w-4 h-4 font-bold text-white" />
                   </span>
                 </NavLink>
               </DropdownMenuItem>
             )
           })}
-          <div className="mt-1">
+          <div className="mt-2">
             <SwitchRoleButton className="bg-black" />
           </div>
         </DropdownMenuGroup>
@@ -54,19 +55,22 @@ export default function CustomerDesktopMenu() {
         <DropdownMenuLabel className="px-0 text-lg py-0 mt-4 ">
           About Us
         </DropdownMenuLabel>
-        <DropdownMenuGroup className="mb-1">
+        <DropdownMenuGroup className="mb-2">
           {sidebarAboutUs.map(({ icon, label, url }) => {
             const IconComponent = icon
             return (
-              <DropdownMenuItem key={label} className="px-0">
+              <DropdownMenuItem
+                key={label}
+                className="px-1 group cursor-pointer"
+                asChild
+              >
                 <NavLink
                   to={url}
-                  className="py-1 px-0 flex items-center gap-2 w-full"
+                  className="py-2 flex items-center gap-2 w-full"
                 >
-                  <IconComponent className="w-5 h-5 text-white" />
-                  <span className="capitalize text-xs flex items-center justify-between flex-1 ">
+                  <IconComponent className="w-5 h-5  group-hover:text-foreground" />
+                  <span className="capitalize text-sm flex items-center justify-between flex-1 ">
                     {label}
-                    <ChevronRight className="w-4 h-4 font-bold text-white" />
                   </span>
                 </NavLink>
               </DropdownMenuItem>

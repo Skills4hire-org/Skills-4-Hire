@@ -7,7 +7,7 @@ import { Autoplay, Pagination } from 'swiper/modules'
 export default function ImageCarousel({ images }: { images: string[] }) {
   return (
     <Swiper
-      className="rounded-4xl "
+      className="rounded-lg "
       modules={[Pagination, Autoplay]}
       spaceBetween={0}
       slidesPerView={1}
@@ -24,7 +24,7 @@ export default function ImageCarousel({ images }: { images: string[] }) {
             <img
               src={img}
               alt={`slide-${idx}`}
-              className="w-full max-h-64 lg:max-h-92 object-cover rounded-4xl"
+              className="w-full max-h-32 md:max-h-64 lg:max-h-92 object-cover rounded-lg"
             />
             <div className="absolute inset-0 bg-black/10 rounded-4xl" />
           </div>

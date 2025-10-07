@@ -3,7 +3,8 @@ import { SidebarTrigger } from '../ui/sidebar'
 
 export default function MobileWalletHeader() {
   return (
-    <header className="flex md:hidden justify-end py-2 mb-4">
+    <header className="flex md:hidden justify-between gap-6 py-3.5">
+      <h1 className="font-bold text-lg text-white">Wallet</h1>
       <SidebarTrigger size="lg">
         <ProfileImage />
       </SidebarTrigger>
