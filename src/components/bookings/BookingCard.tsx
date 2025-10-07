@@ -11,11 +11,12 @@ export default function BookingCard({
   createdAt,
   serviceProviderName,
   serviceProviderRating,
+  desc,
 }: Booking) {
   return (
-    <div className="space-y-6 max-w-4xl mx-auto ">
+    <div className="space-y-2 md:space-y-4 max-w-4xl mx-auto ">
       <div className="flex items-center justify-between gap-8 border-y px-2">
-        <div className="flex flex-col gap-2 py-2">
+        <div className="flex flex-col gap-1">
           <h3 className="capitalize font-medium ">{service}</h3>
           <div className="text-muted-foreground text-base">
             Date:{' '}
@@ -34,19 +35,21 @@ export default function BookingCard({
           <img
             src={serviceImage}
             alt={service}
-            className="aspect-square object-cover max-w-32 lg:max-w-64"
+            className="aspect-square object-cover h-full max-w-24 md:max-w-42"
           />
         </figure>
       </div>
       <div>
-        <h3 className="font-medium">Booking Description</h3>
-        <p className="text-xs text-muted-foreground">
-          Please come at the appointed time, be on time and come with your kits
-        </p>
+        <h3 className="font-medium text-sm md:text-base">
+          Booking Description
+        </h3>
+        <p className="text-xs text-muted-foreground">{desc}</p>
       </div>
-      <div className="space-y-4">
-        <h3 className="font-medium">About Service provider</h3>
-        <div className="flex items-center gap-2">
+      <div>
+        <h3 className="font-medium text-sm md:text-base mb-1">
+          About Service provider
+        </h3>
+        <div className="flex items-center gap-2 mb-2">
           <ProfileImage noStatus />
           <div className="flex flex-col gap-1.5">
             <h4 className="text-xs">{serviceProviderName}</h4>

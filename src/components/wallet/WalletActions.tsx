@@ -1,20 +1,23 @@
 import { walletActions } from '@/assets/data'
-import { Button } from '../ui/button'
+import { Link } from 'react-router-dom'
 
 export default function WalletActions() {
   return (
-    <div className="flex gap-8 items-center justify-center">
+    <div className="flex gap-4 items-center justify-evenly">
       {walletActions.map(({ label, icon: Icon }) => (
-        <div
+        <Link
+          to="/customer/wallet"
           key={label}
-          className="flex flex-col items-center gap-0.5 hover:opacity-90"
+          className="flex flex-col items-center gap-0.5 cursor-pointer hover:opacity-90 group"
         >
-          <Button size="icon" className=" rounded-full">
-            <Icon size={22} />
+          <button className="bg-primary text-white p-3 flex items-center justify-center rounded-full cursor-pointer">
+            <Icon className=" h-6.5 w-6.5 md:w-8.5 md:h-8.5" />
             <span className="sr-only">{label}</span>
-          </Button>
-          <span className="text-sm text-white">{label}</span>
-        </div>
+          </button>
+          <span className="text-base md:text-xl text-white group-hover:text-black">
+            {label}
+          </span>
+        </Link>
       ))}
     </div>
   )

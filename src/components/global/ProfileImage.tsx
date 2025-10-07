@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
 export default function ProfileImage({ noStatus }: { noStatus?: boolean }) {
   return (
-    <div className="relative w-max">
+    <div className="relative w-max cursor-pointer">
       <Avatar className="size-12">
         <AvatarImage src="" />
         <AvatarFallback>

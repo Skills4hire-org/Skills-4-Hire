@@ -2,7 +2,7 @@ import { user } from '@/utils/database'
 
 export default function DesktopServicesHeader() {
   return (
-    <header className="hidden md:block text-center">
+    <header className="hidden md:block text-center py-4 bg-white">
       <h1 className="text-lg font-semibold">
         Hi, {user?.firstName}{' '}
         <span className="text-primary">{user?.lastName}</span>

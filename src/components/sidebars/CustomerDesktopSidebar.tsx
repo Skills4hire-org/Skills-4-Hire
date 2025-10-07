@@ -30,13 +30,13 @@ export default function CustomerDesktopSidebar() {
                 const IconComponent = icon
                 const active = url === basePath
                 return (
-                  <SidebarMenuItem key={label}>
+                  <SidebarMenuItem key={label} className="group">
                     <NavLink
                       to={url}
-                      className={`py-2 px-4 flex items-center transition duration-150 gap-2 ${
+                      className={`py-2 px-4 flex items-center transition duration-150 gap-2  ${
                         active
                           ? 'text-white border-l-2 border-white'
-                          : 'text-white/60'
+                          : 'text-white/60 hover:bg-background hover:text-foreground'
                       }`}
                     >
                       <IconComponent className="w-5 h-5 " />

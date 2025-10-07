@@ -15,7 +15,7 @@ export default function BookingsTabContent() {
     <>
       {bookingsTabsList.map(({ status, label }) => (
         <TabsContent key={status} value={status}>
-          <div className="space-y-8 py-4">
+          <div className="space-y-6 md:space-y-8 md:py-2">
             {groupBookingsByStatus(status)?.map((booking, index) => (
               <BookingCard key={index} {...booking} />
             ))}

@@ -2,7 +2,11 @@ import { Button } from '../ui/button'
 
 export default function SMSButton() {
   return (
-    <Button size="lg" variant="secondary" className="rounded-full">
+    <Button
+      size="sm"
+      variant="secondary"
+      className="rounded-full text-xs md:text-sm px-4 cursor-pointer"
+    >
       SMS
     </Button>
   )

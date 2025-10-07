@@ -4,15 +4,21 @@ import MobileBookingsHeader from '@/components/header/MobileBookingsHeader'
 import { Tabs } from '@/components/ui/tabs'
 import TabHead from '@/components/global/TabHead'
 import BookingsTabContent from '@/components/bookings/BookingsTabContent'
+import DesktopBookingsHeader from '@/components/header/DesktopBookingsHeader'
 
 export default function CustomerBookings() {
   return (
-    <Container className="pt-4 pb-8">
-      <MobileBookingsHeader />
-      <Tabs defaultValue="ongoing" className="w-full mt-6">
-        <TabHead tabList={bookingsTabsList} />
-        <BookingsTabContent />
-      </Tabs>
-    </Container>
+    <div className="space-y-2 md:space-y-6">
+      <Container className="py-1 bg-white">
+        <MobileBookingsHeader />
+        <DesktopBookingsHeader />
+      </Container>
+      <Container>
+        <Tabs defaultValue="ongoing" className="w-full">
+          <TabHead tabList={bookingsTabsList} />
+          <BookingsTabContent />
+        </Tabs>
+      </Container>
+    </div>
   )
 }

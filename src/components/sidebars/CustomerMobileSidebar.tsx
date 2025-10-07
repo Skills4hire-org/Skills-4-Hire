@@ -11,7 +11,7 @@ import {
   SidebarTrigger,
 } from '../ui/sidebar'
 import ProfileImage from '../global/ProfileImage'
-import { ChevronRight, Dot, Ellipsis, X } from 'lucide-react'
+import { Dot, X } from 'lucide-react'
 import { TiStar } from 'react-icons/ti'
 import { user } from '@/utils/database'
 import { Badge } from '../ui/badge'
