@@ -18,7 +18,7 @@ export default function AvailableServices() {
   return (
     <div className="space-y-2 md:space-y-6">
       <Container className="bg-white py-1 md:py-4">
-        <div className=" relative">
+        <header className="relative">
           <Link
             to="/customer/services"
             className="flex items-center gap-1 -translate-x-2 absolute top-1/2 -translate-y-1/2"
@@ -29,7 +29,7 @@ export default function AvailableServices() {
           <div className=" text-center">
             <SectionHeading heading="Available services" />
           </div>
-        </div>
+        </header>
       </Container>
       <Container>
         <div className="space-y-4 md:space-y-6">

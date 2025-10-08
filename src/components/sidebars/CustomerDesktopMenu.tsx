@@ -8,11 +8,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import SwitchRoleButton from '../buttons/SwitchRoleButton'
 import SignOutButton from '../buttons/SignOutButton'
 
 export default function CustomerDesktopMenu() {
+  const navigate = useNavigate()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="mx-auto">
@@ -31,19 +32,20 @@ export default function CustomerDesktopMenu() {
             const IconComponent = icon
             return (
               <DropdownMenuItem
+                onClick={(event) => {
+                  event.preventDefault()
+                  navigate(url)
+                }}
                 key={label}
                 className="px-1 group cursor-pointer"
                 asChild
               >
-                <NavLink
-                  to={url}
-                  className="py-2 flex items-center gap-2 w-full"
-                >
+                <div className="py-2 flex items-center gap-2 w-full">
                   <IconComponent className="w-5 h-5  group-hover:text-foreground" />
                   <span className="capitalize text-sm flex items-center justify-between group-hover:text-foreground flex-1">
                     {label}
                   </span>
-                </NavLink>
+                </div>
               </DropdownMenuItem>
             )
           })}
@@ -63,16 +65,17 @@ export default function CustomerDesktopMenu() {
                 key={label}
                 className="px-1 group cursor-pointer"
                 asChild
+                onClick={(event) => {
+                  event.preventDefault()
+                  navigate(url)
+                }}
               >
-                <NavLink
-                  to={url}
-                  className="py-2 flex items-center gap-2 w-full"
-                >
+                <div className="py-2 flex items-center gap-2 w-full">
                   <IconComponent className="w-5 h-5  group-hover:text-foreground" />
                   <span className="capitalize text-sm flex items-center justify-between flex-1 ">
                     {label}
                   </span>
-                </NavLink>
+                </div>
               </DropdownMenuItem>
             )
           })}

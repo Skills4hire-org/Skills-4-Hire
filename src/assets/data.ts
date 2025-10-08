@@ -8,7 +8,11 @@ import {
   HelpCircle,
   House,
   Info,
+  Mail,
+  MessageCircle,
+  MessageCircleQuestion,
   MessageSquareMore,
+  Phone,
   PhoneCall,
   Send,
   Settings,
@@ -26,12 +30,12 @@ export const sidebarMobileGeneral = [
   {
     icon: BsHeart,
     label: 'favourite service',
-    url: '/',
+    url: '/customer/favorites/favorite-service',
   },
   {
     icon: BsHeart,
     label: 'favourite provider',
-    url: '/',
+    url: '/customer/favorites/favorite-provider',
   },
   {
     icon: BsHeart,
@@ -41,7 +45,7 @@ export const sidebarMobileGeneral = [
   {
     icon: BsHeart,
     label: 'my rewards',
-    url: '/',
+    url: '/customer/rewards',
   },
   {
     icon: BsHeart,
@@ -58,12 +62,12 @@ export const sidebarDesktopGeneral = [
   {
     icon: BsHeart,
     label: 'favourite service',
-    url: '/',
+    url: '/customer/favorites/favorite-service',
   },
   {
     icon: BsHeart,
     label: 'favourite provider',
-    url: '/',
+    url: '/customer/favorites/favorite-provider',
   },
   {
     icon: BsHeart,
@@ -73,7 +77,7 @@ export const sidebarDesktopGeneral = [
   {
     icon: BsHeart,
     label: 'my rewards',
-    url: '/',
+    url: '/customer/rewards',
   },
   {
     icon: BsHeart,
@@ -86,22 +90,22 @@ export const sidebarAboutUs = [
   {
     icon: Info,
     label: 'about us',
-    url: '/',
+    url: '/about',
   },
   {
     icon: ShieldAlert,
     label: 'privacy policy',
-    url: '/',
+    url: '/privacy-policy',
   },
   {
     icon: FileText,
     label: 'terms & conditions',
-    url: '/',
+    url: '/terms-and-condition',
   },
   {
     icon: HelpCircle,
     label: 'help & support',
-    url: '/',
+    url: '/customer/support',
   },
   {
     icon: PhoneCall,
@@ -157,7 +161,7 @@ export const customerDesktopNavLinks = [
   {
     label: 'help center',
     icon: HelpCircle,
-    url: '/customer/help-center',
+    url: '/customer/support',
   },
 ]
 export const serviceProviderNavLinks = [
@@ -287,5 +291,28 @@ export const timeFrameOptions = [
   {
     value: '365',
     label: '1 year',
+  },
+]
+
+export const supportOptions = [
+  {
+    icon: MessageCircle,
+    text: 'Chat with customer support',
+    url: '/customer/customer-support',
+  },
+  {
+    icon: Mail,
+    text: 'Send an email',
+    url: 'mailto:support@skill4hire.com',
+  },
+  {
+    icon: MessageCircleQuestion,
+    text: 'FAQ',
+    url: '/faq',
+  },
+  {
+    icon: Phone,
+    text: 'Call our help-line',
+    url: 'tel:+2348123456789',
   },
 ]
