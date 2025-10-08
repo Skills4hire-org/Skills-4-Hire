@@ -11,10 +11,10 @@ export default function WalletActions() {
           className="flex flex-col items-center gap-0.5 cursor-pointer hover:opacity-90 group"
         >
           <button className="bg-primary text-white p-3 flex items-center justify-center rounded-full cursor-pointer">
-            <Icon className=" h-6.5 w-6.5 md:w-8.5 md:h-8.5" />
+            <Icon className=" h-5 w-5 md:w-8.5 md:h-8.5" />
             <span className="sr-only">{label}</span>
           </button>
-          <span className="text-base md:text-xl text-white group-hover:text-black">
+          <span className="text-sm md:text-xl text-white group-hover:text-black">
             {label}
           </span>
         </Link>
