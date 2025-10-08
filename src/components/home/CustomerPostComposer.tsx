@@ -4,7 +4,7 @@ import ProfileImage from '../global/ProfileImage'
 import FormTextArea from '../form-fields/FormTextArea'
 import FormSelect from '../form-fields/FormSelect'
 import { timeFrameOptions } from '@/assets/data'
-import { ImageIcon, Paperclip, Smile } from 'lucide-react'
+import { ImageIcon, Paperclip } from 'lucide-react'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 
 export default function CustomerPostComposer() {
@@ -53,7 +53,7 @@ export default function CustomerPostComposer() {
             />
           </div>
           <div className="flex justify-between gap-4 ">
-            <div className="flex items-center flex-wrap gap-2 text-sm text-muted-foreground justify-start ml-0">
+            <div className="flex items-center flex-wrap gap-4 md:gap-6 text-sm text-muted-foreground justify-start ml-0">
               {/*Form Image Input */}
               <button
                 className="flex items-center gap-1 hover:text-gray-700"
@@ -69,14 +69,6 @@ export default function CustomerPostComposer() {
               >
                 <Paperclip className="w-4 h-4" />
                 <span className="text-xs">Attachment</span>
-              </button>
-
-              <button
-                className="flex items-center gap-1 hover:text-gray-700"
-                type="button"
-              >
-                <Smile className="w-4 h-4" />
-                <span className="text-xs">Emoji</span>
               </button>
             </div>
             <FormSubmitButton
