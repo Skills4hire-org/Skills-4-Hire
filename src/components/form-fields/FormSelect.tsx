@@ -43,7 +43,7 @@ export default function FormSelect({
         required={required}
       >
         <SelectTrigger
-          className={`w-full relative ${className} text-sm md:text-base pl-4 [&>svg]:hidden`}
+          className={`w-full relative ${className} text-sm md:text-base pl-4 [&>svg]:hidden sm:[&>svg]:block`}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

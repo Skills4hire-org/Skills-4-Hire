@@ -20,6 +20,7 @@ import FavoritesLayout from './components/layouts/FavoritesLayout'
 import FavoriteService from './pages/FavoriteService'
 import FavoriteProvider from './pages/FavoriteProvider'
 import Rewards from './pages/Rewards'
+import Support from './pages/Support'
 
 const router = createBrowserRouter([
   {
@@ -128,7 +129,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'support',
-        element: <Verification />,
+        element: <Support />,
       },
       {
         path: 'notification',
