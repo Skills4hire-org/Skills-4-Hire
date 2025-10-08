@@ -155,11 +155,6 @@ export const customerDesktopNavLinks = [
     url: '/customer/notifications',
   },
   {
-    label: 'settings',
-    icon: Settings,
-    url: '/customer/settings',
-  },
-  {
     label: 'help center',
     icon: HelpCircle,
     url: '/customer/help-center',

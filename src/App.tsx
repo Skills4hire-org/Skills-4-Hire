@@ -16,6 +16,10 @@ import CustomerBookings from './pages/CustomerBookings'
 import ServicesSearch from './pages/ServicesSearch'
 import WalletLayout from './components/layouts/WalletLayout'
 import Wallet from './pages/Wallet'
+import FavoritesLayout from './components/layouts/FavoritesLayout'
+import FavoriteService from './pages/FavoriteService'
+import FavoriteProvider from './pages/FavoriteProvider'
+import Rewards from './pages/Rewards'
 
 const router = createBrowserRouter([
   {
@@ -81,6 +85,10 @@ const router = createBrowserRouter([
             path: 'search',
             element: <ServicesSearch />,
           },
+          {
+            path: 'referral',
+            element: <Verification />,
+          },
         ],
       },
       {
@@ -96,7 +104,57 @@ const router = createBrowserRouter([
         path: 'chats',
         element: <CustomerPosts />,
       },
+      {
+        path: 'favorites',
+        element: <FavoritesLayout />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="favorite-service" />,
+          },
+          {
+            path: 'favorite-service',
+            element: <FavoriteService />,
+          },
+          {
+            path: 'favorite-provider',
+            element: <FavoriteProvider />,
+          },
+        ],
+      },
+      {
+        path: 'rewards',
+        element: <Rewards />,
+      },
+      {
+        path: 'support',
+        element: <Verification />,
+      },
+      {
+        path: 'notification',
+        element: <Verification />,
+      },
+      /* {
+        path: 'profile',
+        element: <Verification />,
+      }, */
     ],
+  },
+  {
+    path: 'about',
+    element: <Verification />,
+  },
+  {
+    path: 'terms-and-conditions',
+    element: <Verification />,
+  },
+  {
+    path: 'privacy-policy',
+    element: <Verification />,
+  },
+  {
+    path: 'faq',
+    element: <Verification />,
   },
 ])
 
