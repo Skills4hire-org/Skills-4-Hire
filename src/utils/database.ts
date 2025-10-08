@@ -1,66 +1,66 @@
-import servicesImage1 from '../assets/Rectangle 18.png'
-import servicesImage2 from '../assets/Rectangle 19.png'
-import servicesAroundImage1 from '../assets/JoshuaBarber.png'
-import servicesAroundImage2 from '../assets/MaryPraise.png'
-import AdminProfile from '../assets/Admin profile.jpg'
-import AdminElect from '../assets/Admin-Elect.png'
-import Rect18 from '../assets/Rectangle 18.png'
-import Rect19 from '../assets/Rectangle 19.png'
+import servicesImage1 from "../assets/Rectangle 18.png";
+import servicesImage2 from "../assets/Rectangle 19.png";
+import servicesAroundImage1 from "../assets/JoshuaBarber.png";
+import servicesAroundImage2 from "../assets/MaryPraise.png";
+import AdminProfile from "../assets/Admin profile.jpg";
+import AdminElect from "../assets/Admin-Elect.png";
+import Rect18 from "../assets/Rectangle 18.png";
+import Rect19 from "../assets/Rectangle 19.png";
 
 export const user = {
-  profileImage: '',
-  firstName: 'Leo',
-  lastName: 'Justin',
+  profileImage: "",
+  firstName: "Leo",
+  lastName: "Justin",
   verified: true,
-  service: 'plumber',
+  service: "plumber",
   rating: 4,
   totalReviews: 120,
-  address: '2, Gandi Street, Ikorodu, Lagos',
+  address: "2, Gandi Street, Ikorodu, Lagos",
   availableBalance: 77000,
-}
+};
 
 export const availableServices = [
   {
     serviceImage: servicesImage1,
-    serviceName: 'cleaning service',
-    category: 'vocational & on-site services',
+    serviceName: "cleaning service",
+    category: "vocational & on-site services",
   },
   {
     serviceImage: servicesImage2,
-    serviceName: 'mobile app development',
-    category: 'digital skills & online services',
+    serviceName: "mobile app development",
+    category: "digital skills & online services",
   },
   {
     serviceImage: servicesImage1,
-    serviceName: 'electrical service',
-    category: 'vocational & on-site services',
+    serviceName: "electrical service",
+    category: "vocational & on-site services",
   },
   {
     serviceImage: servicesImage2,
-    serviceName: 'plumbing service',
-    category: 'vocational & on-site services',
+    serviceName: "plumbing service",
+    category: "vocational & on-site services",
   },
   {
     serviceImage: servicesImage1,
-    serviceName: 'cleaning services',
-    category: 'vocational & on-site services',
+    serviceName: "cleaning services",
+    category: "vocational & on-site services",
   },
   {
     serviceImage: servicesImage2,
-    serviceName: 'cleaning services',
-    category: 'digital skills & online services',
+    serviceName: "cleaning services",
+    category: "digital skills & online services",
   },
-]
+];
 
 export const serviceAround = [
   {
     id: 1,
-    name: 'Joshua Friday',
+    name: "Joshua Friday",
     online: true,
-    occupation: 'barber',
+    occupation: "barber",
     verified: true,
-    desc: 'Men and Kids Ultimate grooming Hair',
-    features: 'Efficient and Reliable',
+    desc: "Men and Kids Ultimate grooming Hair",
+    features: "Efficient and Reliable",
     minCharge: 800,
     averageRating: 4.8,
     totalReviews: 12,
@@ -68,12 +68,12 @@ export const serviceAround = [
   },
   {
     id: 2,
-    name: 'Joshua Friday',
+    name: "Joshua Friday",
     online: true,
-    occupation: 'barber',
+    occupation: "barber",
     verified: true,
-    desc: 'Men and Kids Ultimate grooming Hair',
-    features: 'Efficient and Reliable',
+    desc: "Men and Kids Ultimate grooming Hair",
+    features: "Efficient and Reliable",
     minCharge: 800,
     averageRating: 4.8,
     totalReviews: 12,
@@ -81,136 +81,148 @@ export const serviceAround = [
   },
   {
     id: 3,
-    name: 'Joshua Friday',
+    name: "Joshua Friday",
     online: true,
-    occupation: 'barber',
+    occupation: "barber",
     verified: true,
-    desc: 'Men and Kids Ultimate grooming Hair',
-    features: 'Efficient and Reliable',
+    desc: "Men and Kids Ultimate grooming Hair",
+    features: "Efficient and Reliable",
     minCharge: 800,
     averageRating: 4.8,
     totalReviews: 12,
     image: servicesAroundImage2,
   },
-]
+];
 
 export const customerPosts = [
   {
     profile: AdminProfile,
-    name: 'Michael Chen',
-    location: 'Lagos',
-    service: 'Plumbing Services',
-    rating: '4.9',
-    reviews: '234',
-    title: 'Affordable plumbing services',
+    name: "Michael Chen",
+    location: "Lagos",
+    service: "Plumbing Services",
+    rating: "4.9",
+    reviews: "234",
+    title: "Affordable plumbing services",
     description:
-      'Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years.',
-    tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
+      "Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years.",
+    tags: ["Plumbing", "Certified", "Near you", "Emergency"],
     stats: { likes: 110, comments: 81, shares: 212, downloads: 16 },
   },
   {
     profile: AdminElect,
-    name: 'Elite Electrical Solutions',
-    location: 'Ibadan',
-    service: 'Electrical Services',
-    rating: '4.8',
-    reviews: '294',
-    title: 'Expert Electrical Services',
+    name: "Elite Electrical Solutions",
+    location: "Ibadan",
+    service: "Electrical Services",
+    rating: "4.8",
+    reviews: "294",
+    title: "Expert Electrical Services",
     description:
-      'Specialized in electrical installations, repairs and upgrades for both residential and commercial properties.',
-    tags: ['Electrical', 'Certified', 'Repairs', 'Residential'],
+      "Specialized in electrical installations, repairs and upgrades for both residential and commercial properties.",
+    tags: ["Electrical", "Certified", "Repairs", "Residential"],
     stats: { likes: 96, comments: 44, shares: 138, downloads: 9 },
   },
-]
+];
 
 export const customerOffers = [
   {
-    title: 'Need plumber to fix leaking tap',
+    title: "Need plumber to fix leaking tap",
     description:
-      'Looking for an experienced plumber to fix a constantly dripping kitchen faucet. It can be done as fast as you want.',
-    posted: 'Posted: Dec 15, 2024',
-    views: '247 views',
-    inquiries: '12 inquiries',
+      "Looking for an experienced plumber to fix a constantly dripping kitchen faucet. It can be done as fast as you want.",
+    posted: "Posted: Dec 15, 2024",
+    views: "247 views",
+    inquiries: "12 inquiries",
     active: true,
   },
   {
-    title: 'Emergency plumbing repairs',
+    title: "Emergency plumbing repairs",
     description:
-      'Fast response emergency plumbing services. Available within 30 minutes for urgent repairs including burst pipes, blocked drains and water heater issues.',
-    posted: 'Posted: Dec 18, 2024',
-    views: '241 views',
-    inquiries: '12 inquiries',
+      "Fast response emergency plumbing services. Available within 30 minutes for urgent repairs including burst pipes, blocked drains and water heater issues.",
+    posted: "Posted: Dec 18, 2024",
+    views: "241 views",
+    inquiries: "12 inquiries",
     active: true,
     media: [Rect19, Rect18],
   },
   {
-    title: 'Bathroom Renovation Services',
+    title: "Bathroom Renovation Services",
     description:
-      'Complete bathroom renovation services, including plumbing, tiling, waterproofing, and finishing to modern standards.',
-    posted: 'Posted: Dec 20, 2024',
-    views: '198 views',
-    inquiries: '8 inquiries',
+      "Complete bathroom renovation services, including plumbing, tiling, waterproofing, and finishing to modern standards.",
+    posted: "Posted: Dec 20, 2024",
+    views: "198 views",
+    inquiries: "8 inquiries",
     active: true,
   },
-]
+];
 
 export const customerBookings = [
   {
-    service: 'plumbing',
+    service: "plumbing",
     serviceImage: servicesAroundImage2,
     createdAt: Date.now(),
-    serviceProviderName: 'Joshua Friday',
+    serviceProviderName: "Joshua Friday",
     serviceProviderRating: 2,
-    status: 'ongoing',
-    desc: 'Please come at the appointed time, be on time and come with your kits',
+    status: "ongoing",
+    desc: "Please come at the appointed time, be on time and come with your kits",
   },
   {
-    service: 'plumbing',
+    service: "plumbing",
     serviceImage: servicesAroundImage2,
     createdAt: Date.now(),
-    serviceProviderName: 'Joshua Friday',
+    serviceProviderName: "Joshua Friday",
     serviceProviderRating: 2,
-    status: 'completed',
-    desc: 'Please come at the appointed time, be on time and come with your kits',
+    status: "completed",
+    desc: "Please come at the appointed time, be on time and come with your kits",
   },
   {
-    service: 'plumbing',
+    service: "plumbing",
     serviceImage: servicesAroundImage2,
     createdAt: Date.now(),
-    serviceProviderName: 'Joshua Friday',
+    serviceProviderName: "Joshua Friday",
     serviceProviderRating: 2,
-    status: 'completed',
-    desc: 'Please come at the appointed time, be on time and come with your kits',
+    status: "completed",
+    desc: "Please come at the appointed time, be on time and come with your kits",
   },
-]
+];
 
 export const transactionHistory = [
   {
     createdAt: Date.now(),
-    name: 'Joshua Friday',
-    service: 'plumbing services',
-    status: 'canceled',
+    name: "Joshua Friday",
+    service: "plumbing services",
+    status: "canceled",
     amount: 20000,
   },
   {
     createdAt: Date.now(),
-    name: 'Leo Monday',
-    service: 'cleaning services',
-    status: 'sent',
+    name: "Leo Monday",
+    service: "cleaning services",
+    status: "sent",
     amount: 20000,
   },
   {
     createdAt: Date.now(),
-    name: 'Maria Saturday',
-    service: 'plumbing services',
-    status: 'pending',
+    name: "Maria Saturday",
+    service: "plumbing services",
+    status: "pending",
     amount: 20000,
   },
   {
     createdAt: Date.now(),
-    name: 'Maria Saturday',
-    service: 'plumbing services',
-    status: 'pending',
+    name: "Maria Saturday",
+    service: "plumbing services",
+    status: "pending",
     amount: 20000,
   },
-]
+];
+
+export const aboutPageData = {
+  title: "About",
+  subtitle: "On-Demand Home Services App",
+  description: [
+    `Skills4Hire is a platform that makes it easy to discover, trust, and book digital or vocational service providers. With social feeds serving as living portfolios, providers showcase their skills while customers gain confidence through real work and authentic interactions.`,
+    `From barbers, plumbers, and cleaners to designers, developers, and marketers, we give every skilled individual the opportunity to be seen, hired, and rewarded for their talent.`,
+    `What makes Skills4Hire different is that it doesn’t just connect people for transactions—it builds trust through interaction. At the heart of the platform is a social feed, where service providers can showcase their work, share updates, and engage with potential clients.`,
+    `Whether you’re booking a haircut, fixing your home, designing a logo, or hiring a developer, Skills4Hire makes the process safe, engaging, and transparent. Secure payments, verified providers, reviews, and a built-in dispute resolution system ensure that both customers and providers are protected every step of the way.`,
+    `At its core, Skills4Hire is more than a marketplace—it’s a platform that empowers skilled individuals with visibility, credibility, and sustainable income, while giving customers the easiest and safest way to hire talent at their fingertips.`,
+  ],
+};
