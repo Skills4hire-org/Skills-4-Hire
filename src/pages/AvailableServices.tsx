@@ -1,6 +1,5 @@
 import SearchBar from '@/components/global/SearchBar'
 import AvailableServiceCard from '@/components/services/AvailableServiceCard'
-import SectionHeading from '@/components/global/SectionHeading'
 import { availableServices } from '@/utils/database'
 import type { AvailableServices } from '@/utils/types'
 import { ChevronLeft } from 'lucide-react'
@@ -21,14 +20,13 @@ export default function AvailableServices() {
         <header className="relative">
           <Link
             to="/customer/services"
-            className="flex items-center gap-1 -translate-x-2 absolute top-1/2 -translate-y-1/2"
+            className="left-0 absolute top-1/2 -translate-y-1/2"
           >
             <ChevronLeft className="w-6 h-6" />
           </Link>
-
-          <div className=" text-center">
-            <SectionHeading heading="Available services" />
-          </div>
+          <h1 className="font-bold text-center text-lg md:text-xl">
+            Available services
+          </h1>
         </header>
       </Container>
       <Container>

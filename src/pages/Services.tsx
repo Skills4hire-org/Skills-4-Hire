@@ -4,7 +4,7 @@ import DesktopServicesHeader from '@/components/header/DesktopServicesHeader'
 import MobileServicesHeader from '@/components/header/MobileServicesHeader'
 import AvailableServiceCard from '@/components/services/AvailableServiceCard'
 import ImageCarousel from '@/components/services/ImageCarousel'
-import SectionHeading from '@/components/global/SectionHeading'
+import SectionHeading from '@/components/services/SectionHeading'
 import ServiceAroundYouCard from '@/components/services/ServiceAroundYouCard'
 import { availableServices, serviceAround } from '@/utils/database'
 import { Link } from 'react-router-dom'
@@ -13,8 +13,11 @@ import Container from '@/components/global/Container'
 export default function Services() {
   return (
     <div className="space-y-2 md:space-y-6">
-      <MobileServicesHeader />
-      <DesktopServicesHeader />
+      <Container className="bg-white">
+        <MobileServicesHeader />
+        <DesktopServicesHeader />
+      </Container>
+
       <Container>
         <div className="space-y-4 md:space-y-6">
           <div>

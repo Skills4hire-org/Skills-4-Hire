@@ -9,7 +9,7 @@ import DesktopBookingsHeader from '@/components/header/DesktopBookingsHeader'
 export default function CustomerBookings() {
   return (
     <div className="space-y-2 md:space-y-6">
-      <Container className="py-1 bg-white">
+      <Container className="bg-white">
         <MobileBookingsHeader />
         <DesktopBookingsHeader />
       </Container>

@@ -1,7 +1,7 @@
 import { walletTabsList } from '@/assets/data'
 import Container from '@/components/global/Container'
 import SearchbarDropmenu from '@/components/global/SearchbarDropmenu'
-import SectionHeading from '@/components/global/SectionHeading'
+import SectionHeading from '@/components/services/SectionHeading'
 import TabHead from '@/components/global/TabHead'
 import DesktopWalletHeader from '@/components/header/DesktopWalletHeader'
 import MobileWalletHeader from '@/components/header/MobileWalletHeader'

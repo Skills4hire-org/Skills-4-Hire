@@ -1,6 +1,5 @@
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
-import SectionHeading from '@/components/global/SectionHeading'
 import ServiceAroundYouCard from '@/components/services/ServiceAroundYouCard'
 import { serviceAround } from '@/utils/database'
 import { ChevronLeft } from 'lucide-react'
@@ -13,14 +12,13 @@ export default function ServicesAroundYou() {
         <div className="relative">
           <Link
             to="/customer/services"
-            className="flex items-center gap-1 -translate-x-2 absolute top-1/2 -translate-y-1/2"
+            className="left-0 absolute top-1/2 -translate-y-1/2"
           >
             <ChevronLeft className="w-6 h-6" />
           </Link>
-
-          <div className="text-center">
-            <SectionHeading heading="Services around you" />
-          </div>
+          <h1 className="font-bold  text-center text-lg md:text-xl">
+            Services around you
+          </h1>
         </div>
       </Container>
       <Container>
