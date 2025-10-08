@@ -19,11 +19,7 @@ export default function DesktopHomeHeader() {
 
           <div className="flex items-center gap-2">
             <ProfileImage />
-
-            <div className="">
-              <p className="text-sm font-semibold">Leo Justin</p>
-              <p className="text-xs text-muted-foreground">Premium Member</p>
-            </div>
+            <h1 className="text-sm font-semibold">Leo Justin</h1>
           </div>
         </div>
       </div>

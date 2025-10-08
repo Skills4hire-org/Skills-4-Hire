@@ -221,6 +221,10 @@ export const walletTabsList = [
     label: 'Pending',
   },
   {
+    status: 'sent',
+    label: 'Sent',
+  },
+  {
     status: 'received',
     label: 'Received',
   },
@@ -240,10 +244,53 @@ export const walletActions = [
 export const customerHomeNavbar = [
   {
     url: 'posts',
-    label: 'Post',
+    label: 'Posts',
   },
   {
     url: 'my-offers',
     label: 'My Offers',
+  },
+]
+
+export const timeFrameOptions = [
+  {
+    value: '1',
+    label: '1 day',
+  },
+  {
+    value: '2',
+    label: '2 days',
+  },
+  {
+    value: '3',
+    label: '3 days',
+  },
+  {
+    value: '4',
+    label: '4 days',
+  },
+  {
+    value: '5',
+    label: '5 days',
+  },
+  {
+    value: '6',
+    label: '6 days',
+  },
+  {
+    value: '7',
+    label: '1 week',
+  },
+  {
+    value: '14',
+    label: '2 weeks',
+  },
+  {
+    value: '30',
+    label: '1 month',
+  },
+  {
+    value: '365',
+    label: '1 year',
   },
 ]

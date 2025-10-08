@@ -4,8 +4,8 @@ import JobOfferCard from '../components/JobOfferCard'
 import { Filter, ArrowUpDown } from 'lucide-react'
 
 import TopBar from '../components/TopBar'
-import PostComposer from '../components/PostComposer'
-import PostCard from '../components/PostCard'
+import PostComposer from '../components/home/PostComposer'
+import PostCard from '../components/home/PostCard'
 
 // Feed avatars
 import AdminProfile from '../assets/Admin profile.jpg'

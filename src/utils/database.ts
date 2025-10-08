@@ -183,3 +183,34 @@ export const customerBookings = [
     desc: 'Please come at the appointed time, be on time and come with your kits',
   },
 ]
+
+export const transactionHistory = [
+  {
+    createdAt: Date.now(),
+    name: 'Joshua Friday',
+    service: 'plumbing services',
+    status: 'canceled',
+    amount: 20000,
+  },
+  {
+    createdAt: Date.now(),
+    name: 'Leo Monday',
+    service: 'cleaning services',
+    status: 'sent',
+    amount: 20000,
+  },
+  {
+    createdAt: Date.now(),
+    name: 'Maria Saturday',
+    service: 'plumbing services',
+    status: 'pending',
+    amount: 20000,
+  },
+  {
+    createdAt: Date.now(),
+    name: 'Maria Saturday',
+    service: 'plumbing services',
+    status: 'pending',
+    amount: 20000,
+  },
+]

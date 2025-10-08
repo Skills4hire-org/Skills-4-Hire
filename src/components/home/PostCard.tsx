@@ -11,40 +11,40 @@ import {
   MessageSquare,
   Star,
   MapPin,
-} from "lucide-react";
+} from 'lucide-react'
 
-type Variant = "default" | "myPosts";
+type Variant = 'default' | 'myPosts'
 
 type FeedStats = {
-  likes?: number;
-  comments?: number;
-  shares?: number;
-  downloads?: number;
-};
+  likes?: number
+  comments?: number
+  shares?: number
+  downloads?: number
+}
 
 interface PostCardProps {
   // FEED props
-  profile?: string;
-  name?: string;
-  location?: string;
-  service?: string;
-  rating?: string;
-  reviews?: string;
-  tags?: string[];
+  profile?: string
+  name?: string
+  location?: string
+  service?: string
+  rating?: string
+  reviews?: string
+  tags?: string[]
 
-  title: string;
-  description: string;
+  title: string
+  description: string
 
-  variant?: Variant;
+  variant?: Variant
 
-  posted?: string;
-  views?: string;
-  inquiries?: string;
-  active?: boolean;
+  posted?: string
+  views?: string
+  inquiries?: string
+  active?: boolean
 
-  media?: string[];
+  media?: string[]
 
-  stats?: FeedStats;
+  stats?: FeedStats
 }
 
 export default function PostCard({
@@ -60,11 +60,11 @@ export default function PostCard({
   title,
   description,
 
-  variant = "default",
+  variant = 'default',
 
-  posted = "Posted today",
-  views = "0 views",
-  inquiries = "0 enquiries",
+  posted = 'Posted today',
+  views = '0 views',
+  inquiries = '0 enquiries',
   active = false,
 
   // myposts
@@ -73,21 +73,20 @@ export default function PostCard({
   // feed stats
   stats,
 }: PostCardProps) {
-  if (variant === "default") {
-    const likeCount = stats?.likes ?? 0;
-    const commentCount = stats?.comments ?? 0;
-    const shareCount = stats?.shares ?? 0;
-    const downloadCount = stats?.downloads ?? 0;
+  if (variant === 'default') {
+    const likeCount = stats?.likes ?? 0
+    const commentCount = stats?.comments ?? 0
+    const shareCount = stats?.shares ?? 0
+    const downloadCount = stats?.downloads ?? 0
 
     return (
-      <div className="bg-white rounded-2xl shadow p-4 sm:p-5 space-y-3">
-        {/* Header */}
+      <div className="bg-white rounded-2xl shadow p-2.5 md:p-4 space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {profile && (
               <img
                 src={profile}
-                alt={name ?? "profile"}
+                alt={name ?? 'profile'}
                 className="w-12 h-12 rounded-full object-cover"
               />
             )}
@@ -155,7 +154,7 @@ export default function PostCard({
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   // ===== MY POSTS CARD =====
@@ -211,5 +210,5 @@ export default function PostCard({
         </button>
       </div>
     </div>
-  );
+  )
 }

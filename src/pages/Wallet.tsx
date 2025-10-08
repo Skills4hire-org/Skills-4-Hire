@@ -8,6 +8,7 @@ import MobileWalletHeader from '@/components/header/MobileWalletHeader'
 import { Tabs } from '@/components/ui/tabs'
 import WalletActions from '@/components/wallet/WalletActions'
 import WalletBalance from '@/components/wallet/WalletBalance'
+import WalletTabContent from '@/components/wallet/WalletTabContent'
 
 export default function Wallet() {
   return (
@@ -41,6 +42,7 @@ export default function Wallet() {
             className="w-full max-w-6xl xl:max-w-7xl mx-auto"
           >
             <TabHead tabList={walletTabsList} />
+            <WalletTabContent />
           </Tabs>
         </div>
       </Container>

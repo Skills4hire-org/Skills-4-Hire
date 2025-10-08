@@ -1,30 +1,29 @@
-import SmallDP from "../assets/Small-DP.png";
-import { Plus, Image as ImageIcon, Paperclip, Smile } from "lucide-react";
+import SmallDP from '../../assets/Small-DP.png'
+import { Plus, Image as ImageIcon, Paperclip, Smile } from 'lucide-react'
 
 interface PostComposerProps {
-  variant?: "feed" | "myPosts" | "customer";
-  placeholder?: string;
+  variant?: 'feed' | 'myPosts' | 'customer'
+  placeholder?: string
 }
 
 export default function PostComposer({
-  variant = "feed",
-  placeholder = "What job do you want to get done?",
+  variant = 'feed',
+  placeholder = 'What job do you want to get done?',
 }: PostComposerProps) {
- 
   const timeFrameOptions = [
-    "1 day",
-    "2 days",
-    "3 days",
-    "4 days",
-    "5 days",
-    "6 days",
-    "1 week",
-    "2 weeks",
-    "1 month",
-    "1 year",
-  ];
+    '1 day',
+    '2 days',
+    '3 days',
+    '4 days',
+    '5 days',
+    '6 days',
+    '1 week',
+    '2 weeks',
+    '1 month',
+    '1 year',
+  ]
 
-  if (variant === "customer") {
+  if (variant === 'customer') {
     return (
       <div className="bg-white rounded-2xl shadow p-3 sm:p-4 space-y-3 border border-gray-100">
         <div className="flex items-center gap-3">
@@ -40,10 +39,8 @@ export default function PostComposer({
           />
         </div>
 
-        
         <div className="flex justify-between gap-3 pt-1 pb-2">
-          {" "}
-         
+          {' '}
           <div className="flex flex-col flex-1">
             <label className="text-gray-600 text-xs font-medium mb-1">
               Budget Amount
@@ -60,7 +57,7 @@ export default function PostComposer({
             </label>
             <div className="relative">
               <select
-                defaultValue="3 days" 
+                defaultValue="3 days"
                 className="appearance-none w-full py-1.5 px-2 border border-gray-200 rounded-lg bg-gray-50 text-sm font-semibold pr-8 focus:outline-none focus:ring-1 focus:ring-[#222BDE]" // py-1.5 for reduction, border-gray-200 for more whitish
               >
                 {timeFrameOptions.map((option) => (
@@ -121,10 +118,10 @@ export default function PostComposer({
           </button>
         </div>
       </div>
-    );
+    )
   }
 
-  if (variant === "myPosts") {
+  if (variant === 'myPosts') {
     return (
       <div className="bg-white rounded-2xl shadow p-3 sm:p-4 space-y-3">
         <div className="flex items-center justify-between gap-3">
@@ -187,7 +184,7 @@ export default function PostComposer({
           </button>
         </div>
       </div>
-    );
+    )
   }
   return (
     <div className="bg-white rounded-2xl shadow p-3 sm:p-4">
@@ -242,5 +239,5 @@ export default function PostComposer({
         </div>
       </div>
     </div>
-  );
+  )
 }

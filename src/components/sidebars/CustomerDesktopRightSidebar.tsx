@@ -1,8 +1,8 @@
 import SmallDP from '../../assets/Small-DP.png'
 
-export default function CustomerRightSidebar() {
+export default function CustomerDesktopRightSidebar() {
   return (
-    <div className=" p-4 space-y-6 flex flex-col">
+    <div className="p-4 space-y-6 flex flex-col">
       <section>
         <h3 className="font-semibold text-gray-700 mb-3">
           Top-rated providers
@@ -34,18 +34,17 @@ export default function CustomerRightSidebar() {
 
       <section>
         <h3 className="font-semibold text-gray-700 mb-3">Suggested services</h3>
-        <div className="grid grid-cols-2 gap-3">
-          {['Moving', 'Painting', 'Handyman', 'Cleaning'].map((s) => (
+        <div className="grid grid-cols-2 gap-2">
+          {['Moving', 'Painting', 'Handyman', 'Cleaning'].map((service) => (
             <span
-              key={s}
-              className="px-3 py-4 text-sm text-gray-600 border border-gray-300 rounded-md text-center"
+              key={service}
+              className="px-3 py-4 text-xs text-gray-600 border border-gray-300 rounded-md text-center"
             >
-              {s}
+              {service}
             </span>
           ))}
         </div>
       </section>
-
       <section className="flex-1">
         <h3 className="font-semibold text-gray-700 mb-3">Quick Tips</h3>
         <div className="bg-[#ECF4FB] rounded-lg p-3 space-y-3">

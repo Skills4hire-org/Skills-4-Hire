@@ -20,13 +20,13 @@ export default function OfferCard({
   active,
 }: OfferCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow p-6 space-y-4 w-full">
-      <div className="flex items-center justify-between">
+    <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-4 w-full">
+      <div className="flex items-start justify-between">
         <h3 className="font-semibold text-gray-900 text-base sm:text-lg">
           {title}
         </h3>
         {active && (
-          <span className="text-xs sm:text-sm font-medium px-3 py-1 bg-green-100 text-green-700 rounded-full">
+          <span className="text-xs sm:text-sm font-medium px-3 md:px-8 py-1  bg-green-100 text-green-700 rounded-full">
             Active
           </span>
         )}
@@ -48,7 +48,7 @@ export default function OfferCard({
       )}
 
       {/* Stats */}
-      <div className="flex flex-wrap gap-6 text-sm text-gray-500">
+      <div className="flex flex-wrap juustify-between gap-x-3 md:gap-x-6 text-sm text-gray-500">
         <span>{posted}</span>
         <span>{views}</span>
         <span>{inquiries}</span>

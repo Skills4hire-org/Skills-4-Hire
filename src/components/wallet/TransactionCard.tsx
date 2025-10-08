@@ -1,0 +1,40 @@
+import { currencyFormatter } from '@/utils/format'
+import ApprovePaymentButton from '../buttons/ApprovePaymentButton'
+
+interface TransactionCardProp {
+  status: string
+  name: string
+  service: string
+  amount: number
+}
+
+export default function TransactionCard({
+  status,
+  name,
+  service,
+  amount,
+}: TransactionCardProp) {
+  const textByStatus: Record<string, string> = {
+    sent: 'payment sent to',
+    received: 'payment received from',
+    pending: 'payment pending to',
+    canceled: 'payment to',
+  }
+  return (
+    <div className="bg-gray-300 rounded-md p-2 flex items-center justify-between gap-6 max-w-5xl mx-auto ">
+      <div className="capitalize ">
+        <p className="text-base md:text-lg">
+          {textByStatus[status]} {name} {status === 'canceled' && 'canceled'}{' '}
+        </p>
+        <span className="text-sm md:text-base">{service}</span>
+      </div>
+      <div className="flex flex-col gap-1  items-center justify-between">
+        <span className="block text-base md:text-lg">
+          {currencyFormatter(amount)}
+        </span>
+
+        {status === 'pending' && <ApprovePaymentButton />}
+      </div>
+    </div>
+  )
+}

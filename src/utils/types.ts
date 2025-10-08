@@ -13,3 +13,8 @@ export type Booking = {
   status: string
   desc: string
 }
+
+export type SelectItems = {
+  value: string
+  label: string
+}
