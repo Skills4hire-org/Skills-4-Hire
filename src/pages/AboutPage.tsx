@@ -1,88 +1,61 @@
 import Container from "@/components/global/Container";
 import PageHeader from "@/components/global/PageHeader";
 import { aboutPageData } from "@/utils/database";
-import {
-  Phone,
-  Mail,
-  Facebook,
-  Instagram,
-  Twitter,
-  Linkedin,
-} from "lucide-react";
-import Logo from "@/assets/logo.png";
+import { aboutContactOptions, socialLinks } from "@/assets/data";
+import BrandName from "@/assets/images/logo2.png";
 
 export default function AboutPage() {
   const { title, subtitle, description } = aboutPageData;
-
-  const socials = [
-    {
-      id: "facebook",
-      href: "https://facebook.com/skills4hire",
-      Icon: Facebook,
-    },
-    {
-      id: "instagram",
-      href: "https://instagram.com/skills4hire",
-      Icon: Instagram,
-    },
-    { id: "twitter", href: "https://twitter.com/skills4hire", Icon: Twitter }, // or X
-    {
-      id: "linkedin",
-      href: "https://linkedin.com/company/skills4hire",
-      Icon: Linkedin,
-    },
-  ];
 
   return (
     <div className="pb-10">
       <PageHeader title={title} />
 
       <Container>
-        <div className="flex flex-col items-center text-center mt-2 sm:mt-4">
+        <div className="flex flex-col items-center text-center mt-2 md:mt-4">
           <img
-            src={Logo}
+            src={BrandName}
             alt={`${title} Logo`}
-            className="w-32 sm:w-40 mb-2 sm:mb-3"
+            className="w-36 md:w-44 mb-2 md:mb-3"
           />
 
-          <p className="text-gray-500 text-sm sm:text-base">{subtitle}</p>
+          <p className="text-gray-500 text-sm md:text-base">{subtitle}</p>
 
-          <div className="flex items-center gap-8 mt-4 sm:mt-6 flex-wrap justify-center">
-            <a
-              href="tel:+2348012345678"
-              className="flex flex-col items-center text-gray-600 hover:text-primary transition"
-            >
-              <Phone className="h-5 w-5 sm:h-6 sm:w-6 mb-1" />
-              <span className="text-xs sm:text-sm font-medium">Call</span>
-            </a>
-            <a
-              href="mailto:info@skills4hire.com"
-              className="flex flex-col items-center text-gray-600 hover:text-primary transition"
-            >
-              <Mail className="h-5 w-5 sm:h-6 sm:w-6 mb-1" />
-              <span className="text-xs sm:text-sm font-medium">Email</span>
-            </a>
+          <div className="flex items-center gap-10 mt-4 md:mt-6 flex-wrap justify-center">
+            {aboutContactOptions.map(({ icon: Icon, text, url }) => (
+              <a
+                key={text}
+                href={url}
+                className="flex flex-col items-center text-gray-600 hover:text-primary transition"
+              >
+                <Icon className="h-5 w-5 md:h-6 md:w-6 mb-1" />
+                <span className="text-xs md:text-sm font-normal">{text}</span>
+              </a>
+            ))}
           </div>
         </div>
 
-        <div className="mt-6 text-sm sm:text-base text-gray-700 text-justify leading-relaxed px-2 sm:px-6 space-y-4">
+        <div className="mt-6 text-sm md:text-base text-gray-700 text-justify leading-relaxed px-2 md:px-6 space-y-4">
           {description.map((para, index) => (
             <p key={index}>{para}</p>
           ))}
         </div>
-
-        <div className="mt-8 flex justify-center">
-          <div className="flex items-center gap-8">
-            {socials.map(({ id, href, Icon }) => (
+        <div className="mt-10 flex justify-center">
+          <div className="flex items-center gap-6 md:gap-8 flex-wrap justify-center">
+            {socialLinks.map(({ id, href, Icon, bgClass }) => (
               <a
                 key={id}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={id}
-                className="text-gray-400 hover:text-primary transition transform hover:-translate-y-0.5"
+                className="transition transform hover:-translate-y-1"
               >
-                <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
+                <div
+                  className={`${bgClass} p-3 md:p-4 shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center`}
+                >
+                  <Icon className="text-white h-5 w-5 md:h-6 md:w-6" />
+                </div>
               </a>
             ))}
           </div>

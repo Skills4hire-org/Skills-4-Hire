@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Container from "./Container";
+import { ChevronLeft } from "lucide-react";
 
 interface PageHeaderProps {
   title: string;
@@ -9,25 +9,19 @@ export default function PageHeader({ title }: PageHeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <Container>
-      <header className="flex items-center justify-between py-2 sm:py-3 px-2 sm:px-4 bg-white shadow-sm sticky top-0 z-10">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1 text-primary font-medium focus:outline-none"
-        >
-          <span className="sr-only">Back</span>
+    <header className="w-full flex items-center justify-between py-3 px-4 md:px-6 bg-white sticky top-0 z-10 border-b border-gray-100">
+      <button
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-1 text-gray-700 hover:text-primary transition-colors focus:outline-none"
+      >
+        <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+        <span className="sr-only">Back</span>
+      </button>
 
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-semibold">
-            ←
-          </div>
-        </button>
-
-        <h1 className="text-lg sm:text-xl font-semibold text-gray-800 text-center flex-1">
-          {title}
-        </h1>
-
-        <div className="w-8" />
-      </header>
-    </Container>
+      <h1 className="text-lg md:text-xl text-gray-800 font-bold text-center flex-1">
+        {title}
+      </h1>
+      <div className="w-10" />
+    </header>
   );
 }

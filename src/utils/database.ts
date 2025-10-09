@@ -226,3 +226,153 @@ export const aboutPageData = {
     `At its core, Skills4Hire is more than a marketplace—it’s a platform that empowers skilled individuals with visibility, credibility, and sustainable income, while giving customers the easiest and safest way to hire talent at their fingertips.`,
   ],
 };
+
+export const termsPageData = {
+  title: "Terms and Conditions",
+  description: [
+    `By accessing or using the Skills4Hire platform, mobile app, or website, you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree with any part of these Terms, you must not use our platform.`,
+
+    `1. Account Registration and Security  
+Users are responsible for safeguarding their login credentials.  
+Skills4Hire is not liable for unauthorized use of any account.  
+You agree not to share your account or impersonate another person.`,
+
+    `2. Use of Services  
+Customers may post service requests and hire verified providers.  
+Service Providers may accept jobs, complete tasks professionally, and earn payments.  
+All jobs must be processed and paid within the platform. Any attempt to bypass the platform or engage in offline transactions is a violation of these Terms and may result in account termination and loss of earnings.`,
+
+    `3. Fees and Payments  
+Customers are not charged any fee while Service Providers pay a 2% commission on earnings.  
+All payments must go through the Skills4Hire platform.  
+Payment is released to providers only after the job is marked Completed by the customer or auto-completes after the agreed time window.`,
+
+    `4. Escrow Policy  
+Payments are held securely in escrow until job confirmation.  
+If disputes arise:  
+Skills4Hire will investigate using evidence provided by both parties.  
+Skills4Hire reserves the right to refund the customer, release funds to the provider, or split payment based on the outcome.`,
+
+    `5. User Conduct  
+You agree not to:  
+• Misrepresent your identity or services  
+• Upload false or misleading content  
+• Harass, threaten, or defraud any user  
+• Promote or attempt off-platform transactions  
+• Post illegal, offensive, or stolen content  
+Violation may lead to suspension or permanent ban.`,
+
+    `6. Content and Intellectual Property  
+You retain ownership of content you upload, but grant Skills4Hire a non-exclusive license to use, display, and promote such content in connection with the platform.  
+You must not upload content you don’t have rights to.`,
+
+    `7. Reviews and Ratings  
+Customers can review providers after service completion.  
+Skills4Hire does not edit or alter reviews unless they violate community guidelines.`,
+
+    `8. Dispute Resolution  
+If a conflict arises between a customer and a provider:  
+1. Contact must be made within 48 hours of the incident.  
+2. Both parties must submit evidence (e.g., photos, chat history).  
+3. Skills4Hire’s decision is final and binding.`,
+
+    `9. Suspension and Termination  
+We may suspend or terminate your account if:  
+• You violate any part of these Terms  
+• You attempt to manipulate or defraud users  
+• You repeatedly receive poor ratings or complaints  
+Termination may result in forfeiture of pending earnings.`,
+
+    `10. Limitation of Liability 
+Skills4Hire is a marketplace, not the employer of any service provider.  
+We are not liable for:  
+• Poor service delivery  
+• Physical injury or property damage  
+• Missed appointments or delays`,
+
+    `11. Amendments 
+We may modify these Terms at any time. Continued use of the platform after changes are posted constitutes acceptance of the new terms.`,
+
+    `12. Contact Us  
+For support, questions, or disputes, contact us at:  
+skills4hireofficial@gmail.com`,
+
+    `13. Acceptance  
+By clicking “Sign Up” or using the platform, you acknowledge that you have read, understood, and agree to be bound by these Terms.`,
+  ],
+};
+
+export const privacyPolicyData = {
+  title: "Skills4Hire Privacy Policy",
+  description: [
+    `By accessing or using the Skills4Hire platform, mobile app, or website, you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree with any part of these Terms, you must not use our platform.`,
+
+    `1. Account Registration and Security
+Users are responsible for safeguarding their login credentials.
+Skills4Hire is not liable for unauthorized use of any account.
+You agree not to share your account or impersonate another person.`,
+
+    `2. Use of Services
+Customers may post service requests and hire verified providers.
+Service Providers may accept jobs, complete tasks professionally, and earn payments.
+All jobs must be processed and paid within the platform. Any attempt to bypass the platform or engage in offline transactions is a violation of these Terms and may result in account termination and loss of earnings.`,
+
+    `3. Fees and Payments
+Customers are not charged any fee while Service Providers pay a 2% commission on earnings.
+All payments must go through the Skills4Hire platform.
+Payment is released to providers only after the job is marked Completed by the customer or auto-completes after the agreed time window.`,
+
+    `4. Escrow Policy
+Payments are held securely in escrow until job confirmation.
+If disputes arise:
+Skills4Hire will investigate using evidence provided by both parties.
+Skills4Hire reserves the right to refund the customer, release funds to the provider, or split payment based on the outcome.`,
+
+    `5. User Conduct
+You agree not to:
+Misrepresent your identity or services
+Upload false or misleading content
+Harass, threaten, or defraud any user
+Promote or attempt off-platform transactions
+Post illegal, offensive, or stolen content
+Violation may lead to suspension or permanent ban.`,
+
+    `6. Content and Intellectual Property
+You retain ownership of content you upload, but grant Skills4Hire a non-exclusive license to use, display, and promote such content in connection with the platform.
+You must not upload content you don’t have rights to.`,
+
+    `7. Reviews and Ratings
+Customers can review providers after service completion.
+Skills4Hire does not edit or alter reviews unless they violate community guidelines.`,
+
+    `8. Dispute Resolution
+If a conflict arises between a customer and a provider:
+1. Contact must be made within 48 hours of the incident.
+2. Both parties must submit evidence (e.g., photos, chat history).
+3. Skills4Hire’s decision is final and binding.`,
+
+    `9. Suspension and Termination
+We may suspend or terminate your account if:
+You violate any part of these Terms
+You attempt to manipulate or defraud users
+You repeatedly receive poor ratings or complaints
+Termination may result in forfeiture of pending earnings.`,
+
+    `10. Limitation of Liability
+Skills4Hire is a marketplace, not the employer of any service provider.
+We are not liable for:
+Poor service delivery
+Physical injury or property damage
+Missed appointments or delays.`,
+
+    `11. Amendments
+We may modify these Terms at any time. Continued use of the platform after changes are posted constitutes acceptance of the new terms.`,
+
+    `12. Contact Us
+For support, questions, or disputes, contact us at:
+skills4hireofficial@gmail.com`,
+
+    `13. Acceptance
+By clicking “Sign Up” or using the platform, you acknowledge that you have read, understood, and agree to be bound by these Terms.`,
+  ],
+};

@@ -20,6 +20,7 @@ import {
   Wallet,
 } from 'lucide-react'
 import { BsHeart } from 'react-icons/bs'
+import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 import img1 from './Rectangle 20.png'
 import img2 from './Rectangle 21.png'
@@ -100,7 +101,7 @@ export const sidebarAboutUs = [
   {
     icon: FileText,
     label: 'terms & conditions',
-    url: '/terms-and-condition',
+    url: '/terms-and-conditions',
   },
   {
     icon: HelpCircle,
@@ -316,3 +317,39 @@ export const supportOptions = [
     url: 'tel:+2348123456789',
   },
 ]
+
+export const aboutContactOptions = [
+  {
+    icon: Phone,
+    text: "Call",
+    url: "tel:+2348123456789",
+  },
+  {
+    icon: Mail,
+    text: "Email",
+    url: "mailto:support@skill4hire.com",
+  },
+];
+
+
+export const socialLinks = [
+  {
+    id: "facebook",
+    href: "#", // dummy link for now
+    Icon: FaFacebookF,
+    bgClass: "bg-[#1877F2] rounded-full",
+  },
+  {
+    id: "instagram",
+    href: "https://www.instagram.com/skills4hireofficial/?hl=en",
+    Icon: FaInstagram,
+    bgClass:
+      "bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] rounded-full",
+  },
+  {
+    id: "twitter",
+    href: "https://x.com/skills4hire?t=ozLzgv65G4SrNAyXAuCL7Q&s=09",
+    Icon: FaXTwitter,
+    bgClass: "bg-black rounded-full",
+  },
+];

@@ -21,6 +21,9 @@ import FavoriteService from './pages/FavoriteService'
 import FavoriteProvider from './pages/FavoriteProvider'
 import Rewards from './pages/Rewards'
 import Support from './pages/Support'
+import AboutPage from './pages/AboutPage'
+import TermsPage from './pages/TermsPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 
 const router = createBrowserRouter([
   {
@@ -143,15 +146,15 @@ const router = createBrowserRouter([
   },
   {
     path: 'about',
-    element: <Verification />,
+    element: <AboutPage />,
   },
   {
     path: 'terms-and-conditions',
-    element: <Verification />,
+    element: <TermsPage />,
   },
   {
     path: 'privacy-policy',
-    element: <Verification />,
+    element: <PrivacyPolicyPage/>,
   },
   {
     path: 'faq',
