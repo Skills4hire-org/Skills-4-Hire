@@ -19,6 +19,9 @@ import Wallet from './pages/Wallet'
 import Rewards from './pages/Rewards'
 import Support from './pages/Support'
 import Favorites from './pages/Favorites'
+import About from './pages/About'
+import TermsAndConditions from './pages/TermsAndConditions'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 const router = createBrowserRouter([
   {
@@ -127,15 +130,15 @@ const router = createBrowserRouter([
   },
   {
     path: 'about',
-    element: <Verification />,
+    element: <About />,
   },
   {
     path: 'terms-and-conditions',
-    element: <Verification />,
+    element: <TermsAndConditions />,
   },
   {
     path: 'privacy-policy',
-    element: <Verification />,
+    element: <PrivacyPolicy />,
   },
   {
     path: 'faq',

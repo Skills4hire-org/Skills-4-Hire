@@ -25,6 +25,7 @@ export default function ImageCarousel({ images }: { images: string[] }) {
               src={img}
               alt={`slide-${idx}`}
               className="w-full max-h-32 md:max-h-64 lg:max-h-92 object-cover rounded-lg"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-black/10 rounded-4xl" />
           </div>

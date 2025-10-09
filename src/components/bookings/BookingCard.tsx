@@ -36,6 +36,7 @@ export default function BookingCard({
             src={serviceImage}
             alt={service}
             className="aspect-square object-cover h-full max-w-24 md:max-w-42"
+            loading="lazy"
           />
         </figure>
       </div>

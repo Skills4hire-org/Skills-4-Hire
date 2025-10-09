@@ -38,6 +38,7 @@ export default function ServiceProviderCard({
           src={image}
           alt={occupation}
           className="max-w-24 md:max-w-42 h-full object-cover rounded-tr-4xl"
+          loading="lazy"
         />
       </figure>
       <div className="flex flex-1 flex-row gap-2 items-center justify-between p-2 md:p-4">
