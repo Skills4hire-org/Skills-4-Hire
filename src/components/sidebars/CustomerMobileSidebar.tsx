@@ -75,7 +75,7 @@ export default function CustomerMobileSidebar() {
                       to={url}
                       className="py-1 px-0 flex items-center gap-2"
                     >
-                      <IconComponent className="w-5 h-5 " />
+                      <IconComponent strokeWidth={1.5} className="w-6 h-6 " />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">
                         {label}
                       </span>
@@ -103,7 +103,10 @@ export default function CustomerMobileSidebar() {
                       to={url}
                       className="py-1 px-0 flex items-center gap-2"
                     >
-                      <IconComponent className="w-5 h-5 " />
+                      <IconComponent
+                        strokeWidth={1.5}
+                        className="w-6 h-6 p-0.5 "
+                      />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">
                         {label}
                       </span>

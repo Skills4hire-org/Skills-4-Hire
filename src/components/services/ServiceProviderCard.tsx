@@ -1,8 +1,9 @@
-import { Heart, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { currencyFormatter } from '@/utils/format'
+import AddToFavoriteForm from '../form/AddToFavoriteForm'
 
-interface ServiceAroundYouCardProp {
+interface ServiceProviderCardProp {
   id: number
   name: string
   online: boolean
@@ -14,9 +15,10 @@ interface ServiceAroundYouCardProp {
   averageRating: number
   totalReviews: number
   image: string
+  favorite: boolean
 }
 
-export default function ServiceAroundYouCard({
+export default function ServiceProviderCard({
   name,
   online,
   occupation,
@@ -27,7 +29,8 @@ export default function ServiceAroundYouCard({
   averageRating,
   totalReviews,
   image,
-}: ServiceAroundYouCardProp) {
+  favorite,
+}: ServiceProviderCardProp) {
   return (
     <div className="rounded-r-md flex bg-white shadow-md">
       <figure className="rounded-tr-4xl ">
@@ -72,7 +75,7 @@ export default function ServiceAroundYouCard({
               ({totalReviews})
             </span>
           </div>
-          <Heart className="w-5 md:w-6 h-5 md:h-6" />
+          <AddToFavoriteForm id={name} type="provider" favorite={favorite} />
           <div className="capitalize text-xs md:text-sm text-muted-foreground">
             from
             <span className="font-medium text-foreground ml-1">

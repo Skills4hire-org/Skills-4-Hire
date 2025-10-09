@@ -15,7 +15,7 @@ export const user = {
   service: 'plumber',
   rating: 4,
   totalReviews: 120,
-  address: '2, Gandi Street, Ikorodu, Lagos',
+  address: '2, Gandi Street, Ikosodu, Lagos',
   availableBalance: 77000,
 }
 
@@ -24,31 +24,37 @@ export const availableServices = [
     serviceImage: servicesImage1,
     serviceName: 'cleaning service',
     category: 'vocational & on-site services',
+    favorite: true,
   },
   {
     serviceImage: servicesImage2,
     serviceName: 'mobile app development',
     category: 'digital skills & online services',
+    favorite: false,
   },
   {
     serviceImage: servicesImage1,
     serviceName: 'electrical service',
     category: 'vocational & on-site services',
+    favorite: true,
   },
   {
     serviceImage: servicesImage2,
     serviceName: 'plumbing service',
     category: 'vocational & on-site services',
+    favorite: true,
   },
   {
     serviceImage: servicesImage1,
     serviceName: 'cleaning services',
     category: 'vocational & on-site services',
+    favorite: false,
   },
   {
     serviceImage: servicesImage2,
     serviceName: 'cleaning services',
     category: 'digital skills & online services',
+    favorite: false,
   },
 ]
 
@@ -65,6 +71,7 @@ export const serviceAround = [
     averageRating: 4.8,
     totalReviews: 12,
     image: servicesAroundImage1,
+    favorite: true,
   },
   {
     id: 2,
@@ -78,6 +85,7 @@ export const serviceAround = [
     averageRating: 4.8,
     totalReviews: 12,
     image: servicesAroundImage2,
+    favorite: false,
   },
   {
     id: 3,
@@ -91,6 +99,7 @@ export const serviceAround = [
     averageRating: 4.8,
     totalReviews: 12,
     image: servicesAroundImage2,
+    favorite: true,
   },
 ]
 
@@ -213,4 +222,10 @@ export const transactionHistory = [
     status: 'pending',
     amount: 20000,
   },
+]
+
+export const rewardPoints = [
+  { createdAt: Date.now(), point: 1 },
+  { createdAt: Date.now(), point: 2 },
+  { createdAt: Date.now(), point: 3 },
 ]

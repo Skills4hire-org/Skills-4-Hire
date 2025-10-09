@@ -1,15 +1,13 @@
 import { supportOptions } from '@/assets/data'
 import Container from '@/components/global/Container'
-import DesktopSupportHeader from '@/components/header/DesktopSupportHeader'
-import MobileSupportHeader from '@/components/header/MobileSupportHeader'
 import SupportOptionsCard from '@/components/support/SupportOptionsCard'
+import MobileWithAvatarAndDesktopHeader from '@/components/header/MobileWithAvatarAndDesktopHeader'
 
 export default function Support() {
   return (
     <div className="space-y-2 md:space-y-4">
       <Container className="bg-white">
-        <MobileSupportHeader />
-        <DesktopSupportHeader />
+        <MobileWithAvatarAndDesktopHeader title="Support" />
       </Container>
       <Container>
         <div className="grid grid-cols-1 gap-2 md:gap-4">

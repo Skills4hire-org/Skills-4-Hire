@@ -1,11 +1,11 @@
-import { customerHomeNavbar } from '@/assets/data'
+import { customerHomeNavLinks } from '@/assets/data'
 import { NavLink } from 'react-router-dom'
 
 export default function CustomerHomeNavbar() {
   return (
     <nav className="border-b ">
       <div className="flex gap-8 justify-evenly">
-        {customerHomeNavbar.map(({ label, url }) => (
+        {customerHomeNavLinks.map(({ label, url }) => (
           <NavLink
             key={label}
             to={url}

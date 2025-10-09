@@ -1,5 +1,5 @@
 import SearchBar from '@/components/global/SearchBar'
-import AvailableServiceCard from '@/components/services/AvailableServiceCard'
+import AvailableServiceCard from '@/components/services/ServicesCard'
 import { availableServices } from '@/utils/database'
 import type { AvailableServices } from '@/utils/types'
 import { ChevronLeft } from 'lucide-react'

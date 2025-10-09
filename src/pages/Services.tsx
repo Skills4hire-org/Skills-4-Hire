@@ -2,13 +2,13 @@ import { images } from '@/assets/data'
 import SearchBar from '@/components/global/SearchBar'
 import DesktopServicesHeader from '@/components/header/DesktopServicesHeader'
 import MobileServicesHeader from '@/components/header/MobileServicesHeader'
-import AvailableServiceCard from '@/components/services/AvailableServiceCard'
 import ImageCarousel from '@/components/services/ImageCarousel'
 import SectionHeading from '@/components/services/SectionHeading'
-import ServiceAroundYouCard from '@/components/services/ServiceAroundYouCard'
 import { availableServices, serviceAround } from '@/utils/database'
 import { Link } from 'react-router-dom'
 import Container from '@/components/global/Container'
+import ServiceProviderCard from '@/components/services/ServiceProviderCard'
+import ServicesCard from '@/components/services/ServicesCard'
 
 export default function Services() {
   return (
@@ -38,7 +38,7 @@ export default function Services() {
             </div>
             <div className="grid grid-cols-3 xl:grid-cols-6 gap-4">
               {availableServices.slice(0, 6).map((service, index) => (
-                <AvailableServiceCard key={index} {...service} />
+                <ServicesCard key={index} {...service} />
               ))}
             </div>
           </section>
@@ -54,7 +54,7 @@ export default function Services() {
             </div>
             <div className="grid grid-cols-1 gap-4">
               {serviceAround.slice(0, 2).map((service) => (
-                <ServiceAroundYouCard key={service.id} {...service} />
+                <ServiceProviderCard key={service.id} {...service} />
               ))}
             </div>
           </section>

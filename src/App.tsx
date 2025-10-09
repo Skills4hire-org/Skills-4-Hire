@@ -16,11 +16,9 @@ import CustomerBookings from './pages/CustomerBookings'
 import ServicesSearch from './pages/ServicesSearch'
 import WalletLayout from './components/layouts/WalletLayout'
 import Wallet from './pages/Wallet'
-import FavoritesLayout from './components/layouts/FavoritesLayout'
-import FavoriteService from './pages/FavoriteService'
-import FavoriteProvider from './pages/FavoriteProvider'
 import Rewards from './pages/Rewards'
 import Support from './pages/Support'
+import Favorites from './pages/Favorites'
 
 const router = createBrowserRouter([
   {
@@ -107,21 +105,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'favorites',
-        element: <FavoritesLayout />,
-        children: [
-          {
-            index: true,
-            element: <Navigate to="favorite-service" />,
-          },
-          {
-            path: 'favorite-service',
-            element: <FavoriteService />,
-          },
-          {
-            path: 'favorite-provider',
-            element: <FavoriteProvider />,
-          },
-        ],
+        element: <Favorites />,
       },
       {
         path: 'rewards',

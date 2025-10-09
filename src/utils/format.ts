@@ -7,6 +7,7 @@ export const currencyFormatter = (price: number | undefined) => {
       style: 'currency',
       currency: 'NGN',
       maximumFractionDigits: 0,
+      currencyDisplay: 'symbol',
     }).format(price)
     return amount
   }

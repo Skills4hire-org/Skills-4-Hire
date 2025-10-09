@@ -20,6 +20,7 @@ import {
   Wallet,
 } from 'lucide-react'
 import { BsHeart } from 'react-icons/bs'
+import { TbAward, TbHeart } from 'react-icons/tb'
 
 import img1 from './Rectangle 20.png'
 import img2 from './Rectangle 21.png'
@@ -28,27 +29,22 @@ export const images = [img1, img2, img1]
 
 export const sidebarMobileGeneral = [
   {
-    icon: BsHeart,
-    label: 'favourite service',
-    url: '/customer/favorites/favorite-service',
+    icon: TbHeart,
+    label: 'favorites',
+    url: '/customer/favorites',
   },
   {
-    icon: BsHeart,
-    label: 'favourite provider',
-    url: '/customer/favorites/favorite-provider',
-  },
-  {
-    icon: BsHeart,
+    icon: TbHeart,
     label: 'blog',
     url: '/',
   },
   {
-    icon: BsHeart,
+    icon: TbAward,
     label: 'my rewards',
     url: '/customer/rewards',
   },
   {
-    icon: BsHeart,
+    icon: TbHeart,
     label: 'my reviews',
     url: '/',
   },
@@ -61,13 +57,8 @@ export const sidebarDesktopGeneral = [
   },
   {
     icon: BsHeart,
-    label: 'favourite service',
-    url: '/customer/favorites/favorite-service',
-  },
-  {
-    icon: BsHeart,
-    label: 'favourite provider',
-    url: '/customer/favorites/favorite-provider',
+    label: 'favorites',
+    url: '/customer/favorites',
   },
   {
     icon: BsHeart,
@@ -75,7 +66,7 @@ export const sidebarDesktopGeneral = [
     url: '/',
   },
   {
-    icon: BsHeart,
+    icon: TbAward,
     label: 'my rewards',
     url: '/customer/rewards',
   },
@@ -240,7 +231,7 @@ export const walletActions = [
   { label: 'Withdraw', icon: Wallet },
 ]
 
-export const customerHomeNavbar = [
+export const customerHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
@@ -314,5 +305,16 @@ export const supportOptions = [
     icon: Phone,
     text: 'Call our help-line',
     url: 'tel:+2348123456789',
+  },
+]
+
+export const favoritesTabList = [
+  {
+    status: 'favorite-services',
+    label: 'favorite services',
+  },
+  {
+    status: 'favorite-providers',
+    label: 'favorite providers',
   },
 ]
