@@ -1,4 +1,4 @@
-import { timeFormatter } from '@/utils/format'
+import { formatRelativeTime } from '@/utils/format'
 import { Check, HandCoins } from 'lucide-react'
 
 export default function RewardCard({
@@ -13,11 +13,8 @@ export default function RewardCard({
       <HandCoins className="w-6 h-6 md:w-8 md:h-8 text-primary" />
       <div className="flex-1 flex items-center justify-between">
         <div className="flex flex-col md:gap-0.5">
-          <span>
-            {}{' '}
-            <span className="lowercase text-xs md:text-sm">
-              {timeFormatter(createdAt)}
-            </span>
+          <span className="text-xs md:text-sm">
+            {formatRelativeTime(createdAt)}
           </span>
           <span className="text-base md:text-lg font-medium">
             {point} point{point > 1 && 's'}

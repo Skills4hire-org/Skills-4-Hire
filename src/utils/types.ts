@@ -2,6 +2,7 @@ export type AvailableServices = {
   serviceName: string
   serviceImage: string
   category: string
+  favorite: boolean
 }
 
 export type Booking = {
@@ -17,4 +18,10 @@ export type Booking = {
 export type SelectItems = {
   value: string
   label: string
+}
+
+export type Notification = {
+  id: number
+  createdAt: string | number
+  type: string
 }

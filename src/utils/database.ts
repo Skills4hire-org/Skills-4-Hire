@@ -56,31 +56,6 @@ export const availableServices = [
     category: 'digital skills & online services',
     favorite: false,
   },
-  {
-    serviceImage: servicesImage2,
-    serviceName: 'mobile app development',
-    category: 'digital skills & online services',
-  },
-  {
-    serviceImage: servicesImage1,
-    serviceName: 'electrical service',
-    category: 'vocational & on-site services',
-  },
-  {
-    serviceImage: servicesImage2,
-    serviceName: 'plumbing service',
-    category: 'vocational & on-site services',
-  },
-  {
-    serviceImage: servicesImage1,
-    serviceName: 'cleaning services',
-    category: 'vocational & on-site services',
-  },
-  {
-    serviceImage: servicesImage2,
-    serviceName: 'cleaning services',
-    category: 'digital skills & online services',
-  },
 ]
 
 export const serviceAround = [
@@ -416,3 +391,26 @@ skills4hireofficial@gmail.com`,
 By clicking “Sign Up” or using the platform, you acknowledge that you have read, understood, and agree to be bound by these Terms.`,
   ],
 }
+
+export const notifications = [
+  {
+    id: 1,
+    type: 'canceled',
+    createdAt: Date.now(),
+  },
+  {
+    id: 2,
+    type: 'earned',
+    createdAt: Date.now(),
+  },
+  {
+    id: 3,
+    type: 'message',
+    createdAt: Date.now(),
+  },
+  {
+    id: 4,
+    type: 'job',
+    createdAt: Date.now(),
+  },
+]

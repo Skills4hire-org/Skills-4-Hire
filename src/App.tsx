@@ -22,6 +22,7 @@ import Favorites from './pages/Favorites'
 import About from './pages/About'
 import TermsAndConditions from './pages/TermsAndConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import Notification from './pages/Notification'
 
 const router = createBrowserRouter([
   {
@@ -120,7 +121,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'notification',
-        element: <Verification />,
+        element: <Notification />,
       },
       /* {
         path: 'profile',

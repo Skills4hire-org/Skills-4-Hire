@@ -21,10 +21,9 @@ import {
 } from 'lucide-react'
 import { BsHeart } from 'react-icons/bs'
 import { FaFacebookF, FaInstagram, FaXTwitter } from 'react-icons/fa6'
-
 import img1 from './Rectangle 20.png'
 import img2 from './Rectangle 21.png'
-import { TbAward, TbHeart } from 'react-icons/tb'
+import { TbArticle, TbAward, TbHeart } from 'react-icons/tb'
 
 export const images = [img1, img2, img1]
 
@@ -35,7 +34,7 @@ export const sidebarMobileGeneral = [
     url: '/customer/favorites',
   },
   {
-    icon: TbHeart,
+    icon: TbArticle,
     label: 'blog',
     url: '/',
   },
@@ -62,7 +61,7 @@ export const sidebarDesktopGeneral = [
     url: '/customer/favorites',
   },
   {
-    icon: BsHeart,
+    icon: TbArticle,
     label: 'blog',
     url: '/',
   },
@@ -146,9 +145,9 @@ export const customerDesktopNavLinks = [
   { label: 'wallet', icon: Wallet, url: '/customer/wallet' },
   { label: 'chats', icon: MessageSquareMore, url: '/customer/chats' },
   {
-    label: 'notifications',
+    label: 'notification',
     icon: Bell,
-    url: '/customer/notifications',
+    url: '/customer/notification',
   },
   {
     label: 'help center',

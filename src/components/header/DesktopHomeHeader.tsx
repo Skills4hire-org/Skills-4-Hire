@@ -2,6 +2,7 @@ import { Bell, MessageSquareMore } from 'lucide-react'
 import RecentNotification from '../global/RecentNotification'
 import ProfileImage from '../global/ProfileImage'
 import SearchBar from '../global/SearchBar'
+import { Link } from 'react-router-dom'
 
 export default function DesktopHomeHeader() {
   return (
@@ -14,7 +15,9 @@ export default function DesktopHomeHeader() {
           />
         </div>
         <div className="flex items-center gap-4">
-          <RecentNotification icon={Bell} newAlert />
+          <Link to="/customer/notification">
+            <RecentNotification icon={Bell} newAlert />
+          </Link>
           <RecentNotification icon={MessageSquareMore} newAlert />
 
           <div className="flex items-center gap-2">

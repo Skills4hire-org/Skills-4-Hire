@@ -1,16 +1,12 @@
 import SearchBar from '@/components/global/SearchBar'
-import AvailableServiceCard from '@/components/services/ServicesCard'
-import { availableServices } from '@/utils/database'
 import type { AvailableServices } from '@/utils/types'
 import { ChevronLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from '@/components/global/Container'
+import ServicesCard from '@/components/services/ServicesCard'
+import { groupedServicesByCategory } from '@/utils/format'
 
 export default function AvailableServices() {
-  const groupedServicesByCategory = availableServices.reduce((acc, current) => {
-    ;(acc[current.category] ??= []).push(current)
-    return acc
-  }, {} as Record<string, AvailableServices[]>)
   const groupedServicesByCategoryArray = Object.entries(
     groupedServicesByCategory
   )
@@ -50,10 +46,7 @@ export default function AvailableServices() {
 
                   <div className="grid grid-cols-3 xl:grid-cols-5 gap-4">
                     {services.map((service) => (
-                      <AvailableServiceCard
-                        key={service.serviceName}
-                        {...service}
-                      />
+                      <ServicesCard key={service.serviceName} {...service} />
                     ))}
                   </div>
                 </div>
