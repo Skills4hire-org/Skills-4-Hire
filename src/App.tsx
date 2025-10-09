@@ -123,10 +123,10 @@ const router = createBrowserRouter([
         path: 'notification',
         element: <Notification />,
       },
-      /* {
-        path: 'profile',
+      {
+        path: 'referral',
         element: <Verification />,
-      }, */
+      },
     ],
   },
   {

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import Container from '@/components/global/Container'
 import ServiceProviderCard from '@/components/services/ServiceProviderCard'
 import ServicesCard from '@/components/services/ServicesCard'
+import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
 
 export default function Services() {
   return (
@@ -42,6 +43,7 @@ export default function Services() {
               ))}
             </div>
           </section>
+          <ReferAndEarnBanner />
           <section className="space-y-3">
             <div className="flex items-center justify-between gap-6">
               <SectionHeading heading="Services around you" />

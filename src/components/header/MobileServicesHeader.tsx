@@ -21,7 +21,9 @@ export default function MobileServicesHeader() {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <Headphones className="w-5 h-5" />
+        <Link to="/customer/support">
+          <Headphones className="w-5 h-5" />
+        </Link>
         <Link to="/customer/notification">
           <RecentNotification icon={Bell} />
         </Link>
