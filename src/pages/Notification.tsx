@@ -3,10 +3,10 @@ import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigati
 import TitleOnlyDesktopHeader from '@/components/header/TitleOnlyDesktopHeader'
 import NotificationCard from '@/components/notification/NotificationCard'
 import { notifications } from '@/utils/database'
-import { groupByDay } from '@/utils/format'
+import { groupNotificationsByDay } from '@/utils/format'
 
 export default function Notification() {
-  const groupedNotifications = groupByDay(notifications)
+  const groupedNotifications = groupNotificationsByDay(notifications)
   const groupedNotificationsArray = Object.entries(groupedNotifications)
   return (
     <div className="space-y-2 md:space-y-4">

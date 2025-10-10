@@ -1,6 +1,10 @@
 import { format, isToday, isYesterday } from 'date-fns'
 import { availableServices } from './database'
-import type { AvailableServices, Notification } from './types'
+import type {
+  AvailableServices,
+  Notification,
+  TransactionHistory,
+} from './types'
 import { AiFillNotification } from 'react-icons/ai'
 import type { IconType } from 'react-icons/lib'
 import { MdCancel } from 'react-icons/md'
@@ -102,7 +106,7 @@ export const getNotificationDetails: Record<
   },
 }
 
-export function groupByDay(notifications: Notification[]) {
+export function groupNotificationsByDay(notifications: Notification[]) {
   return notifications.reduce(
     (groups: Record<string, Notification[]>, notification) => {
       const date = new Date(notification.createdAt)
@@ -120,6 +124,30 @@ export function groupByDay(notifications: Notification[]) {
         groups[groupKey] = []
       }
       groups[groupKey].push(notification)
+      return groups
+    },
+    {}
+  )
+}
+
+export function groupTransactionsByDay(transactions: TransactionHistory[]) {
+  return transactions.reduce(
+    (groups: Record<string, TransactionHistory[]>, transaction) => {
+      const date = new Date(transaction.createdAt)
+
+      let groupKey: string
+      if (isToday(date)) {
+        groupKey = 'Today'
+      } else if (isYesterday(date)) {
+        groupKey = 'Yesterday'
+      } else {
+        groupKey = format(date, 'EEEE, d MMMM yyyy')
+      }
+
+      if (!groups[groupKey]) {
+        groups[groupKey] = []
+      }
+      groups[groupKey].push(transaction)
       return groups
     },
     {}

@@ -25,3 +25,11 @@ export type Notification = {
   createdAt: string | number
   type: string
 }
+
+export type TransactionHistory = {
+  createdAt: number | string
+  name: string
+  service: string
+  status: string
+  amount: number
+}

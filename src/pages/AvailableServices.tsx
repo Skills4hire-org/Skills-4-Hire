@@ -44,7 +44,7 @@ export default function AvailableServices() {
                     {category}
                   </h3>
 
-                  <div className="grid grid-cols-3 xl:grid-cols-5 gap-4">
+                  <div className="grid grid-cols-3 xl:grid-cols-5 gap-2 md:gap-4">
                     {services.map((service) => (
                       <ServicesCard key={service.serviceName} {...service} />
                     ))}

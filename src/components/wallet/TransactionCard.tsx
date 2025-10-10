@@ -21,7 +21,7 @@ export default function TransactionCard({
     canceled: 'payment to',
   }
   return (
-    <div className="bg-gray-300 rounded-md p-2 flex items-center justify-between gap-6 max-w-5xl mx-auto ">
+    <div className="bg-gray-300 rounded-md p-2 flex items-center justify-between gap-6 max-w-5xl mx-auto w-full">
       <div className="capitalize ">
         <p className="text-base md:text-lg">
           {textByStatus[status]} {name} {status === 'canceled' && 'canceled'}{' '}

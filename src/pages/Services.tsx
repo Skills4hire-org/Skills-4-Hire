@@ -27,7 +27,7 @@ export default function Services() {
             </Link>
           </div>
           <ImageCarousel images={images} />
-          <section className="space-y-3">
+          <section className="space-y-3 pb-1.5">
             <div className="flex items-center justify-between gap-6">
               <SectionHeading heading="Available services" />
               <Link
@@ -37,7 +37,7 @@ export default function Services() {
                 View all
               </Link>
             </div>
-            <div className="grid grid-cols-3 xl:grid-cols-6 gap-4">
+            <div className="grid grid-cols-3 xl:grid-cols-6 gap-2 md:gap-4">
               {availableServices.slice(0, 6).map((service, index) => (
                 <ServicesCard key={index} {...service} />
               ))}

@@ -3,13 +3,17 @@ import { transactionHistory } from '@/utils/database'
 import { TabsContent } from '../ui/tabs'
 import TransactionCard from './TransactionCard'
 import NoTransactionHistory from './NoTransactionHistory'
+import { groupTransactionsByDay } from '@/utils/format'
 
 export default function WalletTabContent() {
   const groupTransactionByStatusAndDate = (status: string) => {
-    return transactionHistory?.filter(
+    const transactionStatus = transactionHistory?.filter(
       (transaction) =>
         transaction?.status?.toLowerCase() === status.toLowerCase()
     )
+    const groupedTransactions = groupTransactionsByDay(transactionStatus)
+    const groupedTransactionsArray = Object.entries(groupedTransactions)
+    return groupedTransactionsArray
   }
   return (
     <>
@@ -17,8 +21,18 @@ export default function WalletTabContent() {
         <TabsContent key={status} value={status}>
           <div className="space-y-2 md:space-y-4 md:py-1">
             {groupTransactionByStatusAndDate(status)?.map(
-              (transaction, index) => (
-                <TransactionCard key={index} {...transaction} />
+              ([day, transaction]) => (
+                <div key={day} className="space-y-3 md:space-y-4 ">
+                  <h3 className="text-base md:text-lg font-semibold capitalize text-muted-foreground">
+                    {day}
+                  </h3>
+
+                  <div className="grid grid-cols-1 gap-2 md:gap-3">
+                    {transaction.map((transaction, index) => (
+                      <TransactionCard key={index} {...transaction} />
+                    ))}
+                  </div>
+                </div>
               )
             )}
 
