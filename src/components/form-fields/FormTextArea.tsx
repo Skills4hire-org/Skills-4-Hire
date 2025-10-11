@@ -32,6 +32,7 @@ export default function FormTextArea({
 
       <Textarea
         id={name}
+        name={name}
         value={value}
         onChange={(e) => handleInputChange(name, e.target.value)}
         placeholder={placeholder}

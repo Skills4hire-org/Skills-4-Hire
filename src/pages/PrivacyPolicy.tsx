@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
     <div className="pb-10">
       <HeaderWithBackNavigation title={title} />
       <Container>
-        <div className="mt-6 text-sm md:text-base text-gray-700 text-justify leading-relaxed px-2 md:px-6 space-y-4">
+        <div className="mt-2 md:mt-4 text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-4">
           {description.map((para, index) => (
             <p key={index}>{para}</p>
           ))}

@@ -6,7 +6,7 @@ export default function Logo2() {
       <img
         src={logo}
         alt="logo"
-        className="w-20 md:w-32 mb-2 md:mb-4"
+        className="w-20 md:w-32"
         width={133}
         height={100}
       />

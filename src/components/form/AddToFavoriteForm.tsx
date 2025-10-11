@@ -27,8 +27,8 @@ export default function AddToFavoriteForm({
 
   return (
     <form>
-      <input type="text" hidden value={id} id="id" />
-      <input type="text" hidden value={type} id="type" />
+      <input type="text" hidden value={id} id="id" name="id" disabled />
+      <input type="text" hidden value={type} id="type" name="type" disabled />
       {
         <button type="submit" className={className.button}>
           <Heart className={`w-5 md:w-6 h-5 md:h-6 ${className.icon}`} />

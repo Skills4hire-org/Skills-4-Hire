@@ -41,6 +41,7 @@ export default function FormSelect({
         value={value}
         onValueChange={(value) => handleInputChange(name, value)}
         required={required}
+        name={name}
       >
         <SelectTrigger
           className={`w-full relative ${className} text-sm md:text-base pl-4 [&>svg]:hidden sm:[&>svg]:block`}
