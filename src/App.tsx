@@ -24,6 +24,7 @@ import TermsAndConditions from './pages/TermsAndConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import Notification from './pages/Notification'
 import FAQs from './pages/Faq'
+import Referral from './pages/Referral'
 
 const router = createBrowserRouter([
   {
@@ -91,7 +92,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'referral',
-            element: <Verification />,
+            element: <Referral />,
           },
         ],
       },
@@ -126,7 +127,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'referral',
-        element: <Verification />,
+        element: <Referral />,
       },
     ],
   },
