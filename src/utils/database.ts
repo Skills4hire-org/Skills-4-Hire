@@ -232,7 +232,7 @@ export const rewardPoints = [
 
 export const aboutPageData = {
   title: "About",
-  subtitle: "On-Demand Home Services App",
+  subtitle: "On demand service platform",
   description: [
     `Skills4Hire is a platform that makes it easy to discover, trust, and book digital or vocational service providers. With social feeds serving as living portfolios, providers showcase their skills while customers gain confidence through real work and authentic interactions.`,
     `From barbers, plumbers, and cleaners to designers, developers, and marketers, we give every skilled individual the opportunity to be seen, hired, and rewarded for their talent.`,
