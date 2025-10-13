@@ -1,12 +1,12 @@
-import Container from '@/components/global/Container'
-import { aboutPageData } from '@/utils/database'
-import { aboutContactOptions, socialLinks } from '@/assets/data'
+import Container from "@/components/global/Container";
+import { aboutPageData } from "@/utils/database";
+import { aboutContactOptions, socialLinks } from "@/assets/data";
 
-import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
-import Logo2 from '@/components/global/Logo2'
+import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
+import Logo2 from "@/components/global/Logo2";
 
 export default function About() {
-  const { title, subtitle, description } = aboutPageData
+  const { title, subtitle, description } = aboutPageData;
 
   return (
     <div className="pb-10">
@@ -39,7 +39,7 @@ export default function About() {
               <p key={index}>{para}</p>
             ))}
           </div>
-          <div className="flex items-center gap-4 md:gap-6 md:gap-8 flex-wrap justify-center py-4">
+          <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-center py-4">
             {socialLinks.map(({ id, href, Icon, bgClass }) => (
               <a
                 key={id}
@@ -60,5 +60,5 @@ export default function About() {
         </div>
       </Container>
     </div>
-  )
+  );
 }
