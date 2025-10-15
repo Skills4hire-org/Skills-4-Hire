@@ -83,6 +83,10 @@ const router = createBrowserRouter([
             element: <AvailableServices />,
           },
           {
+            path: 'available-services/:service',
+            element: <AvailableServices />,
+          },
+          {
             path: 'services-around-you',
             element: <ServicesAroundYou />,
           },
