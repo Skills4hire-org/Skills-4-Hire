@@ -2,7 +2,7 @@ import {
   Heart,
   MessageCircle,
   Share2,
-  Download,
+  BarChart2,
   Edit2,
   Trash2,
   Zap,
@@ -11,40 +11,40 @@ import {
   MessageSquare,
   Star,
   MapPin,
-} from 'lucide-react'
+} from "lucide-react";
 
-type Variant = 'default' | 'myPosts'
+type Variant = "default" | "myPosts";
 
 type FeedStats = {
-  likes?: number
-  comments?: number
-  shares?: number
-  downloads?: number
-}
+  likes?: number;
+  comments?: number;
+  shares?: number;
+  impressions?: number;
+};
 
 interface PostCardProps {
   // FEED props
-  profile?: string
-  name?: string
-  location?: string
-  service?: string
-  rating?: string
-  reviews?: string
-  tags?: string[]
+  profile?: string;
+  name?: string;
+  location?: string;
+  service?: string;
+  rating?: string;
+  reviews?: string;
+  tags?: string[];
 
-  title: string
-  description: string
+  title?: string;
+  description: string;
 
-  variant?: Variant
+  variant?: Variant;
 
-  posted?: string
-  views?: string
-  inquiries?: string
-  active?: boolean
+  posted?: string;
+  views?: string;
+  inquiries?: string;
+  active?: boolean;
 
-  media?: string[]
+  media?: string[];
 
-  stats?: FeedStats
+  stats?: FeedStats;
 }
 
 export default function PostCard({
@@ -57,14 +57,14 @@ export default function PostCard({
   reviews,
   tags = [],
 
-  title,
+  // title,
   description,
 
-  variant = 'default',
+  variant = "default",
 
-  posted = 'Posted today',
-  views = '0 views',
-  inquiries = '0 enquiries',
+  posted = "Posted today",
+  views = "0 views",
+  inquiries = "0 enquiries",
   active = false,
 
   // myposts
@@ -73,11 +73,11 @@ export default function PostCard({
   // feed stats
   stats,
 }: PostCardProps) {
-  if (variant === 'default') {
-    const likeCount = stats?.likes ?? 0
-    const commentCount = stats?.comments ?? 0
-    const shareCount = stats?.shares ?? 0
-    const downloadCount = stats?.downloads ?? 0
+  if (variant === "default") {
+    const likeCount = stats?.likes ?? 0;
+    const commentCount = stats?.comments ?? 0;
+    const shareCount = stats?.shares ?? 0;
+    const impressionsCount = stats?.impressions ?? 0;
 
     return (
       <div className="bg-white rounded-2xl shadow p-2.5 md:p-4 space-y-3">
@@ -86,13 +86,12 @@ export default function PostCard({
             {profile && (
               <img
                 src={profile}
-                alt={name ?? 'profile'}
+                alt={name ?? "profile"}
                 className="w-12 h-12 rounded-full object-cover"
               />
             )}
 
             <div className="min-w-0">
-              <h3 className="font-semibold text-gray-800 truncate">{name}</h3>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 {location && (
                   <span className="inline-flex items-center gap-1">
@@ -122,7 +121,6 @@ export default function PostCard({
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800">{title}</h4>
           <p className="text-gray-600 text-sm mt-1">{description}</p>
         </div>
 
@@ -139,29 +137,33 @@ export default function PostCard({
           </div>
         )}
 
-        <div className="flex justify-between items-center pt-2 border-t border-gray-200 text-gray-500">
+        <div className="flex items-center justify-around md:justify-between pt-2 border-t border-gray-200 text-gray-500 gap-6 md:gap-6">
           <button className="flex items-center gap-1 text-sm hover:text-blue-600">
-            <Heart size={16} /> <span>{likeCount}</span>
+            <Heart size={18} /> <span className="text-sm">{likeCount}</span>
           </button>
+
           <button className="flex items-center gap-1 text-sm hover:text-blue-600">
-            <MessageCircle size={16} /> <span>{commentCount}</span>
+            <MessageCircle size={18} />{" "}
+            <span className="text-sm">{commentCount}</span>
           </button>
+
           <button className="flex items-center gap-1 text-sm hover:text-blue-600">
-            <Share2 size={16} /> <span>{shareCount}</span>
+            <Share2 size={18} /> <span className="text-sm">{shareCount}</span>
           </button>
+
           <button className="flex items-center gap-1 text-sm hover:text-blue-600">
-            <Download size={16} /> <span>{downloadCount}</span>
+            <BarChart2 size={18} />{" "}
+            <span className="text-sm">{impressionsCount}</span>
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   // ===== MY POSTS CARD =====
   return (
     <div className="bg-white rounded-2xl shadow p-4 sm:p-5 space-y-3">
       <div className="flex items-start justify-between">
-        <h3 className="font-semibold text-gray-800">{title}</h3>
         {active && (
           <span className="bg-emerald-100 text-emerald-700 text-xs font-medium px-2 py-1 rounded-md">
             Active
@@ -210,5 +212,5 @@ export default function PostCard({
         </button>
       </div>
     </div>
-  )
+  );
 }
