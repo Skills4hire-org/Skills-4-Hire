@@ -1,5 +1,10 @@
-import { Button } from '../ui/button'
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export default function ApprovePaymentButton() {
-  return <Button size="sm">Approve</Button>
+  return (
+    <Link to="/customer/wallet/approved">
+      <Button size="sm">Approve</Button>
+    </Link>
+  );
 }
