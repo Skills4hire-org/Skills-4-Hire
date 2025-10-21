@@ -27,6 +27,7 @@ import FAQs from './pages/Faq'
 import Referral from './pages/Referral'
 import ServiceProviderProfile from './pages/ServiceProviderProfile'
 import ServiceProviderBooking from './pages/ServiceProviderBooking'
+import ApprovePayment from './pages/ApprovePayment'
 
 const router = createBrowserRouter([
   {
@@ -117,7 +118,10 @@ const router = createBrowserRouter([
       {
         path: 'wallet',
         element: <WalletLayout />,
-        children: [{ index: true, element: <Wallet /> }],
+        children: [
+          { index: true, element: <Wallet /> },
+          { path: 'approved', element: <ApprovePayment /> },
+        ],
       },
       {
         path: 'chats',
