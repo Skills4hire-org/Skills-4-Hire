@@ -467,11 +467,8 @@ export const referralPageData = {
   note: "Note: Your referrals must have 3 hires before you can withdraw.",
 };
 
-// export const paymentData = {
-//   from: "John Doe",
-//   to: "Jane Smith",
-//   title: "Graphic Design Project",
-//   amount: "₦50,000",
-//   comment: "Delivered successfully",
-//   rating: 5,
-// };
+export const mockWalletData = {
+  userName: "John Doe",
+  balance: 150500.0,
+  currency: "₦",
+};
