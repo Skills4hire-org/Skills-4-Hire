@@ -1,0 +1,113 @@
+import type { BookingInfo, ServiceProvider } from '@/utils/types'
+import { useDispatch, useSelector } from 'react-redux'
+import FormInput from '../form-fields/FormInput'
+import { handleBookingInfo, handleSteps } from '@/features/booking/bookingSlice'
+import { Label } from '../ui/label'
+import { Button } from '../ui/button'
+import FormTextArea from '../form-fields/FormTextArea'
+import PaymentDrawer from '../service-provider-booking/PaymentDrawer'
+import type { FormEvent } from 'react'
+
+export default function PaymentForm({
+  serviceProvider,
+}: {
+  serviceProvider: ServiceProvider | undefined
+}) {
+  const { info }: { info: BookingInfo } = useSelector(
+    (state: any) => state.bookingState
+  )
+
+  const serviceProviderInfo = {
+    name: info.serviceProviderName,
+    occupation: info.serviceProviderOccupation,
+    paymentAmount: info.paymentAmount,
+  }
+
+  const dispatch = useDispatch()
+  const handleInputChange = (field: string, value: string) => {
+    if (field === 'paymentAmount') {
+      const newValue = value.replace(/[^0-9]/g, '')
+      dispatch(
+        handleBookingInfo({
+          info: {
+            [field]: newValue,
+          },
+        })
+      )
+    } else {
+      dispatch(
+        handleBookingInfo({
+          info: {
+            [field]: value,
+          },
+        })
+      )
+    }
+  }
+  const handleStep = (step: number) => {
+    dispatch(handleSteps({ step }))
+  }
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    dispatch(
+      handleBookingInfo({
+        info: {
+          serviceProviderName: serviceProvider?.name,
+          serviceProviderOccupation: serviceProvider?.occupation,
+        },
+      })
+    )
+  }
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="relative w-full">
+        <Label
+          htmlFor="paymmentAmount"
+          className=" absolute font-normal  left-3 top-2 text-sm md:text-base"
+        >
+          Input Concluded Amount
+        </Label>
+        {/* input type */}
+        <FormInput
+          type="text"
+          name="paymentAmount"
+          required
+          value={info.paymentAmount}
+          handleInputChange={handleInputChange}
+          placeholder="0000"
+          className="rounded-md text-sm md:text-base pt-10 bg-gray-200 min-h-18 md:h-20 pl-7"
+        />
+        <span className="absolute top-10 md:top-11 left-3 text-lg md:text-xl ">
+          ₦
+        </span>
+      </div>
+      <div className="relative">
+        <Label
+          htmlFor="paymentRemark"
+          className=" absolute font-normal  left-3 top-2 text-sm md:text-base"
+        >
+          Remark
+        </Label>
+        <FormTextArea
+          name="paymentRemark"
+          value={info.paymentRemark}
+          rows={4}
+          handleInputChange={handleInputChange}
+          placeholder="What's this for? (optional)"
+          className="rounded-md text-sm md:text-base pt-10 bg-gray-200"
+        />
+      </div>
+      <div className="text-center space-x-6 md:space-x-10 mt-10 md:mb-8 relative">
+        <Button
+          type="button"
+          size="lg"
+          className="rounded-full px-8 text-base md:text-lg"
+          onClick={() => handleStep(2)}
+        >
+          Previous
+        </Button>
+        <PaymentDrawer {...serviceProviderInfo} />
+      </div>
+    </form>
+  )
+}

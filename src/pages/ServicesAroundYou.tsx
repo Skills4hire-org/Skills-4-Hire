@@ -1,6 +1,6 @@
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
-import ServiceAroundYouCard from '@/components/services/ServiceProviderCard'
+import ServiceAroundYouCard from '@/components/service-provider/ServiceProviderCard'
 import { serviceAround } from '@/utils/database'
 import { ChevronLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'

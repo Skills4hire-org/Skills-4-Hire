@@ -1,0 +1,79 @@
+import type { ServiceProvider, ServiceProviderServiceCard } from '@/utils/types'
+import Container from '../global/Container'
+import SectionHeading from './SectionHeading'
+import ServiceProviderBookingCard from '../service-provider/ServiceProviderBookingCard'
+import { useSelector } from 'react-redux'
+import ServiceProviderServicesCard from '../service-provider/ServiceProviderServicesCard'
+import { Plus, X } from 'lucide-react'
+import BookingDateTimeForm from '../form/BookingDateTimeForm'
+import { useState } from 'react'
+
+export default function BookingDateTime({
+  serviceProvider,
+}: {
+  serviceProvider: ServiceProvider | undefined
+}) {
+  const [showAllServices, setShowAllServices] = useState(false)
+  const { services }: { services: ServiceProviderServiceCard[] } = useSelector(
+    (state: any) => state.bookingState
+  )
+  const servicesIds = services.map((service) => service.id)
+
+  return (
+    <>
+      <SectionHeading title="Items selected" />
+      <Container>
+        {serviceProvider && (
+          <div className="grid grid-cols-1 mb-4">
+            <ServiceProviderBookingCard {...serviceProvider} />
+          </div>
+        )}
+
+        {services && (
+          <div className={`space-y-4 ${services.length !== 0 && 'mb-4'}`}>
+            {services.map((service) => (
+              <ServiceProviderServicesCard key={service.id} {...service} />
+            ))}
+          </div>
+        )}
+        {showAllServices && (
+          <div
+            className={`space-y-4 ${
+              serviceProvider && serviceProvider?.services.length > 0 && 'mb-4'
+            }`}
+          >
+            {serviceProvider?.services
+              .filter((service) => !servicesIds.includes(service.id))
+              ?.map((service) => (
+                <ServiceProviderServicesCard key={service.id} {...service} />
+              ))}
+          </div>
+        )}
+
+        <div className="text-center">
+          {showAllServices ? (
+            <button
+              className="rounded-full text-center bg-destructive text-white md:py-0.5 px-3.5"
+              onClick={() => setShowAllServices(false)}
+            >
+              <X strokeWidth={3} className="w-5 h-5 md:w-6 md:h-6" />
+              <span className="sr-only">hide services</span>
+            </button>
+          ) : (
+            <button
+              className="rounded-full text-center bg-primary text-white md:py-0.5 px-3.5 "
+              onClick={() => setShowAllServices(true)}
+            >
+              <Plus strokeWidth={3} className="w-5 h-5 md:w-6 md:h-6" />
+              <span className="sr-only">show all services</span>
+            </button>
+          )}
+        </div>
+      </Container>
+      <SectionHeading title="Details" />
+      <Container>
+        <BookingDateTimeForm />
+      </Container>
+    </>
+  )
+}

@@ -7,7 +7,7 @@ import SectionHeading from '@/components/services/SectionHeading'
 import { availableServices, serviceAround } from '@/utils/database'
 import { Link } from 'react-router-dom'
 import Container from '@/components/global/Container'
-import ServiceProviderCard from '@/components/services/ServiceProviderCard'
+import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
 import ServicesCard from '@/components/services/ServicesCard'
 import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
 

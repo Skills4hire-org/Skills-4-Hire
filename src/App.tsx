@@ -25,6 +25,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Notification from './pages/Notification'
 import FAQs from './pages/Faq'
 import Referral from './pages/Referral'
+import ServiceProviderProfile from './pages/ServiceProviderProfile'
+import ServiceProviderBooking from './pages/ServiceProviderBooking'
 
 const router = createBrowserRouter([
   {
@@ -99,6 +101,14 @@ const router = createBrowserRouter([
             element: <Referral />,
           },
         ],
+      },
+      {
+        path: 'service-provider/:id',
+        element: <ServiceProviderProfile />,
+      },
+      {
+        path: 'service-provider/:id/booking',
+        element: <ServiceProviderBooking />,
       },
       {
         path: 'bookings',

@@ -2,6 +2,7 @@ import { Star } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { currencyFormatter } from '@/utils/format'
 import AddToFavoriteForm from '../form/AddToFavoriteForm'
+import { Link } from 'react-router-dom'
 
 interface ServiceProviderCardProp {
   id: number
@@ -19,6 +20,7 @@ interface ServiceProviderCardProp {
 }
 
 export default function ServiceProviderCard({
+  id,
   name,
   online,
   occupation,
@@ -33,14 +35,16 @@ export default function ServiceProviderCard({
 }: ServiceProviderCardProp) {
   return (
     <div className="rounded-r-md flex bg-white shadow-md">
-      <figure className="rounded-tr-4xl ">
-        <img
-          src={image}
-          alt={occupation}
-          className="max-w-24 md:max-w-42 h-full object-cover rounded-tr-4xl"
-          loading="lazy"
-        />
-      </figure>
+      <Link to={`/customer/service-provider/${id}`}>
+        <figure className="rounded-tr-4xl h-full ">
+          <img
+            src={image}
+            alt={occupation}
+            className="max-w-24 md:max-w-42 h-full object-cover rounded-tr-4xl"
+            loading="lazy"
+          />
+        </figure>
+      </Link>
       <div className="flex flex-1 flex-row gap-2 items-center justify-between p-2 md:p-4">
         <div className="space-y-1 md:gap-2">
           <div className="flex items-center gap-1 md:gap-2">

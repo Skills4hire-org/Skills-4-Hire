@@ -6,7 +6,7 @@ interface FormTextAreaProp {
   label?: string
   value: string
   handleInputChange: (key: string, value: any) => void
-  placeholder: string
+  placeholder?: string
   rows: number
   required?: boolean
   className?: string
@@ -38,7 +38,7 @@ export default function FormTextArea({
         placeholder={placeholder}
         rows={rows}
         required={required}
-        className={`${className} text-sm md:text-base`}
+        className={`${className}`}
       />
     </div>
   )

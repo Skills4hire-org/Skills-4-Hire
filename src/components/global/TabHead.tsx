@@ -18,7 +18,7 @@ export default function TabHead({
           </TabsTrigger>
         )
       })}
-      <span className="absolute z-40 w-full bottom-0 border-b-4 border-b-red-100"></span>
+      <span className="absolute z-40 w-full bottom-0 border-b-4" />
     </TabsList>
   )
 }

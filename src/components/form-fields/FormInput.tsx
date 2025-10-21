@@ -6,7 +6,7 @@ interface FormInputFieldProp {
   label?: string
   value: string
   handleInputChange: (key: string, value: any) => void
-  placeholder: string
+  placeholder?: string
   type: string
   min?: string
   required?: boolean

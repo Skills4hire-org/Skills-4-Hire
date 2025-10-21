@@ -1,7 +1,7 @@
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
-import ServiceAroundYouCard from '@/components/services/ServiceProviderCard'
+import ServiceAroundYouCard from '@/components/service-provider/ServiceProviderCard'
 import { serviceAround } from '@/utils/database'
 
 export default function ServicesSearch() {

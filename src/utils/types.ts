@@ -33,3 +33,72 @@ export type TransactionHistory = {
   status: string
   amount: number
 }
+export type PostCard = {
+  profile: string
+  name: string
+  location: string
+  service: string
+  rating: string
+  reviews: string
+  tags: string[]
+  description: string
+  stats: FeedStats
+}
+
+export type ServiceProvider = {
+  id: number
+  name: string
+  online: boolean
+  occupation: string
+  verified: boolean
+  desc: string
+  features: string
+  minCharge: number
+  averageRating: number
+  totalReviews: number
+  image: string
+  favorite: boolean
+  maxCharge: number
+  address: string
+  totalJobs: number
+  about: string
+  gallery: string[]
+  posts: PostCard[]
+  postImages: string[]
+  services: {
+    id: number
+    image: string
+    desc: string
+    price: number
+  }[]
+  comments: [] | never[]
+  accountNumber: string
+}
+
+export type FeedStats = {
+  likes: number
+  comments: number
+  shares: number
+  impressions: number
+}
+
+export type ServiceProviderServiceCard = {
+  id: number
+  image: string
+  desc: string
+  price: number
+}
+
+export type BookingInfo = {
+  emergency: boolean
+  notes: string
+  date: string
+  time: string
+  type: 'onsite' | 'remote' | null
+  address: string
+  savedAddress: string
+  paymentAmount: string
+  paymentRemark: string
+  serviceProviderName: string
+  serviceProviderOccupation: string
+}
