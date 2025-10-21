@@ -33,7 +33,7 @@ export default function PaymentDrawer({
   ]
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger asChild>
         <Button
           type="submit"
           size="lg"

@@ -62,7 +62,7 @@ export default function PaymentForm({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="relative w-full">
         <Label
-          htmlFor="paymmentAmount"
+          htmlFor="paymentAmount"
           className=" absolute font-normal  left-3 top-2 text-sm md:text-base"
         >
           Input Concluded Amount
