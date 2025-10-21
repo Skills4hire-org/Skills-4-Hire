@@ -28,6 +28,8 @@ import Referral from './pages/Referral'
 import ServiceProviderProfile from './pages/ServiceProviderProfile'
 import ServiceProviderBooking from './pages/ServiceProviderBooking'
 import ApprovePayment from './pages/ApprovePayment'
+import Withdraw from './components/wallet/Withdraw'
+import WalletSend from './components/wallet/WalletSend'
 
 const router = createBrowserRouter([
   {
@@ -121,6 +123,8 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Wallet /> },
           { path: 'approved', element: <ApprovePayment /> },
+          { path: 'withdraw', element: <Withdraw /> },
+          { path: 'send', element: <WalletSend /> },
         ],
       },
       {

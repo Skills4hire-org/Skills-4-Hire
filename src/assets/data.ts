@@ -19,6 +19,7 @@ import {
   ShieldAlert,
   Wallet,
 } from 'lucide-react'
+import { CreditCard, User, DollarSign, Search, Users } from 'lucide-react'
 import { BsHeart } from 'react-icons/bs'
 import {
   FaWhatsapp,
@@ -230,11 +231,88 @@ export const walletTabsList = [
   },
 ]
 
-export const walletActions = [
-  { label: 'Send', icon: Send },
-  { label: 'Receive', icon: ArrowDownUp },
-  { label: 'Deposit', icon: Banknote },
-  { label: 'Withdraw', icon: Wallet },
+export interface WalletAction {
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+  path: string
+}
+
+export const walletActions: WalletAction[] = [
+  { label: 'Send', icon: Send, path: 'send' },
+  { label: 'Receive', icon: ArrowDownUp, path: 'receive' },
+  { label: 'Deposit', icon: Banknote, path: 'deposit' },
+  { label: 'Withdraw', icon: Wallet, path: 'withdraw' },
+]
+
+export const approvePaymentData = {
+  title: 'Payment',
+  section: 'Pending',
+  description:
+    'Payment for the service will remain pending until the service provider has successfully completed the agreed-upon task.',
+  fields: ['From', 'To', 'Title', 'Amount', 'Comment', 'Rating'],
+  buttonLabel: 'Approve',
+}
+
+export const withdrawFields = [
+  {
+    id: 'bank',
+    label: 'Select a Bank',
+    icon: Banknote,
+    type: 'select',
+    showChevron: true,
+  },
+  {
+    id: 'accountNumber',
+    label: 'Account Number',
+    icon: User,
+    type: 'text',
+    showChevron: true,
+  },
+  {
+    id: 'amount',
+    label: 'Amount (NGN)',
+    icon: CreditCard,
+    type: 'number',
+    showChevron: false,
+  },
+]
+
+export const withdrawData = {
+  balance: 0.0,
+  minWithdraw: 1000.0,
+  title: 'Deposit',
+  sectionLabel: 'Withdraw',
+  buttonLabel: 'Withdraw',
+}
+
+export const transferModes = [
+  {
+    key: 'inApp',
+    label: 'In-App Transfer',
+    icon: Users,
+    description: 'Send money instantly to any other user on the platform.',
+  },
+  {
+    key: 'bankTransfer',
+    label: 'Bank Transfer',
+    icon: Banknote,
+    description:
+      'Transfer funds to external bank accounts (Service Providers/Customers).',
+  },
+]
+
+export const sendInputIcons = {
+  amount: DollarSign,
+  search: Search,
+  bank: Banknote,
+}
+
+export const bankOptions = [
+  'Select Bank',
+  'First Bank PLC',
+  'Zenith Bank',
+  'Guaranty Trust Bank',
+  'Access Bank',
 ]
 
 export const customerHomeNavLinks = [
