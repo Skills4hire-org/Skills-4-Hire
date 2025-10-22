@@ -17,9 +17,9 @@ export default function BookingPayment({
         <div className="space-y-4 md:space-y-6">
           <div className="flex items-center gap-3">
             <ProfileImage noStatus />
-            <div className="flex flex-col items-center justify-center gap-1">
+            <div className="flex flex-col items-center justify-center gap-0.5">
               <h3 className="text-sm">{serviceProvider?.name}</h3>
-              <Badge className="capitalize bg-gray-300 text-foreground px-2 pb-1">
+              <Badge className="capitalize bg-gray-300 text-foreground px-2 pb-1 ">
                 {serviceProvider?.occupation}
               </Badge>
             </div>

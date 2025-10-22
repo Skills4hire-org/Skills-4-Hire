@@ -122,7 +122,7 @@ const router = createBrowserRouter([
         element: <WalletLayout />,
         children: [
           { index: true, element: <Wallet /> },
-          { path: 'approved', element: <ApprovePayment /> },
+          { path: 'approve', element: <ApprovePayment /> },
           { path: 'withdraw', element: <Withdraw /> },
           { path: 'send', element: <WalletSend /> },
         ],

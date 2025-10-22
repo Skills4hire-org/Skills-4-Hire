@@ -1,10 +1,16 @@
 import { User } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
-export default function ProfileImage({ noStatus }: { noStatus?: boolean }) {
+export default function ProfileImage({
+  noStatus,
+  size,
+}: {
+  noStatus?: boolean
+  size?: string
+}) {
   return (
     <div className="relative w-max cursor-pointer">
-      <Avatar className="size-12">
+      <Avatar className={`${size ? size : 'size-12'}`}>
         <AvatarImage src="" />
         <AvatarFallback>
           <User className="w-4 h-4" />

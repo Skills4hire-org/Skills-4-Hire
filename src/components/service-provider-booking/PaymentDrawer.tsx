@@ -11,6 +11,7 @@ import {
 import { Separator } from '../ui/separator'
 import { Check, Wallet } from 'lucide-react'
 import { user } from '@/utils/database'
+import ProfileImage from '../global/ProfileImage'
 
 export default function PaymentDrawer({
   name,
@@ -61,12 +62,17 @@ export default function PaymentDrawer({
             {content.map(({ title, value }) => (
               <li key={title} className="flex items-center justify-between">
                 <span className="text-muted-foreground">{title}</span>
-                <span className="capitalize text-foreground">{value}</span>
+                <span className="capitalize text-foreground flex items-center gap-1">
+                  {title == 'Handyman' && (
+                    <ProfileImage size="size-8" noStatus />
+                  )}
+                  {value}
+                </span>
               </li>
             ))}
           </ul>
           <Separator />
-          <div className="bg-gray-300 px-2 py-4 rounded-md flex items-center justify-between font-medium">
+          <div className="bg-gray-300 px-2 py-2.5 md:py-4 rounded-md flex items-center justify-between font-medium">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1">
                 <Wallet className="w-10 h-10 md:w-12 md:h-12 text-white bg-primary p-2 rounded-full" />
