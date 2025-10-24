@@ -20,7 +20,6 @@ import {
   Wallet,
 } from 'lucide-react'
 import { CreditCard, User, DollarSign, Search, Users } from 'lucide-react'
-import { BsHeart } from 'react-icons/bs'
 import {
   FaWhatsapp,
   FaFacebookF,
@@ -30,7 +29,7 @@ import {
 } from 'react-icons/fa6'
 import img1 from './Rectangle 20.png'
 import img2 from './Rectangle 21.png'
-import { TbArticle, TbAward, TbHeart, TbStar } from 'react-icons/tb'
+import { TbArticle, TbAward, TbHeart, TbStar, TbUser } from 'react-icons/tb'
 
 export const images = [img1, img2, img1]
 
@@ -58,12 +57,12 @@ export const sidebarMobileGeneral = [
 ]
 export const sidebarDesktopGeneral = [
   {
-    icon: BsHeart,
+    icon: TbUser,
     label: 'profile',
-    url: '/',
+    url: '/customer/profile',
   },
   {
-    icon: BsHeart,
+    icon: TbHeart,
     label: 'favorites',
     url: '/customer/favorites',
   },
@@ -78,7 +77,7 @@ export const sidebarDesktopGeneral = [
     url: '/customer/rewards',
   },
   {
-    icon: BsHeart,
+    icon: TbStar,
     label: 'my reviews',
     url: '/',
   },
@@ -489,3 +488,14 @@ export const bookingProgress = [
 ]
 
 export const workTypes = ['onsite', 'remote']
+
+export const genderOptions = [
+  {
+    label: 'Male',
+    value: 'male',
+  },
+  {
+    label: 'Female',
+    value: 'female',
+  },
+]

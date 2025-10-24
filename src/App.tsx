@@ -30,6 +30,7 @@ import ServiceProviderBooking from './pages/ServiceProviderBooking'
 import ApprovePayment from './pages/ApprovePayment'
 import Withdraw from './components/wallet/Withdraw'
 import WalletSend from './components/wallet/WalletSend'
+import CustomerProfile from './pages/CustomerProfile'
 
 const router = createBrowserRouter([
   {
@@ -150,6 +151,10 @@ const router = createBrowserRouter([
       {
         path: 'referral',
         element: <Referral />,
+      },
+      {
+        path: 'profile',
+        element: <CustomerProfile />,
       },
     ],
   },

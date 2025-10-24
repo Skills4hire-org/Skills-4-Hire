@@ -13,10 +13,12 @@ interface FormSelectFieldProp {
   label?: string
   value: string
   handleInputChange: (key: string, value: any) => void
-  placeholder: string
+  placeholder?: string
   required?: boolean
   selectItems: SelectItems[]
   className?: string
+  disabled?: boolean
+  handleBlur?: () => void
 }
 
 export default function FormSelect({
@@ -28,6 +30,8 @@ export default function FormSelect({
   selectItems,
   required,
   className,
+  disabled,
+  handleBlur,
 }: FormSelectFieldProp) {
   return (
     <div className="space-y-2">
@@ -41,7 +45,9 @@ export default function FormSelect({
         value={value}
         onValueChange={(value) => handleInputChange(name, value)}
         required={required}
+        disabled={disabled}
         name={name}
+        onOpenChange={handleBlur}
       >
         <SelectTrigger
           className={`w-full relative ${className} text-sm md:text-base pl-4 [&>svg]:hidden sm:[&>svg]:block`}

@@ -8,9 +8,10 @@ import Rect18 from '../assets/Rectangle 18.png'
 import Rect19 from '../assets/Rectangle 19.png'
 
 export const user = {
-  profileImage: '',
+  profileImage: null,
   firstName: 'Leo',
   lastName: 'Justin',
+  email: 'joshuafriday@gmail.com',
   verified: true,
   service: 'plumber',
   rating: 4,
@@ -18,6 +19,8 @@ export const user = {
   address: '2, Gandi Street, Ikorodu, Lagos',
   availableBalance: 77000,
   savedAddresses: ['2, Gandi Street, Ikorodu, Lagos'],
+  phone: '08123456789',
+  gender: 'male',
 }
 
 export const availableServices = [
@@ -583,7 +586,7 @@ export const referralPageData = {
 }
 
 export const mockWalletData = {
-  userName: "John Doe",
+  userName: 'John Doe',
   balance: 150500.0,
-  currency: "₦",
-};
+  currency: '₦',
+}

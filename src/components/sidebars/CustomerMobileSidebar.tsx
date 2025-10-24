@@ -55,7 +55,10 @@ export default function CustomerMobileSidebar() {
               {`${user?.totalReviews} review${user?.totalReviews > 1 && 's'}`}{' '}
             </span>
           </div>
-          <Link to="" className="capitalize text-primary underline text-sm">
+          <Link
+            to="/customer/profile"
+            className="capitalize text-primary underline text-sm"
+          >
             view profile
           </Link>
         </div>

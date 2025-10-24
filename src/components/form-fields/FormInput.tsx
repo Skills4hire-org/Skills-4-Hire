@@ -12,6 +12,7 @@ interface FormInputFieldProp {
   required?: boolean
   disabled?: boolean
   className?: string
+  handleBlur?: () => void
 }
 
 export default function FormInput({
@@ -25,6 +26,7 @@ export default function FormInput({
   required,
   disabled,
   className,
+  handleBlur,
 }: FormInputFieldProp) {
   return (
     <div className="space-y-1.5">
@@ -44,6 +46,7 @@ export default function FormInput({
         required={required}
         disabled={disabled}
         className={`${className} text-sm md:text-base`}
+        onBlur={handleBlur}
       />
     </div>
   )
