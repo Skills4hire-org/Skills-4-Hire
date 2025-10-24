@@ -102,3 +102,12 @@ export type BookingInfo = {
   serviceProviderName: string
   serviceProviderOccupation: string
 }
+
+export type ProfileFormData = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  gender: string
+  profileImage: string
+}
