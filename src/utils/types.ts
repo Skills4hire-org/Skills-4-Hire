@@ -62,7 +62,7 @@ export type ServiceProvider = {
   address: string
   totalJobs: number
   about: string
-  gallery: string[]
+  gallery: string[] | null
   posts: PostCard[]
   postImages: string[]
   services: {

@@ -81,7 +81,7 @@ export const serviceAround = [
     totalJobs: 20,
     about:
       'We provide reliable, high-quality plumbing services tailored to meet your needs. From repairs and installations to maintenance and emergency services, our experienced team ensures efficient and long-lasting solutions. We take pride in our professionalism, prompt response, and commitment to customer satisfaction. Whether it’s a leaky faucet, clogged drain, or a full plumbing system installation, we’ve got you covered.',
-    gallery: [servicesImage1, servicesImage2],
+    gallery: null,
     posts: [
       {
         profile: AdminProfile,
@@ -133,7 +133,7 @@ export const serviceAround = [
     totalJobs: 10,
     about:
       'We provide reliable, high-quality plumbing services tailored to meet your needs. From repairs and installations to maintenance and emergency services, our experienced team ensures efficient and long-lasting solutions. We take pride in our professionalism, prompt response, and commitment to customer satisfaction. Whether it’s a leaky faucet, clogged drain, or a full plumbing system installation, we’ve got you covered.',
-    gallery: [servicesImage1, servicesImage2],
+    gallery: null,
     posts: [
       {
         profile: AdminProfile,
@@ -185,7 +185,7 @@ export const serviceAround = [
     totalJobs: 1,
     about:
       'We provide reliable, high-quality plumbing services tailored to meet your needs. From repairs and installations to maintenance and emergency services, our experienced team ensures efficient and long-lasting solutions. We take pride in our professionalism, prompt response, and commitment to customer satisfaction. Whether it’s a leaky faucet, clogged drain, or a full plumbing system installation, we’ve got you covered.',
-    gallery: [servicesImage1, servicesImage2],
+    gallery: null,
     posts: [
       {
         profile: AdminProfile,
