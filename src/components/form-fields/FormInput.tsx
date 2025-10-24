@@ -47,6 +47,7 @@ export default function FormInput({
         disabled={disabled}
         className={`${className} text-sm md:text-base`}
         onBlur={handleBlur}
+        autoComplete="true"
       />
     </div>
   )
