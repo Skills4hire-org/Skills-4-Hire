@@ -75,9 +75,9 @@ export default function PaymentForm({
           value={info.paymentAmount}
           handleInputChange={handleInputChange}
           placeholder="0000"
-          className="rounded-md text-sm md:text-base pt-10 bg-gray-200 min-h-18 md:h-20 pl-7"
+          className="rounded-md text-sm md:text-base pt-8 md:pt-10 bg-gray-200 min-h-18 md:h-20 pl-7"
         />
-        <span className="absolute top-10 md:top-11 left-3 text-lg md:text-xl ">
+        <span className="absolute top-9 md:top-11 left-3 text-lg md:text-xl ">
           ₦
         </span>
       </div>
@@ -94,7 +94,7 @@ export default function PaymentForm({
           rows={4}
           handleInputChange={handleInputChange}
           placeholder="What's this for? (optional)"
-          className="rounded-md text-sm md:text-base pt-10 bg-gray-200"
+          className="rounded-md text-sm md:text-base pt-8 md:pt-10 bg-gray-200"
         />
       </div>
       <div className="text-center space-x-6 md:space-x-10 mt-10 md:mb-8 relative">

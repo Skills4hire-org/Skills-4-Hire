@@ -62,7 +62,7 @@ export type ServiceProvider = {
   address: string
   totalJobs: number
   about: string
-  gallery: string[]
+  gallery: string[] | null
   posts: PostCard[]
   postImages: string[]
   services: {
@@ -101,4 +101,13 @@ export type BookingInfo = {
   paymentRemark: string
   serviceProviderName: string
   serviceProviderOccupation: string
+}
+
+export type ProfileFormData = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  gender: string
+  profileImage: string
 }

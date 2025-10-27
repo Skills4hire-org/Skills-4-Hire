@@ -1,20 +1,20 @@
-import { ChevronLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import Container from "../global/Container";
+import { ChevronLeft } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import Container from '../global/Container'
 
 export default function HeaderWithBackNavigation({
   title,
   onlyMobile,
 }: {
-  title: string;
-  onlyMobile?: boolean;
+  title: string
+  onlyMobile?: boolean
 }) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <Container
       className={`bg-white py-2 md:py-4 border-b border-gray-100 ${
-        onlyMobile && "md:hidden"
+        onlyMobile && 'md:hidden'
       }`}
     >
       <div className="relative flex items-center justify-center">
@@ -26,10 +26,10 @@ export default function HeaderWithBackNavigation({
           <span className="sr-only">Back</span>
         </button>
 
-        <h1 className="font-bold text-center text-base md:text-xl truncate px-8">
+        <h1 className="font-bold text-center text-lg md:text-2xl truncate px-8">
           {title}
         </h1>
       </div>
     </Container>
-  );
+  )
 }

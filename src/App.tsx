@@ -30,7 +30,7 @@ import ServiceProviderBooking from './pages/ServiceProviderBooking'
 import ApprovePayment from './pages/ApprovePayment'
 import Withdraw from './components/wallet/Withdraw'
 import WalletSend from './components/wallet/WalletSend'
-import SingleService from './pages/SingleService'
+import CustomerProfile from './pages/CustomerProfile'
 
 const router = createBrowserRouter([
   {
@@ -90,7 +90,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'available-services/:service',
-            element: <SingleService />,
+            element: <AvailableServices />,
           },
           {
             path: 'services-around-you',
@@ -123,7 +123,7 @@ const router = createBrowserRouter([
         element: <WalletLayout />,
         children: [
           { index: true, element: <Wallet /> },
-          { path: 'approved', element: <ApprovePayment /> },
+          { path: 'approve', element: <ApprovePayment /> },
           { path: 'withdraw', element: <Withdraw /> },
           { path: 'send', element: <WalletSend /> },
         ],
@@ -151,6 +151,10 @@ const router = createBrowserRouter([
       {
         path: 'referral',
         element: <Referral />,
+      },
+      {
+        path: 'profile',
+        element: <CustomerProfile />,
       },
     ],
   },
