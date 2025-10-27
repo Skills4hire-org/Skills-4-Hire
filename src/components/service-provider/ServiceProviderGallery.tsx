@@ -3,7 +3,7 @@ import emptyGallery from '../../assets/images/gallery.png'
 export default function ServiceProviderGallery({
   gallery,
 }: {
-  gallery: string[] | undefined
+  gallery: string[] | undefined | null
 }) {
   const defaultGallery = [emptyGallery, emptyGallery]
   const serviceProviderGallery = gallery ?? defaultGallery
