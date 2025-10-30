@@ -252,7 +252,7 @@ export const approvePaymentData = {
   section: "Pending",
   description:
     "Payment for the service will remain pending until the service provider has successfully completed the agreed-upon task.",
-  fields: ["From", "To", "Title", "Amount", "Comment", "Rating"],
+  fields: ["From", "To", "Title", "Amount", "Comment"],
   buttonLabel: "Approve",
 };
 
@@ -410,6 +410,12 @@ export const aboutContactOptions = [
 
 export const socialLinks = [
   {
+    id: "linkedin",
+    href: "https://www.linkedin.com/company/skills4hire",
+    Icon: FaLinkedinIn,
+    bgClass: "bg-[#0A66C2] rounded-full",
+  },
+  {
     id: "facebook",
     href: "https://www.facebook.com/profile.php?id=61581913121945",
     Icon: FaFacebookF,
@@ -507,7 +513,6 @@ export const genderOptions = [
 export const mockServices = [
   {
     id: "1",
-    title: "Leak Repairs",
     provider: "Joshua Friday",
     rating: 4,
     priceFrom: 800,
@@ -516,7 +521,6 @@ export const mockServices = [
   },
   {
     id: "2",
-    title: "Maintenance",
     provider: "Joshua Friday",
     rating: 5,
     priceFrom: 1200,
@@ -525,7 +529,6 @@ export const mockServices = [
   },
   {
     id: "3",
-    title: "Drain Cleaning",
     provider: "Joshua Friday",
     rating: 4,
     priceFrom: 1500,
