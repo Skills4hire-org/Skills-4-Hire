@@ -21,6 +21,60 @@ export const user = {
   savedAddresses: ['2, Gandi Street, Ikorodu, Lagos'],
   phone: '08123456789',
   gender: 'male',
+  favorites: [
+    {
+      id: 1,
+      name: 'Joshua Friday',
+      online: true,
+      occupation: 'barber',
+      verified: true,
+      desc: 'Men and Kids Ultimate grooming Hair',
+      features: 'Efficient and Reliable',
+      minCharge: 800,
+      averageRating: 4.8,
+      totalReviews: 12,
+      image: servicesAroundImage1,
+      favorite: true,
+      maxCharge: 90000,
+      address: 'No.19 IyeruOkin Street, Tanke Ilorin',
+      totalJobs: 20,
+      about:
+        'We provide reliable, high-quality plumbing services tailored to meet your needs. From repairs and installations to maintenance and emergency services, our experienced team ensures efficient and long-lasting solutions. We take pride in our professionalism, prompt response, and commitment to customer satisfaction. Whether it’s a leaky faucet, clogged drain, or a full plumbing system installation, we’ve got you covered.',
+      gallery: null,
+      posts: [
+        {
+          profile: AdminProfile,
+          name: 'Michael Chen',
+          location: 'Lagos',
+          service: 'Plumbing Services',
+          rating: '4.9',
+          reviews: '234',
+          title: 'Affordable plumbing services',
+          description:
+            'Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years.',
+          tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
+          stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
+        },
+      ],
+      postImages: [servicesAroundImage1, servicesAroundImage2],
+      services: [
+        {
+          id: 1,
+          image: servicesImage1,
+          desc: 'Fixing leaks (pipes, faucets)',
+          price: 25000,
+        },
+        {
+          id: 2,
+          image: servicesImage1,
+          desc: 'Fixing leaks (pipes, faucets)',
+          price: 20000,
+        },
+      ],
+      comments: [],
+      accountNumber: '1234567890',
+    },
+  ],
 }
 
 export const availableServices = [

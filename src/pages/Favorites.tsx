@@ -1,9 +1,8 @@
-import { favoritesTabList } from '@/assets/data'
-import FavoritesTabContent from '@/components/favorites/FavoritesTabContent'
+import NoFavoriteCard from '@/components/favorites/NoFavoriteCard'
 import Container from '@/components/global/Container'
-import TabHead from '@/components/global/TabHead'
 import MobileWithAvatarAndDesktopHeader from '@/components/header/MobileWithAvatarAndDesktopHeader'
-import { Tabs } from '@/components/ui/tabs'
+import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
+import { user } from '@/utils/database'
 
 export default function Favorites() {
   return (
@@ -12,11 +11,10 @@ export default function Favorites() {
         <MobileWithAvatarAndDesktopHeader title="Favorites" />
       </Container>
       <Container>
-        <Tabs defaultValue="favorite-services">
-          <TabHead tabList={favoritesTabList} />
-          <FavoritesTabContent />
-        </Tabs>
-        <></>
+        {user?.favorites.map((favorite) => (
+          <ServiceProviderCard key={favorite.id} {...favorite} />
+        ))}
+        {user?.favorites.length === 0 && <NoFavoriteCard />}
       </Container>
     </div>
   )

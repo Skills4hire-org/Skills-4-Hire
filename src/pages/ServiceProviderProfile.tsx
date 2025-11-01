@@ -25,14 +25,14 @@ export default function ServiceProviderProfile() {
         </Container>
       </div>
 
-      <div className="flex items-center justify-center gap-10 fixed left-1/2 -translate-x-1/2 bottom-16 md:bottom-4 md:ml-[6rem] z-50">
+      <div className="flex items-center justify-center gap-8 md:gap-10 fixed left-1/2 -translate-x-1/2 bottom-16 md:bottom-4 md:ml-[6rem] z-50">
         <Link to="/customer/chats">
-          <Button className="bg-green-700 rounded-sm hover:bg-green-700/80">
+          <Button className="bg-green-700 rounded-sm hover:bg-green-700/80 w-30">
             Message Me
           </Button>
         </Link>
         <Link to={`/customer/service-provider/${serviceProvider?.id}/booking`}>
-          <Button>Book Me</Button>
+          <Button className="w-30">Book Me</Button>
         </Link>
       </div>
     </>

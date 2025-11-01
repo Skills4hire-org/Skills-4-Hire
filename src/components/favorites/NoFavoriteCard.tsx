@@ -1,6 +1,6 @@
 import { Heart, Star, ThumbsUp } from 'lucide-react'
 
-export default function NoFavoriteCard({ label }: { label: string }) {
+export default function NoFavoriteCard() {
   return (
     <div className="space-y-10 flex flex-col items-center py-20 justify-center md: py-30">
       <div className="flex items-center">
@@ -15,7 +15,7 @@ export default function NoFavoriteCard({ label }: { label: string }) {
         </div>
       </div>
       <p className="text-sm md:text-base text-muted-foreground">
-        No {label} yet
+        No favorites yet
       </p>
     </div>
   )
