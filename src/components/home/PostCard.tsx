@@ -7,6 +7,7 @@ import {
   Star,
   MapPin,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function PostCard({
   profile,
@@ -28,13 +29,16 @@ export default function PostCard({
     <div className="bg-white rounded-2xl shadow p-2.5 md:p-4 space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          {profile && (
-            <img
-              src={profile}
-              alt={name ?? 'profile'}
-              className="w-12 h-12 rounded-full object-cover"
-            />
-          )}
+          {/* url format - customer/service-provider/id where id is the service provider id */}
+          <Link to="/">
+            {profile && (
+              <img
+                src={profile}
+                alt={name ?? 'profile'}
+                className="w-12 h-12 rounded-full object-cover"
+              />
+            )}
+          </Link>
 
           <div className="min-w-0">
             <div className="flex items-center gap-2 text-sm text-gray-500">

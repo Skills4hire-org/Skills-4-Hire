@@ -55,7 +55,7 @@ const router = createBrowserRouter([
     element: <Verification />,
   },
   {
-    path: 'customer',
+    path: ':userRole',
     element: <CustomerLayout />,
     children: [
       {
@@ -100,10 +100,6 @@ const router = createBrowserRouter([
           {
             path: 'search',
             element: <ServicesSearch />,
-          },
-          {
-            path: 'referral',
-            element: <Referral />,
           },
         ],
       },

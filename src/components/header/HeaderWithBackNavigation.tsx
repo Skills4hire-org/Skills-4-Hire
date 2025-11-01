@@ -6,7 +6,7 @@ export default function HeaderWithBackNavigation({
   title,
   onlyMobile,
 }: {
-  title: string
+  title: string | undefined
   onlyMobile?: boolean
 }) {
   const navigate = useNavigate()

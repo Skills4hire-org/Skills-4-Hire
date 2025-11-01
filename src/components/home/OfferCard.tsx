@@ -31,9 +31,7 @@ export default function OfferCard({
           </span>
         )}
       </div>
-
       <p className="text-sm text-gray-600">{description}</p>
-
       {media && (
         <div className="mt-3 grid grid-cols-2 gap-2">
           {media.map((img, i) => (

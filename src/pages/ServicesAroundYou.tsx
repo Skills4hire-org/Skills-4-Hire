@@ -1,6 +1,6 @@
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
-import ServiceAroundYouCard from '@/components/service-provider/ServiceProviderCard'
+import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
 import { serviceAround } from '@/utils/database'
 import { ChevronLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -33,7 +33,7 @@ export default function ServicesAroundYou() {
           </div>
           <div className="grid grid-cols-1 gap-4">
             {serviceAround.map((service) => (
-              <ServiceAroundYouCard key={service.id} {...service} />
+              <ServiceProviderCard key={service.id} {...service} />
             ))}
           </div>
         </div>

@@ -1,15 +1,17 @@
-import { ChevronDown, Star, Heart } from "lucide-react";
-import Container from "@/components/global/Container";
-import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
-import SearchBar from "@/components/global/SearchBar";
-import ProfileImage from "@/components/global/ProfileImage";
-import { mockServices } from "@/assets/data";
+import { ChevronDown, Star, Heart } from 'lucide-react'
+import Container from '@/components/global/Container'
+import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
+import SearchBar from '@/components/global/SearchBar'
+import ProfileImage from '@/components/global/ProfileImage'
+import { mockServices } from '@/assets/data'
+import { useParams } from 'react-router-dom'
 
 export default function SingleService() {
+  const { service } = useParams()
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="md:hidden">
-        <HeaderWithBackNavigation title="Plumber" onlyMobile />
+      <div className="md:hidden capitalize">
+        <HeaderWithBackNavigation title={service} onlyMobile />
       </div>
 
       <Container className="py-3 md:py-6">
@@ -18,7 +20,7 @@ export default function SingleService() {
         </div>
 
         <div className="hidden md:flex items-center justify-center gap-3">
-          {["Another", "Service", "More", "Rating"].map((label) => (
+          {['Another', 'Service', 'More', 'Rating'].map((label) => (
             <div
               key={label}
               className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 
@@ -95,5 +97,5 @@ export default function SingleService() {
         </div>
       </Container>
     </div>
-  );
+  )
 }
