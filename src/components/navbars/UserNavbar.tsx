@@ -10,7 +10,6 @@ export default function UserNavbar() {
 
   const navLinks =
     userRole === 'customer' ? customerMobileNavLinks : serviceProviderNavLinks
-
   return (
     <Container>
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background md:hidden  ">
