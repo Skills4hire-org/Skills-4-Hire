@@ -1,4 +1,4 @@
-import type { PostCard } from '@/utils/types'
+import type { PostCard } from "@/utils/types";
 import {
   Heart,
   MessageCircle,
@@ -6,10 +6,11 @@ import {
   BarChart2,
   Star,
   MapPin,
-} from 'lucide-react'
-import { Link } from 'react-router-dom'
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function PostCard({
+  id,
   profile,
   name,
   location,
@@ -20,27 +21,32 @@ export default function PostCard({
   description,
   stats,
 }: PostCard) {
-  const likeCount = stats?.likes ?? 0
-  const commentCount = stats?.comments ?? 0
-  const shareCount = stats?.shares ?? 0
-  const impressionsCount = stats?.impressions ?? 0
+  const likeCount = stats?.likes ?? 0;
+  const commentCount = stats?.comments ?? 0;
+  const shareCount = stats?.shares ?? 0;
+  const impressionsCount = stats?.impressions ?? 0;
 
   return (
     <div className="bg-white rounded-2xl shadow p-2.5 md:p-4 space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {/* url format - customer/service-provider/id where id is the service provider id */}
-          <Link to="/">
+          <Link to={`/customer/service-provider/${id}`}>
             {profile && (
               <img
                 src={profile}
-                alt={name ?? 'profile'}
+                alt={name ?? "profile"}
                 className="w-12 h-12 rounded-full object-cover"
               />
             )}
           </Link>
-
           <div className="min-w-0">
+            {name && (
+              <h3 className="text-sm font-semibold text-gray-900 leading-tight">
+                {name}
+              </h3>
+            )}
+
             <div className="flex items-center gap-2 text-sm text-gray-500">
               {location && (
                 <span className="inline-flex items-center gap-1">
@@ -57,6 +63,7 @@ export default function PostCard({
                 </span>
               )}
             </div>
+
             {service && (
               <p className="text-xs text-blue-600 font-medium">{service}</p>
             )}
@@ -87,7 +94,7 @@ export default function PostCard({
         </button>
 
         <button className="flex items-center gap-1 text-sm hover:text-blue-600">
-          <MessageCircle size={18} />{' '}
+          <MessageCircle size={18} />{" "}
           <span className="text-sm">{commentCount}</span>
         </button>
 
@@ -96,10 +103,10 @@ export default function PostCard({
         </button>
 
         <button className="flex items-center gap-1 text-sm hover:text-blue-600">
-          <BarChart2 size={18} />{' '}
+          <BarChart2 size={18} />{" "}
           <span className="text-sm">{impressionsCount}</span>
         </button>
       </div>
     </div>
-  )
+  );
 }

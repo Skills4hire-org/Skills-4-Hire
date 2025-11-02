@@ -137,6 +137,7 @@ export const serviceAround = [
     gallery: null,
     posts: [
       {
+        id: 1,
         profile: AdminProfile,
         name: 'Michael Chen',
         location: 'Lagos',
@@ -189,6 +190,7 @@ export const serviceAround = [
     gallery: null,
     posts: [
       {
+        id: 2,
         profile: AdminProfile,
         name: 'Michael Chen',
         location: 'Lagos',
@@ -241,6 +243,7 @@ export const serviceAround = [
     gallery: null,
     posts: [
       {
+        id: 3,
         profile: AdminProfile,
         name: 'Michael Chen',
         location: 'Lagos',
@@ -276,6 +279,7 @@ export const serviceAround = [
 
 export const customerPosts = [
   {
+    id: 1,
     profile: AdminProfile,
     name: 'Michael Chen',
     location: 'Lagos',
@@ -289,6 +293,7 @@ export const customerPosts = [
     stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
   },
   {
+    id: 2,
     profile: AdminElect,
     name: 'Elite Electrical Solutions',
     location: 'Ibadan',
