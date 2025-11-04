@@ -19,7 +19,7 @@ export default function ServiceProviderTab({
               key={index}
               value={status}
               className={cn(
-                'bg-background cursor-pointer capitalize border-b-1 border-b-transparent text-lg md:text-xl text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:border-b-1 px-0 data-[state=active]:text-foreground'
+                'bg-background cursor-pointer capitalize border-b-1 border-b-transparent text-base md:text-lg text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:border-b-1 px-0 data-[state=active]:text-foreground'
               )}
             >
               {status}
