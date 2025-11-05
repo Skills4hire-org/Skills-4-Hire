@@ -34,6 +34,7 @@ export type TransactionHistory = {
   amount: number
 }
 export type PostCard = {
+  id: number
   profile: string
   name: string
   location: string
