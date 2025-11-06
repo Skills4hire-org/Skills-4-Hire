@@ -5,10 +5,10 @@ export default function ServiceProviderGallery({
 }: {
   gallery: string[] | undefined | null
 }) {
-  const defaultGallery = [emptyGallery, emptyGallery]
+  const defaultGallery = [emptyGallery, emptyGallery, emptyGallery]
   const serviceProviderGallery = gallery ?? defaultGallery
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 pb-2">
+    <div className="grid grid-cols-3  xl:grid-cols-4 gap-2 md:gap-4 pb-2">
       {serviceProviderGallery?.map((image, index) => {
         return (
           <figure key={index} className=" rounded-lg">

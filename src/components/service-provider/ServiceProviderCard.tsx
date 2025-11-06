@@ -48,7 +48,10 @@ export default function ServiceProviderCard({
       <div className="flex flex-1 flex-row gap-2 items-center justify-between p-2 md:p-4">
         <div className="space-y-1 md:gap-2">
           <div className="flex items-center gap-1 md:gap-2">
-            <h3 className="font-semibold text-sm md:text-lg">{name}</h3>
+            <Link to={`/customer/service-provider/${id}`}>
+              <h3 className="font-semibold text-sm md:text-lg">{name}</h3>
+            </Link>
+
             {online && (
               <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-600" />
             )}
@@ -64,9 +67,12 @@ export default function ServiceProviderCard({
             )}
           </div>
           <div className="space-y-1">
-            <p className="font-medium text-xs md:text-sm line-clamp-2">
-              {desc}
-            </p>
+            <Link to={`/customer/service-provider/${id}`}>
+              <p className="font-medium text-xs md:text-sm line-clamp-2">
+                {desc}
+              </p>
+            </Link>
+
             <p className="text-xs text-primary font-medium">{features}</p>
           </div>
         </div>
