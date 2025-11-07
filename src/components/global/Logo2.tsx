@@ -1,13 +1,13 @@
-import logo from "@/assets/images/logo2.png";
+import logo from '@/assets/images/logo2.png'
 
 export default function Logo() {
   return (
-    <figure className="relative overflow-hidden flex justify-center items-center w-16 md:w-20 lg:w-24 h-auto">
+    <figure>
       <img
         src={logo}
         alt="logo"
-        className="scale-[1.3] md:scale-[1.5] object-contain object-center"
+        className="w-26 md:w-36 h-auto object-cover object-center"
       />
     </figure>
-  );
+  )
 }

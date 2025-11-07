@@ -1,21 +1,20 @@
-import Container from "@/components/global/Container";
-import { aboutPageData } from "@/utils/database";
-import { aboutContactOptions, socialLinks } from "@/assets/data";
+import Container from '@/components/global/Container'
+import { aboutPageData } from '@/utils/database'
+import { aboutContactOptions, socialLinks } from '@/assets/data'
 
-import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
-import Logo2 from "@/components/global/Logo2";
+import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
+import Logo2 from '@/components/global/Logo2'
 
 export default function About() {
-  const { title, subtitle, description } = aboutPageData;
+  const { title, subtitle, description } = aboutPageData
 
   return (
     <div className="pb-10">
       <HeaderWithBackNavigation title={title} />
-
       <Container>
-        <div className="space-y-2 md:space-y-4">
+        <div className="space-y-4 md:space-y-4 mt-4 md:mt-6">
           <div className="flex flex-col items-center text-center space-y-4 md:space-y-6">
-            <div className=" space-y-1.5 md:space-y-3">
+            <div className=" space-y-1 md:space-y-2">
               <div className="mx-auto w-max">
                 <Logo2 />
               </div>
@@ -60,5 +59,5 @@ export default function About() {
         </div>
       </Container>
     </div>
-  );
+  )
 }
