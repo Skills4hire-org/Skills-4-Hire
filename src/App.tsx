@@ -32,6 +32,7 @@ import Withdraw from './components/wallet/Withdraw'
 import WalletSend from './components/wallet/WalletSend'
 import CustomerProfile from './pages/CustomerProfile'
 import SingleService from './pages/SingleService'
+import JobOffers from './pages/JobOffers'
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,11 @@ const router = createBrowserRouter([
             path: 'my-offers',
             element: <CustomerOffers />,
           },
+          {
+            path: 'job-offers',
+            element: <JobOffers />,
+          },
+          
         ],
       },
       {
