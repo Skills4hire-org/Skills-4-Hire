@@ -1,4 +1,3 @@
-// src/components/home/JobOfferCard.tsx
 import ProfileImage from "@/components/global/ProfileImage";
 import {
   MapPin,
@@ -35,9 +34,8 @@ export default function JobOfferCard({
 }: JobOffer) {
   return (
     <div className="bg-white rounded-2xl shadow p-4 md:p-5 space-y-4">
-      {/* Header: profile + name */}
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <ProfileImage noStatus size="size-12 md:size-14" />
         </div>
 
@@ -58,7 +56,6 @@ export default function JobOfferCard({
         </div>
       </div>
 
-      {/* Title + description */}
       <div>
         <h3 className="text-base md:text-lg font-semibold text-gray-800 leading-tight">
           {title}
@@ -70,7 +67,6 @@ export default function JobOfferCard({
         )}
       </div>
 
-      {/* Badges row (Within km, Deadline, Budget) */}
       <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm">
         {typeof distanceKm !== "undefined" && (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-green-50 text-green-700 whitespace-nowrap">
@@ -94,7 +90,6 @@ export default function JobOfferCard({
         )}
       </div>
 
-      {/* Images grid */}
       {images.length > 0 && (
         <div className="grid grid-cols-2 gap-2 mt-2">
           {images.map((src, i) => (
@@ -108,7 +103,6 @@ export default function JobOfferCard({
         </div>
       )}
 
-      {/* Action buttons */}
       <div className="mt-2">
         <div className="flex gap-2 flex-nowrap">
           <button className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-primary text-white text-sm md:text-base hover:opacity-90 transition">
