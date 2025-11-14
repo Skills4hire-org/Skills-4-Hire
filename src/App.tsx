@@ -1,62 +1,67 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-import SignUp from './pages/Signup'
-import SignIn from './pages/Signin'
-import ForgotPassword from './pages/ForgotPassword'
-import Verification from './pages/Verification'
-import Landing from './pages/Landing'
-import CustomerLayout from './components/layouts/CustomerLayout'
-import CustomerPosts from './pages/CustomerPosts'
-import CustomerOffers from './pages/CustomerOffers'
-import CustomerHomeLayout from './components/layouts/CustomerHomeLayout'
-import Services from './pages/Services'
-import AvailableServices from './pages/AvailableServices'
-import ServicesAroundYou from './pages/ServicesAroundYou'
-import ServicesLayout from './components/layouts/ServicesLayout'
-import CustomerBookings from './pages/CustomerBookings'
-import ServicesSearch from './pages/ServicesSearch'
-import WalletLayout from './components/layouts/WalletLayout'
-import Wallet from './pages/Wallet'
-import Rewards from './pages/Rewards'
-import Support from './pages/Support'
-import Favorites from './pages/Favorites'
-import About from './pages/About'
-import TermsAndConditions from './pages/TermsAndConditions'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import Notification from './pages/Notification'
-import FAQs from './pages/Faq'
-import Referral from './pages/Referral'
-import ServiceProviderProfile from './pages/ServiceProviderProfile'
-import ServiceProviderBooking from './pages/ServiceProviderBooking'
-import ApprovePayment from './pages/ApprovePayment'
-import Withdraw from './components/wallet/Withdraw'
-import WalletSend from './components/wallet/WalletSend'
-import CustomerProfile from './pages/CustomerProfile'
-import SingleService from './pages/SingleService'
-import JobOffers from './pages/JobOffers'
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import SignUp from "./pages/Signup";
+import SignIn from "./pages/Signin";
+import ForgotPassword from "./pages/ForgotPassword";
+import Verification from "./pages/Verification";
+import Landing from "./pages/Landing";
+import CustomerLayout from "./components/layouts/CustomerLayout";
+import CustomerPosts from "./pages/CustomerPosts";
+import CustomerOffers from "./pages/CustomerOffers";
+import CustomerHomeLayout from "./components/layouts/CustomerHomeLayout";
+import Services from "./pages/Services";
+import AvailableServices from "./pages/AvailableServices";
+import ServicesAroundYou from "./pages/ServicesAroundYou";
+import ServicesLayout from "./components/layouts/ServicesLayout";
+import CustomerBookings from "./pages/CustomerBookings";
+import ServicesSearch from "./pages/ServicesSearch";
+import WalletLayout from "./components/layouts/WalletLayout";
+import Wallet from "./pages/Wallet";
+import Rewards from "./pages/Rewards";
+import Support from "./pages/Support";
+import Favorites from "./pages/Favorites";
+import About from "./pages/About";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Notification from "./pages/Notification";
+import FAQs from "./pages/Faq";
+import Referral from "./pages/Referral";
+import ServiceProviderProfile from "./pages/ServiceProviderProfile";
+import ServiceProviderBooking from "./pages/ServiceProviderBooking";
+import ApprovePayment from "./pages/ApprovePayment";
+import Withdraw from "./components/wallet/Withdraw";
+import WalletSend from "./components/wallet/WalletSend";
+import CustomerProfile from "./pages/CustomerProfile";
+import SingleService from "./pages/SingleService";
+import JobOffers from "./pages/JobOffers";
+import ProviderOverview from "./pages/ProviderOverview";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Landing />,
   },
   {
-    path: 'sign-up',
+    path: "sign-up",
     element: <SignUp />,
   },
   {
-    path: 'sign-in',
+    path: "sign-in",
     element: <SignIn />,
   },
   {
-    path: 'forgot-password',
+    path: "forgot-password",
     element: <ForgotPassword />,
   },
   {
-    path: 'verification',
+    path: "verification",
     element: <Verification />,
   },
   {
-    path: ':userRole',
+    path: ":userRole",
     element: <CustomerLayout />,
     children: [
       {
@@ -64,7 +69,7 @@ const router = createBrowserRouter([
         element: <Navigate to="home" />,
       },
       {
-        path: 'home',
+        path: "home",
         element: <CustomerHomeLayout />,
         children: [
           {
@@ -72,113 +77,117 @@ const router = createBrowserRouter([
             element: <Navigate to="posts" />,
           },
           {
-            path: 'posts',
+            path: "posts",
             element: <CustomerPosts />,
           },
           {
-            path: 'my-offers',
+            path: "my-offers",
             element: <CustomerOffers />,
           },
           {
-            path: 'job-offers',
+            path: "job-offers",
             element: <JobOffers />,
           },
-          
         ],
       },
+
       {
-        path: 'services',
+        path: "overview",
+        element: <ProviderOverview />,
+      },
+      {
+        path: "services",
         element: <ServicesLayout />,
         children: [
           { index: true, element: <Services /> },
           {
-            path: 'available-services',
+            path: "available-services",
             element: <AvailableServices />,
           },
           {
-            path: 'available-services/:service',
+            path: "available-services/:service",
             element: <SingleService />,
           },
           {
-            path: 'services-around-you',
+            path: "services-around-you",
             element: <ServicesAroundYou />,
           },
           {
-            path: 'search',
+            path: "search",
             element: <ServicesSearch />,
           },
         ],
       },
       {
-        path: 'service-provider/:id',
+        path: "service-provider/:id",
         element: <ServiceProviderProfile />,
       },
       {
-        path: 'service-provider/:id/booking',
+        path: "service-provider/:id/booking",
         element: <ServiceProviderBooking />,
       },
       {
-        path: 'bookings',
+        path: "bookings",
         element: <CustomerBookings />,
       },
       {
-        path: 'wallet',
+        path: "wallet",
         element: <WalletLayout />,
         children: [
           { index: true, element: <Wallet /> },
-          { path: 'approve', element: <ApprovePayment /> },
-          { path: 'withdraw', element: <Withdraw /> },
-          { path: 'send', element: <WalletSend /> },
+          { path: "approve", element: <ApprovePayment /> },
+          { path: "withdraw", element: <Withdraw /> },
+          { path: "send", element: <WalletSend /> },
         ],
       },
       {
-        path: 'chats',
+        path: "chats",
         element: <CustomerPosts />,
       },
       {
-        path: 'favorites',
+        path: "favorites",
         element: <Favorites />,
       },
       {
-        path: 'rewards',
+        path: "rewards",
         element: <Rewards />,
       },
       {
-        path: 'support',
+        path: "support",
         element: <Support />,
       },
       {
-        path: 'notification',
+        path: "notification",
         element: <Notification />,
       },
       {
-        path: 'referral',
+        path: "referral",
         element: <Referral />,
       },
       {
-        path: 'profile',
+        path: "profile",
         element: <CustomerProfile />,
       },
     ],
   },
   {
-    path: 'about',
+    path: "about",
     element: <About />,
   },
   {
-    path: 'terms-and-conditions',
+    path: "terms-and-conditions",
     element: <TermsAndConditions />,
   },
   {
-    path: 'privacy-policy',
+    path: "privacy-policy",
     element: <PrivacyPolicy />,
   },
   {
-    path: 'faq',
+    path: "faq",
     element: <FAQs />,
   },
-])
+]);
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }

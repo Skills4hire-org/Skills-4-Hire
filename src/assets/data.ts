@@ -20,12 +20,13 @@ import {
   Wallet,
 } from "lucide-react";
 import { CreditCard, User, DollarSign, Search, Users } from "lucide-react";
+import { MessageSquare, BookOpen} from "lucide-react";
 import {
   FaWhatsapp,
   FaFacebookF,
-  FaInstagram,
   FaXTwitter,
   FaLinkedinIn,
+  FaInstagram,
 } from "react-icons/fa6";
 import img1 from "./Rectangle 20.png";
 import img2 from "./Rectangle 21.png";
@@ -566,3 +567,50 @@ export const mockServices = [
     image: Rect20,
   },
 ];
+
+
+export const providerOverviewData = {
+  user: {
+    name: "Joshua Friday",
+    role: "Freelance",
+    commission: "2%",
+  },
+  stats: [
+    { label: "Total Booking", value: 0, icon: BookOpen },
+    { label: "Total Service", value: 0, icon: User },
+    { label: "Total Earning", value: "₦0.00", icon: Wallet },
+    { label: "Wallet", value: 0, icon: Wallet },
+  ],
+  chart: [
+    { name: "Jan", revenue: 300000 },
+    { name: "Feb", revenue: 150000 },
+    { name: "Mar", revenue: 200000 },
+    { name: "Apr", revenue: 0 },
+    { name: "May", revenue: 0 },
+    { name: "Jun", revenue: 0 },
+    { name: "Jul", revenue: 0 },
+    { name: "Aug", revenue: 0 },
+    { name: "Sep", revenue: 0 },
+    { name: "Oct", revenue: 0 },
+    { name: "Nov", revenue: 0 },
+    { name: "Dec", revenue: 0 },
+  ],
+  newBookingRequest: {
+    title: "New Booking Request",
+    icon: MessageSquare,
+  },
+  reviews: [
+    {
+      name: "Joshua Friday",
+      role: "Plumber",
+      rating: 4.8,
+      image: "",
+    },
+    {
+      name: "Joshua Friday",
+      role: "Plumber",
+      rating: 4.8,
+      image: "",
+    },
+  ],
+};
