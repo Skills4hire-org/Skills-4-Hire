@@ -20,7 +20,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { CreditCard, User, DollarSign, Search, Users } from "lucide-react";
-import { MessageSquare, BookOpen} from "lucide-react";
+import { MessageSquare, BookOpen } from "lucide-react";
 import {
   FaWhatsapp,
   FaFacebookF,
@@ -342,35 +342,6 @@ export const providerHomeNavLinks = [
   },
 ];
 
-export const jobOffers = [
-  {
-    id: 1,
-    name: "Michael Chen",
-    role: "Homeowner",
-    location: "Lagos",
-    title: "Need Plumber to Fix Leaking Tap",
-    description:
-      "Looking for an experienced plumber to fix a constantly dripping kitchen faucet. I would like for it to be done as quickly as possible.",
-    budget: "₦15,000",
-    deadline: "This weekend",
-    distanceKm: 10,
-    images: [],
-  },
-  {
-    id: 2,
-    name: "Jose Martino",
-    role: "Homeowner",
-    location: "Ibadan",
-    title: "Electrician needed for office rewiring",
-    description:
-      "Looking for an electrician to handle a complete office rewiring project. Must be safety certified with prior commercial experience.",
-    budget: "₦85,000",
-    deadline: "Dec 31, 2024",
-    distanceKm: 18,
-    images: [Rect20, Rect21],
-  },
-];
-
 export const timeFrameOptions = [
   {
     value: "1",
@@ -568,6 +539,34 @@ export const mockServices = [
   },
 ];
 
+export const jobOffers = [
+  {
+    id: 1,
+    name: "Michael Chen",
+    role: "Homeowner",
+    location: "Lagos",
+    title: "Need Plumber to Fix Leaking Tap",
+    description:
+      "Looking for an experienced plumber to fix a constantly dripping kitchen faucet. I would like for it to be done as quickly as possible.",
+    budget: "₦15,000",
+    deadline: "This weekend",
+    distanceKm: 10,
+    images: [],
+  },
+  {
+    id: 2,
+    name: "Jose Martino",
+    role: "Homeowner",
+    location: "Ibadan",
+    title: "Electrician needed for office rewiring",
+    description:
+      "Looking for an electrician to handle a complete office rewiring project. Must be safety certified with prior commercial experience.",
+    budget: "₦85,000",
+    deadline: "Dec 31, 2024",
+    distanceKm: 18,
+    images: [Rect20, Rect21],
+  },
+];
 
 export const providerOverviewData = {
   user: {
@@ -614,3 +613,96 @@ export const providerOverviewData = {
     },
   ],
 };
+
+export const serviceProviderProfileRegistrationSteps = [
+  {
+    title: "personal information",
+    desc: "Your full name, email, phone number, and address",
+    url: "personal-information",
+  },
+  {
+    title: "experience",
+    desc: "Enter your professional experience to be considered by clients",
+    url: "experience",
+  },
+  {
+    title: "application profile",
+    desc: "Build your job profile to gain recognition by clients",
+    url: "application-profile",
+  },
+];
+
+export const certificationOptions = [
+  {
+    label: "Yes",
+    value: "yes",
+  },
+  {
+    label: "No",
+    value: "no",
+  },
+];
+export const services = [
+  {
+    label: "Plumbing",
+    value: "plumbing",
+  },
+  {
+    label: "Baking",
+    value: "baking",
+  },
+  {
+    label: "Vulcanizer",
+    value: "vulcanizer",
+  },
+  {
+    label: "Mobile App Development",
+    value: "mobile app development",
+  },
+];
+export const yearsOfExperience = [
+  {
+    label: "1",
+    value: "1",
+  },
+  {
+    label: "2",
+    value: "2",
+  },
+  {
+    label: "3",
+    value: "3",
+  },
+  {
+    label: "4",
+    value: "4",
+  },
+  {
+    label: "5",
+    value: "5",
+  },
+  {
+    label: "6",
+    value: "6",
+  },
+  {
+    label: "7",
+    value: "7",
+  },
+  {
+    label: "8",
+    value: "8",
+  },
+  {
+    label: "9",
+    value: "9",
+  },
+  {
+    label: "10",
+    value: "10",
+  },
+  {
+    label: "10+",
+    value: "10 above",
+  },
+];

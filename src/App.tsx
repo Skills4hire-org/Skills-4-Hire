@@ -3,41 +3,46 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import SignUp from "./pages/Signup";
-import SignIn from "./pages/Signin";
-import ForgotPassword from "./pages/ForgotPassword";
-import Verification from "./pages/Verification";
-import Landing from "./pages/Landing";
-import CustomerLayout from "./components/layouts/CustomerLayout";
-import CustomerPosts from "./pages/CustomerPosts";
-import CustomerOffers from "./pages/CustomerOffers";
-import CustomerHomeLayout from "./components/layouts/CustomerHomeLayout";
-import Services from "./pages/Services";
+
+import About from "./pages/About";
+import ApplicationProfile from "./pages/ApplicationProfile";
+import ApprovePayment from "./pages/ApprovePayment";
 import AvailableServices from "./pages/AvailableServices";
+import CustomerBookings from "./pages/CustomerBookings";
+import CustomerHomeLayout from "./components/layouts/CustomerHomeLayout";
+import CustomerLayout from "./components/layouts/CustomerLayout";
+import CustomerOffers from "./pages/CustomerOffers";
+import CustomerPosts from "./pages/CustomerPosts";
+import CustomerProfile from "./pages/CustomerProfile";
+import Experience from "./pages/Experience";
+import FAQs from "./pages/Faq";
+import Favorites from "./pages/Favorites";
+import ForgotPassword from "./pages/ForgotPassword";
+import JobOffers from "./pages/JobOffers";
+import Landing from "./pages/Landing";
+import PersonalInfo from "./pages/PersonalInfo";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ProviderOverview from "./pages/ProviderOverview";
+import Referral from "./pages/Referral";
+import Registration from "./pages/Registration";
+import Rewards from "./pages/Rewards";
+import ServiceProviderBooking from "./pages/ServiceProviderBooking";
+import ServiceProviderProfile from "./pages/ServiceProviderProfile";
+import Services from "./pages/Services";
 import ServicesAroundYou from "./pages/ServicesAroundYou";
 import ServicesLayout from "./components/layouts/ServicesLayout";
-import CustomerBookings from "./pages/CustomerBookings";
 import ServicesSearch from "./pages/ServicesSearch";
-import WalletLayout from "./components/layouts/WalletLayout";
-import Wallet from "./pages/Wallet";
-import Rewards from "./pages/Rewards";
-import Support from "./pages/Support";
-import Favorites from "./pages/Favorites";
-import About from "./pages/About";
-import TermsAndConditions from "./pages/TermsAndConditions";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Notification from "./pages/Notification";
-import FAQs from "./pages/Faq";
-import Referral from "./pages/Referral";
-import ServiceProviderProfile from "./pages/ServiceProviderProfile";
-import ServiceProviderBooking from "./pages/ServiceProviderBooking";
-import ApprovePayment from "./pages/ApprovePayment";
-import Withdraw from "./components/wallet/Withdraw";
-import WalletSend from "./components/wallet/WalletSend";
-import CustomerProfile from "./pages/CustomerProfile";
+import SignIn from "./pages/Signin";
+import SignUp from "./pages/Signup";
 import SingleService from "./pages/SingleService";
-import JobOffers from "./pages/JobOffers";
-import ProviderOverview from "./pages/ProviderOverview";
+import Support from "./pages/Support";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import Verification from "./pages/Verification";
+import Wallet from "./pages/Wallet";
+import WalletLayout from "./components/layouts/WalletLayout";
+import WalletSend from "./components/wallet/WalletSend";
+import Withdraw from "./components/wallet/Withdraw";
+import Notification from "./pages/Notification";
 
 const router = createBrowserRouter([
   {
@@ -167,6 +172,22 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <CustomerProfile />,
+      },
+      {
+        path: "registration",
+        element: <Registration />,
+      },
+      {
+        path: "registration/personal-information",
+        element: <PersonalInfo />,
+      },
+      {
+        path: "registration/experience",
+        element: <Experience />,
+      },
+      {
+        path: "registration/application-profile",
+        element: <ApplicationProfile />,
       },
     ],
   },

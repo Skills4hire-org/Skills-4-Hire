@@ -1,4 +1,3 @@
-// src/pages/JobOffers.tsx
 import JobOfferCard from "@/components/home/JobOfferCard";
 import { jobOffers } from "@/assets/data";
 import Container from "@/components/global/Container";
