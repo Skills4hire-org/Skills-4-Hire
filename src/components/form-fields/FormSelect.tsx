@@ -7,11 +7,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
+import { ChevronDownIcon } from 'lucide-react'
 
 interface FormSelectFieldProp {
   name: string
   label?: string
-  value: string
+  value: string | undefined
   handleInputChange: (key: string, value: any) => void
   placeholder?: string
   required?: boolean
@@ -19,6 +20,11 @@ interface FormSelectFieldProp {
   className?: string
   disabled?: boolean
   handleBlur?: () => void
+  align?: 'end' | 'center' | 'start'
+  selectContentClassName?: string
+  selectItemClassName?: string
+  sideOffset?: number
+  indicator?: boolean
 }
 
 export default function FormSelect({
@@ -32,16 +38,22 @@ export default function FormSelect({
   className,
   disabled,
   handleBlur,
+  align,
+  selectContentClassName,
+  selectItemClassName,
+  sideOffset,
+  indicator,
 }: FormSelectFieldProp) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       {label && (
-        <Label htmlFor={name} className="text-xs md:text-sm">
+        <Label htmlFor={name} className="text-sm md:text-base">
           {label}
         </Label>
       )}
 
       <Select
+        key={value === undefined ? 'undefined' : 'defined'}
         value={value}
         onValueChange={(value) => handleInputChange(name, value)}
         required={required}
@@ -50,13 +62,29 @@ export default function FormSelect({
         onOpenChange={handleBlur}
       >
         <SelectTrigger
-          className={`w-full relative ${className} text-sm md:text-base pl-4 [&>svg]:hidden sm:[&>svg]:block`}
+          className={`w-full relative  text-sm md:text-base pl-4 [&>svg]:hidden sm:[&>svg]:block ${className}`}
         >
-          <SelectValue placeholder={placeholder} />
+          <SelectValue placeholder={placeholder}></SelectValue>
+          {indicator && (
+            <span className="absolute right-0 top-1/2 -translate-y-1/2">
+              <ChevronDownIcon
+                strokeWidth={3}
+                className="w-5 h-5 text-foreground"
+              />
+            </span>
+          )}
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent
+          align={align}
+          sideOffset={sideOffset}
+          className={selectContentClassName}
+        >
           {selectItems.map(({ value, label }, index) => (
-            <SelectItem key={index} value={value}>
+            <SelectItem
+              key={index}
+              value={value}
+              className={selectItemClassName}
+            >
               {label}
             </SelectItem>
           ))}

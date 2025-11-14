@@ -19,7 +19,7 @@ export default function HeaderWithBackNavigation({
     >
       <div className="relative flex items-center justify-center">
         <button
-          className="absolute left-0 flex items-center justify-center p-1"
+          className="absolute left-0 flex items-center justify-center p-1 cursor-pointer"
           onClick={() => navigate(-1)}
         >
           <ChevronLeft className="w-6 h-6" />

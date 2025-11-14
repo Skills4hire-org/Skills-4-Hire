@@ -32,7 +32,10 @@ import Withdraw from './components/wallet/Withdraw'
 import WalletSend from './components/wallet/WalletSend'
 import CustomerProfile from './pages/CustomerProfile'
 import SingleService from './pages/SingleService'
-import JobOffers from './pages/JobOffers'
+import Registration from './pages/Registration'
+import PersonalInfo from './pages/PersonalInfo'
+import Experience from './pages/Experience'
+import ApplicationProfile from './pages/ApplicationProfile'
 
 const router = createBrowserRouter([
   {
@@ -79,11 +82,6 @@ const router = createBrowserRouter([
             path: 'my-offers',
             element: <CustomerOffers />,
           },
-          {
-            path: 'job-offers',
-            element: <JobOffers />,
-          },
-          
         ],
       },
       {
@@ -158,6 +156,22 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <CustomerProfile />,
+      },
+      {
+        path: 'registration',
+        element: <Registration />,
+      },
+      {
+        path: 'registration/personal-information',
+        element: <PersonalInfo />,
+      },
+      {
+        path: 'registration/experience',
+        element: <Experience />,
+      },
+      {
+        path: 'registration/application-profile',
+        element: <ApplicationProfile />,
       },
     ],
   },

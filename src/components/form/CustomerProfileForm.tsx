@@ -20,7 +20,6 @@ export default function CustomerProfileForm() {
   const [activeEdit, setActiveEdit] = useState({
     firstName: true,
     lastName: true,
-    email: true,
     phone: true,
     gender: true,
   })
@@ -96,12 +95,14 @@ export default function CustomerProfileForm() {
               handleBlur(user?.firstName, formData.firstName, 'firstName')
             }
           />
-          <span
-            className="absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3"
+          <button
+            className={`absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3 cursor-pointer ${
+              activeEdit.firstName || 'hidden'
+            } `}
             onClick={() => handleActiveEdit('firstName', false)}
           >
             Edit
-          </span>
+          </button>
         </div>
         <div className="relative">
           <FormInput
@@ -117,12 +118,14 @@ export default function CustomerProfileForm() {
               handleBlur(user?.lastName, formData.lastName, 'lastName')
             }
           />
-          <span
-            className="absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3"
+          <button
+            className={`absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3 cursor-pointer ${
+              activeEdit.lastName || 'hidden'
+            } `}
             onClick={() => handleActiveEdit('lastName', false)}
           >
             Edit
-          </span>
+          </button>
         </div>
 
         <div className="relative">
@@ -134,15 +137,8 @@ export default function CustomerProfileForm() {
             required
             className="bg-gray-300 h-11 pl-4 pr-6 "
             placeholder="Email"
-            disabled={activeEdit.email}
-            handleBlur={() => handleBlur(user?.email, formData.email, 'email')}
+            disabled
           />
-          <span
-            className="absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3"
-            onClick={() => handleActiveEdit('email', false)}
-          >
-            Edit
-          </span>
         </div>
 
         <div className="relative">
@@ -151,18 +147,21 @@ export default function CustomerProfileForm() {
             value={formData.phone}
             handleInputChange={handleInputChange}
             type="text"
+            maxLength={11}
             required
-            className="bg-gray-300 capitalize h-11 pl-4 pr-6 "
+            className="bg-gray-300 capitalize h-11 pl-4 pr-6"
             placeholder="Phone Number"
             disabled={activeEdit.phone}
             handleBlur={() => handleBlur(user?.phone, formData.phone, 'phone')}
           />
-          <span
-            className="absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3"
+          <button
+            className={`absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3 cursor-pointer ${
+              activeEdit.phone || 'hidden'
+            } `}
             onClick={() => handleActiveEdit('phone', false)}
           >
             Edit
-          </span>
+          </button>
         </div>
 
         <div className="relative">
@@ -171,7 +170,7 @@ export default function CustomerProfileForm() {
             value={formData.gender}
             handleInputChange={handleInputChange}
             selectItems={genderOptions}
-            className="capitalize bg-gray-300 h-[44px] pr-6"
+            className="capitalize bg-gray-300 h-[44px] pr-6 disabled:cursor-auto"
             required
             placeholder="Gender"
             disabled={activeEdit.gender}
@@ -179,16 +178,20 @@ export default function CustomerProfileForm() {
               handleBlur(user?.gender, formData.gender, 'gender')
             }
           />
-          <span
-            className="absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3"
+          <button
+            className={`absolute top-1/2 -translate-y-1/2 text-xs text-primary right-3 cursor-pointer ${
+              activeEdit.gender || 'hidden'
+            } `}
             onClick={() => handleActiveEdit('gender', false)}
           >
             Edit
-          </span>
+          </button>
         </div>
       </div>
       <div className="w-full max-w-sm mx-auto">
-        <Button className=" py-6 w-full">Update Profile</Button>
+        <Button type="submit" className=" py-6 w-full">
+          Update Profile
+        </Button>
       </div>
     </form>
   )
