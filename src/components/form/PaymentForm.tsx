@@ -24,6 +24,13 @@ export default function PaymentForm({
   }
 
   const dispatch = useDispatch()
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (info.paymentAmount === '' && e.key === '0') {
+      e.preventDefault()
+    }
+  }
+
   const handleInputChange = (field: string, value: string) => {
     if (field === 'paymentAmount') {
       const newValue = value.replace(/[^0-9]/g, '')
@@ -44,9 +51,11 @@ export default function PaymentForm({
       )
     }
   }
+
   const handleStep = (step: number) => {
     dispatch(handleSteps({ step }))
   }
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(
@@ -76,6 +85,7 @@ export default function PaymentForm({
           handleInputChange={handleInputChange}
           placeholder="0000"
           className="rounded-md text-sm md:text-base pt-8 md:pt-10 bg-gray-200 min-h-18 md:h-20 pl-7"
+          handleKeyDown={handleKeyDown}
         />
         <span className="absolute top-9 md:top-11 left-3 text-lg md:text-xl ">
           ₦

@@ -4,7 +4,7 @@ import { Label } from '../ui/label'
 interface FormInputFieldProp {
   name: string
   label?: string
-  value: string
+  value: string | undefined
   handleInputChange: (key: string, value: any) => void
   placeholder?: string
   type: string
@@ -13,6 +13,8 @@ interface FormInputFieldProp {
   disabled?: boolean
   className?: string
   handleBlur?: () => void
+  maxLength?: number
+  handleKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 export default function FormInput({
@@ -27,11 +29,13 @@ export default function FormInput({
   disabled,
   className,
   handleBlur,
+  maxLength,
+  handleKeyDown,
 }: FormInputFieldProp) {
   return (
     <div className="space-y-1.5">
       {label && (
-        <Label htmlFor={name} className="text-xs md:text-sm">
+        <Label htmlFor={name} className="text-sm md:text-base">
           {label}
         </Label>
       )}
@@ -45,9 +49,11 @@ export default function FormInput({
         min={min}
         required={required}
         disabled={disabled}
-        className={`${className} text-sm md:text-base`}
+        className={`${className}  text-sm md:text-base placeholder:text-sm placeholder:md:text-base`}
         onBlur={handleBlur}
         autoComplete="true"
+        maxLength={maxLength}
+        onKeyDown={(e) => handleKeyDown && handleKeyDown(e)}
       />
     </div>
   )

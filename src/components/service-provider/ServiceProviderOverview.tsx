@@ -35,7 +35,7 @@ export default function ServiceProviderOverview({
               </span>
             </div>
             <p className=" text-base md:text-lg">{getServiceProvider?.desc}</p>
-            <span className="text-sm md:text-base capitalize  block">
+            <span className="text-sm md:text-base capitalize text-primary font-medium block">
               {getServiceProvider?.occupation}
             </span>
             <p className="flex items-center justify-start gap-1  text-sm md:text-base ">

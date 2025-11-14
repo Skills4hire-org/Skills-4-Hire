@@ -8,7 +8,7 @@ import Rect18 from '../assets/Rectangle 18.png'
 import Rect19 from '../assets/Rectangle 19.png'
 
 export const user = {
-  profileImage: null,
+  profileImage: servicesAroundImage1,
   firstName: 'Leo',
   lastName: 'Justin',
   email: 'joshuafriday@gmail.com',
@@ -82,37 +82,31 @@ export const availableServices = [
     serviceImage: servicesImage1,
     serviceName: 'cleaning service',
     category: 'vocational & on-site services',
-    favorite: true,
   },
   {
     serviceImage: servicesImage2,
     serviceName: 'mobile app development',
     category: 'digital skills & online services',
-    favorite: false,
   },
   {
     serviceImage: servicesImage1,
     serviceName: 'electrical service',
     category: 'vocational & on-site services',
-    favorite: true,
   },
   {
     serviceImage: servicesImage2,
     serviceName: 'plumbing service',
     category: 'vocational & on-site services',
-    favorite: true,
   },
   {
     serviceImage: servicesImage1,
     serviceName: 'cleaning services',
     category: 'vocational & on-site services',
-    favorite: false,
   },
   {
     serviceImage: servicesImage2,
     serviceName: 'cleaning services',
-    category: 'digital skills & online services',
-    favorite: false,
+    category: 'vocational & on-site services',
   },
 ]
 
