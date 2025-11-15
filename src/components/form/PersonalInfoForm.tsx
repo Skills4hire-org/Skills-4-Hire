@@ -261,8 +261,8 @@ export default function PersonalInfoForm() {
             required
             maxLength={11}
             className={`bg-gray-300 capitalize h-11 pl-3 pr-6 ${
-              phone.length !== 11
-                ? 'focus-visible:border-destructive focus-visible:ring-destructive'
+              phone.length > 0 && phone.length !== 11
+                ? 'focus-visible:border-destructive focus-visible:ring-destructive border-destructive'
                 : 'focus-visible:border-primary focus-visible:ring-primary'
             } `}
             placeholder="Phone Number"
@@ -309,8 +309,8 @@ export default function PersonalInfoForm() {
           required
           maxLength={10}
           className={`bg-gray-300 capitalize h-11 pr-6 pl-3 placeholder:text-foreground ${
-            nin.length !== 10
-              ? 'focus-visible:border-destructive focus-visible:ring-destructive'
+            nin.length > 0 && nin.length !== 10
+              ? 'focus-visible:border-destructive focus-visible:ring-destructive border-destructive'
               : 'focus-visible:border-primary focus-visible:ring-primary'
           }`}
           placeholder="Enter NIN"

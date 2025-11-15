@@ -145,8 +145,8 @@ export default function ApplicationProfileForm() {
         type="text"
         maxLength={90}
         className={`bg-transparent pb-1 px-3 border-b-foreground border-x-0 focus-visible:ring-0 border-t-0 h-6 pt-0 rounded-none shadow-none ${
-          headline.length < 25
-            ? 'focus-visible:border-destructive '
+          headline.length > 0 && headline.length < 25
+            ? 'focus-visible:border-destructive border-b-destructive '
             : 'focus-visible:border-primary '
         }`}
         placeholder=""
