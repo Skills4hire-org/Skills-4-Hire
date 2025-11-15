@@ -1,15 +1,30 @@
+export type UserType = 'customer' | 'service-provider'
+
+export type AppUser = {
+  userType: UserType | null
+  isServiceProvider: boolean
+}
 export type AvailableServices = {
   serviceName: string
   serviceImage: string
   category: string
 }
 
-export type Booking = {
+export type CustomerBooking = {
   service: string
   serviceImage: string
   createdAt: any
   serviceProviderName: string
   serviceProviderRating: number
+  status: string
+  desc: string
+}
+export type ServiceProviderBooking = {
+  service: string
+  serviceImage: string
+  createdAt: any
+  customerName: string
+  customerRating: number
   status: string
   desc: string
 }

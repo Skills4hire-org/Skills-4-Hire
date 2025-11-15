@@ -1,18 +1,18 @@
 import { dateFormatter, timeFormatter } from '@/utils/format'
-import type { Booking } from '@/utils/types'
+import type { CustomerBooking } from '@/utils/types'
 import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
 import RequestACallButton from '../buttons/RequestACallButton'
 import SMSButton from '../buttons/SMSButton'
 
-export default function BookingCard({
+export default function CustomerBookingCard({
   service,
   serviceImage,
   createdAt,
   serviceProviderName,
   serviceProviderRating,
   desc,
-}: Booking) {
+}: CustomerBooking) {
   return (
     <div className="space-y-2 md:space-y-4 max-w-4xl mx-auto ">
       <div className="flex items-center justify-between gap-8 border-y px-2">

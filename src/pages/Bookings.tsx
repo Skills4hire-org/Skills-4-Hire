@@ -3,10 +3,20 @@ import Container from '@/components/global/Container'
 import MobileBookingsHeader from '@/components/header/MobileBookingsHeader'
 import { Tabs } from '@/components/ui/tabs'
 import TabHead from '@/components/global/TabHead'
-import BookingsTabContent from '@/components/bookings/BookingsTabContent'
 import TitleOnlyDesktopHeader from '@/components/header/TitleOnlyDesktopHeader'
+import type { UserType } from '@/utils/types'
+import { useSelector } from 'react-redux'
+import CustomerBookingsTabContent from '@/components/bookings/CustomerBookingsTabContent'
+import ServiceProviderBookingsTabContent from '@/components/bookings/ServiceProviderBookingsTabContent'
 
-export default function CustomerBookings() {
+export default function Bookings() {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState
+  )
+  const BookingsTabContent =
+    userType == 'customer'
+      ? CustomerBookingsTabContent
+      : ServiceProviderBookingsTabContent
   return (
     <div className="space-y-2 md:space-y-6">
       <Container className="bg-white">

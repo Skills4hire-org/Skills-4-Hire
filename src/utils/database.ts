@@ -362,6 +362,35 @@ export const customerBookings = [
     desc: 'Please come at the appointed time, be on time and come with your kits',
   },
 ]
+export const serviceProviderBookings = [
+  {
+    service: 'plumbing',
+    serviceImage: servicesAroundImage2,
+    createdAt: Date.now(),
+    customerName: 'Joshua Friday',
+    customerRating: 5,
+    status: 'ongoing',
+    desc: 'Please come at the appointed time, be on time and come with your kits',
+  },
+  {
+    service: 'plumbing',
+    serviceImage: servicesAroundImage2,
+    createdAt: Date.now(),
+    customerName: 'Joshua Friday',
+    customerRating: 2,
+    status: 'completed',
+    desc: 'Please come at the appointed time, be on time and come with your kits',
+  },
+  {
+    service: 'plumbing',
+    serviceImage: servicesAroundImage2,
+    createdAt: Date.now(),
+    customerName: 'Joshua Friday',
+    customerRating: 3,
+    status: 'completed',
+    desc: 'Please come at the appointed time, be on time and come with your kits',
+  },
+]
 
 export const transactionHistory = [
   {

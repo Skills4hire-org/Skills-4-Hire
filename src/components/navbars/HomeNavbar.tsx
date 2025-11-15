@@ -1,11 +1,21 @@
-import { customerHomeNavLinks } from '@/assets/data'
+import {
+  customerHomeNavLinks,
+  serviceProviderHomeNavLinks,
+} from '@/assets/data'
+import type { UserType } from '@/utils/types'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-export default function CustomerHomeNavbar() {
+export default function HomeNavbar() {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState
+  )
+  const navLinks =
+    userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
   return (
     <nav className="border-b ">
       <div className="flex gap-8 justify-evenly">
-        {customerHomeNavLinks.map(({ label, url }) => (
+        {navLinks.map(({ label, url }) => (
           <NavLink
             key={label}
             to={url}

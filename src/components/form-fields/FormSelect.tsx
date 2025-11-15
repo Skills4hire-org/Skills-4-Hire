@@ -12,6 +12,7 @@ import { ChevronDownIcon } from 'lucide-react'
 interface FormSelectFieldProp {
   name: string
   label?: string
+  labelSize?: string
   value: string | undefined
   handleInputChange: (key: string, value: any) => void
   placeholder?: string
@@ -43,11 +44,12 @@ export default function FormSelect({
   selectItemClassName,
   sideOffset,
   indicator,
+  labelSize,
 }: FormSelectFieldProp) {
   return (
     <div className="space-y-1.5">
       {label && (
-        <Label htmlFor={name} className="text-sm md:text-base">
+        <Label htmlFor={name} className={`text-sm md:text-base ${labelSize}`}>
           {label}
         </Label>
       )}

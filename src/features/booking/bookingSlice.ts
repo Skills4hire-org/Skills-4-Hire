@@ -26,7 +26,7 @@ const defaultState: Booking = {
 }
 
 const bookingSlice = createSlice({
-  name: 'checkout',
+  name: 'booking',
   initialState: defaultState,
   reducers: {
     addService: (state, action) => {

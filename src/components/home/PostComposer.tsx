@@ -7,7 +7,7 @@ import { timeFrameOptions } from '@/assets/data'
 import { ImageIcon, Paperclip } from 'lucide-react'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 
-export default function CustomerPostComposer() {
+export default function PostComposer() {
   const [formData, setFormData] = useState({
     post: '',
     budget: '',
@@ -40,7 +40,8 @@ export default function CustomerPostComposer() {
               value={formData.budget}
               type="number"
               handleInputChange={handleInputChange}
-              className="border-0 border-b"
+              className="border-0 border-b h-"
+              labelSize="text-xs md:text-sm"
             />
             <FormSelect
               name="timeFrame"
@@ -49,7 +50,8 @@ export default function CustomerPostComposer() {
               handleInputChange={handleInputChange}
               selectItems={timeFrameOptions}
               placeholder="Within 3 days"
-              className="border-0 border-b"
+              className="border-0 border-b h-9"
+              labelSize="text-xs md:text-sm"
             />
           </div>
           <div className="flex justify-between gap-4 ">

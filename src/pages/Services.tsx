@@ -23,7 +23,7 @@ export default function Services() {
         <div className="space-y-4 md:space-y-6">
           <div>
             <Link to="/customer/services/search">
-              <SearchBar placeholder="Search service" maxWidth="w-full" />
+              <SearchBar placeholder="Search for services" maxWidth="w-full" />
             </Link>
           </div>
           <ImageCarousel images={images} />

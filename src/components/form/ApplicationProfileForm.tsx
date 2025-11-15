@@ -3,9 +3,18 @@ import FormInput from '../form-fields/FormInput'
 import { Button } from '../ui/button'
 import type { Registration, RequiredFormData } from '@/utils/types'
 import { useDispatch, useSelector } from 'react-redux'
-import { addApplicationProfile } from '@/features/registration/registrationSlice'
+import {
+  addApplicationProfile,
+  clearForms,
+} from '@/features/registration/registrationSlice'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { applicationProfileFormSchema } from '@/utils/schemas'
+import {
+  setServiceProviderStatus,
+  setUserType,
+} from '@/features/user/userSlice'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export default function ApplicationProfileForm() {
   const { personalInfo, experience, applicationProfile }: Registration =
@@ -59,7 +68,7 @@ export default function ApplicationProfileForm() {
       })
     )
   }
-
+  const navigate = useNavigate()
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const validateData = useValidateSchema(
@@ -69,6 +78,20 @@ export default function ApplicationProfileForm() {
     if (!validateData) {
       return
     }
+    //handle creation of account on database
+    toast.success('Registration successful!')
+    dispatch(
+      setServiceProviderStatus({
+        serviceProviderStatus: true,
+      })
+    )
+    dispatch(
+      setUserType({
+        userType: 'service-provider',
+      })
+    )
+    dispatch(clearForms())
+    navigate('/service-provider/profile')
   }
 
   return (

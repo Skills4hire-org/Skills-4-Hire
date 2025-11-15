@@ -20,7 +20,7 @@ import { sidebarAboutUs, sidebarMobileGeneral } from '@/assets/data'
 import SignOutButton from '../buttons/SignOutButton'
 import SwitchRoleButton from '../buttons/SwitchRoleButton'
 
-export default function CustomerMobileSidebar() {
+export default function MobileSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className=" border-b py-1">

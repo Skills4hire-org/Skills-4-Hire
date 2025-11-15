@@ -8,15 +8,29 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from '../ui/sidebar'
-import { NavLink, useLocation } from 'react-router-dom'
-import { customerDesktopNavLinks } from '@/assets/data'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import {
+  customerDesktopNavLinks,
+  serviceProviderDesktopNavLinks,
+} from '@/assets/data'
 import CustomerDesktopMenu from './CustomerDesktopMenu'
 import Logo from '../global/Logo'
 import { getBasePath } from '@/utils/format'
+import type { UserType } from '@/utils/types'
+import { useSelector } from 'react-redux'
+import ProfileImage from '../global/ProfileImage'
 
-export default function CustomerDesktopSidebar() {
+export default function DesktopSidebar() {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState
+  )
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)
+
+  const desktopNavLinks =
+    userType == 'customer'
+      ? customerDesktopNavLinks
+      : serviceProviderDesktopNavLinks
   return (
     <Sidebar className="rounded-r-lg h-full border-none">
       <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center">
@@ -26,7 +40,7 @@ export default function CustomerDesktopSidebar() {
         <SidebarGroup className="px-0">
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
-              {customerDesktopNavLinks.map(({ icon, label, url }) => {
+              {desktopNavLinks.map(({ icon, label, url }) => {
                 const IconComponent = icon
                 const active = url === basePath
                 return (
@@ -52,7 +66,13 @@ export default function CustomerDesktopSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="mb-4 mt-2">
-        <CustomerDesktopMenu />
+        {userType === 'customer' ? (
+          <CustomerDesktopMenu />
+        ) : (
+          <Link to="/service-provider/profile" className="mx-auto">
+            <ProfileImage />
+          </Link>
+        )}
       </SidebarFooter>
     </Sidebar>
   )

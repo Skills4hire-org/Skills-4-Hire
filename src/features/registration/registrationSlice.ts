@@ -48,7 +48,7 @@ const defaultState: Registration = {
 }
 
 const registrationSlice = createSlice({
-  name: 'checkout',
+  name: 'registration',
   initialState: defaultState,
   reducers: {
     addPersonalInfo: (state, action) => {
@@ -66,10 +66,19 @@ const registrationSlice = createSlice({
         ...applicationProfile,
       }
     },
+    clearForms: (state) => {
+      state.applicationProfile = defaultState.applicationProfile
+      state.experience = defaultState.experience
+      state.personalInfo = defaultState.personalInfo
+    },
   },
 })
 
-export const { addPersonalInfo, addExperience, addApplicationProfile } =
-  registrationSlice.actions
+export const {
+  addPersonalInfo,
+  addExperience,
+  addApplicationProfile,
+  clearForms,
+} = registrationSlice.actions
 
 export default registrationSlice.reducer
