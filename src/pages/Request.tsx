@@ -1,85 +1,79 @@
 import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
-import { Badge } from "@/components/ui/badge";
+import Container from "@/components/global/Container";
+import { requests } from "@/assets/data";
 import { Button } from "@/components/ui/button";
 
-export default function RequestsPage() {
+export default function Request() {
+  const statusColor = (status: string) =>
+    status === "Pending" ? "bg-red-500" : "bg-primary";
+
   return (
-    <div className="min-h-screen bg-white">
-      <div className="w-full pb-4">
-        <HeaderWithBackNavigation title="Request" />
-      </div>
+    <>
+      <HeaderWithBackNavigation title="Request" onlyMobile={false} />
 
-      <div className="max-w-screen-lg mx-auto px-4">
-        <div className="flex flex-col gap-4 mt-4 pb-10">
-          <div className="bg-white border rounded-2xl p-4 shadow-sm flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <img
-                src="/src/assets/request1.png"
-                alt="Request"
-                className="w-16 h-16 rounded-xl object-cover"
-              />
-              <div className="flex-1">
-                <p className="text-sm font-medium">
-                  No 18, IyanuOluwa Street, Taloke, Ilorin
-                </p>
-                <p className="text-xs text-gray-500">Plumbing</p>
-              </div>
+      <Container>
+        <div className="w-full flex flex-col gap-4 pb-10">
+          {requests.map((item) => (
+            <div
+              key={item.id}
+              className="rounded-2xl shadow-md border border-gray-200 overflow-hidden bg-white"
+            >
+              <div className="p-4 flex flex-col gap-3">
+                <div className="flex items-start gap-3">
+                  <img src={item.avatar} alt={item.name} />
 
-              <div className="text-right">
-                <Badge className="bg-blue-500 text-white">Accepted</Badge>
-                <p className="text-sm font-semibold mt-1">₦20,000</p>
+                  <div className="flex flex-col flex-1">
+                    <span
+                      className={`${statusColor(
+                        item.status
+                      )} text-white text-xs px-3 py-1 rounded-full w-fit`}
+                    >
+                      {item.status}
+                    </span>
+
+                    {item.service && (
+                      <p className="mt-1 text-gray-600 italic text-sm">
+                        {item.service}
+                      </p>
+                    )}
+
+                    <span className="text-gray-900 font-medium mt-1">
+                      ₦{item.price.toLocaleString()}
+                    </span>
+                  </div>
+
+                  <span className="text-gray-500 font-semibold">
+                    #{item.id}
+                  </span>
+                </div>
+
+                <div className="bg-gray-100 p-3 rounded-xl text-sm text-gray-700">
+                  <p className="font-medium">{item.address}</p>
+                  <p className="mt-1 text-gray-500">
+                    {item.date} — {item.time}
+                  </p>
+                  <p className="mt-1 font-medium text-gray-700">{item.name}</p>
+                </div>
+
+                {item.status === "Pending" && (
+                  <div className="flex items-center justify-between gap-3 mt-2">
+                    <Button className="flex-1 bg-primary text-white rounded-full py-2">
+                      Accept
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      className="flex-1 border-gray-400 text-gray-700 rounded-full py-2"
+                    >
+                      Decline
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
-
-            <Button className="w-full bg-blue-600 text-white rounded-full h-10">
-              Accept
-            </Button>
-
-            <Button
-              variant="outline"
-              className="w-full rounded-full h-10 text-black border-gray-300"
-            >
-              Decline
-            </Button>
-          </div>
-
-          <div className="bg-white border rounded-2xl p-4 shadow-sm flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <img
-                src="/src/assets/request2.png"
-                alt="Request"
-                className="w-16 h-16 rounded-xl object-cover"
-              />
-              <div className="flex-1">
-                <p className="text-sm font-medium">
-                  No 19, IyanuOluwa Street, Taloke, Ilorin
-                </p>
-                <p className="text-xs text-gray-500">Plumbing</p>
-                <p className="text-xs text-gray-400 mt-1">
-                  28 Mar 2025 — 11:26pm
-                </p>
-                <p className="text-xs font-medium mt-1">Joshua Friday</p>
-              </div>
-
-              <div className="text-right">
-                <Badge className="bg-orange-500 text-white">Pending</Badge>
-                <p className="text-sm font-semibold mt-1">₦20,000</p>
-              </div>
-            </div>
-
-            <Button className="w-full bg-blue-600 text-white rounded-full h-10">
-              Accept
-            </Button>
-
-            <Button
-              variant="outline"
-              className="w-full rounded-full h-10 text-black border-gray-300"
-            >
-              Decline
-            </Button>
-          </div>
+          ))}
         </div>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }
