@@ -34,6 +34,8 @@ import Rect18 from './Rectangle 18.png'
 import Rect19 from './Rectangle 19.png'
 import Rect20 from './Rectangle 20.png'
 import Rect21 from './Rectangle 21.png'
+import JoshuaFridayBG from './JoshuaFriday-bg.png'
+import MaryPraise from './MaryPraise.png'
 
 export const images = [img1, img2, img1]
 
@@ -726,5 +728,30 @@ export const yearsOfExperience = [
   {
     label: '10+',
     value: '10 above',
+  },
+]
+
+export const requests = [
+  {
+    id: '01',
+    name: 'Joshua Friday',
+    avatar: JoshuaFridayBG,
+    status: 'Pending',
+    service: 'Plumbing',
+    price: 20000,
+    address: 'No 19, IyeruOkin Street, Tanke, Ilorin',
+    date: '28 Mar, 2025',
+    time: '1:12pm',
+  },
+  {
+    id: '02',
+    name: 'Mary Praise',
+    avatar: MaryPraise,
+    status: 'Accepted',
+    service: 'Plumbing',
+    price: 20000,
+    address: 'No 18, IyeruOkin Street, Tanke, Ilorin',
+    date: '28 Mar, 2025',
+    time: '1:12pm',
   },
 ]

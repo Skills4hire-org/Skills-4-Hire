@@ -12,6 +12,8 @@ import Container from '@/components/global/Container'
 import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
 import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
 
+import { Link } from 'react-router-dom'
+
 export default function ProviderOverview() {
   const { user, stats, chart, newBookingRequest, reviews } =
     providerOverviewData
@@ -62,9 +64,12 @@ export default function ProviderOverview() {
               <h2 className="font-semibold text-gray-900">
                 {newBookingRequest.title}
               </h2>
-              <button className="text-xs text-primary hover:underline">
+              <Link
+                to="request"
+                className="text-xs text-primary hover:underline"
+              >
                 View all
-              </button>
+              </Link>
             </div>
             <div className="flex flex-col items-center justify-center text-gray-400 py-6">
               <newBookingRequest.icon className="w-10 h-10 text-gray-400 mb-2" />

@@ -36,6 +36,7 @@ import Withdraw from './components/wallet/Withdraw'
 import Notification from './pages/Notification'
 import Layout from './components/layouts/Layout'
 import Posts from './pages/Posts'
+import Request from './pages/Request'
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Navigate to="home" />,
       },
+
       {
         path: 'home',
         element: <HomeLayout />,
@@ -92,6 +94,7 @@ const router = createBrowserRouter([
         path: 'overview',
         element: <ProviderOverview />,
       },
+      { path: '/overview/request', element: <Request /> },
       {
         path: 'services',
         element: <Services />,

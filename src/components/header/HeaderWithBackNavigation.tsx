@@ -13,7 +13,7 @@ export default function HeaderWithBackNavigation({
 
   return (
     <Container
-      className={`bg-white py-2 md:py-4 border-b border-gray-100 ${
+      className={`bg-white py-2 md:py-4 border-b border-gray-100 mb-4 ${
         onlyMobile && 'md:hidden'
       }`}
     >
