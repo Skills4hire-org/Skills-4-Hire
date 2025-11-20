@@ -1,51 +1,51 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
-import Container from "@/components/global/Container";
-import SearchBar from "@/components/global/SearchBar";
-import { socialShareOptions, mockContacts } from "@/assets/data";
-import { referralPageData } from "@/utils/database";
-import { Info, MoreHorizontal } from "lucide-react";
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
+import Container from '@/components/global/Container'
+import SearchBar from '@/components/global/SearchBar'
+import { socialShareOptions, mockContacts } from '@/assets/data'
+import { referralPageData } from '@/utils/database'
+import { Info, MoreHorizontal } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 
 export default function Referral() {
-  const [referralCode] = useState("fghijk90");
-  const [contacts, setContacts] = useState(mockContacts);
+  const [referralCode] = useState('fghijk90')
+  const [contacts, setContacts] = useState(mockContacts)
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(referralCode);
-      console.log("Referral code copied");
+      await navigator.clipboard.writeText(referralCode)
+      console.log('Referral code copied')
     } catch (error) {
-      console.error("Failed to copy:", error);
+      console.error('Failed to copy:', error)
     }
-  };
+  }
 
   const handleShare = (baseUrl: string) => {
-    const shareUrl = `${baseUrl}${referralCode}`;
-    window.open(shareUrl, "_blank");
-  };
+    const shareUrl = `${baseUrl}${referralCode}`
+    window.open(shareUrl, '_blank')
+  }
 
   const handleInvite = (id: number, name: string) => {
-    const smsMessage = `Hi ${name}, join Skills4Hire using my link: https://skills4hire.com/ref?code=${referralCode}`;
-    window.location.href = `sms:?&body=${encodeURIComponent(smsMessage)}`;
+    const smsMessage = `Hi ${name}, join Skills4Hire using my link: https://skills4hire.com/ref?code=${referralCode}`
+    window.location.href = `sms:?&body=${encodeURIComponent(smsMessage)}`
 
     setContacts((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, status: "Accepted" } : c))
-    );
-  };
+      prev.map((c) => (c.id === id ? { ...c, status: 'Accepted' } : c))
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white">
       <HeaderWithBackNavigation title="Referrals" />
-      <Container className="pt-8 text-center max-w-lg mx-auto">
+      <Container className="text-center max-w-lg mx-auto">
         <p className="text-2xl font-semibold text-gray-900">+ ₦0.00</p>
         <p className="text-sm text-gray-600 mb-3">
           0 contacts, ₦{referralPageData.rewardAmount} per invite
@@ -109,7 +109,7 @@ export default function Referral() {
       <div className="flex-grow flex justify-center px-4 mt-8 pb-8">
         <div
           className="bg-gray-400 rounded-t-lg w-full max-w-md flex flex-col"
-          style={{ minHeight: "65vh" }}
+          style={{ minHeight: '65vh' }}
         >
           <div className="px-6 pt-6 pb-4">
             <h2 className="text-lg font-semibold text-gray-900">
@@ -138,7 +138,7 @@ export default function Referral() {
                     </div>
                   </div>
 
-                  {contact.status === "Accepted" ? (
+                  {contact.status === 'Accepted' ? (
                     <button
                       className="bg-gray-600 text-black text-sm font-normal rounded-full px-3 py-1 h-7 border border-gray-700"
                       disabled
@@ -160,5 +160,5 @@ export default function Referral() {
         </div>
       </div>
     </div>
-  );
+  )
 }

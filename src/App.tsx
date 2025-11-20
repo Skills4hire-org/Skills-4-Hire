@@ -94,7 +94,7 @@ const router = createBrowserRouter([
         path: 'overview',
         element: <ProviderOverview />,
       },
-      { path: '/overview/request', element: <Request /> },
+      { path: 'overview/request', element: <Request /> },
       {
         path: 'services',
         element: <Services />,

@@ -13,6 +13,8 @@ import MobileServicesOverviewHeader from '@/components/header/MobileServicesOver
 import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
 
 import { Link } from 'react-router-dom'
+import NoRequestCard from '@/components/overview/NoRequestCard'
+import RequestCard from '@/components/overview/RequestCard'
 
 export default function ProviderOverview() {
   const { user, stats, chart, newBookingRequest, reviews } =
@@ -26,7 +28,7 @@ export default function ProviderOverview() {
       </Container>
       <Container>
         <div className="space-y-8">
-          <div className="bg-gray-100 rounded-md p-3 text-sm md:text-base text-gray-700 w-full space-y-1 md:max-w-xs md:mx-auto md:text-center">
+          <div className="bg-gray-100 rounded-md p-3 text-sm md:text-base text-gray-700 w-full space-y-1 md:max-w-xs ">
             <p>
               Provider Type: <span className="font-semibold">{user.role}</span>
             </p>
@@ -59,21 +61,22 @@ export default function ProviderOverview() {
               )
             })}
           </section>
-          <section className="bg-white rounded-lg p-4 shadow-md ">
-            <div className="flex items-center justify-between mb-2">
+          <section className="bg-white rounded-lg px-2 py-4 md:px-3 md:py-6 space-y-4 md:space-y-6 shadow-md ">
+            <div className="flex items-center justify-between">
               <h2 className="font-semibold text-gray-900">
-                {newBookingRequest.title}
+                {newBookingRequest.title} (
+                {newBookingRequest && newBookingRequest.requests.length})
               </h2>
               <Link
                 to="request"
-                className="text-xs text-primary hover:underline"
+                className="text-xs md:text-sm text-primary hover:underline"
               >
                 View all
               </Link>
             </div>
-            <div className="flex flex-col items-center justify-center text-gray-400 py-6">
-              <newBookingRequest.icon className="w-10 h-10 text-gray-400 mb-2" />
-              <p className="text-sm">No new booking requests</p>
+            <div>
+              <RequestCard {...newBookingRequest.requests[0]} />
+              {newBookingRequest.requests.length === 0 && <NoRequestCard />}
             </div>
           </section>
           <section className="bg-white rounded-lg p-4 shadow-md">

@@ -615,8 +615,32 @@ export const providerOverviewData = {
     { name: 'Dec', revenue: 0 },
   ],
   newBookingRequest: {
-    title: 'New Booking Request',
+    title: 'Booking Request',
     icon: MessageSquare,
+    requests: [
+      {
+        id: '01',
+        name: 'Joshua Friday',
+        avatar: JoshuaFridayBG,
+        status: 'Pending',
+        service: 'Plumbing',
+        price: 20000,
+        address: 'No 19, IyeruOkin Street, Tanke, Ilorin',
+        date: Date.now(),
+        time: Date.now(),
+      },
+      {
+        id: '02',
+        name: 'Mary Praise',
+        avatar: MaryPraise,
+        status: 'Accepted',
+        service: 'Plumbing',
+        price: 20000,
+        address: 'No 18, IyeruOkin Street, Tanke, Ilorin',
+        date: Date.now(),
+        time: Date.now(),
+      },
+    ],
   },
   reviews: [
     {
@@ -740,8 +764,8 @@ export const requests = [
     service: 'Plumbing',
     price: 20000,
     address: 'No 19, IyeruOkin Street, Tanke, Ilorin',
-    date: '28 Mar, 2025',
-    time: '1:12pm',
+    date: Date.now(),
+    time: Date.now(),
   },
   {
     id: '02',
@@ -751,7 +775,7 @@ export const requests = [
     service: 'Plumbing',
     price: 20000,
     address: 'No 18, IyeruOkin Street, Tanke, Ilorin',
-    date: '28 Mar, 2025',
-    time: '1:12pm',
+    date: Date.now(),
+    time: Date.now(),
   },
 ]
