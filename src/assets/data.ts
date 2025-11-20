@@ -645,7 +645,6 @@ export const providerOverviewData = {
   reviews: [
     {
       name: 'Joshua Friday',
-      role: 'Plumber',
       rating: 4,
       image: '',
       createdAt: Date.now(),
@@ -653,7 +652,6 @@ export const providerOverviewData = {
     },
     {
       name: 'Joshua Friday',
-      role: 'Plumber',
       rating: 3,
       image: '',
       createdAt: Date.now(),

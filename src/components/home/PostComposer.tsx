@@ -30,7 +30,11 @@ export default function PostComposer() {
         <ProfileImage noStatus />
         <FormTextArea
           name="post"
-          placeholder="What job do you want to get done?"
+          placeholder={
+            userType == 'customer'
+              ? 'What job do you want to get done?'
+              : 'Here post about your latest work or service.'
+          }
           value={formData.post}
           handleInputChange={handleInputChange}
           className="text-sm md:text-base p-1 h-[48px] min-h-[48px]"
@@ -49,7 +53,8 @@ export default function PostComposer() {
               value={formData.budget}
               type="number"
               handleInputChange={handleInputChange}
-              className="border-0 border-b h-"
+              className="border-0 border-b h-9"
+              labelSize="text-xs md:text-sm"
             />
             <FormSelect
               name="timeFrame"
@@ -59,6 +64,7 @@ export default function PostComposer() {
               selectItems={timeFrameOptions}
               placeholder="Select"
               className="border-0 border-b h-9"
+              labelSize="text-xs md:text-sm"
             />
           </div>
         )}

@@ -19,12 +19,20 @@ export default function TransactionCard({
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState
   )
-  const textByStatus: Record<string, string> = {
+  const customerTextByStatus: Record<string, string> = {
     sent: 'payment sent to',
     received: 'payment received from',
     pending: 'payment pending to',
     canceled: 'payment to',
   }
+  const serviceProviderTextByStatus: Record<string, string> = {
+    sent: 'payment sent to',
+    received: 'payment received from',
+    pending: 'pending payment from',
+    canceled: 'payment to',
+  }
+  const textByStatus =
+    userType === 'customer' ? customerTextByStatus : serviceProviderTextByStatus
   return (
     <div className="bg-gray-300 rounded-md p-2 flex items-center justify-between gap-6 max-w-5xl mx-auto w-full">
       <div className="capitalize ">
