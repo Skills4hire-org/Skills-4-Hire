@@ -5,7 +5,7 @@ import RecentNotification from '../global/RecentNotification'
 import { SidebarTrigger } from '../ui/sidebar'
 import { Link } from 'react-router-dom'
 
-export default function MobileServicesHeader() {
+export default function MobileServicesOverviewHeader() {
   return (
     <header className="flex items-center md:hidden justify-between gap-2 py-2">
       <div className="flex items-center gap-2">

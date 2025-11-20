@@ -64,7 +64,7 @@ export default function FormSelect({
         onOpenChange={handleBlur}
       >
         <SelectTrigger
-          className={`w-full relative  text-sm md:text-base pl-4 [&>svg]:hidden sm:[&>svg]:block ${className}`}
+          className={`w-full relative  text-sm md:text-base pl-4 ${className}`}
         >
           <SelectValue placeholder={placeholder}></SelectValue>
           {indicator && (

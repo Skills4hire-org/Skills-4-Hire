@@ -1,7 +1,6 @@
 import { images } from '@/assets/data'
 import SearchBar from '@/components/global/SearchBar'
-import DesktopServicesHeader from '@/components/header/DesktopServicesHeader'
-import MobileServicesHeader from '@/components/header/MobileServicesHeader'
+import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
 import ImageCarousel from '@/components/services/ImageCarousel'
 import SectionHeading from '@/components/services/SectionHeading'
 import { availableServices, serviceAround } from '@/utils/database'
@@ -10,13 +9,14 @@ import Container from '@/components/global/Container'
 import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
 import ServicesCard from '@/components/services/ServicesCard'
 import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
+import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
 
 export default function Services() {
   return (
     <div className="space-y-2 md:space-y-6">
       <Container className="bg-white">
-        <MobileServicesHeader />
-        <DesktopServicesHeader />
+        <MobileServicesOverviewHeader />
+        <DesktopServicesOverviewHeader />
       </Container>
 
       <Container>

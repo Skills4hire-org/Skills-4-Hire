@@ -23,7 +23,7 @@ export default function FormTextArea({
   className,
 }: FormTextAreaProp) {
   return (
-    <div className="space-y-1 md:space-y-2">
+    <div className="space-y-1 md:space-y-2 w-full">
       {label && (
         <Label htmlFor={name} className="text-xs md:text-sm">
           {label}{' '}
@@ -38,7 +38,7 @@ export default function FormTextArea({
         placeholder={placeholder}
         rows={rows}
         required={required}
-        className={`${className}`}
+        className={`${className} break-all`}
       />
     </div>
   )

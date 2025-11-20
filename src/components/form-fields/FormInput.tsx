@@ -4,7 +4,6 @@ import { Label } from '../ui/label'
 interface FormInputFieldProp {
   name: string
   label?: string
-  labelSize?: string
   value: string | undefined
   handleInputChange: (key: string, value: any) => void
   placeholder?: string
@@ -32,12 +31,11 @@ export default function FormInput({
   handleBlur,
   maxLength,
   handleKeyDown,
-  labelSize,
 }: FormInputFieldProp) {
   return (
     <div className="space-y-1.5">
       {label && (
-        <Label htmlFor={name} className={`text-sm md:text-base ${labelSize}`}>
+        <Label htmlFor={name} className={`text-sm md:text-base`}>
           {label}
         </Label>
       )}
@@ -51,7 +49,7 @@ export default function FormInput({
         min={min}
         required={required}
         disabled={disabled}
-        className={`${className}  text-sm md:text-base placeholder:text-sm placeholder:md:text-base`}
+        className={`${className} break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base`}
         onBlur={handleBlur}
         autoComplete="true"
         maxLength={maxLength}

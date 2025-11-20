@@ -1,4 +1,4 @@
-import type { PostCard } from "@/utils/types";
+import type { PostCard } from '@/utils/types'
 import {
   Heart,
   MessageCircle,
@@ -6,9 +6,9 @@ import {
   BarChart2,
   Star,
   MapPin,
-} from "lucide-react";
-import { Link } from "react-router-dom";
-import ProfileImage from "@/components/global/ProfileImage";
+} from 'lucide-react'
+import { Link } from 'react-router-dom'
+import ProfileImage from '@/components/global/ProfileImage'
 
 export default function PostCard({
   id,
@@ -21,10 +21,10 @@ export default function PostCard({
   description,
   stats,
 }: PostCard) {
-  const likeCount = stats?.likes ?? 0;
-  const commentCount = stats?.comments ?? 0;
-  const shareCount = stats?.shares ?? 0;
-  const impressionsCount = stats?.impressions ?? 0;
+  const likeCount = stats?.likes ?? 0
+  const commentCount = stats?.comments ?? 0
+  const shareCount = stats?.shares ?? 0
+  const impressionsCount = stats?.impressions ?? 0
 
   return (
     <div className="bg-white rounded-2xl shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
@@ -76,15 +76,13 @@ export default function PostCard({
       </div>
 
       {description && (
-        <div className="pl-[3.65rem] md:pl-[4.2rem]">
-          <p className="text-gray-600 text-sm md:text-base leading-snug md:leading-relaxed">
-            {description}
-          </p>
-        </div>
+        <p className="text-gray-600 text-sm md:text-base leading-snug md:leading-relaxed">
+          {description}
+        </p>
       )}
 
       {tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 md:gap-2 pl-[3.65rem] md:pl-[3.5rem]">
+        <div className="flex flex-wrap gap-1.5 md:gap-2">
           {tags.map((tag) => (
             <span
               key={tag}
@@ -96,27 +94,25 @@ export default function PostCard({
         </div>
       )}
 
-      <div className="flex justify-between items-center pl-[3.65rem] md:pl-[3.5rem] pr-2 md:pr-4 pt-2 md:pt-3 border-t border-gray-200 text-gray-500">
+      <div className="flex justify-between items-center pt-2 md:pt-3 border-t border-gray-200 text-gray-500">
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
-          <Heart size={17} className="md:w-[20px] lg:w-[22px]" />{" "}
-          <span>{likeCount}</span>
+          <Heart className="w-5 h-5 md:w-6 md:h-6" /> <span>{likeCount}</span>
         </button>
 
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
-          <MessageCircle size={17} className="md:w-[20px] lg:w-[22px]" />{" "}
+          <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />{' '}
           <span>{commentCount}</span>
         </button>
 
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
-          <Share2 size={17} className="md:w-[20px] lg:w-[22px]" />{" "}
-          <span>{shareCount}</span>
+          <Share2 className="w-5 h-5 md:w-6 md:h-6" /> <span>{shareCount}</span>
         </button>
 
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
-          <BarChart2 size={17} className="md:w-[20px] lg:w-[22px]" />{" "}
+          <BarChart2 className="w-5 h-5 md:w-6 md:h-6" />
           <span>{impressionsCount}</span>
         </button>
       </div>
     </div>
-  );
+  )
 }

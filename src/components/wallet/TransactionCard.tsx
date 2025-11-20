@@ -1,5 +1,7 @@
 import { currencyFormatter } from '@/utils/format'
 import ApprovePaymentButton from '../buttons/ApprovePaymentButton'
+import { useSelector } from 'react-redux'
+import type { UserType } from '@/utils/types'
 
 interface TransactionCardProp {
   status: string
@@ -14,6 +16,9 @@ export default function TransactionCard({
   service,
   amount,
 }: TransactionCardProp) {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState
+  )
   const textByStatus: Record<string, string> = {
     sent: 'payment sent to',
     received: 'payment received from',
@@ -33,7 +38,9 @@ export default function TransactionCard({
           {currencyFormatter(amount)}
         </span>
 
-        {status === 'pending' && <ApprovePaymentButton />}
+        {status === 'pending' && userType == 'customer' && (
+          <ApprovePaymentButton />
+        )}
       </div>
     </div>
   )

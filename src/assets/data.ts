@@ -205,6 +205,16 @@ export const serviceProviderDesktopNavLinks = [
   },
   { label: 'wallet', icon: Wallet, url: '/service-provider/wallet' },
   { label: 'chats', icon: MessageSquareMore, url: '/service-provider/chats' },
+  {
+    label: 'notification',
+    icon: Bell,
+    url: '/service-provider/notification',
+  },
+  {
+    label: 'help center',
+    icon: HelpCircle,
+    url: '/service-provider/support',
+  },
 ]
 
 export const bookingsTabsList = [
@@ -579,7 +589,7 @@ export const jobOffers = [
 export const providerOverviewData = {
   user: {
     name: 'Joshua Friday',
-    role: 'Freelance',
+    role: 'Plumber',
     commission: '2%',
   },
   stats: [
@@ -610,14 +620,18 @@ export const providerOverviewData = {
     {
       name: 'Joshua Friday',
       role: 'Plumber',
-      rating: 4.8,
+      rating: 4,
       image: '',
+      createdAt: Date.now(),
+      comment: 'Awesome work. Thank you so much.',
     },
     {
       name: 'Joshua Friday',
       role: 'Plumber',
-      rating: 4.8,
+      rating: 3,
       image: '',
+      createdAt: Date.now(),
+      comment: 'Fast and professional.',
     },
   ],
 }

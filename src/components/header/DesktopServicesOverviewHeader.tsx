@@ -1,6 +1,6 @@
 import { user } from '@/utils/database'
 
-export default function DesktopServicesHeader() {
+export default function DesktopServicesOverviewHeader() {
   return (
     <header className="hidden md:block text-center py-4">
       <h1 className="text-2xl font-semibold">
