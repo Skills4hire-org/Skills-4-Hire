@@ -28,7 +28,7 @@ export default function FormImage({
         onChange={handleImageChange}
         className="hidden"
       />
-      <FaCamera className="w-7 h-7 fill-gray-400" />
+      <FaCamera className="w-7 h-7 fill-gray-400 cursor-pointer" />
     </Label>
   )
 }

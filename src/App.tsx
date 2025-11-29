@@ -6,7 +6,7 @@ import AvailableServices from './pages/AvailableServices'
 import Bookings from './pages/Bookings'
 import HomeLayout from './components/layouts/HomeLayout'
 import CustomerOffers from './pages/CustomerOffers'
-import CustomerProfile from './pages/CustomerProfile'
+import Profile from './pages/Profile'
 import Experience from './pages/Experience'
 import FAQs from './pages/Faq'
 import Favorites from './pages/Favorites'
@@ -37,6 +37,7 @@ import Notification from './pages/Notification'
 import Layout from './components/layouts/Layout'
 import Posts from './pages/Posts'
 import Request from './pages/Request'
+import Reviews from './pages/Reviews'
 
 const router = createBrowserRouter([
   {
@@ -160,7 +161,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <CustomerProfile />,
+        element: <Profile />,
       },
       {
         path: 'registration',
@@ -177,6 +178,10 @@ const router = createBrowserRouter([
       {
         path: 'registration/application-profile',
         element: <ApplicationProfile />,
+      },
+      {
+        path: 'reviews',
+        element: <Reviews />,
       },
     ],
   },

@@ -14,7 +14,7 @@ export default function CustomerBookingCard({
   desc,
 }: CustomerBooking) {
   return (
-    <div className="space-y-2 md:space-y-4 max-w-4xl mx-auto ">
+    <div className="space-y-2 md:space-y-4 max-w-xl mx-auto ">
       <div className="flex items-center justify-between gap-8 border-y px-2">
         <div className="flex flex-col gap-1">
           <h3 className="capitalize font-medium ">{service}</h3>

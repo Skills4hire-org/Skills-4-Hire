@@ -11,9 +11,12 @@ export default function Favorites() {
         <MobileWithAvatarAndDesktopHeader title="Favorites" />
       </Container>
       <Container>
-        {user?.favorites.map((favorite) => (
-          <ServiceProviderCard key={favorite.id} {...favorite} />
-        ))}
+        <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
+          {user?.favorites.map((favorite) => (
+            <ServiceProviderCard key={favorite.id} {...favorite} />
+          ))}
+        </div>
+
         {user?.favorites.length === 0 && <NoFavoriteCard />}
       </Container>
     </div>

@@ -27,7 +27,7 @@ export default function WalletTabContent() {
                     {day}
                   </h3>
 
-                  <div className="grid grid-cols-1 gap-2 md:gap-3">
+                  <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
                     {transaction.map((transaction, index) => (
                       <TransactionCard key={index} {...transaction} />
                     ))}

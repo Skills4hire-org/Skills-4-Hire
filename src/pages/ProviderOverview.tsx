@@ -11,10 +11,10 @@ import ReviewCard from '@/components/reviews/ReviewCard'
 import Container from '@/components/global/Container'
 import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
 import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
-
 import { Link } from 'react-router-dom'
 import NoRequestCard from '@/components/overview/NoRequestCard'
 import RequestCard from '@/components/overview/RequestCard'
+import NoReviewCard from '@/components/reviews/NoReviewCard'
 
 export default function ProviderOverview() {
   const { user, stats, chart, newBookingRequest, reviews } =
@@ -103,13 +103,24 @@ export default function ProviderOverview() {
               </BarChart>
             </ResponsiveContainer>
           </section>
-          <section>
-            <h2 className="font-semibold text-gray-900 mb-3">Reviews</h2>
+          <section className="space-y-4 md:space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="font-semibold text-gray-900">
+                Reviews ({reviews && reviews.length})
+              </h2>
+              <Link
+                to="/service-provider/reviews"
+                className="text-xs md:text-sm text-primary hover:underline"
+              >
+                View all
+              </Link>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {reviews.map((review, index) => (
+              {reviews.slice(0, 1).map((review, index) => (
                 <ReviewCard key={index} {...review} />
               ))}
             </div>
+            {reviews?.length === 0 && <NoReviewCard />}
           </section>
         </div>
       </Container>

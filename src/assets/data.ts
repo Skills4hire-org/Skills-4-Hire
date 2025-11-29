@@ -58,7 +58,7 @@ export const sidebarMobileGeneral = [
   {
     icon: TbStar,
     label: 'my reviews',
-    url: '/',
+    url: '/customer/reviews',
   },
 ]
 export const sidebarDesktopGeneral = [
@@ -85,7 +85,7 @@ export const sidebarDesktopGeneral = [
   {
     icon: TbStar,
     label: 'my reviews',
-    url: '/',
+    url: '/customer/reviews',
   },
 ]
 
@@ -414,7 +414,7 @@ export const supportOptions = [
   {
     icon: Mail,
     text: 'Send an email',
-    url: 'skills4hireofficial@gmail.com',
+    url: 'mailto:skills4hireofficial@gmail.com',
   },
   {
     icon: MessageCircleQuestion,
@@ -644,6 +644,7 @@ export const providerOverviewData = {
   },
   reviews: [
     {
+      id: '1',
       name: 'Joshua Friday',
       rating: 4,
       image: '',
@@ -651,6 +652,7 @@ export const providerOverviewData = {
       comment: 'Awesome work. Thank you so much.',
     },
     {
+      id: '2',
       name: 'Joshua Friday',
       rating: 3,
       image: '',

@@ -17,7 +17,7 @@ export default function ServiceProviderProfile() {
         <Container className="border-b-8 py-2 md:py-4">
           <ServiceProviderTab getServiceProvider={serviceProvider} />
         </Container>
-        <Container className="border-b-8 py-2 md:py-4 relative">
+        <Container className="border-b-8 pt-2 md:pt-4 relative">
           <ServiceProviderActivity getServiceProvider={serviceProvider} />
         </Container>
         <Container className=" pt-2 pb-4 md:py-4">
