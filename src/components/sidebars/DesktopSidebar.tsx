@@ -19,6 +19,7 @@ import { getBasePath } from '@/utils/format'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import ProfileImage from '../global/ProfileImage'
+import { Icon } from '@iconify/react'
 
 export default function DesktopSidebar() {
   const { userType }: { userType: UserType } = useSelector(
@@ -41,7 +42,6 @@ export default function DesktopSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
               {desktopNavLinks.map(({ icon, label, url }) => {
-                const IconComponent = icon
                 const active = url === basePath
                 return (
                   <SidebarMenuItem key={label} className="group">
@@ -53,7 +53,7 @@ export default function DesktopSidebar() {
                           : 'text-white/60 hover:bg-background hover:text-foreground'
                       }`}
                     >
-                      <IconComponent className="w-5 h-5 " />
+                      <Icon icon={icon} className="w-5 h-5 " />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">
                         {label}
                       </span>

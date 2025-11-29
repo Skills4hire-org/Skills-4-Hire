@@ -1,17 +1,12 @@
 import {
   ArrowDownUp,
   Banknote,
-  Bell,
-  BriefcaseMedical,
   FileText,
-  FolderCog,
   HelpCircle,
-  House,
   Info,
   Mail,
   MessageCircle,
   MessageCircleQuestion,
-  MessageSquareMore,
   Phone,
   PhoneCall,
   Send,
@@ -120,101 +115,129 @@ export const sidebarAboutUs = [
 export const customerMobileNavLinks = [
   {
     label: 'Home',
-    icon: House,
+    icon: 'si:home-line',
     url: '/customer/home',
   },
   {
     key: 'services',
     label: 'Services',
-    icon: BriefcaseMedical,
+    icon: 'fluent:briefcase-medical-20-regular',
     url: '/customer/services',
   },
   {
     label: 'bookings',
-    icon: FolderCog,
+    icon: 'fluent:clipboard-settings-24-regular',
     url: '/customer/bookings',
   },
-  { label: 'wallet', icon: Wallet, url: '/customer/wallet' },
-  { label: 'chats', icon: MessageSquareMore, url: '/customer/chats' },
+  {
+    label: 'wallet',
+    icon: 'solar:wallet-outline',
+    url: '/customer/wallet',
+  },
+  {
+    label: 'chats',
+    icon: 'material-symbols:chat-outline-rounded',
+    url: '/customer/chats',
+  },
 ]
 export const customerDesktopNavLinks = [
   {
     label: 'Home',
-    icon: House,
+    icon: 'si:home-line',
     url: '/customer/home',
   },
   {
     key: 'services',
     label: 'Services',
-    icon: BriefcaseMedical,
+    icon: 'fluent:briefcase-medical-20-regular',
     url: '/customer/services',
   },
   {
     label: 'bookings',
-    icon: FolderCog,
+    icon: 'fluent:clipboard-settings-24-regular',
     url: '/customer/bookings',
   },
-  { label: 'wallet', icon: Wallet, url: '/customer/wallet' },
-  { label: 'chats', icon: MessageSquareMore, url: '/customer/chats' },
+  { label: 'wallet', icon: 'solar:wallet-outline', url: '/customer/wallet' },
+  {
+    label: 'chats',
+    icon: 'material-symbols:chat-outline-rounded',
+    url: '/customer/chats',
+  },
   {
     label: 'notification',
-    icon: Bell,
+    icon: 'lucide:bell',
     url: '/customer/notification',
   },
   {
     label: 'help center',
-    icon: HelpCircle,
+    icon: 'lucide:circle-help',
     url: '/customer/support',
   },
 ]
 export const serviceProviderMobileNavLinks = [
   {
     label: 'Home',
-    icon: House,
+    icon: 'si:home-line',
     url: '/service-provider/home',
   },
   {
     key: 'overview',
     label: 'Overview',
-    icon: BriefcaseMedical,
+    icon: 'fluent:briefcase-medical-20-regular',
     url: '/service-provider/overview',
   },
   {
     label: 'bookings',
-    icon: FolderCog,
+    icon: 'fluent:clipboard-settings-24-regular',
     url: '/service-provider/bookings',
   },
-  { label: 'wallet', icon: Wallet, url: '/service-provider/wallet' },
-  { label: 'chats', icon: MessageSquareMore, url: '/service-provider/chats' },
+  {
+    label: 'wallet',
+    icon: 'solar:wallet-outline',
+    url: '/service-provider/wallet',
+  },
+  {
+    label: 'chats',
+    icon: 'material-symbols:chat-outline-rounded',
+    url: '/service-provider/chats',
+  },
 ]
 
 export const serviceProviderDesktopNavLinks = [
   {
     label: 'Home',
-    icon: House,
+    icon: 'si:home-line',
     url: '/service-provider/home',
   },
   {
     key: 'overview',
     label: 'Overview',
-    icon: BriefcaseMedical,
+    icon: 'fluent:briefcase-medical-20-regular',
     url: '/service-provider/overview',
   },
   {
     label: 'bookings',
-    icon: FolderCog,
+    icon: 'fluent:clipboard-settings-24-regular',
     url: '/service-provider/bookings',
   },
-  { label: 'wallet', icon: Wallet, url: '/service-provider/wallet' },
-  { label: 'chats', icon: MessageSquareMore, url: '/service-provider/chats' },
+  {
+    label: 'wallet',
+    icon: 'solar:wallet-outline',
+    url: '/service-provider/wallet',
+  },
+  {
+    label: 'chats',
+    icon: 'material-symbols:chat-outline-rounded',
+    url: '/service-provider/chats',
+  },
   {
     label: 'notification',
-    icon: Bell,
+    icon: 'lucide:bell',
     url: '/service-provider/notification',
   },
   {
     label: 'help center',
-    icon: HelpCircle,
+    icon: 'lucide:circle-help',
     url: '/service-provider/support',
   },
 ]
