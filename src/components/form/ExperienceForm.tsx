@@ -133,7 +133,7 @@ export default function ExperienceForm() {
         value={service}
         handleInputChange={handleInputChange}
         selectItems={services}
-        className="capitalize bg-transparent pb-1 pl-3 pr-6 border-b-foreground border-x-0 border-t-0 h-6 pt-0 rounded-none shadow-none sm:[&>svg]:hidden "
+        className="capitalize bg-transparent pb-1 pl-3 pr-6 border-b-foreground border-x-0 border-t-0 h-6 pt-0 rounded-none shadow-none [&>svg]:hidden "
         align="end"
         selectContentClassName="bg-gray-300 shadow-none rounded-none border-0 absolute   break-all w-66 -right-0.5"
         selectItemClassName="place-content-center w-64 rounded-none px-4"
@@ -147,7 +147,7 @@ export default function ExperienceForm() {
         value={certification}
         handleInputChange={handleInputChange}
         selectItems={certificationOptions}
-        className="capitalize bg-transparent pb-1 pl-3 pr-6 border-b-foreground border-x-0 border-t-0 h-6 pt-0 rounded-none shadow-none sm:[&>svg]:hidden"
+        className="capitalize bg-transparent pb-1 pl-3 pr-6 border-b-foreground border-x-0 border-t-0 h-6 pt-0 rounded-none shadow-none [&>svg]:hidden"
         align="end"
         selectContentClassName="bg-gray-300 shadow-none rounded-none border-0 absolute min-w-18 w-full break-all -right-0.5"
         selectItemClassName="place-content-center w-16 rounded-none px-4"
@@ -172,7 +172,7 @@ export default function ExperienceForm() {
         value={experienceYears}
         handleInputChange={handleInputChange}
         selectItems={yearsOfExperience}
-        className="capitalize bg-transparent pb-1 pl-3 pr-6 border-b-foreground border-x-0 border-t-0 h-6 pt-0 rounded-none shadow-none sm:[&>svg]:hidden"
+        className="capitalize bg-transparent pb-1 pl-3 pr-6 border-b-foreground border-x-0 border-t-0 h-6 pt-0 rounded-none shadow-none [&>svg]:hidden"
         align="end"
         selectContentClassName="bg-gray-300 shadow-none rounded-none border-0 absolute min-w-17 w-full break-all -right-0.5"
         selectItemClassName="place-content-center w-15  rounded-none px-4"

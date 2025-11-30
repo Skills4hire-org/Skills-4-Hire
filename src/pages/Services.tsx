@@ -1,7 +1,5 @@
-import { images } from '@/assets/data'
 import SearchBar from '@/components/global/SearchBar'
 import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
-import ImageCarousel from '@/components/services/ImageCarousel'
 import SectionHeading from '@/components/services/SectionHeading'
 import { availableServices, serviceAround } from '@/utils/database'
 import { Link } from 'react-router-dom'
@@ -26,7 +24,6 @@ export default function Services() {
               <SearchBar placeholder="Search for services" maxWidth="w-full" />
             </Link>
           </div>
-          <ImageCarousel images={images} />
           <section className="space-y-3 pb-1.5">
             <div className="flex items-center justify-between gap-6">
               <SectionHeading heading="Available services" />
@@ -55,7 +52,7 @@ export default function Services() {
               </Link>
             </div>
             <div className="grid grid-cols-1 gap-4">
-              {serviceAround.slice(0, 2).map((service) => (
+              {serviceAround.slice(0, 6).map((service) => (
                 <ServiceProviderCard key={service.id} {...service} />
               ))}
             </div>

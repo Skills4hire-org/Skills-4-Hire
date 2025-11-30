@@ -26,6 +26,7 @@ import ServiceProviderGallery from '../service-provider/ServiceProviderGallery'
 import PostCard from '../home/PostCard'
 import ServiceProviderServicesCard from '../service-provider/ServiceProviderServicesCard'
 import { Button } from '../ui/button'
+import ServiceProviderAbout from '../service-provider/ServiceProviderAbout'
 
 export default function ServiceProviderProfileForm() {
   const [formData, setFormData] = useState({
@@ -124,13 +125,13 @@ export default function ServiceProviderProfileForm() {
                   {user?.serviceProviderInfo?.totalJobs > 1 ? 'tasks' : 'task'}
                 </span>
               </div>
-              <div className="mt-4">
+              <div className="mt-4 w-max mx-auto">
                 <SwitchRoleButton className="bg-primary text-white hover:bg-primary/90  h-8" />
               </div>
             </div>
           </div>
         </Container>
-        <div className="pb-10">
+        <div>
           <Container className="border-b-8 py-2 md:py-4">
             <Tabs defaultValue="about" className="space-y-2 ">
               <TabsList className="border-b-0 bg-background  rounded-none relative p-0 space-x-12 md:space-x-24">
@@ -151,11 +152,33 @@ export default function ServiceProviderProfileForm() {
               {serviceProviderTabList.map((status) => {
                 return (
                   <TabsContent key={status} value={status} className="md:pt-1">
-                    {/* {status === 'about' ? (
-              <ServiceProviderAbout about={getServiceProvider?.about} />
-            ) : (
-              <ServiceProviderGallery gallery={getServiceProvider?.gallery} />
-            )} */}
+                    {status === 'about' ? (
+                      <div className="relative">
+                        <ServiceProviderAbout
+                          about={user?.serviceProviderInfo?.about}
+                        />
+                        <button className="text-primary absolute -top-5 md:-top-6 right-0">
+                          <Edit2
+                            strokeWidth={2}
+                            className="w-5 h-5 md:w-6 md:h-6"
+                          />
+                          <span className="sr-only">edit about</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <ServiceProviderGallery
+                          gallery={user?.serviceProviderInfo?.gallery}
+                        />
+                        <button className="text-primary absolute -top-5 md:-top-6 right-0">
+                          <Edit2
+                            strokeWidth={2}
+                            className="w-5 h-5 md:w-6 md:h-6"
+                          />
+                          <span className="sr-only">edit gallery</span>
+                        </button>
+                      </div>
+                    )}
                   </TabsContent>
                 )
               })}
@@ -260,11 +283,6 @@ export default function ServiceProviderProfileForm() {
             </div>
           </Container>
         </div>
-      </div>
-      <div className="fixed left-1/2 -translate-x-1/2 bottom-16 md:bottom-4 md:ml-[6rem] z-50">
-        <Button type="submit" className="w-30 md:w-38">
-          Update Profile
-        </Button>
       </div>
     </form>
   )

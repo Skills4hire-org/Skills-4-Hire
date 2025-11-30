@@ -14,7 +14,7 @@ export default function MobileHomeHeader() {
   return (
     <header className=" flex items-center justify-between md:hidden ">
       {userType == 'customer' ? (
-        <div className="py-3.5">
+        <div className="block pt-3.5">
           <SidebarTrigger size="lg">
             <ProfileImage />
           </SidebarTrigger>

@@ -285,7 +285,7 @@ export default function PersonalInfoForm() {
             value={gender}
             handleInputChange={handleInputChange}
             selectItems={genderOptions}
-            className="capitalize bg-gray-300 h-[44px] pr-6 disabled:cursor-auto sm:[&>svg]:hidden"
+            className="capitalize bg-gray-300 h-[44px] pr-6 disabled:cursor-auto [&>svg]:hidden"
             required
             placeholder="Gender"
             disabled={activeEdit.gender}

@@ -33,7 +33,7 @@ export default function PostComposer() {
           placeholder={
             userType == 'customer'
               ? 'What job do you want to get done?'
-              : 'Here post about your latest work or service.'
+              : 'Post about your latest work or service.'
           }
           value={formData.post}
           handleInputChange={handleInputChange}
@@ -54,7 +54,7 @@ export default function PostComposer() {
               type="number"
               handleInputChange={handleInputChange}
               className="border-0 border-b h-9"
-              labelSize="text-xs md:text-sm"
+              labelSize="text-xs md:text-sm "
             />
             <FormSelect
               name="timeFrame"
@@ -63,7 +63,7 @@ export default function PostComposer() {
               handleInputChange={handleInputChange}
               selectItems={timeFrameOptions}
               placeholder="Select"
-              className="border-0 border-b h-9"
+              className="border-0 border-b h-9 [&_svg]:block"
               labelSize="text-xs md:text-sm"
             />
           </div>
