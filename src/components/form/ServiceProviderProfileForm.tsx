@@ -167,9 +167,16 @@ export default function ServiceProviderProfileForm() {
                       </div>
                     ) : (
                       <div className="relative">
-                        <ServiceProviderGallery
-                          gallery={user?.serviceProviderInfo?.gallery}
-                        />
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
+                          {user?.serviceProviderInfo?.gallery?.map(
+                            (image, index) => (
+                              <ServiceProviderGallery
+                                key={index}
+                                image={image}
+                              />
+                            )
+                          )}
+                        </div>
                         <button className="text-primary absolute -top-5 md:-top-6 right-0">
                           <Edit2
                             strokeWidth={2}
@@ -239,9 +246,15 @@ export default function ServiceProviderProfileForm() {
                       )}
                       {status === 'images' && (
                         <>
-                          <ServiceProviderGallery
-                            gallery={formData.postsImages}
-                          />
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
+                            {formData.postsImages.map((image, index) => (
+                              <ServiceProviderGallery
+                                key={index}
+                                image={image}
+                              />
+                            ))}
+                          </div>
+
                           {formData.postsImages.length == 0 && (
                             <EmptyTab label="image uploaded" />
                           )}

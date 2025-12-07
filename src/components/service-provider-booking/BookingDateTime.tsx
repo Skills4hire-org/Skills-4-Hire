@@ -37,16 +37,13 @@ export default function BookingDateTime({
           </div>
         )}
         {showAllServices && (
-          <div
-            className={`space-y-4 ${
-              serviceProvider && serviceProvider?.services.length > 0 && 'mb-4'
-            }`}
-          >
-            {serviceProvider?.services
-              .filter((service) => !servicesIds.includes(service.id))
-              ?.map((service) => (
-                <ServiceProviderServicesCard key={service.id} {...service} />
-              ))}
+          <div className={`space-y-4 ${!serviceProvider && 'mb-4'}`}>
+            {!serviceProvider?.services ||
+              serviceProvider?.services
+                .filter((service) => !servicesIds.includes(service.id))
+                ?.map((service) => (
+                  <ServiceProviderServicesCard key={service.id} {...service} />
+                ))}
           </div>
         )}
 

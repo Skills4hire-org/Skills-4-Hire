@@ -164,7 +164,7 @@ export const user = {
     address: 'No.19 IyeruOkin Street, Tanke Ilorin',
     totalJobs: 20,
     about: '',
-    gallery: null,
+    gallery: [Rect18, Rect19],
     posts: [
       {
         id: 1,
