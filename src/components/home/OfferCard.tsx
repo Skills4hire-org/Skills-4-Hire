@@ -1,14 +1,22 @@
-import { Pencil, Trash2, Check, X } from 'lucide-react'
-import { useState } from 'react'
+import {
+  Pencil,
+  Trash2,
+  Check,
+  X,
+  Calendar,
+  Eye,
+  MessageSquare,
+} from "lucide-react";
+import { useState } from "react";
 
 interface OfferCardProps {
-  title: string
-  description: string
-  posted: string
-  views: string
-  inquiries: string
-  media?: string[]
-  active?: boolean
+  title: string;
+  description: string;
+  posted: string;
+  views: string;
+  inquiries: string;
+  media?: string[];
+  active?: boolean;
 }
 
 export default function OfferCard({
@@ -20,29 +28,28 @@ export default function OfferCard({
   media,
   active,
 }: OfferCardProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
-  const [draftTitle, setDraftTitle] = useState(title)
-  const [draftDescription, setDraftDescription] = useState(description)
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [draftTitle, setDraftTitle] = useState(title);
+  const [draftDescription, setDraftDescription] = useState(description);
 
-  const handleEdit = () => setIsEditing(true)
+  const handleEdit = () => setIsEditing(true);
 
   const handleCancel = () => {
-    setDraftTitle(title)
-    setDraftDescription(description)
-    setIsEditing(false)
-  }
+    setDraftTitle(title);
+    setDraftDescription(description);
+    setIsEditing(false);
+  };
 
   const handleSave = () => {
-    console.log('Updated:', { draftTitle, draftDescription })
-    setIsEditing(false)
-  }
+    console.log("Updated:", { draftTitle, draftDescription });
+    setIsEditing(false);
+  };
 
   const handleDelete = () => {
-    console.log('Post deleted (frontend only)')
-    setIsDeleteOpen(false)
-    // When backend is ready: await api.deletePost(id)
-  }
+    console.log("Post deleted (frontend only)");
+    setIsDeleteOpen(false);
+  };
 
   return (
     <>
@@ -123,10 +130,18 @@ export default function OfferCard({
         )}
 
         {!isEditing && (
-          <div className="flex flex-wrap juustify-between gap-x-3 md:gap-x-6 text-sm text-gray-500">
-            <span>{posted}</span>
-            <span>{views}</span>
-            <span>{inquiries}</span>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-500">
+            <span className="flex items-center gap-1">
+              <Calendar size={14} /> {posted}
+            </span>
+
+            <span className="flex items-center gap-1">
+              <Eye size={14} /> {views}
+            </span>
+
+            <span className="flex items-center gap-1">
+              <MessageSquare size={14} /> {inquiries}
+            </span>
           </div>
         )}
 
@@ -167,5 +182,5 @@ export default function OfferCard({
         </div>
       </div>
     </>
-  )
+  );
 }
