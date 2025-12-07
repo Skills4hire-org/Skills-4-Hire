@@ -525,7 +525,11 @@ export const mockContacts = [
 
 export const serviceProviderTabList = ['about', 'gallery']
 
-export const serviceProviderActivityTabList = ['posts', 'comments', 'images']
+export const serviceProviderActivityTabList: ['posts', 'comments', 'images'] = [
+  'posts',
+  'comments',
+  'images',
+]
 
 export const bookingProgress = [
   {

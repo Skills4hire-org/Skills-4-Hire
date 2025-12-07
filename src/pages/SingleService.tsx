@@ -9,16 +9,15 @@ import { useParams } from 'react-router-dom'
 export default function SingleService() {
   const { service } = useParams()
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="md:hidden capitalize">
-        <HeaderWithBackNavigation title={service} onlyMobile />
+    <div className="min-h-screen">
+      <div className="capitalize">
+        <HeaderWithBackNavigation title={service} />
       </div>
-
-      <Container className="py-3 md:py-6">
-        <div className="md:hidden">
+      <Container>
+        <div className='space-y-2 space-y-4'>
+          <div className="md:hidden">
           <SearchBar placeholder="Search service" maxWidth="100%" />
         </div>
-
         <div className="hidden md:flex items-center justify-center gap-3">
           {['Another', 'Service', 'More', 'Rating'].map((label) => (
             <div
@@ -31,9 +30,6 @@ export default function SingleService() {
             </div>
           ))}
         </div>
-      </Container>
-
-      <Container className="pb-10 md:pl-4 lg:pl-6">
         <div className="max-w-5xl mx-auto flex flex-col gap-6 sm:gap-8 md:gap-9 md:ml-0">
           {mockServices.map((service) => (
             <div key={service.id} className="relative">
@@ -95,6 +91,8 @@ export default function SingleService() {
             </div>
           ))}
         </div>
+        </div>
+        
       </Container>
     </div>
   )

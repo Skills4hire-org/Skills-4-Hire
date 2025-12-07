@@ -4,6 +4,9 @@ import { cn } from '@/lib/utils'
 import type { ServiceProvider } from '@/utils/types'
 import ServiceProviderAbout from './ServiceProviderAbout'
 import ServiceProviderGallery from './ServiceProviderGallery'
+import EmptyTab from './EmptyTab'
+import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 
 export default function ServiceProviderTab({
   getServiceProvider,
@@ -11,7 +14,7 @@ export default function ServiceProviderTab({
   getServiceProvider: ServiceProvider | undefined
 }) {
   return (
-    <Tabs defaultValue="about" className="space-y-2 ">
+    <Tabs defaultValue="about" className="space-y-1 ">
       <TabsList className="border-b-0 bg-background  rounded-none relative p-0 space-x-12 md:space-x-24">
         {serviceProviderTabList.map((status, index) => {
           return (
@@ -29,11 +32,42 @@ export default function ServiceProviderTab({
       </TabsList>
       {serviceProviderTabList.map((status) => {
         return (
-          <TabsContent key={status} value={status} className="md:pt-1">
-            {status === 'about' ? (
-              <ServiceProviderAbout about={getServiceProvider?.about} />
-            ) : (
-              <ServiceProviderGallery gallery={getServiceProvider?.gallery} />
+          <TabsContent key={status} value={status} className="">
+            {status === 'gallery' && (
+              <div className="pb-10 md:pb-12">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
+                  {getServiceProvider?.gallery
+                    ?.slice(0, 4)
+                    ?.map((image, index) => (
+                      <ServiceProviderGallery key={index} image={image} />
+                    ))}
+                </div>
+
+                {getServiceProvider?.gallery?.length == 0 ||
+                !getServiceProvider?.gallery ? (
+                  <div className="pt-10 md:pt-12 mb-1">
+                    <EmptyTab label="image uploaded" />
+                  </div>
+                ) : (
+                  <Link
+                    to=""
+                    className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
+                  >
+                    Show all images
+                    <ArrowRight strokeWidth={3} className="w-4 h-4" />
+                  </Link>
+                )}
+              </div>
+            )}
+            {status === 'about' && (
+              <>
+                <ServiceProviderAbout about={getServiceProvider?.about} />
+                {getServiceProvider?.about?.length == 0 && (
+                  <div className="py-10 md:py-12 ">
+                    <EmptyTab label="about" />
+                  </div>
+                )}
+              </>
             )}
           </TabsContent>
         )

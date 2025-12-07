@@ -79,16 +79,31 @@ export type ServiceProvider = {
   totalJobs: number
   about: string
   gallery: string[] | null
-  posts: PostCard[]
-  postImages: string[]
-  services: {
-    id: number
-    image: string
-    desc: string
-    price: number
-  }[]
-  comments: [] | never[]
+  posts: PostCard[] | null
+  postImages: string[] | null
+  services:
+    | {
+        id: number
+        image: string
+        desc: string
+        price: number
+      }[]
+    | null
+  comments:
+    | {
+        name: string
+        post: PostCard
+        createdAt: number | string
+        comments: {
+          text: string
+          likes: number
+          replies: number
+          name: string
+        }[]
+      }[]
+    | null
   accountNumber: string
+  images: string[] | null
 }
 
 export type FeedStats = {

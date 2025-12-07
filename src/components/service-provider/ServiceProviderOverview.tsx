@@ -50,24 +50,34 @@ export default function ServiceProviderOverview({
               <MapPin className="w-4 h-4" />
               {getServiceProvider?.address}
             </p>
-            <div className="text-xs md:text-sm flex items-center justify-start gap-4 mt-1 ">
-              <span className="flex items-center text-xs gap-1">
-                <Star className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 text-yellow-500" />
-                {getServiceProvider?.averageRating} (
-                {getServiceProvider?.totalReviews}{' '}
-                {getServiceProvider && getServiceProvider?.totalReviews > 1
-                  ? 'comments'
-                  : 'comment'}
-                )
-              </span>
-              <span className="flex items-center gap-1">
-                <FileText className="w-4 h-4 md:w-5 md:h-5" />{' '}
-                {getServiceProvider?.totalJobs}{' '}
-                {getServiceProvider && getServiceProvider?.totalJobs > 1
-                  ? 'tasks'
-                  : 'task'}
-              </span>
-            </div>
+            {!getServiceProvider?.averageRating ||
+              !getServiceProvider?.totalJobs || (
+                <div className="text-xs md:text-sm flex items-center justify-start gap-4 mt-1">
+                  {!getServiceProvider?.averageRating || (
+                    <span className="flex items-center text-xs gap-1">
+                      <Star className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 text-yellow-500" />
+                      {getServiceProvider?.averageRating} (
+                      {getServiceProvider?.totalReviews}{' '}
+                      {getServiceProvider &&
+                      getServiceProvider?.totalReviews > 1
+                        ? 'comments'
+                        : 'comment'}
+                      )
+                    </span>
+                  )}
+
+                  {!getServiceProvider?.totalJobs || (
+                    <span className="flex items-center gap-1">
+                      <FileText className="w-4 h-4 md:w-5 md:h-5" />{' '}
+                      {getServiceProvider?.totalJobs}{' '}
+                      {getServiceProvider && getServiceProvider?.totalJobs > 1
+                        ? 'tasks'
+                        : 'task'}
+                      {}
+                    </span>
+                  )}
+                </div>
+              )}
           </div>
         </div>
       </Container>

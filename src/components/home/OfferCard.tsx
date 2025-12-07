@@ -53,15 +53,15 @@ export default function OfferCard({
       </div>
 
       <div className="flex gap-2">
-        <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md bg-[#222BDE] text-white text-sm hover:opacity-90">
+        <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md bg-[#222BDE] text-white text-sm hover:opacity-90 cursor-pointer">
           <Pencil size={16} />
           Edit
         </button>
-        <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md bg-yellow-400 text-white text-sm hover:opacity-90">
+        <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md bg-yellow-400 text-white text-sm hover:opacity-90 cursor-pointer">
           <Send size={16} />
           Boost
         </button>
-        <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md border border-gray-200 text-gray-700 text-sm hover:bg-gray-50">
+        <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md border border-gray-200 text-gray-700 text-sm hover:bg-gray-50 cursor-pointer">
           <Trash2 size={16} />
           Delete
         </button>

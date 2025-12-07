@@ -38,6 +38,8 @@ import Layout from './components/layouts/Layout'
 import Posts from './pages/Posts'
 import Request from './pages/Request'
 import Reviews from './pages/Reviews'
+import ServiceProviderServices from './pages/ServiceProviderServices'
+import ServiceProviderActivity from './pages/ServiceProviderActivity'
 
 const router = createBrowserRouter([
   {
@@ -119,6 +121,14 @@ const router = createBrowserRouter([
       {
         path: 'service-provider/:id',
         element: <ServiceProviderProfile />,
+      },
+      {
+        path: 'service-provider/:id/services',
+        element: <ServiceProviderServices />,
+      },
+      {
+        path: 'service-provider/:id/activity',
+        element: <ServiceProviderActivity />,
       },
       {
         path: 'service-provider/:id/booking',

@@ -244,16 +244,17 @@ export const serviceAround = [
     desc: 'Men and Kids Ultimate grooming Hair',
     features: 'Efficient and Reliable',
     minCharge: 800,
-    averageRating: 4.8,
+    averageRating: 0,
     totalReviews: 12,
     image: servicesAroundImage1,
     favorite: true,
     maxCharge: 90000,
     address: 'No.19 IyeruOkin Street, Tanke Ilorin',
-    totalJobs: 20,
+    totalJobs: 0,
     about: '',
     gallery: null,
-    posts: [
+    posts: null,
+    /*  [
       {
         id: 1,
         profile: AdminProfile,
@@ -268,9 +269,12 @@ export const serviceAround = [
         tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
         stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
       },
-    ],
-    postImages: [servicesAroundImage1, servicesAroundImage2],
-    services: [
+    ], */
+    postImages: null,
+    images: null,
+    /* [servicesAroundImage1, servicesAroundImage2], */
+    services: null,
+    /* [
       {
         id: 1,
         image: servicesImage1,
@@ -283,8 +287,8 @@ export const serviceAround = [
         desc: 'Fixing leaks (pipes, faucets)',
         price: 20000,
       },
-    ],
-    comments: [],
+    ] */
+    comments: null,
     accountNumber: '1234567890',
   },
   {
@@ -305,8 +309,22 @@ export const serviceAround = [
     totalJobs: 10,
     about:
       'We provide reliable, high-quality plumbing services tailored to meet your needs. From repairs and installations to maintenance and emergency services, our experienced team ensures efficient and long-lasting solutions. We take pride in our professionalism, prompt response, and commitment to customer satisfaction. Whether it’s a leaky faucet, clogged drain, or a full plumbing system installation, we’ve got you covered.',
-    gallery: null,
+    gallery: [Rect18, Rect19],
     posts: [
+      {
+        id: 1,
+        profile: AdminProfile,
+        name: 'Michael Chen',
+        location: 'Lagos',
+        service: 'Plumbing Services',
+        rating: '4.9',
+        reviews: '234',
+        title: 'Affordable plumbing services',
+        description:
+          'Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years.',
+        tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
+        stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
+      },
       {
         id: 2,
         profile: AdminProfile,
@@ -321,8 +339,23 @@ export const serviceAround = [
         tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
         stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
       },
+      {
+        id: 3,
+        profile: AdminProfile,
+        name: 'Michael Chen',
+        location: 'Lagos',
+        service: 'Plumbing Services',
+        rating: '4.9',
+        reviews: '234',
+        title: 'Affordable plumbing services',
+        description:
+          'Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years.',
+        tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
+        stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
+      },
     ],
     postImages: [Rect18, Rect19],
+    images: [Rect18, Rect19],
     services: [
       {
         id: 1,
@@ -336,8 +369,127 @@ export const serviceAround = [
         desc: 'Fixing leaks (pipes, faucets)',
         price: 20000,
       },
+      {
+        id: 3,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 4,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 5,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 6,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 7,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 8,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 9,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 10,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 11,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
+      {
+        id: 12,
+        image: servicesImage1,
+        desc: 'Fixing leaks (pipes, faucets)',
+        price: 20000,
+      },
     ],
-    comments: [],
+    comments: [
+      {
+        name: 'Joshua Friday',
+        post: {
+          id: 1,
+          profile: AdminProfile,
+          name: 'Michael Chen',
+          location: 'Lagos',
+          service: 'Plumbing Services',
+          rating: '4.9',
+          reviews: '234',
+          title: 'Affordable plumbing services',
+          description:
+            'Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years.',
+          tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
+          stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
+        },
+        createdAt: Date.now(),
+        comments: [
+          {
+            text: "This is really insightful! I've been thinking about this topic for a while now, and your perspective adds a lot of value. The point about accessibility is especially important—I've seen so many projects overlook this. Would love to hear more about your experience with implementing these practices in real-world projects.",
+            likes: 3,
+            replies: 4,
+            name: 'Joshua Friday',
+          },
+          {
+            text: "This is really insightful! I've been thinking about this topic for a while now, and your perspective adds a lot of value. The point about accessibility is especially important—I've seen so many projects overlook this. Would love to hear more about your experience with implementing these practices in real-world projects.",
+            likes: 3,
+            replies: 4,
+            name: 'Joshua Friday',
+          },
+        ],
+      },
+      {
+        name: 'Joshua Friday',
+        post: {
+          id: 1,
+          profile: AdminProfile,
+          name: 'Michael Chen',
+          location: 'Lagos',
+          service: 'Plumbing Services',
+          rating: '4.9',
+          reviews: '234',
+          title: 'Affordable plumbing services',
+          description:
+            'Professional plumbing services for residential and commercial properties. 24/7 emergency services available. Licensed with expertise of 15+ years.',
+          tags: ['Plumbing', 'Certified', 'Near you', 'Emergency'],
+          stats: { likes: 110, comments: 81, shares: 212, impressions: 16 },
+        },
+        createdAt: Date.now(),
+        comments: [
+          {
+            text: "This is really insightful! I've been thinking about this topic for a while now, and your perspective adds a lot of value. The point about accessibility is especially important—I've seen so many projects overlook this. Would love to hear more about your experience with implementing these practices in real-world projects.",
+            likes: 3,
+            replies: 4,
+            name: 'Joshua Friday',
+          },
+        ],
+      },
+    ],
     accountNumber: '1234567890',
   },
   {
@@ -376,6 +528,7 @@ export const serviceAround = [
       },
     ],
     postImages: [Rect18, Rect19],
+    images: [Rect18, Rect19],
     services: [
       {
         id: 1,
@@ -390,7 +543,7 @@ export const serviceAround = [
         price: 20000,
       },
     ],
-    comments: [],
+    comments: null,
     accountNumber: '1234567890',
   },
   {
@@ -429,6 +582,7 @@ export const serviceAround = [
       },
     ],
     postImages: [Rect18, Rect19],
+    images: [Rect18, Rect19],
     services: [
       {
         id: 1,
@@ -443,7 +597,7 @@ export const serviceAround = [
         price: 20000,
       },
     ],
-    comments: [],
+    comments: null,
     accountNumber: '1234567890',
   },
   {
@@ -482,6 +636,7 @@ export const serviceAround = [
       },
     ],
     postImages: [Rect18, Rect19],
+    images: [Rect18, Rect19],
     services: [
       {
         id: 1,
@@ -496,7 +651,7 @@ export const serviceAround = [
         price: 20000,
       },
     ],
-    comments: [],
+    comments: null,
     accountNumber: '1234567890',
   },
   {
@@ -535,6 +690,7 @@ export const serviceAround = [
       },
     ],
     postImages: [Rect18, Rect19],
+    images: [Rect18, Rect19],
     services: [
       {
         id: 1,
@@ -549,7 +705,7 @@ export const serviceAround = [
         price: 20000,
       },
     ],
-    comments: [],
+    comments: null,
     accountNumber: '1234567890',
   },
 ]

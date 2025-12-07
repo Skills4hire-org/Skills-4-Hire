@@ -14,15 +14,17 @@ export default function ServiceProviderProfile() {
     <>
       <ServiceProviderOverview getServiceProvider={serviceProvider} />
       <div className="pb-10">
-        <Container className="border-b-8 py-2 md:py-4">
+        <Container className="border-b-8 py-2 md:py-4 relative">
           <ServiceProviderTab getServiceProvider={serviceProvider} />
         </Container>
-        <Container className="border-b-8 pt-2 md:pt-4 relative">
+        <Container className="border-b-8 py-2 md:py-4 relative">
           <ServiceProviderActivity getServiceProvider={serviceProvider} />
         </Container>
-        <Container className=" pt-2 pb-4 md:py-4">
-          <ServiceProviderServices getServiceProvider={serviceProvider} />
-        </Container>
+        {serviceProvider?.services && (
+          <Container className="border-b-8 pt-2 pb-4 md:py-4 relative">
+            <ServiceProviderServices getServiceProvider={serviceProvider} />
+          </Container>
+        )}
       </div>
 
       <div className="flex items-center justify-center gap-8 md:gap-10 fixed left-1/2 -translate-x-1/2 bottom-16 md:bottom-4 md:ml-[6rem] z-50">
