@@ -52,7 +52,7 @@ export default function Services() {
               </Link>
             </div>
             <div className="grid grid-cols-1 gap-4">
-              {serviceAround.slice(0, 6).map((service) => (
+              {serviceAround.slice(0, 4).map((service) => (
                 <ServiceProviderCard key={service.id} {...service} />
               ))}
             </div>

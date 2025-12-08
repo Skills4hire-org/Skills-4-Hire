@@ -40,6 +40,7 @@ import Request from './pages/Request'
 import Reviews from './pages/Reviews'
 import ServiceProviderServices from './pages/ServiceProviderServices'
 import ServiceProviderActivity from './pages/ServiceProviderActivity'
+import ServiceProviderImageGallery from './pages/ServiceProviderImageGallery'
 
 const router = createBrowserRouter([
   {
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
       {
         path: 'service-provider/:id/activity',
         element: <ServiceProviderActivity />,
+      },
+      {
+        path: 'service-provider/:id/gallery',
+        element: <ServiceProviderImageGallery />,
       },
       {
         path: 'service-provider/:id/booking',

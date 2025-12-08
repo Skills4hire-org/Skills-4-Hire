@@ -50,7 +50,7 @@ export default function ServiceProviderTab({
                   </div>
                 ) : (
                   <Link
-                    to=""
+                    to={`/customer/service-provider/${getServiceProvider?.id}/gallery`}
                     className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
                   >
                     Show all images

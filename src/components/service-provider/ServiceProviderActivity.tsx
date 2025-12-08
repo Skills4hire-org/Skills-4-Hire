@@ -62,12 +62,14 @@ export default function ServiceProviderActivity({
                 </>
               )}
               {status === 'images' && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
-                  {getServiceProvider?.postImages
-                    ?.slice(0, 4)
-                    ?.map((image, index) => (
-                      <ServiceProviderGallery key={index} image={image} />
-                    ))}
+                <>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
+                    {getServiceProvider?.postImages
+                      ?.slice(0, 4)
+                      ?.map((image, index) => (
+                        <ServiceProviderGallery key={index} image={image} />
+                      ))}
+                  </div>
                   {getServiceProvider?.postImages?.length == 0 ||
                   !getServiceProvider?.postImages ? (
                     <div className="pt-10 md:pt-12 mb-1 ">
@@ -82,7 +84,7 @@ export default function ServiceProviderActivity({
                       <ArrowRight strokeWidth={3} className="w-4 h-4" />
                     </Link>
                   )}
-                </div>
+                </>
               )}
               {status === 'comments' && (
                 <>
