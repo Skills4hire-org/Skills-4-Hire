@@ -20,11 +20,11 @@ export default function NavLinks({ label, url, icon, active }: NavLinkProps) {
       <div
         className={` w-10 h-10  rounded-full flex items-center justify-center  bg-primary transition duration-150  ${
           active && '-translate-y-4.5 outline-4 outline-background'
-        } `}
+        }`}
       >
         <Icon
           icon={icon}
-          className={`w-5 h-5 transition duration-150 ${
+          className={`w-6 h-6 transition duration-150 ${
             active && 'text-white'
           }`}
         />

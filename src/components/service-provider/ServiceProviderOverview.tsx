@@ -3,6 +3,7 @@ import Container from '../global/Container'
 import { currencyFormatter } from '@/utils/format'
 import { CheckCircle2, FileText, MapPin, Minus, Star } from 'lucide-react'
 import defaultImage from '../../assets/images/profile.jpg'
+import HeaderWithBackNavigation from '../header/HeaderWithBackNavigation'
 
 export default function ServiceProviderOverview({
   getServiceProvider,
@@ -11,8 +12,9 @@ export default function ServiceProviderOverview({
 }) {
   return (
     <div>
+      <HeaderWithBackNavigation title="Profile" />
       <div
-        className={` w-full bg-cover bg-center h-[20vh] md:h-[25vh]`}
+        className={` w-full bg-cover bg-center h-[20vh] md:h-[25vh] -mt-2 md:-mt-6`}
         style={{ backgroundImage: `url(${getServiceProvider?.image})` }}
       />
       <Container className="border-b-8 relative">
@@ -34,6 +36,9 @@ export default function ServiceProviderOverview({
                 verified
               </span>
             </div>
+            <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block">
+              12 endoser
+            </span>
             <p className=" text-base md:text-lg">{getServiceProvider?.desc}</p>
             <span className="text-sm md:text-base capitalize text-primary font-medium block">
               {getServiceProvider?.occupation}

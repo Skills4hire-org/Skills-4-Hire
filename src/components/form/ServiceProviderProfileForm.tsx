@@ -82,17 +82,23 @@ export default function ServiceProviderProfileForm() {
 
           <div className=" pb-3 md:pb-4 text-start">
             <div className="space-y-0.5">
-              <div className="flex items-center gap-2 ">
-                <h1 className="font-semibold text-lg md:text-xl">
-                  {user?.serviceProviderInfo?.name}
-                </h1>
-                {user?.verified && (
-                  <span className="text-sm capitalize  text-primary font-medium flex items-center gap-0.5 text-xs md:text-sm">
-                    <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-background fill-primary" />
-                    verified
-                  </span>
-                )}
+              <div className="flex items-center gap-4 ">
+                <div className="flex items-center gap-2">
+                  <h1 className="font-semibold text-lg md:text-xl">
+                    {user?.serviceProviderInfo?.name}
+                  </h1>
+
+                  {user?.verified && (
+                    <span className="text-sm capitalize  text-primary font-medium flex items-center gap-0.5 text-xs md:text-sm">
+                      <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-background fill-primary" />
+                      verified
+                    </span>
+                  )}
+                </div>
               </div>
+              <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block">
+                12 endoser
+              </span>
               <p className=" text-base md:text-lg">{formData?.desc}</p>
               <span className="text-sm md:text-base capitalize text-primary font-medium block">
                 {user?.serviceProviderInfo?.occupation}

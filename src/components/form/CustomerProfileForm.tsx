@@ -82,6 +82,10 @@ export default function CustomerProfileForm() {
             <h2 className="text-base md:text-lg font-medium -mb-0.5 md:mb-0">
               {user?.firstName} {user?.lastName}
             </h2>
+
+            <span className=" font-semibold text-sm md:text-base -mt-0.5 text-primary block">
+              24 endorsed
+            </span>
             <span className="text-sm md:text-base">{user?.email}</span>
           </div>
         </div>
