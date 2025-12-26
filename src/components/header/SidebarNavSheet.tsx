@@ -4,12 +4,12 @@ import { navLinks } from '@/assets/data'
 import { Link, NavLink } from 'react-router-dom'
 import { Separator } from '../ui/separator'
 
-export default function DropdownMenu() {
+export default function SidebarNavSheet() {
   const getClassName = ({ isActive }: { isActive: boolean }) => {
     const baseClasses = ' font-medium capitalize text-sm py-1.5 px-3 rounded-sm'
     const activeClasses = isActive
       ? 'bg-primary/10 text-primary'
-      : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+      : 'text-muted-foreground hover:bg-gray-100 hover:text-foreground'
     return `${baseClasses} ${activeClasses}`
   }
 

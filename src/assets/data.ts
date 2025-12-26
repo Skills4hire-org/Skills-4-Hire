@@ -815,3 +815,84 @@ export const navLinks = [
   { label: 'FAQs', href: '/faqs' },
   { label: 'Contact Us', href: '/contact' },
 ]
+
+export const footer = {
+  /* contacts: [
+    {
+      href: 'mailto:customercare@bollymoon.com',
+      text: 'customercare@bollymoon.com',
+      icon: Mail,
+    },
+    {
+      href: 'tel:+447542794858',
+      text: '+44 7542794858',
+      icon: Phone,
+    },
+  ],
+  socials: [
+    {
+      href: 'https://www.x.com',
+      icon: FaXTwitter,
+      text: 'twitter',
+    },
+    {
+      href: 'https://www.tiktok.com',
+      icon: FaTiktok,
+      text: 'tiktok',
+    },
+    {
+      href: 'https://www.instagram.com',
+      icon: FaInstagram,
+      text: 'instagram',
+    },
+  ], */
+  footerLinks: [
+    {
+      heading: 'quick links',
+      links: [
+        {
+          label: 'Home',
+          url: '/',
+        },
+        {
+          label: 'About',
+          url: '/about',
+        },
+        {
+          label: 'Services',
+          url: 'services',
+        },
+        {
+          label: 'Stories',
+          url: '/stories',
+        },
+      ],
+    },
+    {
+      heading: 'Support',
+      links: [
+        {
+          label: 'Contact us',
+          url: '/contact',
+        },
+        {
+          label: 'FAQs',
+          url: '/faqs',
+        },
+      ],
+    },
+    {
+      heading: 'legal',
+      links: [
+        {
+          label: 'Privacy Policy',
+          url: '/privacy-policy',
+        },
+        {
+          label: 'Terms & Conditions',
+          url: '/terms-and-conditions',
+        },
+      ],
+    },
+  ],
+}

@@ -1,14 +1,25 @@
+import { Link } from 'react-router-dom'
 import Container from '../global/Container'
-import Logo from '../global/Logo2'
-import DropdownMenu from './DropdownMenu'
+import Logo2 from '../global/Logo2'
+import IndexNavbar from '../navbars/IndexNavbar'
+import SidebarNavSheet from './SidebarNavSheet'
 
 export default function IndexHeader() {
   return (
     <header>
-      <Container className="py-2">
-        <div className="flex items-center justify-between text-muted-foreground">
-          <Logo />
-          <DropdownMenu />
+      <Container className="py-2 md:py-4">
+        <div className="flex items-center justify-between md:justify-between text-muted-foreground">
+          <Logo2 size="h-4.5 md:h-5.5" />
+          <div className="hidden md:inline-block">
+            <IndexNavbar />
+          </div>
+          <Link
+            to="/sign-up"
+            className="text-sm font-medium rounded-md bg-primary capitalize text-white px-4 py-1.5 hover:bg-primary/90 hidden md:inline-block"
+          >
+            Get started
+          </Link>
+          <SidebarNavSheet />
         </div>
       </Container>
     </header>
