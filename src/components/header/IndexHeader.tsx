@@ -15,7 +15,7 @@ export default function IndexHeader() {
           </div>
           <Link
             to="/sign-up"
-            className="text-sm font-medium rounded-md bg-primary capitalize text-white px-4 py-1.5 hover:bg-primary/90 hidden md:inline-block"
+            className="text-sm font-medium rounded-md bg-primary capitalize text-white px-4 py-1.5 px-8 hover:bg-primary/90 hidden md:inline-block"
           >
             Get started
           </Link>
