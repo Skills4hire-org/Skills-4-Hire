@@ -806,3 +806,12 @@ export const requests = [
     time: Date.now(),
   },
 ]
+
+export const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Stories', href: '/stories' },
+  { label: 'FAQs', href: '/faqs' },
+  { label: 'Contact Us', href: '/contact' },
+]

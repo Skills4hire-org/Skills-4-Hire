@@ -41,11 +41,18 @@ import Reviews from './pages/Reviews'
 import ServiceProviderServices from './pages/ServiceProviderServices'
 import ServiceProviderActivity from './pages/ServiceProviderActivity'
 import ServiceProviderImageGallery from './pages/ServiceProviderImageGallery'
+import IndexLayout from './components/layouts/IndexLayout'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Landing />,
+    element: <IndexLayout />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+    ],
   },
   {
     path: 'sign-up',
