@@ -96,12 +96,13 @@ export default function ServiceProviderProfileForm() {
                   )}
                 </div>
               </div>
-              <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block">
-                12 endosers
-              </span>
-              <p className=" text-base md:text-lg">{formData?.desc}</p>
               <span className="text-sm md:text-base capitalize text-primary font-medium block">
                 {user?.serviceProviderInfo?.occupation}
+              </span>
+
+              <p className=" text-base md:text-lg">{formData?.desc}</p>
+              <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize">
+                12 endosers
               </span>
               <p className="flex items-center justify-start gap-1  text-sm md:text-base ">
                 From

@@ -83,10 +83,9 @@ export default function CustomerProfileForm() {
               {user?.firstName} {user?.lastName}
             </h2>
 
-            <span className=" font-semibold text-sm md:text-base -mt-0.5 text-primary block">
+            <span className=" font-semibold text-sm md:text-base -mt-0.5 text-primary block capitalize">
               24 endorsed
             </span>
-            <span className="text-sm md:text-base">{user?.email}</span>
           </div>
         </div>
         <div className="space-y-3 md:space-y-4">

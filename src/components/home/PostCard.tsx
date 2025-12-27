@@ -46,7 +46,7 @@ export default function PostCard({
                     {name}
                   </h3>
                 </Link>
-                <Dot strokeWidth={4} className="w-5 h-5 -mx-0.5" />
+                <Dot className="w-8.5 h-8.5 -m-1.5" />
                 <button className="capitalize font-semibold text-primary text-sm md:text-base">
                   endorse
                 </button>

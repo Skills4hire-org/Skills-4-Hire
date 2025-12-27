@@ -15,7 +15,7 @@ const defaultState: Booking = {
     notes: '',
     date: '',
     time: '',
-    type: null,
+    type: 'onsite',
     address: '',
     savedAddress: '',
     paymentAmount: '',

@@ -18,13 +18,17 @@ export default function ServiceProviderOverview({
         style={{ backgroundImage: `url(${getServiceProvider?.image})` }}
       />
       <Container className="border-b-8 relative">
-        <figure className="bg-blue-200 -mt-13 md:-mt-18.5  mb-1 md:mb-2 w-max rounded-full border-4 border-background">
+        <figure className=" -mt-13 md:-mt-18.5  mb-1 md:mb-2 w-max rounded-full border-4 border-background">
           <img
             src={getServiceProvider?.image ?? defaultImage}
             alt={getServiceProvider?.name}
             className="aspect-square object-cover w-24 md:w-34 rounded-full"
           />
         </figure>
+
+        <button className=" block bg-primary px-5 md:px-7 text-white py-1 font-medium rounded-full text-sm md:text-base -mt-12 mb-4 ml-auto">
+          Endorse
+        </button>
         <div className=" pb-3 md:pb-4 text-start">
           <div className="space-y-0.5">
             <div className="flex items-center gap-2 ">
@@ -36,12 +40,12 @@ export default function ServiceProviderOverview({
                 verified
               </span>
             </div>
-            <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block">
-              12 endosers
-            </span>
-            <p className=" text-base md:text-lg">{getServiceProvider?.desc}</p>
             <span className="text-sm md:text-base capitalize text-primary font-medium block">
               {getServiceProvider?.occupation}
+            </span>
+            <p className=" text-base md:text-lg">{getServiceProvider?.desc}</p>
+            <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize">
+              12 endosers
             </span>
             <p className="flex items-center justify-start gap-1  text-sm md:text-base ">
               From
