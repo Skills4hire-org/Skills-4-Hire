@@ -18,7 +18,7 @@ export default function SidebarNavSheet() {
 
   return (
     <Sheet>
-      <SheetTrigger className="md:hidden">
+      <SheetTrigger className="md:hidden cursor-pointer">
         <Menu className="h-5 w-5" />
       </SheetTrigger>
 
@@ -30,7 +30,7 @@ export default function SidebarNavSheet() {
               href={link.href}
               className={getClassName(link.href)}
             >
-              <SheetClose className="w-full text-left">{link.label}</SheetClose>
+              {link.label}
             </a>
           ))}
 
