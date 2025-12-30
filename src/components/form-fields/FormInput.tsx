@@ -51,7 +51,7 @@ export default function FormInput({
         min={min}
         required={required}
         disabled={disabled}
-        className={`${className} break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base`}
+        className={` break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base ${className}`}
         onBlur={handleBlur}
         autoComplete="true"
         maxLength={maxLength}

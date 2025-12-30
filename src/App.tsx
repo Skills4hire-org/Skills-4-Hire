@@ -42,6 +42,8 @@ import ServiceProviderServices from './pages/ServiceProviderServices'
 import ServiceProviderActivity from './pages/ServiceProviderActivity'
 import ServiceProviderImageGallery from './pages/ServiceProviderImageGallery'
 import IndexLayout from './components/layouts/IndexLayout'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing />,
+      },
+      {
+        path: 'blog',
+        element: <Blog />,
+      },
+      {
+        path: 'blog/:id',
+        element: <BlogPost />,
       },
     ],
   },

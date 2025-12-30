@@ -1,4 +1,4 @@
-import { footer, socialLinks } from '@/assets/data'
+import { footerLinks, socialLinks } from '@/assets/data'
 import Container from '../global/Container'
 import Logo from '../global/Logo'
 import FooterLink from './FooterLink'
@@ -7,17 +7,17 @@ import SocialLink from './SocialLink'
 
 export default function IndexFooter() {
   return (
-    <footer className="text-white bg-black">
-      <Container className="py-4">
-        <div className="grid md:grid-cols-5 gap-y-8 gap-x-12">
-          <div className="space-y-2.5 md:col-span-2">
+    <footer className="text-white bg-[#161313]">
+      <Container className="py-10">
+        <div className="grid md:grid-cols-7 gap-y-8 gap-x-12">
+          <div className="space-y-2.5 md:col-span-2 lg:col-span-3">
             <Logo size="h-6.5" />
             <p className="text-xs md: ">
               Connecthing Skills and Opportunities, Once Hire at a time.
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8 md:gap-4 md:col-span-3">
-            {footer.footerLinks.map((linksGroup) => (
+          <div className="grid sm:grid-cols-4 gap-4 sm:gap-2 md:col-span-5 lg:col-span-4">
+            {footerLinks.map((linksGroup) => (
               <FooterLink key={linksGroup.heading} {...linksGroup} />
             ))}
           </div>

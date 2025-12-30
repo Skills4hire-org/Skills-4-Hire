@@ -1110,3 +1110,33 @@ export const mockWalletData = {
   balance: 150500.0,
   currency: '₦',
 }
+
+export const blogPosts = [
+  {
+    tag: 'articles',
+    title: 'Top 10 Most In-Demand Skills for Service Providers in 2025',
+    summary:
+      'Smart tips for reviewing profiles, checking ratings, and confirming work history to avoid scams and low quality work.',
+    author: 'Tao Mantaras',
+    createdAt: Date.now(),
+    minRead: '4 min read',
+  },
+  {
+    tag: 'resources',
+    title: 'Top 10 Most In-Demand Skills for Service Providers in 2025',
+    summary:
+      'Smart tips for reviewing profiles, checking ratings, and confirming work history to avoid scams and low quality work.',
+    author: 'Tao Mantaras',
+    createdAt: Date.now(),
+    minRead: '4 min read',
+  },
+  {
+    tag: 'news',
+    title: 'Top 10 Most In-Demand Skills for Service Providers in 2025',
+    summary:
+      'Smart tips for reviewing profiles, checking ratings, and confirming work history to avoid scams and low quality work.',
+    author: 'Tao Mantaras',
+    createdAt: Date.now(),
+    minRead: '4 min read',
+  },
+]

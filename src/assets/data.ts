@@ -810,89 +810,155 @@ export const requests = [
 export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Stories', href: '/stories' },
-  { label: 'FAQs', href: '/faqs' },
-  { label: 'Contact Us', href: '/contact' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'FAQs', href: '/#faqs' },
+  { label: 'Contact Us', href: '/#contact' },
 ]
 
-export const footer = {
-  /* contacts: [
-    {
-      href: 'mailto:customercare@bollymoon.com',
-      text: 'customercare@bollymoon.com',
-      icon: Mail,
-    },
-    {
-      href: 'tel:+447542794858',
-      text: '+44 7542794858',
-      icon: Phone,
-    },
-  ],
-  socials: [
-    {
-      href: 'https://www.x.com',
-      icon: FaXTwitter,
-      text: 'twitter',
-    },
-    {
-      href: 'https://www.tiktok.com',
-      icon: FaTiktok,
-      text: 'tiktok',
-    },
-    {
-      href: 'https://www.instagram.com',
-      icon: FaInstagram,
-      text: 'instagram',
-    },
-  ], */
-  footerLinks: [
-    {
-      heading: 'quick links',
-      links: [
-        {
-          label: 'Home',
-          url: '/',
-        },
-        {
-          label: 'About',
-          url: '/about',
-        },
-        {
-          label: 'Services',
-          url: 'services',
-        },
-        {
-          label: 'Stories',
-          url: '/stories',
-        },
-      ],
-    },
-    {
-      heading: 'Support',
-      links: [
-        {
-          label: 'Contact us',
-          url: '/contact',
-        },
-        {
-          label: 'FAQs',
-          url: '/faqs',
-        },
-      ],
-    },
-    {
-      heading: 'legal',
-      links: [
-        {
-          label: 'Privacy Policy',
-          url: '/privacy-policy',
-        },
-        {
-          label: 'Terms & Conditions',
-          url: '/terms-and-conditions',
-        },
-      ],
-    },
-  ],
-}
+export const footerLinks = [
+  {
+    heading: 'navigation',
+    links: [
+      {
+        label: 'Home',
+        url: '/',
+      },
+      {
+        label: 'Services',
+        url: '/#services',
+      },
+      {
+        label: 'FAQs',
+        url: '/#faqs',
+      },
+      {
+        label: 'Contact us',
+        url: '/#contact',
+      },
+    ],
+  },
+  {
+    heading: 'Contact Information',
+    links: [
+      {
+        label: 'Email: support@skills4hire.com',
+        url: 'mailto:support@skills4hire.com',
+      },
+      {
+        label: 'Phone: +234-768-576-5755',
+        url: 'tel:+2347685765755',
+      },
+    ],
+  },
+  {
+    heading: 'legal',
+    links: [
+      {
+        label: 'Privacy Policy',
+        url: '/privacy-policy',
+      },
+      {
+        label: 'Terms & Conditions',
+        url: '/terms-and-conditions',
+      },
+    ],
+  },
+]
+
+export const contact = [
+  {
+    label: 'email',
+    text: 'supportskills4hire@gmail.com',
+    url: 'mailto:supportskills4hire@gmail.com',
+    icon: Mail,
+  },
+  {
+    label: 'phone number',
+    text: '+234 789 678 6768',
+    url: 'tel:+2347896786768',
+    icon: Phone,
+  },
+]
+
+export const faqs = [
+  {
+    trigger: 'How do I hire a provider on Skills4Hire?',
+    desc1: 'We specialise in:',
+    desc2: '',
+    lists: [
+      {
+        heading: '',
+        list: [
+          'Premium handmade wigs',
+          'High-quality hair bundles',
+          'Natural-looking closures and frontals',
+          'Custom wig services',
+        ],
+      },
+    ],
+    end1: 'All our products are designed to give a natural, long-lasting and beautiful finish.',
+    end2: '',
+  },
+  {
+    trigger: 'How are providers verified?',
+    desc1: 'Yes! Every Bollymoon wig is carefully handmade to ensure:',
+    desc2: '',
+    lists: [
+      {
+        heading: '',
+        list: [
+          'natural appearance',
+          'durability',
+          'comfortable fit',
+          'high-quality craftsmanship',
+        ],
+      },
+    ],
+    end1: '',
+    end2: '',
+  },
+  {
+    trigger: 'What services are available on Skills4Hire?',
+    desc1:
+      'Yes, we create custom wigs based on your preferred length, density, lace type, and style.',
+    desc2: 'Contact our team to place a custom order.',
+  },
+  {
+    trigger: 'How are payments handled?',
+    lists: [
+      {
+        heading: 'UK Shipping:',
+        list: [
+          'Standard Delivery: 2–4 working days',
+          'Express Delivery: 1–2 working days',
+        ],
+      },
+    ],
+    end1: 'Processing time for handmade wigs may vary (usually 1–3 days).',
+  },
+  {
+    trigger: 'Is there a fee for using Skills4Hire?',
+    desc1:
+      'Yes, we ship worldwide. Shipping time depends on your location. Shipping costs are calculated at checkout.',
+  },
+]
+
+export const blogCategories = [
+  {
+    label: 'View all',
+    value: 'all',
+  },
+  {
+    label: 'Articles',
+    value: 'articles',
+  },
+  {
+    label: 'Resources',
+    value: 'resources',
+  },
+  {
+    label: 'News',
+    value: 'news',
+  },
+]
