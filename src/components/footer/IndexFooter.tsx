@@ -13,7 +13,7 @@ export default function IndexFooter() {
           <div className="space-y-2.5 md:col-span-2 lg:col-span-3">
             <Logo size="h-6.5" />
             <p className="text-xs md: ">
-              Connecthing Skills and Opportunities, Once Hire at a time.
+              Connecting Skills and Opportunities, Once Hire at a time.
             </p>
           </div>
           <div className="grid sm:grid-cols-4 gap-4 sm:gap-2 md:col-span-5 lg:col-span-4">
