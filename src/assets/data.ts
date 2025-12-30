@@ -561,59 +561,63 @@ export const genderOptions = [
 
 export const mockServices = [
   {
-    id: '1',
-    provider: 'Joshua Friday',
+    id: "1",
+    provider: "Joshua Friday",
     rating: 4,
+    location: "Ikeja, Lagos",
     priceFrom: 800,
-    excerpt: 'Included Pipe repairs, Leak fixes, and Maintenance etc.',
+    excerpt: "Included Pipe repairs, Leak fixes, and Maintenance etc.",
     image: Rect18,
   },
   {
-    id: '2',
-    provider: 'Joshua Friday',
+    id: "2",
+    provider: "Joshua Friday",
     rating: 5,
+    location: "Yaba, Lagos",
     priceFrom: 1200,
-    excerpt: 'Routine checks, plumbing maintenance, and quick fixes.',
+    excerpt: "Routine checks, plumbing maintenance, and quick fixes.",
     image: Rect19,
   },
   {
-    id: '3',
-    provider: 'Joshua Friday',
+    id: "3",
+    provider: "Joshua Friday",
     rating: 4,
+    location: "Surulere, Lagos",
     priceFrom: 1500,
-    excerpt: 'Professional drain unclogging, repairs, and replacements.',
+    excerpt: "Professional drain unclogging, repairs, and replacements.",
     image: Rect20,
   },
-]
+];
+
 
 export const jobOffers = [
   {
     id: 1,
-    name: 'Michael Chen',
-    role: 'Homeowner',
-    location: 'Lagos',
-    title: 'Need Plumber to Fix Leaking Tap',
+    name: "Michael Chen",
+    role: "User",
+    location: "Yaba, Lagos",
+    title: "Need Plumber to Fix Leaking Tap",
     description:
-      'Looking for an experienced plumber to fix a constantly dripping kitchen faucet. I would like for it to be done as quickly as possible.',
-    budget: '₦15,000',
-    deadline: 'This weekend',
+      "Looking for an experienced plumber to fix a constantly dripping kitchen faucet. I would like for it to be done as quickly as possible.",
+    budget: "₦15,000",
+    deadline: "This weekend",
     distanceKm: 10,
     images: [],
   },
   {
     id: 2,
-    name: 'Jose Martino',
-    role: 'Homeowner',
-    location: 'Ibadan',
-    title: 'Electrician needed for office rewiring',
+    name: "Jose Martino",
+    role: "User",
+    location: "Moniya, Ibadan",
+    title: "Electrician needed for office rewiring",
     description:
-      'Looking for an electrician to handle a complete office rewiring project. Must be safety certified with prior commercial experience.',
-    budget: '₦85,000',
-    deadline: 'Dec 31, 2024',
+      "Looking for an electrician to handle a complete office rewiring project. Must be safety certified with prior commercial experience.",
+    budget: "₦85,000",
+    deadline: "Dec 31, 2024",
     distanceKm: 18,
     images: [Rect20, Rect21],
   },
-]
+];
 
 export const providerOverviewData = {
   user: {
