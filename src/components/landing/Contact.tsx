@@ -28,7 +28,10 @@ export default function Contact() {
                 {contact.map(({ icon, label, url, text }) => {
                   const IconComponent = icon
                   return (
-                    <li className="bg-white rounded-sm p-2 flex items-center gap-2">
+                    <li
+                      key={text}
+                      className="bg-white rounded-sm p-2 flex items-center gap-2"
+                    >
                       <div className="p-1.5 rounded-sm bg-primary/10">
                         <IconComponent
                           strokeWidth={1}

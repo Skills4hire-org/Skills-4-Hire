@@ -7,6 +7,7 @@ import {
 } from '@radix-ui/react-accordion'
 import { faqs } from '@/assets/data'
 import { Minus, Plus } from 'lucide-react'
+
 export default function FAQs() {
   return (
     <section id="faqs">
@@ -38,7 +39,7 @@ export default function FAQs() {
               className="w-full text-white space-y-3"
               defaultValue=""
             >
-              {faqs.map(({ trigger }, index) => {
+              {faqs.map(({ trigger, desc1, desc2, desc3 }, index) => {
                 return (
                   <AccordionItem
                     value={`item-${index + 1}`}
@@ -47,7 +48,7 @@ export default function FAQs() {
                   >
                     <AccordionTrigger asChild>
                       <div className="group flex items-center gap-3 pr-3 text-sm bg-[#383838] rounded-md overflow-hidden w-full hover:cursor-pointer font-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300">
-                        <span className="w-10 h-10 flex items-center justify-center bg-[#575656] rounded-r-md">
+                        <span className="w-11 h-11 shrink-0 flex items-center justify-center bg-[#575656] rounded-r-md">
                           {/* Plus (closed state) */}
                           <Plus
                             strokeWidth={4}
@@ -65,8 +66,10 @@ export default function FAQs() {
                         <h3>{trigger}</h3>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden mt-2 ">
-                      d'pfwepfwflpefp
+                    <AccordionContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden text-sm md:text-base space-y-1 bg-[#383838] mt-2 p-2 md:p-4 rounded-md">
+                      <p>{desc1}</p>
+                      <p>{desc2}</p>
+                      <p>{desc3}</p>
                     </AccordionContent>
                   </AccordionItem>
                 )

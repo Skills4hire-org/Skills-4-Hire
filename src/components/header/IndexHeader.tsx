@@ -6,10 +6,10 @@ import SidebarNavSheet from './SidebarNavSheet'
 
 export default function IndexHeader() {
   return (
-    <header>
-      <Container className="py-2 md:py-4">
+    <header className="sticky w-full top-0 relative z-50">
+      <Container className="py-3 md:py-4 bg-white">
         <div className="flex items-center justify-between md:justify-between text-muted-foreground">
-          <Logo2 size="h-4.5 md:h-5.5" />
+          <Logo2 size="h-5.5 md:h-6.5" />
           <div className="hidden md:inline-block">
             <IndexNavbar />
           </div>

@@ -19,7 +19,7 @@ export default function SidebarNavSheet() {
   return (
     <Sheet>
       <SheetTrigger className="md:hidden cursor-pointer">
-        <Menu className="h-5 w-5" />
+        <Menu className="h-6 w-6 text-foreground" />
       </SheetTrigger>
 
       <SheetContent side="right" className="w-[250px] px-4">

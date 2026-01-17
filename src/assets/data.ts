@@ -855,11 +855,11 @@ export const footerLinks = [
     links: [
       {
         label: 'Privacy Policy',
-        url: '/privacy-policy',
+        url: '/legal?type=privacy-policy',
       },
       {
         label: 'Terms & Conditions',
-        url: '/terms-and-conditions',
+        url: '/legal?type=terms-conditions',
       },
     ],
   },
@@ -883,63 +883,37 @@ export const contact = [
 export const faqs = [
   {
     trigger: 'How do I hire a provider on Skills4Hire?',
-    desc1: 'We specialise in:',
-    desc2: '',
-    lists: [
-      {
-        heading: '',
-        list: [
-          'Premium handmade wigs',
-          'High-quality hair bundles',
-          'Natural-looking closures and frontals',
-          'Custom wig services',
-        ],
-      },
-    ],
-    end1: 'All our products are designed to give a natural, long-lasting and beautiful finish.',
-    end2: '',
+    desc1: 'Hiring on Skills4Hire is simple and secure.',
+    desc2:
+      'Browse service categories or search for a skill, view the providers profile, compare reviews and prices, then book a provider directly through the platform. You can also post a job with your budget and let skilled providers reach out to you. Once you agree, make payment in-app and the job begins.',
   },
   {
     trigger: 'How are providers verified?',
-    desc1: 'Yes! Every Bollymoon wig is carefully handmade to ensure:',
-    desc2: '',
-    lists: [
-      {
-        heading: '',
-        list: [
-          'natural appearance',
-          'durability',
-          'comfortable fit',
-          'high-quality craftsmanship',
-        ],
-      },
-    ],
-    end1: '',
-    end2: '',
+    desc1:
+      'All service providers on Skills4Hire go through a verification process before they can accept jobs.',
+    desc2:
+      'This includes identity verification, contact confirmation, skill review, and ongoing performance checks based on ratings and completed jobs. This ensures you’re hiring trusted professionals and enjoying the safest way to hire.',
   },
   {
     trigger: 'What services are available on Skills4Hire?',
     desc1:
-      'Yes, we create custom wigs based on your preferred length, density, lace type, and style.',
-    desc2: 'Contact our team to place a custom order.',
+      'Skills4Hire offers both vocational and digital services in one platform.',
+    desc2:
+      'Available services include (but are not limited to): Cleaning, Plumbing, Electrical, HVAC & Handyman services, Carpentry, Painting, Lawn Care & Pest Control, Automobile & Appliance Repair. Hairdressing, Barbering, Makeup, Nail Care & Massage, Fitness Training, Photography & Videography.',
+    desc3:
+      'Also with Digital services like Design, Tech, Marketing, Writing, and more',
   },
   {
     trigger: 'How are payments handled?',
-    lists: [
-      {
-        heading: 'UK Shipping:',
-        list: [
-          'Standard Delivery: 2–4 working days',
-          'Express Delivery: 1–2 working days',
-        ],
-      },
-    ],
-    end1: 'Processing time for handmade wigs may vary (usually 1–3 days).',
+    desc1: 'Payments on Skills4Hire are handled securely through the platform.',
+    desc2:
+      'Customers pay upfront, and funds are safely held until the service is completed. Once the job is confirmed as done, the provider gets paid. This protects both customers and service providers and prevents payment disputes or scams.',
   },
   {
     trigger: 'Is there a fee for using Skills4Hire?',
-    desc1:
-      'Yes, we ship worldwide. Shipping time depends on your location. Shipping costs are calculated at checkout.',
+    desc1: 'Creating an account and browsing services on Skills4Hire is free.',
+    desc2:
+      'But the service providers are charged a small service fee only when a job is successfully completed. This fee helps us maintain platform security, verification, customer support, and continuous improvement of the service.',
   },
 ]
 
@@ -959,5 +933,23 @@ export const blogCategories = [
   {
     label: 'News',
     value: 'news',
+  },
+]
+
+export const features = [
+  {
+    icon: 'stash:badge-verified-solid',
+    title: 'Verified Providers',
+    desc: 'Every professional on Skills4Hire goes through a verification process, giving you peace of mind that you’re connecting with trusted providers who are qualified and reliable.',
+  },
+  {
+    icon: 'mingcute:bank-card-fill',
+    title: 'Proof of Work',
+    desc: 'Unlike other platforms, Skills4Hire uses social feeds as living portfolios, where providers share real projects, updates, and results so you see their work before you hire.',
+  },
+  {
+    icon: 'ic:baseline-work',
+    title: 'Secure Payments',
+    desc: 'All payments are handled safely within the platform, protecting both customers and providers. No risks, no scams just fast, transparent transactions you can trust.',
   },
 ]
