@@ -1,16 +1,20 @@
 import { Outlet } from 'react-router-dom'
 import IndexHeader from '../header/IndexHeader'
 import IndexFooter from '../footer/IndexFooter'
+import ScrollToTop from '../global/ScrollToTop'
 
 export default function IndexLayout() {
   return (
-    <div>
-      <IndexHeader />
-      <main className="min-h-screen">
-        <Outlet />
-      </main>
+    <>
+      <ScrollToTop />
+      <div>
+        <IndexHeader />
+        <main className="min-h-screen">
+          <Outlet />
+        </main>
 
-      <IndexFooter />
-    </div>
+        <IndexFooter />
+      </div>
+    </>
   )
 }

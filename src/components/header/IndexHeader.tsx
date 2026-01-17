@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Container from '../global/Container'
 import Logo2 from '../global/Logo2'
 import IndexNavbar from '../navbars/IndexNavbar'
-import SidebarNavSheet from './SidebarNavSheet'
+import SidebarNavSheet from '../sidebars/SidebarNavSheet'
 
 export default function IndexHeader() {
   return (

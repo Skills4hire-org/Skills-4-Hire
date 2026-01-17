@@ -1,5 +1,5 @@
 import { navLinks } from '@/assets/data'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function IndexNavbar() {
   const pathname = useLocation().pathname
@@ -15,13 +15,13 @@ export default function IndexNavbar() {
   return (
     <nav className="flex items-center bg-gray-100 rounded-full ">
       {navLinks.map((link) => (
-        <a
+        <Link
           key={link.label}
-          href={link.href}
+          to={link.href}
           className={getClassName(link.href)}
         >
           {link.label}
-        </a>
+        </Link>
       ))}
     </nav>
   )

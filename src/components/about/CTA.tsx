@@ -13,7 +13,7 @@ export default function CTA() {
             Get Started
           </button>
         </Link>
-        <Link to="/?section=contact">
+        <Link to="/#contact">
           <button className=" border border-[#161313] hover:border-background hover:shadow-sm text-[#161313] cursor-pointer rounded-sm h-9 text-sm md:text-base w-32">
             Contact Us
           </button>

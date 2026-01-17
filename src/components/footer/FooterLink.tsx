@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 interface FooterLinkProp {
   heading: string
   links: {
@@ -16,12 +18,21 @@ function FooterLink({ heading, links }: FooterLinkProp) {
         {links.map(({ label, url }) => {
           return (
             <li key={label} className="py-0.5">
-              <a
-                href={url}
-                className="hover:text-white hover:underline text-sm text-muted-foreground"
-              >
-                {label}
-              </a>
+              {label == 'Contact Information' ? (
+                <a
+                  href={url}
+                  className="hover:text-white hover:underline text-sm text-muted-foreground"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  to={url}
+                  className="hover:text-white hover:underline text-sm text-muted-foreground"
+                >
+                  {label}
+                </Link>
+              )}
             </li>
           )
         })}
