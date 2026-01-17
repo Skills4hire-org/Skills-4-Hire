@@ -7,7 +7,6 @@ import Vision from '@/components/about/Vision'
 function About2() {
   return (
     <div>
-        <p style="display:none;">Redeploy test</p>
       <Hero />
       <Container>
         <Mission />
