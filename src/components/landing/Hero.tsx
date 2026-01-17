@@ -28,7 +28,7 @@ export default function Hero() {
         </button>
       </div>
 
-      <div className="mt-4 bg-gray-400 h-40 md:h-64 lg:h-80 w-full rounded-lg [clip-path:polygon(0%_0%,50%_10%,100%_0%,100%_100%,0_100%)] md:[clip-path:polygon(0%_0%,50%_16%,100%_0%,100%_100%,0_100%)] lg:[clip-path:polygon(0%_0%,50%_18%,100%_0%,100%_100%, 0_50%)] " />
+      <div className="mt-2 md:mt-0 bg-gray-400 h-40 md:h-64 lg:h-80 w-full rounded-lg [clip-path:polygon(0%_0%,50%_10%,100%_0%,100%_100%,0_100%)] md:[clip-path:polygon(0%_0%,50%_16%,100%_0%,100%_100%,0_100%)] lg:[clip-path:polygon(0%_0%,50%_18%,100%_0%,100%_100%, 0_50%)] " />
     </div>
   )
 }

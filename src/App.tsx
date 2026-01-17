@@ -45,6 +45,7 @@ import IndexLayout from './components/layouts/IndexLayout'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Legal from './pages/Legal'
+import About2 from './pages/About2'
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: 'legal',
         element: <Legal />,
+      },
+      {
+        path: 'about',
+        element: <About2 />,
       },
     ],
   },
@@ -220,11 +225,11 @@ const router = createBrowserRouter([
         path: 'reviews',
         element: <Reviews />,
       },
+      {
+        path: 'about',
+        element: <About />,
+      },
     ],
-  },
-  {
-    path: 'about',
-    element: <About />,
   },
   {
     path: 'terms-and-conditions',
