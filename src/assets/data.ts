@@ -845,8 +845,8 @@ export const footerLinks = [
         url: 'mailto:support@skills4hireapp.com',
       },
       {
-        label: 'Phone: +234-768-576-5755',
-        url: 'tel:+2347685765755',
+        label: 'Phone: +234-707-374-3289',
+        url: 'tel:+2347073743287',
       },
     ],
   },
