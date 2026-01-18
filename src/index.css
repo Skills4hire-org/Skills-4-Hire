@@ -143,3 +143,7 @@
   height: 8px;
   border-radius: 8px;
 }
+.carousel-wrapper {
+  width: 100px;
+  height: 130px;
+}

@@ -10,7 +10,7 @@ export default function CTA() {
       <div className="space-x-4 md:space-x-6">
         <Link to="/sign-up">
           <button className="bg-[#161313] hover:bg-[#161313]/80 cursor-pointer text-white rounded-sm h-9 text-sm md:text-base w-32">
-            Get Started
+            Create Account
           </button>
         </Link>
         <Link to="/#contact">

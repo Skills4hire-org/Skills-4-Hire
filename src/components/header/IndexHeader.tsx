@@ -9,7 +9,7 @@ export default function IndexHeader() {
     <header className="sticky w-full top-0 relative z-50">
       <Container className="py-3 md:py-4 bg-white">
         <div className="flex items-center justify-between md:justify-between text-muted-foreground">
-          <Logo2 size="h-5.5 md:h-6.5" />
+          <Logo2 size="h-7" />
           <div className="hidden md:inline-block">
             <IndexNavbar />
           </div>
