@@ -479,7 +479,7 @@ export const socialLinks = [
   },
   {
     id: 'instagram',
-    href: 'https://www.instagram.com/skills4hireofficial/?hl=en',
+    href: 'https://www.instagram.com/skills4hireapp?igsh=MmEyZ2EzcjRycnd1',
     Icon: FaInstagram,
     bgClass:
       'bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] rounded-full',
