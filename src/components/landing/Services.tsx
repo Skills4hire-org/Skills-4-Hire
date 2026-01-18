@@ -7,8 +7,7 @@ export default function Services() {
       <SectionTitle
         title1="our"
         title2="services"
-        desc="Skills4Hire brings together a variety of services, from trusted home repairs to modern digital solutions.
-Whatever your need, our providers are ready to deliver."
+        desc="Skills4Hire brings together a variety of services, from trusted home repairs to modern digital solutions. Whatever your need, our providers are ready to deliver."
       />
       <Carousel />
     </section>
