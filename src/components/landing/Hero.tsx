@@ -37,7 +37,7 @@ export default function Hero() {
       </div>
       <div className="mt-3 md:mt-0 bg-gray-400 h-48 md:h-72 lg:h-88 w-full rounded-t-lg [clip-path:polygon(0%_0%,50%_10%,100%_0%,100%_100%,0_100%)] md:[clip-path:polygon(0%_0%,50%_16%,100%_0%,100%_100%,0_100%)] lg:[clip-path:polygon(0%_0%,50%_18%,100%_0%,100%_100%, 0_50%)] relative" />
       <div className="absolute -left-0.5 -bottom-0.5  bg-background w-[20%] md:w-[26%] h-6 md:h-10 lg:h-13 rounded-tr-sm" />
-      <div className="absolute -right-0.5 -bottom-0.5  bg-background w-[20%] w-[26%] h-6 md:h-10 lg:h-13 rounded-tl-sm" />
+      <div className="absolute -right-0.5 -bottom-0.5  bg-background w-[20%] md:w-[26%] h-6 md:h-10 lg:h-13 rounded-tl-sm" />
     </div>
   )
 }

@@ -1,10 +1,14 @@
+import SectionTitle from '../global/SectionTitle'
+
 export default function Value() {
   return (
     <section className="space-y-12 pb-10">
-      <p className="text-[10px]/4.5 md:text-sm text-center">
-        Whether you’re a customer or a provider, Skills4Hire is designed to fit
-        your needs perfectly.
-      </p>
+      <SectionTitle
+        title1="What we"
+        title2="Offer"
+        desc="Whether you’re a customer or a provider, Skills4Hire is designed to fit
+        your needs perfectly."
+      />
       <div className="space-y-6 md:space-y-10">
         <div className=" space-y-6 md:flex gap-14 lg:gap-24">
           <div className="space-y-1.5 shrink-0">

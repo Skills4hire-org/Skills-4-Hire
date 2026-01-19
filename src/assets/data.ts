@@ -845,7 +845,7 @@ export const footerLinks = [
         url: 'mailto:support@skills4hireapp.com',
       },
       {
-        label: 'Phone: +234-707-374-3289',
+        label: 'Phone: +234-707-374-3287',
         url: 'tel:+2347073743287',
       },
     ],
@@ -951,5 +951,68 @@ export const features = [
     icon: 'ic:baseline-work',
     title: 'Secure Payments',
     desc: 'All payments are handled safely within the platform, protecting both customers and providers. No risks, no scams just fast, transparent transactions you can trust.',
+  },
+]
+
+export const carouselServices = [
+  {
+    image: '',
+    text: 'Web development',
+  },
+  {
+    image: '',
+    text: 'Project Management',
+  },
+  {
+    image: '',
+    text: 'Fitness Training',
+  },
+  {
+    image: '',
+    text: 'Data Analysis',
+  },
+  {
+    image: '',
+    text: 'Hairdressing',
+  },
+  {
+    image: '',
+    text: 'Graphic Design',
+  },
+  {
+    image: '',
+    text: 'Digital Marketing',
+  },
+  {
+    image: '',
+    text: 'Cybersecurity',
+  },
+  {
+    image: '',
+    text: 'Carpentry',
+  },
+  {
+    image: '',
+    text: 'Mobile App Development',
+  },
+  {
+    image: '',
+    text: 'Electrical',
+  },
+  {
+    image: '',
+    text: 'DevOps',
+  },
+  {
+    image: '',
+    text: 'Plumbing',
+  },
+  {
+    image: '',
+    text: 'Video Editing',
+  },
+  {
+    image: '',
+    text: 'Cleaning',
   },
 ]
