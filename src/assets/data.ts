@@ -1016,3 +1016,23 @@ export const carouselServices = [
     text: 'Cleaning',
   },
 ]
+
+export const howItWorks = {
+  customer: [
+    'Register',
+    'Create an offer or book a provider directly',
+    'Pay securely',
+  ],
+  provider: [
+    'Register as a service provider',
+    'Set-up your profile',
+    'Post your skill',
+    'Get booked',
+  ],
+  platform: [
+    'All service categories',
+    "Visibility for the service providers and customer's offer",
+    'Job offers',
+    'Transparency',
+  ],
+}

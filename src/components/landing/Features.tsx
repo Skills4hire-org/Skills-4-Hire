@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function Features() {
   return (
     <section>
-      <div className="relative pb-10">
+      <div className="relative pb-10 md:pb-0">
         <Container className="text-white py-4 md:py-6 bg-[#161313] rounded-3xl rounded-br-none relative">
           <div className="space-y-6 md:space-y-8 px-2 md:-mt-14 z-40 relative">
             <div className="text-center space-y-2 md:space-y-4">
@@ -48,7 +48,7 @@ function Features() {
           >
             Create Account
           </Link>
-          <p className="text-xs md:text-sm/4 md:text-sm/4.5">
+          <p className="text-xs">
             Skills4Hire connects trusted providers with customers every day{' '}
             <br />
             making work safer and hiring smarter

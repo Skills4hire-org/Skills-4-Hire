@@ -3,7 +3,7 @@ import Carousel from './Carousel'
 
 export default function Services() {
   return (
-    <section id="services" className="space-y-16 pb-10">
+    <section id="services" className="space-y-16">
       <SectionTitle
         title1="our"
         title2="services"

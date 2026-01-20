@@ -14,7 +14,7 @@ export default function Landing() {
     <>
       <ScrollToSection />
       <Container>
-        <div className="space-y-10 pb-10 pt-4 md:pt-6">
+        <div className="space-y-10 md:space-y-12 pb-12 pt-4 md:pt-6">
           <Hero />
           <About />
           <Services />

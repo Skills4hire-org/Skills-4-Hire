@@ -2,7 +2,7 @@ import SectionTitle from '../global/SectionTitle'
 
 export default function Value() {
   return (
-    <section className="space-y-12 pb-10">
+    <section className="space-y-12">
       <SectionTitle
         title1="What we"
         title2="Offer"
