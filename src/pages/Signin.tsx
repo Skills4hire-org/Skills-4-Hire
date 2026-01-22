@@ -34,14 +34,14 @@ export default function SignIn() {
           <div className="flex justify-end">
             <Link
               to="/forgot-password"
-              className="text-sm text-[#222BDE] hover:underline"
+              className="text-sm text-primary hover:underline"
             >
               Forgot Password?
             </Link>
           </div>
         </div>
 
-        <button className="w-full bg-[#222BDE] text-white py-3 rounded-lg font-medium hover:opacity-90">
+        <button className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:opacity-90">
           Sign in
         </button>
 
@@ -49,7 +49,7 @@ export default function SignIn() {
           Don&apos;t have an account?{" "}
           <Link
             to="/sign-up"
-            className="text-[#222BDE] font-medium hover:underline"
+            className="text-primary font-medium hover:underline"
           >
             Sign up
           </Link>
@@ -59,9 +59,12 @@ export default function SignIn() {
           By clicking the{" "}
           <span className="font-medium text-black">Sign in</span> button you
           accept the{" "}
-          <span className="text-[#222BDE] font-medium hover:underline">
+          <Link
+            to="/privacy-policy"
+            className="text-primary font-medium hover:underline"
+          >
             Terms of the Privacy Policy
-          </span>
+          </Link>
         </p>
 
         <div className="flex items-center my-6">
