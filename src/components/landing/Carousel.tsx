@@ -18,14 +18,19 @@ export default function Carousel() {
       }}
       className="w-full h-[200px]"
     >
-      {carouselServices.map(({ text }, index) => (
-        <SwiperSlide key={index} className="!w-[120px]">
+      {carouselServices.map(({ text, image }, index) => (
+        <SwiperSlide key={index} className="!w-[120px] ">
           <figure
             key={index}
-            className={` relative h-[150px] bg-gray-300 ${
+            className={` relative h-[150px] bg-gray-300 overflow-hidden ${
               index % 2 !== 0 && 'translate-y-12'
             }  rounded-2xl`}
           >
+            <img
+              src={image}
+              alt={text}
+              className="w-full h-full object-cover object-center"
+            />
             <figcaption className="text-[10px] bg-white rounded-md absolute bottom-2 w-[90%] left-1/2 -translate-x-1/2 text-center py-1.5 capitalize">
               {text}
             </figcaption>

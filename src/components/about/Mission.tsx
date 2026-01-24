@@ -1,4 +1,8 @@
 import SectionTitle from '../global/SectionTitle'
+import image1 from '../../assets/images/archi.webp'
+import image2 from '../../assets/images/coding.webp'
+import image3 from '../../assets/images/games.webp'
+import image4 from '../../assets/images/welding.webp'
 
 export default function Mission() {
   return (
@@ -11,11 +15,39 @@ export default function Mission() {
                   their skills, grow their business and earn more."
       />
 
-      <div className="grid grid-cols-4 gap-2 md:gap-3">
-        <div className="bg-gray-300  rounded-sm col-span-2 row-span-2" />
-        <div className="bg-gray-300 h-32 md:h-40  rounded-sm col-span-2" />
-        <div className="bg-gray-300 h-32 md:h-40  rounded-sm" />
-        <div className="bg-gray-300 h-32 md:h-40  rounded-sm" />
+      <div className="grid grid-cols-4 gap-2 md:gap-3 ">
+        <figure className="bg-gray-300  rounded-sm col-span-2 row-span-2 overflow-hidden w-full h-full">
+          <img
+            loading="lazy"
+            src={image1}
+            alt="archi"
+            className="object-cover object-center w-full h-full"
+          />
+        </figure>
+        <figure className="bg-gray-300  rounded-sm col-span-2 overflow-hidden w-full max-h-[300px]">
+          <img
+            loading="lazy"
+            src={image2}
+            alt="coding"
+            className="object-cover object-center w-full h-full"
+          />
+        </figure>
+        <figure className="bg-gray-300  rounded-sm overflow-hidden w-full h-full">
+          <img
+            loading="lazy"
+            src={image3}
+            alt="games"
+            className="object-cover object-center w-full h-full"
+          />
+        </figure>
+        <figure className="bg-gray-300  rounded-sm overflow-hidden w-full h-full">
+          <img
+            loading="lazy"
+            src={image4}
+            alt="welding"
+            className="object-cover object-center w-full h-full"
+          />
+        </figure>
       </div>
     </section>
   )

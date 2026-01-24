@@ -1,4 +1,6 @@
 import SectionTitle from '../global/SectionTitle'
+import customer from '../../assets/images/customer.jpg'
+import provider from '../../assets/images/provider.jpg'
 
 export default function Value() {
   return (
@@ -19,7 +21,14 @@ export default function Value() {
               your personalized customer <br /> dashboard.
             </p>
           </div>
-          <figure className="w-full h-64 md:h-76 bg-gray-300 rounded-3xl"></figure>
+          <figure className="w-full h-64 md:h-76 bg-gray-300 rounded-3xl overflow-hidden">
+            <img
+              src={customer}
+              alt="customer"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+          </figure>
         </div>
         <div className=" space-y-6 md:flex items-end gap-14 lg:gap-24 md:flex-row-reverse">
           <div className="space-y-1.5 shrink-0 md:mb-1">
@@ -32,7 +41,14 @@ export default function Value() {
               <br /> provider dashboard.
             </p>
           </div>
-          <figure className="w-full h-64 md:h-76 bg-gray-300 rounded-3xl"></figure>
+          <figure className="w-full h-64 md:h-76 bg-gray-300 rounded-3xl overflow-hidden">
+            <img
+              src={provider}
+              alt="provider"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+          </figure>
         </div>
       </div>
     </section>
