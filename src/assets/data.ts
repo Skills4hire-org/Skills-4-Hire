@@ -31,9 +31,23 @@ import Rect20 from './Rectangle 20.png'
 import Rect21 from './Rectangle 21.png'
 import JoshuaFridayBG from './JoshuaFriday-bg.png'
 import MaryPraise from './MaryPraise.png'
+import carpentry from './images/carpentry.jpg'
+import cleaning from './images/cleaning.jpg'
+import cybersecurity from './images/cybersecurity.jpg'
+import dataAnalysis from './images/dataAnalysis.jpg'
+import devops from './images/devops.jpg'
+import digitalMarketing from './images/digitalMarketing.jpg'
+import electrical from './images/electrical.jpg'
+import fitnessTraining from './images/fitnessTraining.jpg'
+import graphicDesign from './images/graphicDesign.jpg'
+import hairDressing from './images/hairDressing.jpg'
+import motionGraphics from './images/motionGraphics.jpg'
+import plumbing from './images/plumbing.jpg'
+import projectManagement from './images/projectManagement.jpg'
+import videoEditing from './images/videoEditing.jpg'
+import webDevelopment from './images/webDevelopment.jpg'
 
 export const images = [img1, img2, img1]
-
 export const sidebarMobileGeneral = [
   {
     icon: TbHeart,
@@ -874,8 +888,8 @@ export const contact = [
   },
   {
     label: 'phone number',
-    text: '+234 789 678 6768',
-    url: 'tel:+2347896786768',
+    text: '+234-707-374-3287',
+    url: 'tel:+2347073743287',
     icon: Phone,
   },
 ]
@@ -956,63 +970,63 @@ export const features = [
 
 export const carouselServices = [
   {
-    image: '',
+    image: webDevelopment,
     text: 'Web development',
   },
   {
-    image: '',
+    image: projectManagement,
     text: 'Project Management',
   },
   {
-    image: '',
+    image: fitnessTraining,
     text: 'Fitness Training',
   },
   {
-    image: '',
+    image: dataAnalysis,
     text: 'Data Analysis',
   },
   {
-    image: '',
+    image: hairDressing,
     text: 'Hairdressing',
   },
   {
-    image: '',
+    image: graphicDesign,
     text: 'Graphic Design',
   },
   {
-    image: '',
+    image: digitalMarketing,
     text: 'Digital Marketing',
   },
   {
-    image: '',
+    image: cybersecurity,
     text: 'Cybersecurity',
   },
   {
-    image: '',
+    image: carpentry,
     text: 'Carpentry',
   },
   {
-    image: '',
-    text: 'Mobile App Development',
+    image: motionGraphics,
+    text: 'Motion Graphics',
   },
   {
-    image: '',
+    image: electrical,
     text: 'Electrical',
   },
   {
-    image: '',
+    image: devops,
     text: 'DevOps',
   },
   {
-    image: '',
+    image: plumbing,
     text: 'Plumbing',
   },
   {
-    image: '',
+    image: videoEditing,
     text: 'Video Editing',
   },
   {
-    image: '',
+    image: cleaning,
     text: 'Cleaning',
   },
 ]

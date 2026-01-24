@@ -1,27 +1,15 @@
-import brandLogo from "@/assets/images/logo3.png";
-import { FaFacebookF } from "react-icons/fa";
-import InputField from "../components/InputField";
-import { Link } from "react-router-dom";
+import { FaFacebookF } from 'react-icons/fa'
+import InputField from '../components/InputField'
+import { Link } from 'react-router-dom'
+import Logo3 from '@/components/global/Logo3'
 
 export default function SignUp() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
       <div className="w-full max-w-sm text-center">
-        <img
-          src={brandLogo}
-          alt="Brand Logo"
-          className="
-            mx-auto
-            object-contain
-            h-10
-            sm:h-12
-            md:h-14
-            lg:h-14
-            mb-1
-            
-          "
-          loading="eager"
-        />
+        <div className="w-max mx-auto">
+          <Logo3 size="h-[38px] md:h-[42px]" />
+        </div>
 
         <h1 className="text-2xl font-bold">Sign up</h1>
         <p className="text-sm text-gray-500 mb-6">
@@ -42,7 +30,7 @@ export default function SignUp() {
         </button>
 
         <p className="text-sm text-gray-600 mt-3">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link
             to="/sign-in"
             className="text-primary font-medium hover:underline"
@@ -79,5 +67,5 @@ export default function SignUp() {
         </div>
       </div>
     </div>
-  );
+  )
 }
