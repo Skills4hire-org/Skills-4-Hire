@@ -18,6 +18,7 @@ export default function SignUp() {
             md:h-14
             lg:h-14
             mb-1
+            
           "
           loading="eager"
         />

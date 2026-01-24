@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import brandLogo from "../assets/BrandName.png";
+import brandLogo from "../assets/BrandLogo.png";
 import InputField from "../components/InputField";
 
 const ForgotPassword: React.FC = () => {
