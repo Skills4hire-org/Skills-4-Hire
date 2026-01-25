@@ -1,17 +1,18 @@
-import { FaFacebookF } from 'react-icons/fa'
-import InputField from '../components/InputField'
-import { Link } from 'react-router-dom'
-import Logo3 from '@/components/global/Logo3'
+import { FaFacebookF } from "react-icons/fa";
+import InputField from "../components/InputField";
+import { Link } from "react-router-dom";
+import AuthLogo from "@/components/global/AuthLogo";
 
 export default function SignUp() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
       <div className="w-full max-w-sm text-center">
-        <div className="w-max mx-auto">
-          <Logo3 size="h-[38px] md:h-[42px]" />
+        <div className="w-max mx-auto mb-1">
+          <AuthLogo />
         </div>
 
         <h1 className="text-2xl font-bold">Sign up</h1>
+
         <p className="text-sm text-gray-500 mb-6">
           Get Maximum <span className="text-primary">Satisfaction</span>
           <br />
@@ -30,7 +31,7 @@ export default function SignUp() {
         </button>
 
         <p className="text-sm text-gray-600 mt-3">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link
             to="/sign-in"
             className="text-primary font-medium hover:underline"
@@ -67,5 +68,5 @@ export default function SignUp() {
         </div>
       </div>
     </div>
-  )
+  );
 }

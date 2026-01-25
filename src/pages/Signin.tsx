@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import Logo3 from "@/components/global/Logo3";
 import { FaFacebookF } from "react-icons/fa";
 import InputField from "../components/InputField";
+import AuthLogo from "@/components/global/AuthLogo";
 
 export default function SignIn() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
       <div className="w-full max-w-sm text-center">
         <div className="w-max mx-auto mb-1">
-          <Logo3 size="h-[38px] md:h-[42px]" />
+          <AuthLogo />
         </div>
 
         <h1 className="text-2xl font-bold">Sign in</h1>
