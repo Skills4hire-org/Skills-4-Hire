@@ -14,26 +14,30 @@ export default function MobileHomeHeader() {
   );
 
   return (
-    <header className="md:hidden w-full">
-      <div className="flex items-center justify-between px-3 pt-3">
+    <header className="md:hidden w-full -mx-2">
+      <div className="flex items-center justify-between px-2 pt-3">
         <div className="flex items-center">
-          <Logo size="h-[28px] w-auto" />
+          <Logo size="h-[26px] w-auto" />
         </div>
 
-        <div className="w-8 h-8">
+        <div className="w-7 h-7">
           {userType === "customer" ? (
             <SidebarTrigger size="lg">
-              <ProfileImage />
+              <div className="scale-85">
+                <ProfileImage />
+              </div>
             </SidebarTrigger>
           ) : (
             <Link to="/service-provider/profile">
-              <ProfileImage />
+              <div className="scale-85">
+                <ProfileImage />
+              </div>
             </Link>
           )}
         </div>
       </div>
 
-      <div className="flex items-center gap-2 px-3 pt-3">
+      <div className="flex items-center gap-2 px-2 pt-3">
         <div className="flex-1">
           <SearchBar
             placeholder="Search for plumbers, electricians..."
