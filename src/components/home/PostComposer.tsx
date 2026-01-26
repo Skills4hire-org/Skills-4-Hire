@@ -1,39 +1,56 @@
-import { useState } from 'react'
-import FormInput from '../form-fields/FormInput'
-import ProfileImage from '../global/ProfileImage'
-import FormTextArea from '../form-fields/FormTextArea'
-import FormSelect from '../form-fields/FormSelect'
-import { timeFrameOptions } from '@/assets/data'
-import { Check, ImageIcon, Paperclip } from 'lucide-react'
-import FormSubmitButton from '../buttons/FormSubmitButton'
-import type { UserType } from '@/utils/types'
-import { useSelector } from 'react-redux'
+import { useState } from "react";
+import FormInput from "../form-fields/FormInput";
+import ProfileImage from "../global/ProfileImage";
+import FormTextArea from "../form-fields/FormTextArea";
+import FormSelect from "../form-fields/FormSelect";
+import { timeFrameOptions } from "@/assets/data";
+import { Check, ImageIcon, Paperclip } from "lucide-react";
+import FormSubmitButton from "../buttons/FormSubmitButton";
+import type { UserType } from "@/utils/types";
+import { useSelector } from "react-redux";
 
 export default function PostComposer() {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState
-  )
+  );
+
   const [formData, setFormData] = useState({
-    post: '',
-    budget: '',
-    timeFrame: '',
-    photo: '',
-    attachment: '',
-  })
+    post: "",
+    budget: "",
+    timeFrame: "",
+    photo: "",
+    attachment: "",
+  });
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
-    <form className="bg-white rounded-md space-y-4 px-2 py-4 md:py-6 md:px-3 shadow-md">
-      <div className="flex items-center gap-2 ">
+    <form
+      className="
+        bg-white
+        rounded-md
+        space-y-4
+        px-2 py-4 md:py-6 md:px-3
+        shadow-md
+        border
+        border-gray-500
+        md:border-gray-400
+      "
+    >
+      <p className="text-sm md:text-base font-medium text-gray-700">
+        Create an offer
+      </p>
+
+      <div className="flex items-center gap-2">
         <ProfileImage noStatus />
         <FormTextArea
           name="post"
           placeholder={
-            userType == 'customer'
-              ? 'What job do you want to get done?'
-              : 'Post about your latest work or service.'
+            userType == "customer"
+              ? "What job do you want to get done?"
+              : "Post about your latest work or service."
           }
           value={formData.post}
           handleInputChange={handleInputChange}
@@ -42,8 +59,9 @@ export default function PostComposer() {
           required
         />
       </div>
-      <div className="flex  flex-col gap-2 md:gap-4">
-        {userType == 'customer' && (
+
+      <div className="flex flex-col gap-2 md:gap-4">
+        {userType == "customer" && (
           <div className="grid grid-cols-2 gap-4 md:gap-10">
             <FormInput
               name="budget"
@@ -54,8 +72,9 @@ export default function PostComposer() {
               type="number"
               handleInputChange={handleInputChange}
               className="border-0 border-b h-9"
-              labelSize="text-xs md:text-sm "
+              labelSize="text-xs md:text-sm"
             />
+
             <FormSelect
               name="timeFrame"
               label="Time Frame"
@@ -68,9 +87,9 @@ export default function PostComposer() {
             />
           </div>
         )}
-        <div className="flex items-center justify-between gap-4 ">
+
+        <div className="flex items-center justify-between gap-4">
           <div className="flex items-center flex-wrap gap-4 md:gap-6 text-sm text-muted-foreground justify-start ml-0">
-            {/*Form Image Input */}
             <div className="flex items-center gap-1.5">
               <button
                 className="flex items-center gap-1 hover:text-gray-700"
@@ -79,12 +98,12 @@ export default function PostComposer() {
                 <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
                 <span className="text-xs md:text-sm">Photo</span>
               </button>
+
               <span className="text-white font-medium p-0.5 bg-green-600 rounded-full">
                 <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
               </span>
             </div>
 
-            {/*Form File Input */}
             <button
               className="flex items-center gap-1 hover:text-gray-700"
               type="button"
@@ -93,15 +112,16 @@ export default function PostComposer() {
               <span className="text-xs md:text-sm">Attachment</span>
             </button>
           </div>
+
           <FormSubmitButton
             size="sm"
             submitting={false}
-            text="Post"
+            text="Post offer"
             texting="Posting"
-            className="px-4 md:px-8 text-sm md:text-sm"
+            className="px-4 md:px-8 text-sm"
           />
         </div>
       </div>
     </form>
-  )
+  );
 }

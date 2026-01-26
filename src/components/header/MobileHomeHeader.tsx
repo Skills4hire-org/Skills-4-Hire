@@ -1,38 +1,54 @@
-import { Bell } from 'lucide-react'
-import { SidebarTrigger } from '../ui/sidebar'
-import ProfileImage from '../global/ProfileImage'
-import RecentNotification from '../global/RecentNotification'
-import SearchbarDropmenu from '../global/SearchbarDropmenu'
-import { Link } from 'react-router-dom'
-import type { UserType } from '@/utils/types'
-import { useSelector } from 'react-redux'
+import { Bell } from "lucide-react";
+import { SidebarTrigger } from "../ui/sidebar";
+import ProfileImage from "../global/ProfileImage";
+import RecentNotification from "../global/RecentNotification";
+import SearchBar from "../global/SearchBar";
+import Logo from "../global/Logo2";
+import { Link } from "react-router-dom";
+import type { UserType } from "@/utils/types";
+import { useSelector } from "react-redux";
 
 export default function MobileHomeHeader() {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState
-  )
+  );
+
   return (
-    <header className=" flex items-center justify-between md:hidden ">
-      {userType == 'customer' ? (
-        <div className="block pt-3.5">
-          <SidebarTrigger size="lg">
-            <ProfileImage />
-          </SidebarTrigger>
+    <header className="md:hidden w-full -mx-2">
+      <div className="flex items-center justify-between px-2 pt-3">
+        <div className="flex items-center">
+          <Logo size="h-[30px] w-auto" />
         </div>
-      ) : (
-        <Link className="block py-1" to="/service-provider/profile">
-          <ProfileImage />
-        </Link>
-      )}
-      <div className="flex py-3.5 items-center gap-2">
-        <SearchbarDropmenu
-          placeholder="Search for jobs, services or providers"
-          position="-translate-x-4"
-        />
+
+        <div className="w-7 h-7">
+          {userType === "customer" ? (
+            <SidebarTrigger size="lg">
+              <div className="scale-85">
+                <ProfileImage />
+              </div>
+            </SidebarTrigger>
+          ) : (
+            <Link to="/service-provider/profile">
+              <div className="scale-85">
+                <ProfileImage />
+              </div>
+            </Link>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 px-2 pt-3">
+        <div className="flex-1">
+          <SearchBar
+            placeholder="Search for plumbers, electricians..."
+            maxWidth="w-full"
+          />
+        </div>
+
         <Link to="/customer/notification">
           <RecentNotification icon={Bell} newAlert />
         </Link>
       </div>
     </header>
-  )
+  );
 }
