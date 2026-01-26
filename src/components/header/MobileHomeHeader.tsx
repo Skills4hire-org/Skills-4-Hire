@@ -17,7 +17,7 @@ export default function MobileHomeHeader() {
     <header className="md:hidden w-full -mx-2">
       <div className="flex items-center justify-between px-2 pt-3">
         <div className="flex items-center">
-          <Logo size="h-[26px] w-auto" />
+          <Logo size="h-[30px] w-auto" />
         </div>
 
         <div className="w-7 h-7">
