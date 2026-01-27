@@ -37,7 +37,7 @@ export default function Hero() {
         </Link>
       </div>
       <div
-        className="mt-3 md:mt-0 bg-gray-400 h-50 md:h-90 lg:h-[450px] xl:h-[530px] w-full rounded-t-lg [clip-path:polygon(0%_0%,50%_10%,100%_0%,100%_100%,0_100%)] md:[clip-path:polygon(0%_0%,50%_16%,100%_0%,100%_100%,0_100%)] lg:[clip-path:polygon(0%_0%,50%_18%,100%_0%,100%_100%, 0_50%)] relative bg-bottom bg-cover"
+        className="mt-3 md:mt-0 bg-gray-400 h-50 md:h-90 lg:h-[450px] xl:h-[530px]  2xl:h-[560px] w-full rounded-t-lg [clip-path:polygon(0%_0%,50%_10%,100%_0%,100%_100%,0_100%)] md:[clip-path:polygon(0%_0%,50%_16%,100%_0%,100%_100%,0_100%)] lg:[clip-path:polygon(0%_0%,50%_18%,100%_0%,100%_100%, 0_50%)] relative bg-center bg-cover"
         style={{
           backgroundImage: `url(${hero})`,
         }}
