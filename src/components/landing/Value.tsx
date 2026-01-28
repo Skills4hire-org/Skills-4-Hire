@@ -4,7 +4,7 @@ import provider from '../../assets/images/provider.jpg'
 
 export default function Value() {
   return (
-    <section className="space-y-12">
+    <section id="value" className="space-y-12">
       <SectionTitle
         title1="What we"
         title2="Offer"

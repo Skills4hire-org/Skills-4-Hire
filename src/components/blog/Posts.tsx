@@ -39,9 +39,9 @@ export default function Posts() {
       <div>
         <div className=" grid md:grid-cols-3 gap-x-6 gap-y-10">
           {filteredPosts?.map(
-            ({ tag, title, summary, author, createdAt, minRead }) => {
+            ({ tag, title, summary, author, createdAt, minRead }, index) => {
               return (
-                <div className="space-y-4">
+                <div key={index} className="space-y-4">
                   <figure className="w-full h-48 md:h-64 bg-gray-500 rounded-2xl"></figure>
                   <div>
                     <span className="capitalize text-sm block mb-3 bg-muted rounded-full py-0.5 w-max px-2.5 ">
@@ -72,7 +72,7 @@ export default function Posts() {
                   </div>
                 </div>
               )
-            }
+            },
           )}
         </div>
         <button

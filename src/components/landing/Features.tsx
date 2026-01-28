@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 function Features() {
   return (
-    <section>
+    <section id="features">
       <div className="relative pb-10 md:pb-0">
         <Container className="text-white py-4 md:py-6 bg-[#161313] rounded-3xl rounded-br-none relative">
           <div className="space-y-6 md:space-y-8 px-2 md:-mt-14 z-40 relative">
@@ -22,7 +22,7 @@ function Features() {
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-10">
               {features.map(({ title, desc, icon }) => {
                 return (
-                  <li className="space-y-2">
+                  <li key={title} className="space-y-2">
                     <Icon
                       icon={icon}
                       width={30}

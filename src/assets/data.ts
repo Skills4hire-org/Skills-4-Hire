@@ -827,10 +827,10 @@ export const requests = [
 export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Services', href: '/#services' },
+  { label: 'Services', href: '/#services', sectionId: 'services' },
   { label: 'Blog', href: '/blog' },
-  { label: 'FAQs', href: '/#faqs' },
-  { label: 'Contact Us', href: '/#contact' },
+  { label: 'FAQs', href: '/#faqs', sectionId: 'faqs' },
+  { label: 'Contact Us', href: '/#contact', sectionId: 'contact' },
 ]
 
 export const footerLinks = [

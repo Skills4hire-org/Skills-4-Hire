@@ -6,7 +6,7 @@ import SidebarNavSheet from '../sidebars/SidebarNavSheet'
 
 export default function IndexHeader() {
   return (
-    <header className="sticky w-full top-0 relative z-50">
+    <header className="sticky w-full top-0 relative z-50 shadow-sm">
       <Container className="py-3 md:py-4 bg-white">
         <div className="flex items-center justify-between md:justify-between text-muted-foreground">
           <Logo2 size="h-7" />

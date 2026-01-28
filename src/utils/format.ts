@@ -68,7 +68,7 @@ export const groupedServicesByCategory = availableServices.reduce(
     ;(acc[current.category] ??= []).push(current)
     return acc
   },
-  {} as Record<string, AvailableServices[]>
+  {} as Record<string, AvailableServices[]>,
 )
 
 const amount = currencyFormatter(10000)
@@ -126,7 +126,7 @@ export function groupNotificationsByDay(notifications: Notification[]) {
       groups[groupKey].push(notification)
       return groups
     },
-    {}
+    {},
   )
 }
 
@@ -150,6 +150,12 @@ export function groupTransactionsByDay(transactions: TransactionHistory[]) {
       groups[groupKey].push(transaction)
       return groups
     },
-    {}
+    {},
   )
+}
+
+export function isSameUrl(linkPath: string, pathname: string, hash: string) {
+  // Normalize "/" vs ""
+  const current = `${pathname}${hash || ''}` || '/'
+  return current === linkPath
 }
