@@ -2,20 +2,27 @@ import React from "react";
 
 interface InputFieldProps {
   type?: string;
-  placeholder: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+export default function InputField({
   type = "text",
   placeholder,
-}) => {
+  value,
+  onChange,
+  name,
+}: InputFieldProps) {
   return (
     <input
       type={type}
+      name={name}
       placeholder={placeholder}
-      className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#222BDE]"
+      value={value}
+      onChange={onChange}
+      className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
     />
   );
-};
-
-export default InputField;
+}
