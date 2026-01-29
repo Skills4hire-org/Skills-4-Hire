@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebookF } from "react-icons/fa";
-import InputField from "../components/InputField";
 import AuthLogo from "@/components/global/AuthLogo";
+import FormInput from "@/components/form-fields/FormInput";
 import { login } from "@/api/auth";
+import { loginSchema } from "@/utils/schemas";
+import { useValidateSchema } from "@/hooks/useValidateSchema";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -14,46 +16,26 @@ export default function SignIn() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const validate = () => {
-    const errors: Record<string, string> = {};
-
-    if (!formData.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      errors.email = "Invalid email address";
-    }
-
-    if (!formData.password) {
-      errors.password = "Password is required";
-    }
-
-    return errors;
+  const handleChange = (key: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
-    const errors = validate();
-    setFormErrors(errors);
-
-    if (Object.keys(errors).length > 0) return;
+    const validatedData = useValidateSchema(loginSchema, formData);
+    if (!validatedData) return;
 
     setLoading(true);
 
     try {
-      const res = await login(formData);
+      const res = await login(validatedData);
       console.log("LOGIN RESPONSE:", res);
+
       navigate("/");
-    } catch (err: any) {
-      setError(err.message || "Login failed");
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -61,8 +43,11 @@ export default function SignIn() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
-      <form onSubmit={handleSubmit} className="w-full max-w-sm text-center">
-        <div className="w-max mx-auto mb-1">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-sm text-center pt-6 md:pt-10"
+      >
+        <div className="w-max mx-auto mb-2">
           <AuthLogo />
         </div>
 
@@ -72,28 +57,24 @@ export default function SignIn() {
           Enter your email and password you created during registration
         </p>
 
-        {error && <p className="text-sm text-red-600 mb-3">{error}</p>}
-
-        <div className="space-y-2 mb-2">
-          <InputField
+        <div className="space-y-3 mb-3 text-left">
+          <FormInput
+            name="email"
             type="email"
-            placeholder="Email Address"
+            placeholder="Email address"
             value={formData.email}
-            onChange={(e: any) => handleChange("email", e.target.value)}
+            handleInputChange={handleChange}
+            required
           />
-          {formErrors.email && (
-            <p className="text-xs text-red-500">{formErrors.email}</p>
-          )}
 
-          <InputField
+          <FormInput
+            name="password"
             type="password"
             placeholder="Password"
             value={formData.password}
-            onChange={(e: any) => handleChange("password", e.target.value)}
+            handleInputChange={handleChange}
+            required
           />
-          {formErrors.password && (
-            <p className="text-xs text-red-500">{formErrors.password}</p>
-          )}
 
           <div className="flex justify-end">
             <Link
@@ -135,9 +116,9 @@ export default function SignIn() {
         </p>
 
         <div className="flex items-center my-6">
-          <div className="flex-grow border-t-2 border-gray-400"></div>
+          <div className="flex-grow border-t-2 border-gray-300" />
           <span className="px-3 text-sm text-gray-400">or</span>
-          <div className="flex-grow border-t-2 border-gray-400"></div>
+          <div className="flex-grow border-t-2 border-gray-300" />
         </div>
 
         <div className="flex justify-center gap-6">
