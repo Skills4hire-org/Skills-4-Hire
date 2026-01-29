@@ -2,7 +2,10 @@ import about from '../../assets/images/about.png'
 
 export default function About() {
   return (
-    <section className="md:grid gap-4 md:gap-10 lg:gap-20 md:grid-cols-3 place-items-center space-y-6 ">
+    <section
+      id="about"
+      className="md:grid gap-4 md:gap-10 lg:gap-20 md:grid-cols-3 place-items-center space-y-6"
+    >
       <div className="space-y-4 md:space-y-5 col-span-2 ">
         <div className="space-y-2 md:space-y-3">
           <span className="text-xs md:text-sm bg-muted px-3 py-0.5 rounded-full font-medium w-max block ">

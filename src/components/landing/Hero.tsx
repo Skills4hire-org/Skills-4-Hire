@@ -3,7 +3,10 @@ import hero from '../../assets/images/landing-hero.jpg'
 
 export default function Hero() {
   return (
-    <div className="flex flex-col md:gap-2 items-center justify-center relative">
+    <section
+      id="index"
+      className="flex flex-col md:gap-2 items-center justify-center relative"
+    >
       <div className=" flex flex-col gap-1 md:gap-3 md:flex-row items-center justify-center max-w-3xl md:-ml-34">
         <p className="text-xs md:max-w-66 text-center md:text-start">
           Your trusted market place for every skills/service - from local
@@ -44,6 +47,6 @@ export default function Hero() {
       />
       <div className="absolute -left-0.5 -bottom-0.5  bg-background w-[20%] md:w-[26%] h-6 md:h-10 lg:h-13 rounded-tr-sm" />
       <div className="absolute -right-0.5 -bottom-0.5 bg-background w-[20%] md:w-[26%] h-6 md:h-10 lg:h-13 rounded-tl-sm" />
-    </div>
+    </section>
   )
 }

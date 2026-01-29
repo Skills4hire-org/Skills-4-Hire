@@ -5,7 +5,7 @@ import { howItWorks } from '../../assets/data'
 
 export default function HowItWorks() {
   return (
-    <section className="space-y-5 md:space-y-10 md:pb-14">
+    <section id="works" className="space-y-5 md:space-y-10 md:pb-14">
       <SectionTitle
         title1="How it"
         title2="works"
@@ -21,7 +21,10 @@ export default function HowItWorks() {
               <ul className="space-y-2">
                 {howItWorks.customer.map((step, index) => {
                   return (
-                    <li className="flex items-center gap-2 text-xs ">
+                    <li
+                      key={index}
+                      className="flex items-center gap-2 text-xs "
+                    >
                       <span className="bg-primary text-xs  py-1 px-2 text-white rounded-[5px]">
                         {index + 1}
                       </span>
@@ -46,7 +49,10 @@ export default function HowItWorks() {
               <ul className="space-y-2">
                 {howItWorks.provider.map((step, index) => {
                   return (
-                    <li className="flex items-center gap-2 text-xs ">
+                    <li
+                      key={index}
+                      className="flex items-center gap-2 text-xs "
+                    >
                       <span className="bg-primary text-xs  py-1 px-2 text-white rounded-[5px]">
                         {index + 1}
                       </span>
@@ -73,7 +79,10 @@ export default function HowItWorks() {
               <ul className="space-y-2">
                 {howItWorks.platform.map((step, index) => {
                   return (
-                    <li className="flex items-center gap-2 text-xs ">
+                    <li
+                      key={index}
+                      className="flex items-center gap-2 text-xs "
+                    >
                       <span className="bg-primary text-xs  py-1 px-2 text-white rounded-[5px]">
                         {index + 1}
                       </span>
