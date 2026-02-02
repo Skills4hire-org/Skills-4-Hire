@@ -98,7 +98,6 @@ const router = createBrowserRouter([
         index: true,
         element: <Navigate to="home" />,
       },
-
       {
         path: 'home',
         element: <HomeLayout />,

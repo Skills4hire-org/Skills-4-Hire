@@ -80,8 +80,7 @@ export default function SidebarNavSheet() {
           <SheetClose asChild>
             <Link
               to="/sign-up"
-              className="inline-flex items-center justify-center rounded-sm bg-primary px-4 py-2 
-                         text-white font-medium hover:bg-primary/90 transition text-sm"
+              className="inline-flex items-center justify-center rounded-sm bg-primary px-4 py-2 text-white font-medium hover:bg-primary/90 transition text-sm"
             >
               Get started
             </Link>

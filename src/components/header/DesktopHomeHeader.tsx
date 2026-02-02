@@ -10,7 +10,7 @@ export default function DesktopHomeHeader() {
       <div className="flex items-center justify-between gap-8">
         <div className="flex-1 items-center max-w-4xl rounded-lg">
           <SearchBar
-            placeholder="Search for jobs, services or providers"
+            placeholder="Search for plumbers, electricians..."
             maxWidth="max-w-md"
           />
         </div>

@@ -1,4 +1,4 @@
-import { Search, SlidersHorizontal } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { Input } from '../ui/input'
 
 export default function SearchBar({
@@ -11,17 +11,22 @@ export default function SearchBar({
   autoFocus?: boolean
 }) {
   return (
-    <div className={`relative ${maxWidth} mx-auto`}>
+    <form className={`relative ${maxWidth} mx-auto`}>
       <Input
         type="text"
-        className=" pl-8 pr-10 rounded-md py-5  "
+        className={` pl-3 pr-10 rounded-md border h-8 md:h-9 text-sm md:text-base`}
         placeholder={placeholder}
         autoFocus={autoFocus}
         name="searchQuery"
         id="searchQuery"
+        required
       />
-      <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 left-3 text-muted-foreground focus:outline-primary" />
-      <SlidersHorizontal className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-muted-foreground focus:outline-primary" />
-    </div>
+      <button
+        type="submit"
+        className="absolute top-1/2  -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
+      >
+        <Search className="w-4.5 h-4.5" />
+      </button>
+    </form>
   )
 }
