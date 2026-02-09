@@ -1,4 +1,4 @@
-export type UserType = 'customer' | 'service-provider'
+export type UserType = 'customer' | 'provider'
 
 export type AppUser = {
   userType: UserType | null

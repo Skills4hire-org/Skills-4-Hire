@@ -1,7 +1,7 @@
 import type { ServiceProvider } from '@/utils/types'
 import Container from '../global/Container'
 import { currencyFormatter } from '@/utils/format'
-import { CheckCircle2, FileText, MapPin, Minus, Star } from 'lucide-react'
+import { FileText, MapPin, Minus, Star } from 'lucide-react'
 import defaultImage from '../../assets/images/profile.jpg'
 import HeaderWithBackNavigation from '../header/HeaderWithBackNavigation'
 
@@ -31,18 +31,14 @@ export default function ServiceProviderOverview({
         </button>
         <div className=" pb-3 md:pb-4 text-start">
           <div className="space-y-0.5">
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-4 ">
               <h1 className="font-semibold text-lg md:text-xl">
                 {getServiceProvider?.name}
               </h1>
-              <span className="text-sm capitalize  text-primary font-medium flex items-center gap-0.5 text-xs md:text-sm">
-                <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-background fill-primary" />
-                verified
+              <span className="text-base md:text-lg capitalize text-primary font-medium block">
+                {getServiceProvider?.occupation}
               </span>
             </div>
-            <span className="text-sm md:text-base capitalize text-primary font-medium block">
-              {getServiceProvider?.occupation}
-            </span>
             <p className=" text-base md:text-lg">{getServiceProvider?.desc}</p>
             <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize">
               12 endosers

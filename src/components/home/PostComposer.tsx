@@ -1,30 +1,32 @@
-import { useState } from "react";
-import FormInput from "../form-fields/FormInput";
-import ProfileImage from "../global/ProfileImage";
-import FormTextArea from "../form-fields/FormTextArea";
-import FormSelect from "../form-fields/FormSelect";
-import { timeFrameOptions } from "@/assets/data";
-import { Check, ImageIcon, Paperclip } from "lucide-react";
-import FormSubmitButton from "../buttons/FormSubmitButton";
-import type { UserType } from "@/utils/types";
-import { useSelector } from "react-redux";
+import { useState } from 'react'
+import FormInput from '../form-fields/FormInput'
+import ProfileImage from '../global/ProfileImage'
+import FormTextArea from '../form-fields/FormTextArea'
+import FormSelect from '../form-fields/FormSelect'
+import { timeFrameOptions } from '@/assets/data'
+import { ImageIcon, Paperclip, Plus } from 'lucide-react'
+import FormSubmitButton from '../buttons/FormSubmitButton'
+import type { UserType } from '@/utils/types'
+import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function PostComposer() {
   const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState
-  );
+    (state: any) => state.userState,
+  )
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
-    post: "",
-    budget: "",
-    timeFrame: "",
-    photo: "",
-    attachment: "",
-  });
+    post: '',
+    budget: '',
+    timeFrame: '',
+    photo: '',
+    attachment: '',
+  })
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+    setFormData((prev) => ({ ...prev, [field]: value }))
+  }
 
   return (
     <form
@@ -45,35 +47,39 @@ export default function PostComposer() {
 
       <div className="flex items-center gap-2">
         <ProfileImage noStatus />
-        <FormTextArea
-          name="post"
-          placeholder={
-            userType == "customer"
-              ? "What job do you want to get done?"
-              : "Post about your latest work or service."
-          }
-          value={formData.post}
-          handleInputChange={handleInputChange}
-          className="text-sm md:text-base p-1 h-[48px] min-h-[48px]"
-          rows={1}
-          required
-        />
+        <Link to={`/${userType}/create-offer`} className="w-full">
+          <FormTextArea
+            name="post"
+            placeholder={
+              userType == 'customer'
+                ? 'What job do you want to get done?'
+                : 'Post about your latest work or service.'
+            }
+            value={formData.post}
+            handleInputChange={handleInputChange}
+            className="text-sm md:text-base p-1 h-[48px] min-h-[48px]"
+            rows={1}
+            required
+          />
+        </Link>
       </div>
 
       <div className="flex flex-col gap-2 md:gap-4">
-        {userType == "customer" && (
+        {userType == 'customer' && (
           <div className="grid grid-cols-2 gap-4 md:gap-10">
-            <FormInput
-              name="budget"
-              placeholder="Enter an amount"
-              label="Budget Amount (₦)"
-              required
-              value={formData.budget}
-              type="number"
-              handleInputChange={handleInputChange}
-              className="border-0 border-b h-9"
-              labelSize="text-xs md:text-sm"
-            />
+            <Link to={`/${userType}/create-offer`}>
+              <FormInput
+                name="budget"
+                placeholder="Enter an amount"
+                label="Budget Amount (₦)"
+                required
+                value={formData.budget}
+                type="number"
+                handleInputChange={handleInputChange}
+                className="border-0 border-b h-9"
+                labelSize="text-xs md:text-sm"
+              />
+            </Link>
 
             <FormSelect
               name="timeFrame"
@@ -84,6 +90,7 @@ export default function PostComposer() {
               placeholder="Select"
               className="border-0 border-b h-9 [&_svg]:block"
               labelSize="text-xs md:text-sm"
+              handleBlur={() => navigate(`/${userType}/create-offer`)}
             />
           </div>
         )}
@@ -91,37 +98,43 @@ export default function PostComposer() {
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center flex-wrap gap-4 md:gap-6 text-sm text-muted-foreground justify-start ml-0">
             <div className="flex items-center gap-1.5">
-              <button
-                className="flex items-center gap-1 hover:text-gray-700"
-                type="button"
-              >
+              <div className="flex items-center gap-1 hover:text-gray-700">
                 <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
                 <span className="text-xs md:text-sm">Photo</span>
-              </button>
+              </div>
 
-              <span className="text-white font-medium p-0.5 bg-green-600 rounded-full">
-                <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-              </span>
+              <Link
+                to={`/${userType}/create-offer`}
+                className="text-white font-medium p-0.5 bg-green-600 rounded-full"
+              >
+                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              </Link>
             </div>
-
-            <button
-              className="flex items-center gap-1 hover:text-gray-700"
-              type="button"
-            >
-              <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
-              <span className="text-xs md:text-sm">Attachment</span>
-            </button>
+            <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1 hover:text-gray-700">
+                <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
+                <span className="text-xs md:text-sm">Attachment</span>
+              </div>
+              <Link
+                to={`/${userType}/create-offer`}
+                className="text-white font-medium p-0.5 bg-green-600 rounded-full"
+              >
+                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              </Link>
+            </div>
           </div>
 
-          <FormSubmitButton
-            size="sm"
-            submitting={false}
-            text="Post offer"
-            texting="Posting"
-            className="px-4 md:px-8 text-sm"
-          />
+          <Link to={`/${userType}/create-offer`}>
+            <FormSubmitButton
+              size="sm"
+              submitting={false}
+              text="Post offer"
+              texting="Posting"
+              className="px-4 md:px-8 text-sm"
+            />
+          </Link>
         </div>
       </div>
     </form>
-  );
+  )
 }

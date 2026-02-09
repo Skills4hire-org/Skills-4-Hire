@@ -46,6 +46,7 @@ import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Legal from './pages/Legal'
 import About2 from './pages/About2'
+import CreateOffer from './pages/CreateOffer'
 
 const router = createBrowserRouter([
   {
@@ -119,6 +120,10 @@ const router = createBrowserRouter([
             element: <JobOffers />,
           },
         ],
+      },
+      {
+        path: 'create-offer',
+        element: <CreateOffer />,
       },
       {
         path: 'overview',
