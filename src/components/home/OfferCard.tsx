@@ -9,9 +9,6 @@ import OfferFilesCarousel from './OfferFilesCarousel'
 interface OfferCardProps {
   title: string
   description: string
-  posted: string
-  views: string
-  inquiries: string
   media?: string[]
   active?: boolean
   id: string
