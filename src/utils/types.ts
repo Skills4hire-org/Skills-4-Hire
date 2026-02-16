@@ -59,7 +59,7 @@ export type PostCard = {
   tags: string[]
   description: string
   stats: FeedStats
-  comments: {
+  comments?: {
     text: string
     likes: number
     replies: number

@@ -134,11 +134,11 @@ export default function PostCard({
 
           <div className="grid gap-6">
             {/* Comment Content */}
-            {comments.slice(0, 2).map((singleComment, index) => (
+            {comments?.slice(0, 2).map((singleComment, index) => (
               <CommentCard key={index} {...singleComment} />
             ))}
           </div>
-          {comments.length > 2 && (
+          {comments && comments?.length > 2 && (
             <div className="flex items-center gap-1">
               <div className="p-1 bg-gray-100 w-max rounded-full">
                 <MoreHorizontal className="w-4 h-4 md:w-5 md:h-5" />
