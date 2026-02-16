@@ -7,6 +7,7 @@ interface SubmitButtonProp {
   texting: string
   size?: 'default' | 'sm' | 'lg' | 'icon' | null | undefined
   className?: string
+  disabled?: boolean
 }
 
 function FormSubmitButton({
@@ -15,6 +16,7 @@ function FormSubmitButton({
   texting,
   size,
   className,
+  disabled,
 }: SubmitButtonProp) {
   return (
     <div>
@@ -23,7 +25,12 @@ function FormSubmitButton({
           {texting} <Loader2Icon className="animate-spin " />
         </Button>
       ) : (
-        <Button size={size} type="submit" className={className}>
+        <Button
+          size={size}
+          type="submit"
+          className={className}
+          disabled={disabled}
+        >
           {text}
         </Button>
       )}

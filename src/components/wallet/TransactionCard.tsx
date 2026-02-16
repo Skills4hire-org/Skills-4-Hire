@@ -17,7 +17,7 @@ export default function TransactionCard({
   amount,
 }: TransactionCardProp) {
   const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState
+    (state: any) => state.userState,
   )
   const customerTextByStatus: Record<string, string> = {
     sent: 'payment sent to',
@@ -34,10 +34,11 @@ export default function TransactionCard({
   const textByStatus =
     userType === 'customer' ? customerTextByStatus : serviceProviderTextByStatus
   return (
-    <div className="bg-gray-300 rounded-md p-2 flex items-center justify-between gap-6 max-w-5xl mx-auto w-full">
+    <div className="bg-white shadow-sm rounded-md p-2 flex items-center justify-between gap-6 max-w-5xl mx-auto w-full">
       <div className="capitalize ">
         <p className="text-base md:text-lg">
-          {textByStatus[status]} {name} {status === 'canceled' && 'canceled'}{' '}
+          {textByStatus[status]} {name}{' '}
+          {status === 'canceled' && 'canceled'}{' '}
         </p>
         <span className="text-sm md:text-base">{service}</span>
       </div>

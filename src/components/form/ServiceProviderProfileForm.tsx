@@ -1,55 +1,54 @@
-import { useState, type FormEvent } from "react";
-import Container from "../global/Container";
-import servicesAroundImage1 from "../../assets/JoshuaBarber.png";
+import { useState, type FormEvent } from 'react'
+import Container from '../global/Container'
+import servicesAroundImage1 from '../../assets/JoshuaBarber.png'
 import {
   ArrowRight,
-  CheckCircle2,
   Edit2,
   Edit2Icon,
   FileText,
   MapPin,
   Minus,
   Star,
-} from "lucide-react";
-import { currencyFormatter } from "@/utils/format";
-import { user } from "@/utils/database";
-import SwitchRoleButton from "../buttons/SwitchRoleButton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+} from 'lucide-react'
+import { currencyFormatter } from '@/utils/format'
+import { user } from '@/utils/database'
+import SwitchRoleButton from '../buttons/SwitchRoleButton'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import {
   serviceProviderActivityTabList,
   serviceProviderTabList,
-} from "@/assets/data";
-import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
-import EmptyTab from "../service-provider/EmptyTab";
-import ServiceProviderGallery from "../service-provider/ServiceProviderGallery";
-import PostCard from "../home/PostCard";
-import ServiceProviderServicesCard from "../service-provider/ServiceProviderServicesCard";
-import { Button } from "../ui/button";
-import ServiceProviderAbout from "../service-provider/ServiceProviderAbout";
+} from '@/assets/data'
+import { cn } from '@/lib/utils'
+import { Link } from 'react-router-dom'
+import EmptyTab from '../service-provider/EmptyTab'
+import ServiceProviderGallery from '../service-provider/ServiceProviderGallery'
+import PostCard from '../home/PostCard'
+import ServiceProviderServicesCard from '../service-provider/ServiceProviderServicesCard'
+import { Button } from '../ui/button'
+import ServiceProviderAbout from '../service-provider/ServiceProviderAbout'
 
 export default function ServiceProviderProfileForm() {
   const [formData, setFormData] = useState({
-    desc: "Men and Kids Ultimate grooming Hair",
+    desc: 'Men and Kids Ultimate grooming Hair',
     minCharge: 800,
     image: servicesAroundImage1,
     coverImage: servicesAroundImage1,
     maxCharge: 90000,
-    address: "No.19 IyeruOkin Street, Tanke Ilorin",
+    address: 'No.19 IyeruOkin Street, Tanke Ilorin',
     about: user?.serviceProviderInfo?.about,
     gallery: null,
     services: [...user?.serviceProviderInfo?.services],
     comments: [...user?.serviceProviderInfo?.comments],
-    accountNumber: "1234567890",
+    accountNumber: '1234567890',
     posts: [...user?.serviceProviderInfo?.posts],
     postsImages: [...user?.serviceProviderInfo?.postImages],
-  });
+  })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    setFormData({ ...formData });
-  };
+    setFormData({ ...formData })
+  }
 
   return (
     <form onSubmit={handleSubmit} className="-mt-2 md:-mt-6">
@@ -83,23 +82,15 @@ export default function ServiceProviderProfileForm() {
           <div className=" pb-3 md:pb-4 text-start">
             <div className="space-y-0.5">
               <div className="flex items-center gap-4 ">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <h1 className="font-semibold text-lg md:text-xl">
                     {user?.serviceProviderInfo?.name}
                   </h1>
-
-                  {user?.verified && (
-                    <span className="capitalize text-primary font-medium flex items-center gap-0.5 text-xs md:text-sm">
-                      <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-background fill-primary" />
-                      verified
-                    </span>
-                  )}
+                  <span className="text-base md:text-lg capitalize text-primary font-medium block">
+                    {user?.serviceProviderInfo?.occupation}
+                  </span>
                 </div>
               </div>
-              <span className="text-sm md:text-base capitalize text-primary font-medium block">
-                {user?.serviceProviderInfo?.occupation}
-              </span>
-
               <p className=" text-base md:text-lg">{formData?.desc}</p>
               <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize">
                 12 endosers
@@ -120,16 +111,16 @@ export default function ServiceProviderProfileForm() {
                 <span className="flex items-center text-xs gap-1">
                   <Star className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 text-yellow-500" />
                   {user?.serviceProviderInfo?.averageRating} (
-                  {user?.serviceProviderInfo?.totalReviews}{" "}
+                  {user?.serviceProviderInfo?.totalReviews}{' '}
                   {user?.serviceProviderInfo?.totalReviews > 1
-                    ? "comments"
-                    : "comment"}
+                    ? 'comments'
+                    : 'comment'}
                   )
                 </span>
                 <span className="flex items-center gap-1">
-                  <FileText className="w-4 h-4 md:w-5 md:h-5" />{" "}
-                  {user?.serviceProviderInfo?.totalJobs}{" "}
-                  {user?.serviceProviderInfo?.totalJobs > 1 ? "tasks" : "task"}
+                  <FileText className="w-4 h-4 md:w-5 md:h-5" />{' '}
+                  {user?.serviceProviderInfo?.totalJobs}{' '}
+                  {user?.serviceProviderInfo?.totalJobs > 1 ? 'tasks' : 'task'}
                 </span>
               </div>
               <div className="mt-4 w-max mx-auto">
@@ -148,18 +139,18 @@ export default function ServiceProviderProfileForm() {
                       key={index}
                       value={status}
                       className={cn(
-                        "bg-background cursor-pointer capitalize border-b-1 border-b-transparent text-base md:text-lg text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:border-b-1 px-0 data-[state=active]:text-foreground"
+                        'bg-background cursor-pointer capitalize border-b-1 border-b-transparent text-base md:text-lg text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:border-b-1 px-0 data-[state=active]:text-foreground',
                       )}
                     >
                       {status}
                     </TabsTrigger>
-                  );
+                  )
                 })}
               </TabsList>
               {serviceProviderTabList.map((status) => {
                 return (
                   <TabsContent key={status} value={status} className="md:pt-1">
-                    {status === "about" ? (
+                    {status === 'about' ? (
                       <div className="relative">
                         <ServiceProviderAbout
                           about={user?.serviceProviderInfo?.about}
@@ -181,7 +172,7 @@ export default function ServiceProviderProfileForm() {
                                 key={index}
                                 image={image}
                               />
-                            )
+                            ),
                           )}
                         </div>
                         <button className="text-primary absolute -top-5 md:-top-6 right-0">
@@ -194,7 +185,7 @@ export default function ServiceProviderProfileForm() {
                       </div>
                     )}
                   </TabsContent>
-                );
+                )
               })}
             </Tabs>
           </Container>
@@ -210,19 +201,19 @@ export default function ServiceProviderProfileForm() {
                           key={index}
                           value={status}
                           className={cn(
-                            "bg-background cursor-pointer capitalize border border-muted-foreground px-4 pt-2 pb-2.5 rounded-full text-base md:text-lg text-muted-foreground data-[state=active]:bg-green-700 data-[state=active]:border-green-700 data-[state=active]:text-white data-[state=active]:border-b-1 font-normal"
+                            'bg-background cursor-pointer capitalize border border-muted-foreground px-4 pt-2 pb-2.5 rounded-full text-base md:text-lg text-muted-foreground data-[state=active]:bg-green-700 data-[state=active]:border-green-700 data-[state=active]:text-white data-[state=active]:border-b-1 font-normal',
                           )}
                         >
                           {status}
                         </TabsTrigger>
-                        {status === "posts" && (
+                        {status === 'posts' && (
                           <button className="absolute right-0 top-0 border-1 border-primary rounded-full text-primary px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-primary hover:text-white">
-                            Create a post{" "}
+                            Create a post{' '}
                             <Edit2Icon className="w-3 h-3 md:w-4 md:h-4" />
                           </button>
                         )}
                       </div>
-                    );
+                    )
                   })}
                 </TabsList>
                 {serviceProviderActivityTabList.map((status) => {
@@ -232,7 +223,7 @@ export default function ServiceProviderProfileForm() {
                       value={status}
                       className="md:pt-1"
                     >
-                      {status === "posts" && (
+                      {status === 'posts' && (
                         <div className="pb-10 md:pb-12">
                           {formData.posts?.slice(0, 1)?.map((post, index) => (
                             <PostCard key={index} {...post} />
@@ -251,7 +242,7 @@ export default function ServiceProviderProfileForm() {
                           )}
                         </div>
                       )}
-                      {status === "images" && (
+                      {status === 'images' && (
                         <>
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
                             {formData.postsImages.map((image, index) => (
@@ -267,7 +258,7 @@ export default function ServiceProviderProfileForm() {
                           )}
                         </>
                       )}
-                      {status === "comments" && (
+                      {status === 'comments' && (
                         <>
                           {formData.comments.length == 0 && (
                             <EmptyTab label="comments" />
@@ -275,7 +266,7 @@ export default function ServiceProviderProfileForm() {
                         </>
                       )}
                     </TabsContent>
-                  );
+                  )
                 })}
               </Tabs>
             </div>
@@ -296,8 +287,8 @@ export default function ServiceProviderProfileForm() {
               <div className="w-max mx-auto">
                 <Button className="h-8 md:h-10 md:px-4 px-2 text-sm md:text-base font-medium rounded-sm flex items-center gap-2">
                   {formData.services.length === 0
-                    ? "Add a service"
-                    : "Add more services"}
+                    ? 'Add a service'
+                    : 'Add more services'}
                 </Button>
               </div>
             </div>
@@ -305,5 +296,5 @@ export default function ServiceProviderProfileForm() {
         </div>
       </div>
     </form>
-  );
+  )
 }

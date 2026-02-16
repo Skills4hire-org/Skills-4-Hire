@@ -47,6 +47,8 @@ import BlogPost from './pages/BlogPost'
 import Legal from './pages/Legal'
 import About2 from './pages/About2'
 import CreateOffer from './pages/CreateOffer'
+import UpdateOffer from './pages/UpdateOffer'
+import CreatePost from './pages/CreatePost'
 
 const router = createBrowserRouter([
   {
@@ -124,6 +126,14 @@ const router = createBrowserRouter([
       {
         path: 'create-offer',
         element: <CreateOffer />,
+      },
+      {
+        path: 'create-post',
+        element: <CreatePost />,
+      },
+      {
+        path: 'edit-offer/:id',
+        element: <UpdateOffer />,
       },
       {
         path: 'overview',

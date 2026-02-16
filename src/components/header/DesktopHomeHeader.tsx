@@ -21,7 +21,7 @@ export default function DesktopHomeHeader() {
           <RecentNotification icon={MessageSquareMore} newAlert />
 
           <div className="flex items-center gap-2">
-            <ProfileImage />
+            <ProfileImage size="size-10" />
             <h1 className="text-sm font-semibold">Leo Justin</h1>
           </div>
         </div>

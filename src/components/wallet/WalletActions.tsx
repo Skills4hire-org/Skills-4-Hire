@@ -1,5 +1,5 @@
-import { walletActions } from "@/assets/data";
-import { Link } from "react-router-dom";
+import { walletActions } from '@/assets/data'
+import { Link } from 'react-router-dom'
 
 export default function WalletActions() {
   return (
@@ -14,11 +14,11 @@ export default function WalletActions() {
             <Icon className="h-5 w-5 md:w-8.5 md:h-8.5" />
             <span className="sr-only">{label}</span>
           </button>
-          <span className="text-sm md:text-xl text-white group-hover:text-black">
+          <span className="text-sm md:text-lg text-foreground group-hover:text-primary font-medium">
             {label}
           </span>
         </Link>
       ))}
     </div>
-  );
+  )
 }

@@ -9,7 +9,7 @@ export default function WalletTabContent() {
   const groupTransactionByStatusAndDate = (status: string) => {
     const transactionStatus = transactionHistory?.filter(
       (transaction) =>
-        transaction?.status?.toLowerCase() === status.toLowerCase()
+        transaction?.status?.toLowerCase() === status.toLowerCase(),
     )
     const groupedTransactions = groupTransactionsByDay(transactionStatus)
     const groupedTransactionsArray = Object.entries(groupedTransactions)
@@ -27,13 +27,13 @@ export default function WalletTabContent() {
                     {day}
                   </h3>
 
-                  <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
+                  <div className="grid grid-cols-1 gap-3 md:gap-4 max-w-xl mx-auto">
                     {transaction.map((transaction, index) => (
                       <TransactionCard key={index} {...transaction} />
                     ))}
                   </div>
                 </div>
-              )
+              ),
             )}
 
             {groupTransactionByStatusAndDate(status)?.length == 0 && (

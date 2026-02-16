@@ -20,14 +20,14 @@ export default function MobileHomeHeader() {
         <div className="flex items-center justify-center">
           {userType === 'customer' ? (
             <SidebarTrigger className="mr-1.5">
-              <div className="scale-85">
-                <ProfileImage />
+              <div>
+                <ProfileImage size="size-10" />
               </div>
             </SidebarTrigger>
           ) : (
             <Link to="/service-provider/profile">
-              <div className="scale-85">
-                <ProfileImage />
+              <div className="-my-2">
+                <ProfileImage size="size-10" />
               </div>
             </Link>
           )}

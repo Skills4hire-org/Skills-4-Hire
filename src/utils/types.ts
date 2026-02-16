@@ -59,6 +59,12 @@ export type PostCard = {
   tags: string[]
   description: string
   stats: FeedStats
+  comments: {
+    text: string
+    likes: number
+    replies: number
+    name: string
+  }[]
 }
 
 export type ServiceProvider = {

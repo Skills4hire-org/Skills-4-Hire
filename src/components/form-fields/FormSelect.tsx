@@ -53,7 +53,6 @@ export default function FormSelect({
           {label}
         </Label>
       )}
-
       <Select
         key={value === undefined ? 'undefined' : 'defined'}
         value={value}
@@ -64,7 +63,7 @@ export default function FormSelect({
         onOpenChange={handleBlur}
       >
         <SelectTrigger
-          className={`w-full relative  text-sm md:text-base pl-4  ${className}`}
+          className={`w-full relative  text-sm md:text-base pl-4 cursor-pointer  ${className}`}
         >
           <SelectValue placeholder={placeholder}></SelectValue>
           {indicator && (

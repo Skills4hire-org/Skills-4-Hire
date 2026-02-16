@@ -11,7 +11,7 @@ import NavLinks from './NavLinks'
 
 export default function Navbar() {
   const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState
+    (state: any) => state.userState,
   )
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)
@@ -23,7 +23,7 @@ export default function Navbar() {
   return (
     <Container>
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background md:hidden  ">
-        <div className="relative bg-primary flex items-center justify-evenly h-13 ">
+        <div className="relative bg-white flex items-center justify-evenly h-13 ">
           {navLinks.map(({ url, icon, label }) => {
             const active = basePath === url
             const props = { url, icon, label, active }

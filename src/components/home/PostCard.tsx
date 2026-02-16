@@ -2,14 +2,18 @@ import type { PostCard } from '@/utils/types'
 import {
   Heart,
   MessageCircle,
-  Share2,
   BarChart2,
   Star,
   MapPin,
   Dot,
+  Repeat,
+  MoreHorizontal,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
+import CommentForm from '../form/CommentForm'
+import { useState } from 'react'
+import CommentCard from '../global/CommentCard'
 
 export default function PostCard({
   id,
@@ -21,11 +25,14 @@ export default function PostCard({
   tags = [],
   description,
   stats,
+  comments,
 }: PostCard) {
   const likeCount = stats?.likes ?? 0
   const commentCount = stats?.comments ?? 0
   const shareCount = stats?.shares ?? 0
   const impressionsCount = stats?.impressions ?? 0
+
+  const [showComment, setShowComment] = useState(false)
 
   return (
     <div className="bg-white rounded-2xl shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
@@ -37,7 +44,7 @@ export default function PostCard({
 
           <div className="min-w-0">
             {name && (
-              <div className="flex items-center">
+              <div className="flex items-start">
                 <Link
                   to={`/customer/service-provider/${id}`}
                   className="no-underline hover:no-underline"
@@ -102,24 +109,47 @@ export default function PostCard({
       )}
 
       <div className="flex justify-between items-center pt-2 md:pt-3 border-t border-gray-200 text-gray-500">
-        <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
+        <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
           <Heart className="w-5 h-5 md:w-6 md:h-6" /> <span>{likeCount}</span>
         </button>
 
-        <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
-          <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />{' '}
+        <button
+          className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer"
+          onClick={() => setShowComment(true)}
+        >
+          <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
           <span>{commentCount}</span>
         </button>
-
-        <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
-          <Share2 className="w-5 h-5 md:w-6 md:h-6" /> <span>{shareCount}</span>
+        <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
+          <Repeat className="w-5 h-5 md:w-6 md:h-6" /> <span>{shareCount}</span>
         </button>
-
-        <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition">
+        <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
           <BarChart2 className="w-5 h-5 md:w-6 md:h-6" />
           <span>{impressionsCount}</span>
         </button>
       </div>
+      {showComment && (
+        <div className="mt-6 space-y-4">
+          <CommentForm />
+
+          <div className="grid gap-6">
+            {/* Comment Content */}
+            {comments.slice(0, 2).map((singleComment, index) => (
+              <CommentCard key={index} {...singleComment} />
+            ))}
+          </div>
+          {comments.length > 2 && (
+            <div className="flex items-center gap-1">
+              <div className="p-1 bg-gray-100 w-max rounded-full">
+                <MoreHorizontal className="w-4 h-4 md:w-5 md:h-5" />
+              </div>
+              <button className="text-[10px] md:text-xs font-medium cursor-pointer hover:bg-gray-100 p-1 rounded-sm">
+                Load more comments
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
