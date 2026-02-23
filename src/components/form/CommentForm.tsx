@@ -14,7 +14,7 @@ export default function CommentForm() {
     e.preventDefault()
   }
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form onSubmit={handleSubmit} className="flex gap-2 mb-5 md:mb-6">
       <div>
         <ProfileImage size="size-8 md:size-10" noStatus />
       </div>
@@ -27,7 +27,7 @@ export default function CommentForm() {
           rows={3}
           required
           handleInputChange={handleInputChange}
-          className="pb-12 min-h-20 h-max"
+          className="pb-12 min-h-18 md:min-h-20 h-max text-xs md:text-sm"
         />
         <FormSubmitButton
           submitting={false}

@@ -131,27 +131,32 @@ export const customerMobileNavLinks = [
     label: 'Home',
     icon: 'si:home-line',
     url: '/customer/home',
+    activeIcon: 'si:home-fill',
   },
   {
     key: 'services',
     label: 'Services',
-    icon: 'fluent:briefcase-medical-20-regular',
+    icon: 'fluent:briefcase-medical-16-regular',
     url: '/customer/services',
+    activeIcon: 'fluent:briefcase-medical-16-filled',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
     url: '/customer/bookings',
+    activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
     url: '/customer/wallet',
+    activeIcon: 'solar:wallet-bold',
   },
   {
     label: 'chats',
     icon: 'material-symbols:chat-outline-rounded',
     url: '/customer/chats',
+    activeIcon: 'material-symbols:chat-rounded',
   },
 ]
 export const customerDesktopNavLinks = [
@@ -163,7 +168,7 @@ export const customerDesktopNavLinks = [
   {
     key: 'services',
     label: 'Services',
-    icon: 'fluent:briefcase-medical-20-regular',
+    icon: 'fluent:briefcase-medical-16-regular',
     url: '/customer/services',
   },
   {
@@ -193,27 +198,32 @@ export const serviceProviderMobileNavLinks = [
     label: 'Home',
     icon: 'si:home-line',
     url: '/service-provider/home',
+    activeIcon: 'si:home-fill',
   },
   {
     key: 'overview',
     label: 'Overview',
-    icon: 'fluent:briefcase-medical-20-regular',
+    icon: 'fluent:briefcase-medical-16-regular',
     url: '/service-provider/overview',
+    activeIcon: 'fluent:briefcase-medical-16-filled',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
     url: '/service-provider/bookings',
+    activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
     url: '/service-provider/wallet',
+    activeIcon: 'solar:wallet-bold',
   },
   {
     label: 'chats',
     icon: 'material-symbols:chat-outline-rounded',
     url: '/service-provider/chats',
+    activeIcon: 'material-symbols:chat-rounded',
   },
 ]
 

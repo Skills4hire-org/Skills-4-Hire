@@ -19,7 +19,7 @@ export default function SwitchRoleButton({ className }: { className: string }) {
     dispatch(
       setUserType({
         userType: 'service-provider',
-      })
+      }),
     )
     navigate('/service-provider/profile')
   }
@@ -27,16 +27,16 @@ export default function SwitchRoleButton({ className }: { className: string }) {
     dispatch(
       setUserType({
         userType: 'customer',
-      })
+      }),
     )
-    navigate('/service-provider/profile')
+    navigate('/customer')
   }
 
   return (
     <>
       {isServiceProvider ? (
         <button
-          className={`flex items-center justify-start px-2 py-2.5 rounded-full w-max text-xs font-medium gap-2.5 ${className} cursor-pointer`}
+          className={`flex items-center justify-start px-4 py-2 rounded-full w-max text-xs font-medium gap-2.5 ${className} cursor-pointer`}
           onClick={
             userType == 'customer'
               ? handleSwitchToServiceProvider
@@ -58,7 +58,7 @@ export default function SwitchRoleButton({ className }: { className: string }) {
       ) : (
         <Link to="/service-provider/registration">
           <button
-            className={`flex items-center justify-start px-2 py-2.5 rounded-full w-max text-xs font-medium gap-2.5 ${className} cursor-pointer`}
+            className={`flex items-center justify-start px-4 py-2 rounded-full w-max text-xs font-medium gap-2.5 ${className} cursor-pointer`}
           >
             <MdHandyman className="w-5 h-5 font-bold" />
             Register as a Service Provider

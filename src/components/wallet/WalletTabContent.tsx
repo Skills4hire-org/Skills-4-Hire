@@ -19,11 +19,11 @@ export default function WalletTabContent() {
     <>
       {walletTabsList.map(({ status, label }) => (
         <TabsContent key={status} value={status}>
-          <div className="space-y-2 md:space-y-4 md:py-1">
+          <div className="space-y-2 md:space-y-4 py-1 ">
             {groupTransactionByStatusAndDate(status)?.map(
               ([day, transaction]) => (
                 <div key={day} className="space-y-3 md:space-y-4 ">
-                  <h3 className="text-base md:text-lg font-semibold capitalize text-muted-foreground">
+                  <h3 className="text-sm md:text-base font-semibold capitalize text-muted-foreground">
                     {day}
                   </h3>
 

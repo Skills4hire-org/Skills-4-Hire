@@ -65,6 +65,7 @@ export type PostCard = {
     replies: number
     name: string
   }[]
+  recommended?: boolean
 }
 
 export type ServiceProvider = {

@@ -71,7 +71,7 @@ export default function CreateOffer() {
               value={formData.title}
               type="text"
               handleInputChange={handleInputChange}
-              className="h-9"
+              className="h-9 text-xs md:text-sm"
               labelSize="text-xs md:text-sm"
               maxLength={50}
             />
@@ -81,7 +81,7 @@ export default function CreateOffer() {
               label="Description"
               value={formData.post}
               handleInputChange={handleInputChange}
-              className="text-sm md:text-base p-2 py-4 h-66 min-h-[48px]"
+              className="text-xs md:text-sm p-2 py-2 md:py-4 h-66 min-h-[48px]"
               rows={3}
               required
             />
@@ -96,7 +96,7 @@ export default function CreateOffer() {
                   value={formData.budget}
                   type="text"
                   handleInputChange={handleInputChange}
-                  className="border-0 border-b h-9"
+                  className="border-0 border-b h-9 text-xs md:text-sm"
                   labelSize="text-xs md:text-sm"
                 />
                 <FormSelect
@@ -106,7 +106,7 @@ export default function CreateOffer() {
                   handleInputChange={handleInputChange}
                   selectItems={timeFrameOptions}
                   placeholder="Select"
-                  className="border-0 border-b h-9 [&_svg]:block pl-3"
+                  className="border-0 border-b h-9 [&_svg]:block pl-3 text-xs md:text-sm"
                   labelSize="text-xs md:text-sm"
                   required
                 />
@@ -119,7 +119,7 @@ export default function CreateOffer() {
                   handleInputChange={handleInputChange}
                   selectItems={services}
                   placeholder="Select"
-                  className="border-0 border-b h-9 [&_svg]:block pl-3"
+                  className="border-0 border-b h-9 [&_svg]:block pl-3 text-xs md:text-sm"
                   labelSize="text-xs md:text-sm"
                   required
                 />
@@ -136,7 +136,7 @@ export default function CreateOffer() {
                     value={formData.city}
                     type="text"
                     handleInputChange={handleInputChange}
-                    className="border-0 border-b h-9"
+                    className="border-0 border-b h-9 text-xs md:text-sm"
                   />
                   <FormInput
                     name="state"
@@ -145,7 +145,7 @@ export default function CreateOffer() {
                     value={formData.state}
                     type="text"
                     handleInputChange={handleInputChange}
-                    className="border-0 border-b h-9"
+                    className="border-0 border-b h-9 text-xs md:text-sm"
                   />
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function CreateOffer() {
                 />
                 <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
                 <span className="text-xs md:text-sm">Photo</span>
-                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-1.5">
+                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
                   {formData.photo ? (
                     <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
                   ) : (
@@ -204,7 +204,7 @@ export default function CreateOffer() {
                 />
                 <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
                 <span className="text-xs md:text-sm">Attachment</span>
-                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-1.5">
+                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
                   {formData.attachment ? (
                     <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
                   ) : (

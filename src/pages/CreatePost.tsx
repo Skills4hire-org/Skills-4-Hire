@@ -89,13 +89,13 @@ export default function CreatePost() {
               placeholder="Post your latest work or service"
               value={formData.post}
               handleInputChange={handleInputChange}
-              className="text-sm md:text-base p-2 py-4 h-66 min-h-[48px]"
+              className="text-xs md:text-sm p-2 py-2 md:py-4 h-66 min-h-[48px]"
               rows={3}
               required
             />
             <div className="w-full">
               <div className="space-y-1">
-                <span className="text-sm md:text-base font-medium block">
+                <span className="text-xs md:text-sm font-medium block">
                   Keywords
                 </span>
                 <p className="text-xs md:text-sm text-muted-foreground">
@@ -175,7 +175,7 @@ export default function CreatePost() {
                 />
                 <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
                 <span className="text-xs md:text-sm">Photo</span>
-                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-1.5">
+                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
                   {formData.photo ? (
                     <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
                   ) : (
@@ -206,7 +206,7 @@ export default function CreatePost() {
                 />
                 <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
                 <span className="text-xs md:text-sm">Attachment</span>
-                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-1.5">
+                <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
                   {formData.attachment ? (
                     <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
                   ) : (

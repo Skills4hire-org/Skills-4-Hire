@@ -35,15 +35,15 @@ export default function TransactionCard({
     userType === 'customer' ? customerTextByStatus : serviceProviderTextByStatus
   return (
     <div className="bg-white shadow-sm rounded-md p-2 flex items-center justify-between gap-6 max-w-5xl mx-auto w-full">
-      <div className="capitalize ">
-        <p className="text-base md:text-lg">
+      <div className="capitalize space-y-0.5">
+        <p className="text-sm md:text-base">
           {textByStatus[status]} {name}{' '}
           {status === 'canceled' && 'canceled'}{' '}
         </p>
-        <span className="text-sm md:text-base">{service}</span>
+        <p className="text-xs md:text-sm">{service}</p>
       </div>
       <div className="flex flex-col gap-1  items-center justify-between">
-        <span className="block text-base md:text-lg">
+        <span className="block text-base md:text-lg font-medium">
           {currencyFormatter(amount)}
         </span>
 

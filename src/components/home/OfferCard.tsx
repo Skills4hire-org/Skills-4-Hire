@@ -10,7 +10,7 @@ interface OfferCardProps {
   title: string
   description: string
   media?: string[]
-  active?: boolean
+  active: boolean
   id: string
 }
 
@@ -64,7 +64,7 @@ export default function OfferCard({
 
       <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 w-full">
         <div className="flex items-start justify-between gap-2 md:gap-4 mb-1">
-          <span className="text-xs sm:text-sm bg-primary/10 text-primary rounded-sm px-4 md:px-6 py-1 w-max mb-1 font-medium">
+          <span className="text-xs md:text-sm bg-primary/10 text-primary rounded-sm px-4 md:px-6 py-1 w-max mb-1 font-medium">
             Plumbing
           </span>
           <span
@@ -74,25 +74,25 @@ export default function OfferCard({
           </span>
         </div>
 
-        <h3 className="font-semibold text-gray-900 text-base sm:text-lg">
+        <h3 className="font-semibold text-gray-900 text-sm md:text-base">
           {title}
         </h3>
 
         <div>
           <p
-            className={`text-sm md:text-base text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
+            className={`text-xs md:text-sm text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
           >
             {description}
           </p>
           <button
             onClick={() => setViewMore(!viewMore)}
-            className="text-sm md:text-base text-primary underline cursor-pointer hover:no-underline sm:hidden"
+            className="text-xs md:text-sm text-primary underline cursor-pointer hover:no-underline sm:hidden"
           >
             {viewMore ? 'less' : 'more'}
           </button>
         </div>
 
-        <div className="flex flex-wrap items-start justify-between gap-2 text-sm md:text-base text-gray-500 mb-4">
+        <div className="flex flex-wrap items-start justify-between gap-2 text-sm md:text-base text-gray-500 mb-4 text-xs md:text-sm">
           <div className="flex flex-col gap-0.5 md:gap-1">
             <span className="flex items-center gap-1">
               Amount: {currencyFormatter(2000)} {/* amount */}
@@ -112,7 +112,7 @@ export default function OfferCard({
 
         <OfferFilesCarousel />
 
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm md:text-base text-gray-500">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs md:text-sm text-gray-500">
           <span className="flex items-center gap-1">
             <Calendar size={14} /> Posted: {dateFormatter(Date.now())}{' '}
             {/* date value here*/}
@@ -122,21 +122,22 @@ export default function OfferCard({
             {/* inquiries value here*/}
           </span>
         </div>
-
-        <div className="flex gap-2 mt-4">
-          <Link
-            to={`/customer/edit-offer/${id}`}
-            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md bg-[var(--primary)] text-white text-sm hover:opacity-90"
-          >
-            <Pencil size={16} /> Edit
-          </Link>
-          <button
-            onClick={() => setIsDeleteOpen(true)}
-            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md border border-gray-200 text-gray-700 text-sm hover:bg-gray-50  cursor-pointer"
-          >
-            <Trash2 size={16} /> Delete
-          </button>
-        </div>
+        {!active || (
+          <div className="flex gap-2 mt-4">
+            <Link
+              to={`/customer/edit-offer/${id}`}
+              className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-[var(--primary)] text-white text-sm md:text-base hover:opacity-90"
+            >
+              <Pencil size={16} /> Edit
+            </Link>
+            <button
+              onClick={() => setIsDeleteOpen(true)}
+              className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-md border border-gray-200 text-gray-700 text-sm hover:bg-gray-50  cursor-pointer"
+            >
+              <Trash2 size={16} /> Delete
+            </button>
+          </div>
+        )}
       </div>
     </>
   )

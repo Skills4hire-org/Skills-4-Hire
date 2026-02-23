@@ -24,7 +24,7 @@ export default function CustomerDesktopMenu() {
         sideOffset={10}
         className="translate-x-23 translate-y-9 bg-primary border-2 border-t-transparent border-r-transparent text-white py-6 px-4"
       >
-        <DropdownMenuLabel className="px-0 text-lg py-0">
+        <DropdownMenuLabel className="px-0 text-base py-0">
           General
         </DropdownMenuLabel>
         <DropdownMenuGroup>
@@ -42,7 +42,7 @@ export default function CustomerDesktopMenu() {
               >
                 <div className="py-2 flex items-center gap-2 w-full">
                   <IconComponent className="w-5 h-5  group-hover:text-foreground" />
-                  <span className="capitalize text-sm flex items-center justify-between group-hover:text-foreground flex-1">
+                  <span className="capitalize text-xs flex items-center justify-between group-hover:text-foreground flex-1">
                     {label}
                   </span>
                 </div>
@@ -54,7 +54,7 @@ export default function CustomerDesktopMenu() {
           </div>
         </DropdownMenuGroup>
 
-        <DropdownMenuLabel className="px-0 text-lg py-0 mt-4 ">
+        <DropdownMenuLabel className="px-0 text-base py-0 mt-4 ">
           About Us
         </DropdownMenuLabel>
         <DropdownMenuGroup className="mb-2">
@@ -72,7 +72,7 @@ export default function CustomerDesktopMenu() {
               >
                 <div className="py-2 flex items-center gap-2 w-full">
                   <IconComponent className="w-5 h-5  group-hover:text-foreground" />
-                  <span className="capitalize text-sm flex items-center justify-between flex-1 ">
+                  <span className="capitalize text-xs flex items-center justify-between flex-1 group-hover:text-foreground">
                     {label}
                   </span>
                 </div>

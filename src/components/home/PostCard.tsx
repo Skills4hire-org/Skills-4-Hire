@@ -26,6 +26,7 @@ export default function PostCard({
   description,
   stats,
   comments,
+  recommended,
 }: PostCard) {
   const likeCount = stats?.likes ?? 0
   const commentCount = stats?.comments ?? 0
@@ -36,25 +37,35 @@ export default function PostCard({
 
   return (
     <div className="bg-white rounded-2xl shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
+      {recommended && (
+        <div className="text-xs md:text-sm border-b pb-2 flex items-center gap-1.5">
+          <ProfileImage size="size-6" noStatus />
+          <p>
+            <span className="font-semibold">Joshua Friday</span> recommended
+            this
+          </p>
+        </div>
+      )}
+
       <div className="flex items-center justify-between">
-        <div className="flex gap-2.5 md:gap-3">
+        <div className="flex gap-2 md:gap-3">
           <Link to={`/customer/service-provider/${id}`}>
-            <ProfileImage size="size-12 md:size-14" noStatus />
+            <ProfileImage size="size-10 md:size-12" noStatus />
           </Link>
 
           <div className="min-w-0">
             {name && (
-              <div className="flex items-start">
+              <div className="flex items-center">
                 <Link
                   to={`/customer/service-provider/${id}`}
                   className="no-underline hover:no-underline"
                 >
-                  <h3 className="text-sm md:text-base font-semibold text-gray-900 leading-tight">
+                  <h3 className="text-xs md:text-sm font-semibold text-gray-900 leading-tight line-clamp-1">
                     {name}
                   </h3>
                 </Link>
-                <Dot className="w-8.5 h-8.5 -m-1.5" />
-                <button className="capitalize font-semibold text-primary text-sm md:text-base">
+                <Dot className="w-6.5 h-6.5 -m-1" />
+                <button className="capitalize font-semibold text-primary text-xs md:text-sm">
                   endorse
                 </button>
               </div>
@@ -80,7 +91,7 @@ export default function PostCard({
             {service && (
               <Link
                 to={`/customer/service-provider/${id}`}
-                className="text-xs md:text-sm text-blue-600 font-medium no-underline hover:no-underline"
+                className="text-xs md:text-sm text-primary font-medium no-underline hover:no-underline block"
               >
                 {service}
               </Link>
@@ -90,7 +101,7 @@ export default function PostCard({
       </div>
 
       {description && (
-        <p className="text-gray-600 text-sm md:text-base leading-snug md:leading-relaxed">
+        <p className="text-gray-600 text-xs md:text-sm leading-snug md:leading-relaxed">
           {description}
         </p>
       )}
@@ -100,7 +111,7 @@ export default function PostCard({
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-1.5 py-0.5 md:px-2 md:py-1 text-[10px] md:text-xs bg-blue-50 text-blue-600 rounded-full"
+              className="px-1.5 py-0.5 md:px-2 md:py-1 text-[10px] md:text-xs bg-primary/10 text-primary rounded-full"
             >
               {tag}
             </span>
@@ -110,21 +121,21 @@ export default function PostCard({
 
       <div className="flex justify-between items-center pt-2 md:pt-3 border-t border-gray-200 text-gray-500">
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
-          <Heart className="w-5 h-5 md:w-6 md:h-6" /> <span>{likeCount}</span>
+          <Heart className="w-4 h-4 md:h-5 md:w-5" /> <span>{likeCount}</span>
         </button>
 
         <button
           className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer"
           onClick={() => setShowComment(true)}
         >
-          <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
+          <MessageCircle className="w-4 h-4 md:h-5 md:w-5" />
           <span>{commentCount}</span>
         </button>
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
-          <Repeat className="w-5 h-5 md:w-6 md:h-6" /> <span>{shareCount}</span>
+          <Repeat className="w-4 h-4 md:h-5 md:w-5" /> <span>{shareCount}</span>
         </button>
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
-          <BarChart2 className="w-5 h-5 md:w-6 md:h-6" />
+          <BarChart2 className="w-4 h-4 md:h-5 md:w-5" />
           <span>{impressionsCount}</span>
         </button>
       </div>

@@ -49,6 +49,7 @@ import About2 from './pages/About2'
 import CreateOffer from './pages/CreateOffer'
 import UpdateOffer from './pages/UpdateOffer'
 import CreatePost from './pages/CreatePost'
+import TransactionHistory from './pages/TransactionHistory'
 
 const router = createBrowserRouter([
   {
@@ -187,6 +188,10 @@ const router = createBrowserRouter([
       {
         path: 'wallet',
         element: <Wallet />,
+      },
+      {
+        path: 'wallet/transaction-history',
+        element: <TransactionHistory />,
       },
       { path: 'wallet/approve', element: <ApprovePayment /> },
       { path: 'wallet/withdraw', element: <Withdraw /> },

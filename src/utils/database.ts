@@ -772,6 +772,7 @@ export const customerPosts = [
         name: 'Joshua Friday',
       },
     ],
+    recommended: true,
   },
   {
     id: 3,

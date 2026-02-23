@@ -63,7 +63,7 @@ export default function PostComposer() {
             }
             value={formData.post}
             handleInputChange={handleInputChange}
-            className="text-sm md:text-base p-1 h-[48px] min-h-[48px]"
+            className="text-xs md:text-sm p-1 h-[48px] min-h-[48px]"
             rows={1}
             required
           />
@@ -82,7 +82,7 @@ export default function PostComposer() {
                 value={formData.budget}
                 type="number"
                 handleInputChange={handleInputChange}
-                className="border-0 border-b h-9"
+                className="border-0 border-b h-9 text-xs md:text-sm"
                 labelSize="text-xs md:text-sm"
               />
             </Link>
@@ -94,7 +94,7 @@ export default function PostComposer() {
               handleInputChange={handleInputChange}
               selectItems={timeFrameOptions}
               placeholder="Select"
-              className="border-0 border-b h-9 [&_svg]:block"
+              className="border-0 border-b h-9 [&_svg]:block text-xs md:text-sm"
               labelSize="text-xs md:text-sm"
               handleBlur={() => navigate(url)}
             />

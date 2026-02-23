@@ -24,7 +24,7 @@ export default function CommentCard({
   }
   return (
     <div className="space-y-2">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 md:gap-3">
         <ProfileImage noStatus size="size-8 md:size-10" />
         <div>
           <h3 className="font-semibold text-gray-900 text-xs md:text-sm">
