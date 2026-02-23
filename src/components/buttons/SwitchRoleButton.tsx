@@ -36,7 +36,7 @@ export default function SwitchRoleButton({ className }: { className: string }) {
     <>
       {isServiceProvider ? (
         <button
-          className={`flex items-center justify-start px-4 py-2 rounded-full w-max text-xs font-medium gap-2.5 ${className} cursor-pointer`}
+          className={`flex items-center justify-start px-4 py-2 rounded-full w-max text-xs font-medium gap-1.5 ${className} cursor-pointer`}
           onClick={
             userType == 'customer'
               ? handleSwitchToServiceProvider
