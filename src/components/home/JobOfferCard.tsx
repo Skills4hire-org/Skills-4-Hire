@@ -105,11 +105,11 @@ export default function JobOfferCard({
 
       <div className="mt-2">
         <div className="flex gap-2 flex-nowrap">
-          <button className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-yellow-400 text-white text-sm md:text-base hover:opacity-90 transition font-medium ">
+          <button className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md bg-yellow-400 text-white text-sm md:text-base hover:opacity-90 transition font-medium ">
             <RefreshCw className="w-4 h-4" />
             <span>Negotiate</span>
           </button>
-          <button className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base hover:bg-gray-50 transition font-medium">
+          <button className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base hover:bg-gray-50 transition font-medium">
             <MessageSquare className="w-4 h-4" />
             <span>Message</span>
           </button>
