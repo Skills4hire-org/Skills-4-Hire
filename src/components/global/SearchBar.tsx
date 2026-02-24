@@ -6,9 +6,9 @@ export default function SearchBar({
   maxWidth,
   autoFocus,
 }: {
-  placeholder: string
-  maxWidth: string
-  autoFocus?: boolean
+  placeholder: string;
+  maxWidth?: string;
+  autoFocus?: boolean;
 }) {
   return (
     <form className={`relative ${maxWidth} mx-auto`}>
@@ -28,5 +28,5 @@ export default function SearchBar({
         <Search className="w-4.5 h-4.5" />
       </button>
     </form>
-  )
+  );
 }
