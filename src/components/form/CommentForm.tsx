@@ -27,7 +27,7 @@ export default function CommentForm() {
           rows={3}
           required
           handleInputChange={handleInputChange}
-          className="pb-12 min-h-18 md:min-h-20 h-max text-xs md:text-sm"
+          className="pb-12 min-h-18 md:min-h-20 h-max text-sm md:text-base"
         />
         <FormSubmitButton
           submitting={false}

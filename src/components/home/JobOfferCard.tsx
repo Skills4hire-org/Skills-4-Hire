@@ -30,7 +30,7 @@ export default function JobOfferCard({
   const [viewMore, setViewMore] = useState(false)
   return (
     <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">
-      <p className="text-xs md:text-sm font-medium text-gray-600">
+      <p className="text-sm md:text-base font-medium text-gray-600">
         Posted 34 minutes ago
       </p>
       <div className="flex items-start gap-2">
@@ -39,7 +39,7 @@ export default function JobOfferCard({
         </div>
 
         <div className="space-y-0.5">
-          <p className="text-sm md:text-base font-semibold text-gray-900 leading-tight line-clamp-1">
+          <p className="text-base md:text-lg font-semibold text-gray-900 leading-tight ">
             {name}
           </p>
           {location && (
@@ -52,13 +52,13 @@ export default function JobOfferCard({
       </div>
 
       <div>
-        <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-0.5">
+        <h3 className="font-semibold text-gray-900 text-base md:text-lg mb-0.5">
           {title}
         </h3>
         {description && (
           <div>
             <p
-              className={`text-xs md:text-sm text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
+              className={`text-base md:text-lg text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
             >
               {description}
             </p>

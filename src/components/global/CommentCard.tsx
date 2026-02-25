@@ -27,7 +27,7 @@ export default function CommentCard({
       <div className="flex items-center gap-2 md:gap-3">
         <ProfileImage noStatus size="size-8 md:size-10" />
         <div>
-          <h3 className="font-semibold text-gray-900 text-xs md:text-sm">
+          <h3 className="font-semibold text-gray-900 text-sm md:text-base">
             {name}
           </h3>
           <p className="text-[10px] md:text-xs text-muted-foreground">
@@ -36,7 +36,7 @@ export default function CommentCard({
         </div>
       </div>
 
-      <p className="text-gray-600 text-xs md:text-sm leading-snug md:leading-relaxed">
+      <p className="text-gray-600 text-sm md:text-base leading-snug md:leading-relaxed">
         {text}
       </p>
 

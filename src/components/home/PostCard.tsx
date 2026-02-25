@@ -38,7 +38,7 @@ export default function PostCard({
   return (
     <div className="bg-white rounded-2xl shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
       {recommended && (
-        <div className="text-xs md:text-sm border-b pb-2 flex items-center gap-1.5">
+        <div className="text-sm md:text-base border-b pb-2 flex items-center gap-1.5">
           <ProfileImage size="size-6" noStatus />
           <p>
             <span className="font-semibold">Joshua Friday</span> recommended
@@ -50,28 +50,28 @@ export default function PostCard({
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
           <Link to={`/customer/service-provider/${id}`}>
-            <ProfileImage size="size-10 md:size-12" noStatus />
+            <ProfileImage noStatus />
           </Link>
 
           <div className="min-w-0">
             {name && (
-              <div className="flex items-center">
+              <div className="flex items-start">
                 <Link
                   to={`/customer/service-provider/${id}`}
                   className="no-underline hover:no-underline"
                 >
-                  <h3 className="text-xs md:text-sm font-semibold text-gray-900 leading-tight line-clamp-1">
+                  <h3 className="text-base md:text-lg  font-semibold text-gray-900 leading-tight">
                     {name}
                   </h3>
                 </Link>
-                <Dot className="w-6.5 h-6.5 -m-1" />
-                <button className="capitalize font-semibold text-primary text-xs md:text-sm">
+                <Dot className="w-8.5 h-8.5 -m-1.5" />
+                <button className="capitalize font-semibold text-primary text-sm md:text-base">
                   endorse
                 </button>
               </div>
             )}
 
-            <div className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-gray-500">
+            <div className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-gray-500 my-0.5">
               {location && (
                 <span className="inline-flex items-center gap-1">
                   <MapPin size={13} className="md:w-[14px]" /> {location}
@@ -91,7 +91,7 @@ export default function PostCard({
             {service && (
               <Link
                 to={`/customer/service-provider/${id}`}
-                className="text-xs md:text-sm text-primary font-medium no-underline hover:no-underline block"
+                className="text-sm md:text-base text-primary font-medium no-underline hover:no-underline block"
               >
                 {service}
               </Link>
@@ -101,7 +101,7 @@ export default function PostCard({
       </div>
 
       {description && (
-        <p className="text-gray-600 text-xs md:text-sm leading-snug md:leading-relaxed">
+        <p className="text-gray-600 text-base md:text-lg leading-snug md:leading-relaxed">
           {description}
         </p>
       )}
@@ -111,7 +111,7 @@ export default function PostCard({
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-1.5 py-0.5 md:px-2 md:py-1 text-[10px] md:text-xs bg-primary/10 text-primary rounded-full"
+              className="px-1.5 py-0.5 md:px-2 md:py-1 text-xs md:text-sm bg-primary/10 text-primary rounded-full"
             >
               {tag}
             </span>

@@ -196,9 +196,8 @@ export default function ServiceProviderProfileForm() {
                 <TabsList className="border-b-0 bg-background  rounded-none  p-0 space-x-4 md:space-x-8 ">
                   {serviceProviderActivityTabList.map((status, index) => {
                     return (
-                      <div>
+                      <div key={index}>
                         <TabsTrigger
-                          key={index}
                           value={status}
                           className={cn(
                             'bg-background cursor-pointer capitalize border border-muted-foreground px-4 pt-2 pb-2.5 rounded-full text-base md:text-lg text-muted-foreground data-[state=active]:bg-green-700 data-[state=active]:border-green-700 data-[state=active]:text-white data-[state=active]:border-b-1 font-normal',

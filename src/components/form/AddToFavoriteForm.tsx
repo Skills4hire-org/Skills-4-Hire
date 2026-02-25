@@ -20,7 +20,7 @@ export default function AddToFavoriteForm({
     },
     provider: {
       button: '',
-      icon: `${favorite ? 'text-primary fill-primary' : 'text-foreground'}`,
+      icon: `${favorite ? 'text-red-600 fill-red-600' : 'text-foreground'}`,
     },
   }
   const className = classNameOptions[type]

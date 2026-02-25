@@ -2,7 +2,6 @@ import Container from '@/components/global/Container'
 import SectionHeading from '@/components/services/SectionHeading'
 import DesktopWalletHeader from '@/components/header/DesktopWalletHeader'
 import MobileWalletHeader from '@/components/header/MobileWalletHeader'
-import WalletActions from '@/components/wallet/WalletActions'
 import WalletBalance from '@/components/wallet/WalletBalance'
 import { transactionHistory } from '@/utils/database'
 import { groupTransactionsByDay } from '@/utils/format'
@@ -25,9 +24,6 @@ export default function Wallet() {
         </Container>
         <Container className="py-2 md:py-4">
           <WalletBalance />
-        </Container>
-        <Container className="py-4 md:py-5 bg-white">
-          <WalletActions />
         </Container>
       </div>
       <Container>

@@ -1,24 +1,18 @@
-import { walletActions } from '@/assets/data'
+import { ArrowUp, Plus } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function WalletActions() {
   return (
-    <div className="flex gap-4 items-center justify-evenly">
-      {walletActions.map(({ label, icon: Icon, path }) => (
-        <Link
-          to={path}
-          key={label}
-          className="flex flex-col items-center gap-0.5 cursor-pointer hover:opacity-90 group"
-        >
-          <button className="bg-primary text-white p-3 flex items-center justify-center rounded-full cursor-pointer">
-            <Icon className="h-5 w-5 md:w-7 md:h-7" />
-            <span className="sr-only">{label}</span>
-          </button>
-          <span className="text-sm md:text-base text-foreground group-hover:text-primary font-medium">
-            {label}
-          </span>
-        </Link>
-      ))}
+    <div className="flex items-center gap-2 md:gap-6 justify-center">
+      <button className="rounded-full bg-white text-primary py-1.5 font-medium px-4 text-xs md:text-base flex items-center gap-1.5 cursor-pointer hover:text-primary/80">
+        <Plus className="w-3 h-3 md:w-4 md:h-4" /> Deposit
+      </button>
+      <Link
+        to="withdraw"
+        className="rounded-full bg-white/40 text-primary py-1.5 font-medium px-4 text-xs md:text-base flex items-center gap-1.5 text-white hover:text-white/90"
+      >
+        <ArrowUp className="w-3 h-3 md:w-4 md:h-4" /> Withdraw
+      </Link>
     </div>
   )
 }

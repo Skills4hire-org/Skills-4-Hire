@@ -280,18 +280,28 @@ export const bookingsTabsList = [
     label: 'Canceled',
   },
 ]
-export const walletTabsList = [
+export const customerWalletTabsList = [
   {
     status: 'pending',
     label: 'Pending',
   },
   {
-    status: 'sent',
-    label: 'Sent',
+    status: 'spent',
+    label: 'Spent',
   },
   {
-    status: 'received',
-    label: 'Received',
+    status: 'canceled',
+    label: 'Canceled',
+  },
+]
+export const serviceProviderWalletTabsList = [
+  {
+    status: 'pending',
+    label: 'Pending',
+  },
+  {
+    status: 'earned',
+    label: 'Earned',
   },
   {
     status: 'canceled',

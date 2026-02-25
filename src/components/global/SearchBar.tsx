@@ -14,7 +14,7 @@ export default function SearchBar({
     <form className={`relative ${maxWidth} mx-auto`}>
       <Input
         type="text"
-        className={` pl-3 pr-10 rounded-md border h-8 md:h-9 text-xs md:text-sm`}
+        className={`pl-3 pr-10 rounded-md border h-8 md:h-9 text-sm md:text-base`}
         placeholder={placeholder}
         autoFocus={autoFocus}
         name="searchQuery"

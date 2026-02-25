@@ -13,9 +13,7 @@ export default function MobileWalletHeader() {
       <h1 className="font-bold text-lg">Wallet</h1>
       {userType == 'customer' ? (
         <SidebarTrigger className="mr-1.5">
-          <div className="">
-            <ProfileImage size="size-10" />
-          </div>
+          <ProfileImage size="size-10" />
         </SidebarTrigger>
       ) : (
         <Link className="block -my-2" to="/service-provider/profile">
