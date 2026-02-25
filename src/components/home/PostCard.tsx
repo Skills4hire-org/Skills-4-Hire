@@ -91,7 +91,7 @@ export default function PostCard({
             {service && (
               <Link
                 to={`/customer/service-provider/${id}`}
-                className="text-sm md:text-base text-primary font-medium no-underline hover:no-underline block"
+                className="text-[12px] md:text-sm text-primary font-medium no-underline hover:no-underline block"
               >
                 {service}
               </Link>
@@ -101,7 +101,7 @@ export default function PostCard({
       </div>
 
       {description && (
-        <p className="text-gray-600 text-base md:text-lg leading-snug md:leading-relaxed">
+        <p className="text-gray-600 text-[14px] md:text-lg leading-snug md:leading-relaxed">
           {description}
         </p>
       )}

@@ -30,7 +30,7 @@ export default function JobOfferCard({
   const [viewMore, setViewMore] = useState(false)
   return (
     <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">
-      <p className="text-sm md:text-base font-medium text-gray-600">
+      <p className="text-[14px] md:text-base font-medium text-gray-600">
         Posted 34 minutes ago
       </p>
       <div className="flex items-start gap-2">
@@ -58,7 +58,7 @@ export default function JobOfferCard({
         {description && (
           <div>
             <p
-              className={`text-base md:text-lg text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
+              className={`text-[14px] md:text-base text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
             >
               {description}
             </p>

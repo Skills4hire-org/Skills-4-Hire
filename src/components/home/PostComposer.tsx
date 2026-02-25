@@ -106,7 +106,7 @@ export default function PostComposer() {
             <div className="flex items-center gap-1.5">
               <div className="flex items-center gap-1 hover:text-gray-700">
                 <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="text-sm md:text-base">Photo</span>
+                <span className="text-xs md:text-sm">Photo</span>
               </div>
 
               <Link
@@ -119,7 +119,7 @@ export default function PostComposer() {
             <div className="flex items-center gap-1.5">
               <div className="flex items-center gap-1 hover:text-gray-700">
                 <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="text-sm md:text-base">Attachment</span>
+                <span className="text-xs md:text-sm">Attachment</span>
               </div>
               <Link
                 to={url}
