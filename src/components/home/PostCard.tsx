@@ -60,7 +60,7 @@ export default function PostCard({
                   to={`/customer/service-provider/${id}`}
                   className="no-underline hover:no-underline"
                 >
-                  <h3 className="text-base md:text-lg  font-semibold text-gray-900 leading-tight">
+                  <h3 className="text-[15px] md:text-base  font-semibold text-gray-900 leading-tight">
                     {name}
                   </h3>
                 </Link>
@@ -101,7 +101,7 @@ export default function PostCard({
       </div>
 
       {description && (
-        <p className="text-gray-600 text-[14px] md:text-lg leading-snug md:leading-relaxed">
+        <p className="text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed">
           {description}
         </p>
       )}
