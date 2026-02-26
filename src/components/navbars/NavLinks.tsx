@@ -6,33 +6,36 @@ interface NavLinkProps {
   icon: string
   label: string
   active: boolean
+  activeIcon: string
 }
 
-export default function NavLinks({ label, url, icon, active }: NavLinkProps) {
+export default function NavLinks({
+  label,
+  url,
+  icon,
+  active,
+  activeIcon,
+}: NavLinkProps) {
   return (
     <NavLink
       key={label}
       to={url}
-      className={` text-white/60 capitalize flex flex-col items-center
+      className={` text-white/60 capitalize flex flex-col items-center gap-0.5
               
             `}
     >
-      <div
-        className={` w-10 h-10  rounded-full flex items-center justify-center  bg-primary transition duration-150  ${
-          active && '-translate-y-4.5 outline-4 outline-background'
-        }`}
-      >
+      <div className="w-5 h-5">
         <Icon
-          icon={icon}
-          className={`w-6 h-6 transition duration-150 ${
-            active && 'text-white'
+          icon={active ? activeIcon : icon}
+          className={`w-5 h-5 transition duration-150 ${
+            active ? 'text-primary' : 'text-gray-600'
           }`}
         />
       </div>
 
       <span
-        className={`-mt-3 text-sm transition duration-150 ${
-          active && 'text-white'
+        className={` text-xs transition duration-150 font-medium ${
+          active ? 'text-primary' : 'text-gray-600'
         }`}
       >
         {label}

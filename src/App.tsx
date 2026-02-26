@@ -1,56 +1,55 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
-import About from "./pages/About";
-import ApplicationProfile from "./pages/ApplicationProfile";
-import ApprovePayment from "./pages/ApprovePayment";
-import AvailableServices from "./pages/AvailableServices";
-import Bookings from "./pages/Bookings";
-import HomeLayout from "./components/layouts/HomeLayout";
-import CustomerOffers from "./pages/CustomerOffers";
-import Profile from "./pages/Profile";
-import Experience from "./pages/Experience";
-import FAQs from "./pages/Faq";
-import Favorites from "./pages/Favorites";
-import ForgotPassword from "./pages/ForgotPassword";
-import JobOffers from "./pages/JobOffers";
-import Landing from "./pages/Landing";
-import PersonalInfo from "./pages/PersonalInfo";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import ProviderOverview from "./pages/ProviderOverview";
-import Referral from "./pages/Referral";
-import Registration from "./pages/Registration";
-import Rewards from "./pages/Rewards";
-import ServiceProviderBooking from "./pages/ServiceProviderBooking";
-import ServiceProviderProfile from "./pages/ServiceProviderProfile";
-import Services from "./pages/Services";
-import ServicesAroundYou from "./pages/ServicesAroundYou";
-import ServicesSearch from "./pages/ServicesSearch";
-import SignIn from "./pages/Signin";
-import SignUp from "./pages/Signup";
-import SingleService from "./pages/SingleService";
-import Support from "./pages/Support";
-import TermsAndConditions from "./pages/TermsAndConditions";
-import Verification from "./pages/Verification";
-import Wallet from "./pages/Wallet";
-import WalletSend from "./components/wallet/WalletSend";
-import Withdraw from "./components/wallet/Withdraw";
-import Notification from "./pages/Notification";
-import Layout from "./components/layouts/Layout";
-import Posts from "./pages/Posts";
-import Request from "./pages/Request";
-import Reviews from "./pages/Reviews";
-import ServiceProviderServices from "./pages/ServiceProviderServices";
-import ServiceProviderActivity from "./pages/ServiceProviderActivity";
-import ServiceProviderImageGallery from "./pages/ServiceProviderImageGallery";
-import IndexLayout from "./components/layouts/IndexLayout";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Legal from "./pages/Legal";
-import About2 from "./pages/About2";
-import CreateOffer from "./pages/CreateOffer";
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import About from './pages/About'
+import ApplicationProfile from './pages/ApplicationProfile'
+import ApprovePayment from './pages/ApprovePayment'
+import AvailableServices from './pages/AvailableServices'
+import Bookings from './pages/Bookings'
+import HomeLayout from './components/layouts/HomeLayout'
+import CustomerOffers from './pages/CustomerOffers'
+import Profile from './pages/Profile'
+import Experience from './pages/Experience'
+import FAQs from './pages/Faq'
+import Favorites from './pages/Favorites'
+import ForgotPassword from './pages/ForgotPassword'
+import JobOffers from './pages/JobOffers'
+import Landing from './pages/Landing'
+import PersonalInfo from './pages/PersonalInfo'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import ProviderOverview from './pages/ProviderOverview'
+import Referral from './pages/Referral'
+import Registration from './pages/Registration'
+import Rewards from './pages/Rewards'
+import ServiceProviderBooking from './pages/ServiceProviderBooking'
+import ServiceProviderProfile from './pages/ServiceProviderProfile'
+import Services from './pages/Services'
+import ServicesAroundYou from './pages/ServicesAroundYou'
+import ServicesSearch from './pages/ServicesSearch'
+import SignIn from './pages/Signin'
+import SignUp from './pages/Signup'
+import SingleService from './pages/SingleService'
+import Support from './pages/Support'
+import TermsAndConditions from './pages/TermsAndConditions'
+import Verification from './pages/Verification'
+import Wallet from './pages/Wallet'
+import WalletSend from './components/wallet/WalletSend'
+import Withdraw from './components/wallet/Withdraw'
+import Notification from './pages/Notification'
+import Layout from './components/layouts/Layout'
+import Posts from './pages/Posts'
+import Request from './pages/Request'
+import Reviews from './pages/Reviews'
+import ServiceProviderServices from './pages/ServiceProviderServices'
+import ServiceProviderActivity from './pages/ServiceProviderActivity'
+import ServiceProviderImageGallery from './pages/ServiceProviderImageGallery'
+import IndexLayout from './components/layouts/IndexLayout'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
+import Legal from './pages/Legal'
+import About2 from './pages/About2'
+import CreateOffer from './pages/CreateOffer'
+import UpdateOffer from './pages/UpdateOffer'
+import CreatePost from './pages/CreatePost'
+import TransactionHistory from './pages/TransactionHistory'
 
 const router = createBrowserRouter([
   {
@@ -130,7 +129,15 @@ const router = createBrowserRouter([
         element: <CreateOffer />,
       },
       {
-        path: "overview",
+        path: 'create-post',
+        element: <CreatePost />,
+      },
+      {
+        path: 'edit-offer/:id',
+        element: <UpdateOffer />,
+      },
+      {
+        path: 'overview',
         element: <ProviderOverview />,
       },
       { path: "overview/request", element: <Request /> },
@@ -182,10 +189,17 @@ const router = createBrowserRouter([
         path: "wallet",
         element: <Wallet />,
       },
-      { path: "wallet/approve", element: <ApprovePayment /> },
-      { path: "wallet/withdraw", element: <Withdraw /> },
-      { path: "wallet/send", element: <WalletSend /> },
-
+      {
+        path: 'wallet/transaction-history',
+        element: <TransactionHistory />,
+      },
+      { path: 'wallet/approve', element: <ApprovePayment /> },
+      { path: 'wallet/withdraw', element: <Withdraw /> },
+      { path: 'wallet/send', element: <WalletSend /> },
+      {
+        path: 'chats',
+        element: <Posts />,
+      },
       {
         path: "favorites",
         element: <Favorites />,

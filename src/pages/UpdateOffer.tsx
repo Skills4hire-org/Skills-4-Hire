@@ -8,21 +8,26 @@ import ProfileImage from '@/components/global/ProfileImage'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { customerOffers } from '@/utils/database'
 import { Check, ImageIcon, Paperclip, Plus } from 'lucide-react'
 import { useRef, useState, type FormEvent } from 'react'
+import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
-export default function CreateOffer() {
+export default function UpdateOffer() {
+  const { id } = useParams()
+  const selectedOffer = customerOffers?.find((offer) => offer.id == id)
+
   const [formData, setFormData] = useState({
-    title: '',
-    post: '',
-    budget: '',
-    timeFrame: undefined,
-    service: undefined,
-    photo: '',
+    title: selectedOffer?.title,
+    post: selectedOffer?.description,
+    budget: selectedOffer?.budget.toString(),
+    timeFrame: selectedOffer?.timeFrame,
+    service: selectedOffer?.service,
+    photo: selectedOffer?.media,
     attachment: '',
-    city: '',
-    state: '',
+    city: selectedOffer?.city,
+    state: selectedOffer?.state,
   })
 
   const handleInputChange = (field: string, value: string) => {
@@ -54,7 +59,7 @@ export default function CreateOffer() {
 
   return (
     <div className="pb-10">
-      <HeaderWithBackNavigation title="Create An Offer" />
+      <HeaderWithBackNavigation title="Edit Offer" />
       <Container className="pt-1 max-w-2xl mx-auto">
         <div className="space-y-4 md:space-y-6">
           <div className="flex items-center gap-2 md:gap-4">
@@ -136,7 +141,7 @@ export default function CreateOffer() {
                     value={formData.city}
                     type="text"
                     handleInputChange={handleInputChange}
-                    className="border-0 border-b h-9 text-xs md:text-sm"
+                    className="border-0 border-b h-9 capitalize text-xs md:text-sm"
                   />
                   <FormInput
                     name="state"
@@ -145,7 +150,7 @@ export default function CreateOffer() {
                     value={formData.state}
                     type="text"
                     handleInputChange={handleInputChange}
-                    className="border-0 border-b h-9 text-xs md:text-sm"
+                    className="border-0 border-b h-9 capitalize text-xs md:text-sm"
                   />
                 </div>
               </div>
@@ -217,8 +222,8 @@ export default function CreateOffer() {
               <FormSubmitButton
                 size="sm"
                 submitting={false}
-                text="Post offer"
-                texting="Posting"
+                text="Update"
+                texting="Updating"
                 className="px-4 md:px-8 text-sm md:text-base"
               />
             </div>

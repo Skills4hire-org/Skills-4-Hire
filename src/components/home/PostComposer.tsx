@@ -15,6 +15,10 @@ export default function PostComposer() {
     (state: any) => state.userState,
   )
   const navigate = useNavigate()
+  const url =
+    userType == 'customer'
+      ? `/${userType}/create-offer`
+      : `/${userType}/create-post`
 
   const [formData, setFormData] = useState({
     post: '',
@@ -41,13 +45,15 @@ export default function PostComposer() {
         md:border-gray-400
       "
     >
-      <p className="text-sm md:text-base font-medium text-gray-700">
-        Create an offer
-      </p>
+      {userType == 'customer' && (
+        <p className="text-sm md:text-base font-medium text-gray-700">
+          Create an offer
+        </p>
+      )}
 
       <div className="flex items-center gap-2">
         <ProfileImage noStatus />
-        <Link to={`/${userType}/create-offer`} className="w-full">
+        <Link to={url} className="w-full">
           <FormTextArea
             name="post"
             placeholder={
@@ -57,7 +63,7 @@ export default function PostComposer() {
             }
             value={formData.post}
             handleInputChange={handleInputChange}
-            className="text-sm md:text-base p-1 h-[48px] min-h-[48px]"
+            className="text-xs md:text-sm p-1 h-[48px] min-h-[48px]"
             rows={1}
             required
           />
@@ -67,7 +73,7 @@ export default function PostComposer() {
       <div className="flex flex-col gap-2 md:gap-4">
         {userType == 'customer' && (
           <div className="grid grid-cols-2 gap-4 md:gap-10">
-            <Link to={`/${userType}/create-offer`}>
+            <Link to={url}>
               <FormInput
                 name="budget"
                 placeholder="Enter an amount"
@@ -76,7 +82,7 @@ export default function PostComposer() {
                 value={formData.budget}
                 type="number"
                 handleInputChange={handleInputChange}
-                className="border-0 border-b h-9"
+                className="border-0 border-b h-9 text-xs md:text-sm"
                 labelSize="text-xs md:text-sm"
               />
             </Link>
@@ -88,9 +94,9 @@ export default function PostComposer() {
               handleInputChange={handleInputChange}
               selectItems={timeFrameOptions}
               placeholder="Select"
-              className="border-0 border-b h-9 [&_svg]:block"
+              className="border-0 border-b h-9 [&_svg]:block text-xs md:text-sm"
               labelSize="text-xs md:text-sm"
-              handleBlur={() => navigate(`/${userType}/create-offer`)}
+              handleBlur={() => navigate(url)}
             />
           </div>
         )}
@@ -104,7 +110,7 @@ export default function PostComposer() {
               </div>
 
               <Link
-                to={`/${userType}/create-offer`}
+                to={url}
                 className="text-white font-medium p-0.5 bg-green-600 rounded-full"
               >
                 <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
@@ -116,7 +122,7 @@ export default function PostComposer() {
                 <span className="text-xs md:text-sm">Attachment</span>
               </div>
               <Link
-                to={`/${userType}/create-offer`}
+                to={url}
                 className="text-white font-medium p-0.5 bg-green-600 rounded-full"
               >
                 <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
@@ -124,11 +130,11 @@ export default function PostComposer() {
             </div>
           </div>
 
-          <Link to={`/${userType}/create-offer`}>
+          <Link to={url}>
             <FormSubmitButton
               size="sm"
               submitting={false}
-              text="Post offer"
+              text={userType == 'customer' ? 'Post offer' : 'Post'}
               texting="Posting"
               className="px-4 md:px-8 text-sm"
             />

@@ -11,10 +11,8 @@ import {
   SidebarTrigger,
 } from '../ui/sidebar'
 import ProfileImage from '../global/ProfileImage'
-import { Dot, X } from 'lucide-react'
-import { TiStar } from 'react-icons/ti'
+import { X } from 'lucide-react'
 import { user } from '@/utils/database'
-import { Badge } from '../ui/badge'
 import { Link, NavLink } from 'react-router-dom'
 import { sidebarAboutUs, sidebarMobileGeneral } from '@/assets/data'
 import SignOutButton from '../buttons/SignOutButton'
@@ -23,9 +21,9 @@ import SwitchRoleButton from '../buttons/SwitchRoleButton'
 export default function MobileSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader className=" border-b py-1">
+      <SidebarHeader className="border-b py-1.5 gap-0.5">
         <div className="flex items-start justify-between ">
-          <ProfileImage />
+          <ProfileImage size="size-10" />
           <SidebarTrigger
             size="icon"
             variant="outline"
@@ -35,29 +33,12 @@ export default function MobileSidebar() {
           </SidebarTrigger>
         </div>
         <div>
-          <div className="flex items-center gap-1">
-            <span className="font-bold text-lg">
-              {user?.firstName} {user?.lastName}
-            </span>
-            <Badge className="capitalize italic font-normal bg-transparent text-primary text-xs">
-              {user?.verified && 'verified'}
-            </Badge>
-          </div>
-          <div className="text-muted-foreground/70 text-sm flex items-center">
-            <span className="capitalize">{user?.service}</span>
-            <Dot className="text-muted-foreground" />
-            <span className="flex items-center gap-1">
-              {user?.rating}{' '}
-              <TiStar className="w-3 h-3 text-muted-foreground" />
-            </span>
-            <Dot className="text-muted-foreground" />
-            <span>
-              {`${user?.totalReviews} review${user?.totalReviews > 1 && 's'}`}{' '}
-            </span>
-          </div>
+          <span className="font-bold text-lg block">
+            {user?.firstName} {user?.lastName}
+          </span>
           <Link
             to="/customer/profile"
-            className="capitalize text-primary underline text-sm"
+            className="capitalize text-primary underline text-xs block"
           >
             view profile
           </Link>
@@ -65,10 +46,10 @@ export default function MobileSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="px-0 text-lg text-primary mb-1">
+          <SidebarGroupLabel className="px-0 text-base text-primary">
             General
           </SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="-mt-1">
             <SidebarMenu className="space-y-0.5">
               {sidebarMobileGeneral.map(({ icon, label, url }) => {
                 const IconComponent = icon
@@ -78,7 +59,7 @@ export default function MobileSidebar() {
                       to={url}
                       className="py-1 px-0 flex items-center gap-2"
                     >
-                      <IconComponent strokeWidth={1.5} className="w-6 h-6 " />
+                      <IconComponent strokeWidth={1.5} className="w-5 h-5 " />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">
                         {label}
                       </span>
@@ -93,10 +74,10 @@ export default function MobileSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel className="px-0 text-lg text-primary mb-1">
+          <SidebarGroupLabel className="px-0 text-base text-primary">
             About Us
           </SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="-mt-1">
             <SidebarMenu className="space-y-0.5">
               {sidebarAboutUs.map(({ icon, label, url }) => {
                 const IconComponent = icon
@@ -108,7 +89,7 @@ export default function MobileSidebar() {
                     >
                       <IconComponent
                         strokeWidth={1.5}
-                        className="w-6 h-6 p-0.5 "
+                        className="w-5 h-5 p-0.5 "
                       />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">
                         {label}

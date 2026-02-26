@@ -4,7 +4,7 @@ import { Textarea } from '../ui/textarea'
 interface FormTextAreaProp {
   name: string
   label?: string
-  value: string
+  value: string | undefined
   handleInputChange: (key: string, value: any) => void
   placeholder?: string
   rows: number

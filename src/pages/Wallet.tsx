@@ -1,49 +1,58 @@
-import { walletTabsList } from '@/assets/data'
 import Container from '@/components/global/Container'
-import SearchbarDropmenu from '@/components/global/SearchbarDropmenu'
 import SectionHeading from '@/components/services/SectionHeading'
-import TabHead from '@/components/global/TabHead'
 import DesktopWalletHeader from '@/components/header/DesktopWalletHeader'
 import MobileWalletHeader from '@/components/header/MobileWalletHeader'
-import { Tabs } from '@/components/ui/tabs'
 import WalletActions from '@/components/wallet/WalletActions'
 import WalletBalance from '@/components/wallet/WalletBalance'
-import WalletTabContent from '@/components/wallet/WalletTabContent'
+import { transactionHistory } from '@/utils/database'
+import { groupTransactionsByDay } from '@/utils/format'
+import TransactionCard from '@/components/wallet/TransactionCard'
+import NoTransactionHistory from '@/components/wallet/NoTransactionHistory'
 
 export default function Wallet() {
+  const transactionStatus = transactionHistory?.filter(
+    (transaction) => transaction?.status?.toLowerCase() === 'pending',
+  )
+  const groupedTransactions = groupTransactionsByDay(transactionStatus)
+  const groupedTransactionsArray = Object.entries(groupedTransactions)
+
   return (
     <div className="space-y-4 md:space-y-6">
-      <Container className="bg-gradient-primary rounded-b-3xl pb-6">
-        <div className="space-y-2 md:space-y-4">
+      <div>
+        <Container className="bg-white">
           <MobileWalletHeader />
           <DesktopWalletHeader />
-          <div className="space-y-6 md:space-y-8">
-            <div>
-              <WalletBalance />
-            </div>
-            <div>
-              <WalletActions />
-            </div>
-          </div>
-        </div>
-      </Container>
+        </Container>
+        <Container className="py-2 md:py-4">
+          <WalletBalance />
+        </Container>
+        <Container className="py-4 md:py-5 bg-white">
+          <WalletActions />
+        </Container>
+      </div>
       <Container>
-        <div className="space-y-3 md:space-y-6">
-          <div className="flex items-center justify-between gap-6 ">
-            <SectionHeading heading="Transaction History" />
-            <SearchbarDropmenu
-              position="-translate-x-2"
-              placeholder="Search history"
-            />
-          </div>
+        <div className="space-y-2">
+          <SectionHeading heading="Pending Payment" />
 
-          <Tabs
-            defaultValue="pending"
-            className="w-full max-w-6xl xl:max-w-7xl mx-auto"
-          >
-            <TabHead tabList={walletTabsList} />
-            <WalletTabContent />
-          </Tabs>
+          <div className="space-y-2 md:space-y-4">
+            {groupedTransactionsArray?.map(([day, transaction]) => (
+              <div key={day} className="space-y-2 md:space-y-3 ">
+                <h3 className="text-sm md:text-base font-semibold capitalize text-muted-foreground">
+                  {day}
+                </h3>
+
+                <div className="grid grid-cols-1 gap-3 md:gap-4 max-w-xl mx-auto">
+                  {transaction.map((transaction, index) => (
+                    <TransactionCard key={index} {...transaction} />
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            {groupedTransactionsArray?.length == 0 && (
+              <NoTransactionHistory label="pending" />
+            )}
+          </div>
         </div>
       </Container>
     </div>
