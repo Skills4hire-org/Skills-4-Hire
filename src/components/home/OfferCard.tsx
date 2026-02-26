@@ -74,25 +74,25 @@ export default function OfferCard({
           </span>
         </div>
 
-        <h3 className="font-semibold text-gray-900 text-sm md:text-base">
+        <h3 className="font-semibold text-gray-900 text-base md:text-lg">
           {title}
         </h3>
 
         <div>
           <p
-            className={`text-xs md:text-sm text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
+            className={`text-[14px] md:text-base text-gray-600 ${!viewMore && 'line-clamp-2 sm:line-clamp-none'}`}
           >
             {description}
           </p>
           <button
             onClick={() => setViewMore(!viewMore)}
-            className="text-xs md:text-sm text-primary underline cursor-pointer hover:no-underline sm:hidden"
+            className="text-[14px] md:text-base text-primary underline cursor-pointer hover:no-underline sm:hidden"
           >
             {viewMore ? 'less' : 'more'}
           </button>
         </div>
 
-        <div className="flex flex-wrap items-start justify-between gap-2 text-sm md:text-base text-gray-500 mb-4 text-xs md:text-sm">
+        <div className="flex flex-wrap items-start justify-between gap-2 text-[14px] md:text-base text-gray-500 mb-4 ">
           <div className="flex flex-col gap-0.5 md:gap-1">
             <span className="flex items-center gap-1">
               Amount: {currencyFormatter(2000)} {/* amount */}
@@ -112,7 +112,7 @@ export default function OfferCard({
 
         <OfferFilesCarousel />
 
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs md:text-sm text-gray-500">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[14px] md:text-base text-gray-500">
           <span className="flex items-center gap-1">
             <Calendar size={14} /> Posted: {dateFormatter(Date.now())}{' '}
             {/* date value here*/}

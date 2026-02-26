@@ -10,14 +10,14 @@ export default function MobileWithAvatarAndDesktopHeader({
 }) {
   const navigate = useNavigate()
   return (
-    <header className="flex md:block items-center justify-between items-center py-3.5 md:py-4">
+    <header className="flex md:block items-center justify-between items-center py-3 md:py-4">
       <button onClick={() => navigate(-1)} className="md:hidden">
         <ChevronLeft className="w-6 h-6" />
         <span className="sr-only">back</span>
       </button>
       <h1 className="font-bold text-lg md:text-2xl md:text-start">{title}</h1>
       <SidebarTrigger size="lg" className="md:hidden">
-        <ProfileImage />
+        <ProfileImage size="size-10" />
       </SidebarTrigger>
     </header>
   )

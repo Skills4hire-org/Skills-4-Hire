@@ -34,7 +34,7 @@ export default function CommentReplyForm({
           rows={3}
           required
           handleInputChange={handleInputChange}
-          className="pb-12 min-h-12 md:min-h-16 h-max text-xs md:text-sm"
+          className="pb-12 min-h-12 md:min-h-16 h-max text-sm md:text-base"
         />
         <div className="flex justify-end gap-2 mt-2 md:mt-4">
           <button

@@ -46,7 +46,7 @@ export default function PostComposer() {
       "
     >
       {userType == 'customer' && (
-        <p className="text-sm md:text-base font-medium text-gray-700">
+        <p className="text-base md:text-lg font-medium text-gray-700">
           Create an offer
         </p>
       )}
@@ -63,7 +63,7 @@ export default function PostComposer() {
             }
             value={formData.post}
             handleInputChange={handleInputChange}
-            className="text-xs md:text-sm p-1 h-[48px] min-h-[48px]"
+            className="text-sm md:text-base p-1 h-[48px] min-h-[48px]"
             rows={1}
             required
           />
@@ -82,7 +82,7 @@ export default function PostComposer() {
                 value={formData.budget}
                 type="number"
                 handleInputChange={handleInputChange}
-                className="border-0 border-b h-9 text-xs md:text-sm"
+                className="border-0 border-b h-9 text-sm md:text-base"
                 labelSize="text-xs md:text-sm"
               />
             </Link>
@@ -94,7 +94,7 @@ export default function PostComposer() {
               handleInputChange={handleInputChange}
               selectItems={timeFrameOptions}
               placeholder="Select"
-              className="border-0 border-b h-9 [&_svg]:block text-xs md:text-sm"
+              className="border-0 border-b h-9 [&_svg]:block text-sm md:text-base"
               labelSize="text-xs md:text-sm"
               handleBlur={() => navigate(url)}
             />
@@ -102,7 +102,7 @@ export default function PostComposer() {
         )}
 
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center flex-wrap gap-4 md:gap-6 text-sm text-muted-foreground justify-start ml-0">
+          <div className="flex items-center flex-wrap gap-x-4 gap-y-2 md:gap-6 text-sm text-muted-foreground justify-start ml-0">
             <div className="flex items-center gap-1.5">
               <div className="flex items-center gap-1 hover:text-gray-700">
                 <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />

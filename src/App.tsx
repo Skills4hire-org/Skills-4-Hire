@@ -31,7 +31,6 @@ import Support from './pages/Support'
 import TermsAndConditions from './pages/TermsAndConditions'
 import Verification from './pages/Verification'
 import Wallet from './pages/Wallet'
-import WalletSend from './components/wallet/WalletSend'
 import Withdraw from './components/wallet/Withdraw'
 import Notification from './pages/Notification'
 import Layout from './components/layouts/Layout'
@@ -195,7 +194,6 @@ const router = createBrowserRouter([
       },
       { path: 'wallet/approve', element: <ApprovePayment /> },
       { path: 'wallet/withdraw', element: <Withdraw /> },
-      { path: 'wallet/send', element: <WalletSend /> },
       {
         path: 'chats',
         element: <Posts />,

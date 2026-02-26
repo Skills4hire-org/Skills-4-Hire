@@ -1,9 +1,14 @@
-import { walletTabsList } from '@/assets/data'
+import {
+  customerWalletTabsList,
+  serviceProviderWalletTabsList,
+} from '@/assets/data'
 import { transactionHistory } from '@/utils/database'
 import { TabsContent } from '../ui/tabs'
 import TransactionCard from './TransactionCard'
 import NoTransactionHistory from './NoTransactionHistory'
 import { groupTransactionsByDay } from '@/utils/format'
+import type { UserType } from '@/utils/types'
+import { useSelector } from 'react-redux'
 
 export default function WalletTabContent() {
   const groupTransactionByStatusAndDate = (status: string) => {
@@ -15,9 +20,17 @@ export default function WalletTabContent() {
     const groupedTransactionsArray = Object.entries(groupedTransactions)
     return groupedTransactionsArray
   }
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
+  const tabsList =
+    userType == 'customer'
+      ? customerWalletTabsList
+      : serviceProviderWalletTabsList
+
   return (
     <>
-      {walletTabsList.map(({ status, label }) => (
+      {tabsList.map(({ status, label }) => (
         <TabsContent key={status} value={status}>
           <div className="space-y-2 md:space-y-4 py-1 ">
             {groupTransactionByStatusAndDate(status)?.map(
