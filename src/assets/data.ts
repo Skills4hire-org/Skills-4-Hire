@@ -352,7 +352,7 @@ export const withdrawFields = [
 export const withdrawData = {
   balance: 0.0,
   minWithdraw: 1000.0,
-  title: "Deposit",
+  title: "Withdraw Funds",
   sectionLabel: "Withdraw",
   buttonLabel: "Withdraw",
 };
