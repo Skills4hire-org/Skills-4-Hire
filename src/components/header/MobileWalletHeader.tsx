@@ -4,13 +4,13 @@ import { SidebarTrigger } from '../ui/sidebar'
 import type { UserType } from '@/utils/types'
 import { Link } from 'react-router-dom'
 
-export default function MobileWalletHeader() {
+export default function MobileWalletHeader({ title }: { title?: string }) {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
   return (
     <header className="flex items-center md:hidden justify-between gap-6 py-3">
-      <h1 className="font-bold text-lg">Wallet</h1>
+      <h1 className="font-bold text-lg">{title || 'Wallet'}</h1>
       {userType == 'customer' ? (
         <SidebarTrigger className="mr-1.5">
           <ProfileImage size="size-10" />

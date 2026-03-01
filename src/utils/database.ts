@@ -844,7 +844,7 @@ export const customerBookings = [
     createdAt: Date.now(),
     serviceProviderName: 'Joshua Friday',
     serviceProviderRating: 2,
-    status: 'ongoing',
+    status: 'canceled',
     desc: 'Please come at the appointed time, be on time and come with your kits',
   },
   {

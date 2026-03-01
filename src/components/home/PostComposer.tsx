@@ -129,7 +129,6 @@ export default function PostComposer() {
               </Link>
             </div>
           </div>
-
           <Link to={url}>
             <FormSubmitButton
               size="sm"

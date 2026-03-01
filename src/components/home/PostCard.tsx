@@ -74,12 +74,15 @@ export default function PostCard({
             <div className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-gray-500 my-0.5">
               {location && (
                 <span className="inline-flex items-center gap-1">
-                  <MapPin size={13} className="md:w-[14px]" /> {location}
+                  <MapPin size={13.5} className="md:w-[14px]" /> {location}
                 </span>
               )}
               {rating && (
                 <span className="inline-flex items-center gap-1">
-                  <Star size={13} className="fill-yellow-400 text-yellow-400" />
+                  <Star
+                    size={13.5}
+                    className="fill-yellow-400 text-yellow-400"
+                  />
                   <span className="font-semibold text-gray-700">{rating}</span>
                   {reviews && (
                     <span className="text-gray-500">({reviews} reviews)</span>
@@ -121,21 +124,21 @@ export default function PostCard({
 
       <div className="flex justify-between items-center pt-2 md:pt-3 border-t border-gray-200 text-gray-500">
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
-          <Heart className="w-4 h-4 md:h-5 md:w-5" /> <span>{likeCount}</span>
+          <Heart className="w-5 h-5 md:h-6 md:w-6" /> <span>{likeCount}</span>
         </button>
 
         <button
           className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer"
           onClick={() => setShowComment(true)}
         >
-          <MessageCircle className="w-4 h-4 md:h-5 md:w-5" />
+          <MessageCircle className="w-5 h-5 md:h-6 md:w-6" />
           <span>{commentCount}</span>
         </button>
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
-          <Repeat className="w-4 h-4 md:h-5 md:w-5" /> <span>{shareCount}</span>
+          <Repeat className="w-5 h-5 md:h-6 md:w-6" /> <span>{shareCount}</span>
         </button>
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
-          <BarChart2 className="w-4 h-4 md:h-5 md:w-5" />
+          <BarChart2 className="w-5 h-5 md:h-6 md:w-6" />
           <span>{impressionsCount}</span>
         </button>
       </div>

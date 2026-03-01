@@ -4,6 +4,7 @@ import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
 import RequestACallButton from '../buttons/RequestACallButton'
 import SMSButton from '../buttons/SMSButton'
+import { Link } from 'react-router-dom'
 
 export default function CustomerBookingCard({
   service,
@@ -31,14 +32,16 @@ export default function CustomerBookingCard({
             </span>
           </div>
         </div>
-        <figure>
-          <img
-            src={serviceImage}
-            alt={service}
-            className="aspect-square object-cover h-full max-w-24 md:max-w-42"
-            loading="lazy"
-          />
-        </figure>
+        <Link to="/customer/service-provider/3">
+          <figure className="w-24 h-24 md:w-30 md:h-30">
+            <img
+              src={serviceImage}
+              alt={service}
+              className="aspect-square object-cover h-full w-full"
+              loading="lazy"
+            />
+          </figure>
+        </Link>
       </div>
       <div>
         <h3 className="font-medium text-sm md:text-base">

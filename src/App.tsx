@@ -49,6 +49,11 @@ import CreateOffer from './pages/CreateOffer'
 import UpdateOffer from './pages/UpdateOffer'
 import CreatePost from './pages/CreatePost'
 import TransactionHistory from './pages/TransactionHistory'
+import Chat from './pages/Chat'
+import ChatWindow from './components/chats/ChatWindow'
+import ConversationList from './components/chats/ConversationList'
+import { useEffect } from 'react'
+import { initializeMockChat } from './features/chat/mockData'
 
 const router = createBrowserRouter([
   {
@@ -196,8 +201,19 @@ const router = createBrowserRouter([
       { path: 'wallet/withdraw', element: <Withdraw /> },
       {
         path: 'chats',
-        element: <Posts />,
+        element: <Chat />,
+        children: [
+          {
+            index: true,
+            element: <ConversationList />,
+          },
+          {
+            path: ':conversationId',
+            element: <ChatWindow />,
+          },
+        ],
       },
+
       {
         path: 'favorites',
         element: <Favorites />,
@@ -263,5 +279,8 @@ const router = createBrowserRouter([
 ])
 
 export default function App() {
+  useEffect(() => {
+    initializeMockChat()
+  }, [])
   return <RouterProvider router={router} />
 }
