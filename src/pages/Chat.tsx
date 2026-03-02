@@ -12,12 +12,13 @@ export default function Chat() {
   return (
     <div className="space-y-4 md:space-y-6">
       <Container className="bg-white">
-        <MobileWalletHeader title="Chats" />
+        {!conversationId && <MobileWalletHeader title="Chats" />}
+
         <DesktopWalletHeader title="Chats" />
       </Container>
       <Container>
         {isMobile ? (
-          <div className="h-[82vh] -mb-8">
+          <div className={`${conversationId && 'h-[88vh] -mb-8'}`}>
             <Outlet />
           </div>
         ) : (
