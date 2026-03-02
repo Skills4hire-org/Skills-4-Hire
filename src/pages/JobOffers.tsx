@@ -25,8 +25,12 @@ export default function JobOffers() {
 
   const [sortType, setSortType] = useState("");
 
+ 
+  const hasActiveFilters = Object.values(filters).some(Boolean);
+
   const services = carouselServices.map((service) => service.text);
 
+  
   const processedJobs = useMemo(() => {
     return jobOffers.map((job) => {
       const { city, state } = extractLocation(job.location);
@@ -42,6 +46,7 @@ export default function JobOffers() {
     });
   }, []);
 
+  
   const filteredJobs = useMemo(() => {
     return processedJobs.filter((job) => {
       if (filters.serviceType && job.serviceType !== filters.serviceType)
@@ -60,6 +65,7 @@ export default function JobOffers() {
     });
   }, [processedJobs, filters]);
 
+  
   const sortedJobs = useMemo(() => {
     const jobs = [...filteredJobs];
 
@@ -107,30 +113,36 @@ export default function JobOffers() {
             Recent Job Offers
           </h2>
 
-          <div className="flex items-center gap-2 md:gap-4">
+          <div className="flex items-center gap-2 md:gap-3">
+            
             <button
               onClick={() => setFilterOpen(true)}
               className="
+                relative
                 inline-flex
                 items-center
                 gap-2
-                px-3
-                py-1.5
+                h-[36px]
+                px-4
                 rounded-md
                 bg-white
-                border
-                border-gray-200
+                border border-gray-200
                 text-xs md:text-sm
                 shadow-sm
-                hover:bg-gray-300
+                hover:bg-gray-50
                 hover:border-gray-300
                 transition
               "
             >
               <Sliders className="w-4 h-4" />
               Filter
+              
+              {hasActiveFilters && (
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary rounded-full" />
+              )}
             </button>
 
+            {/* SORT */}
             <SortDropdown value={sortType} setValue={setSortType} />
           </div>
         </div>
