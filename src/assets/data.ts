@@ -279,29 +279,29 @@ export const bookingsTabsList = [
     status: "canceled",
     label: "Canceled",
   },
-]
+];
 export const customerWalletTabsList = [
   {
     status: "pending",
     label: "Pending",
   },
   {
-    status: 'spent',
-    label: 'Spent',
+    status: "spent",
+    label: "Spent",
   },
   {
-    status: 'canceled',
-    label: 'Canceled',
+    status: "canceled",
+    label: "Canceled",
   },
-]
+];
 export const serviceProviderWalletTabsList = [
   {
-    status: 'pending',
-    label: 'Pending',
+    status: "pending",
+    label: "Pending",
   },
   {
-    status: 'earned',
-    label: 'Earned',
+    status: "earned",
+    label: "Earned",
   },
   {
     status: "canceled",
@@ -353,9 +353,33 @@ export const withdrawData = {
   balance: 0.0,
   minWithdraw: 1000.0,
   title: "Withdraw Funds",
-  sectionLabel: "Withdraw",
   buttonLabel: "Withdraw",
 };
+
+export const nigerianBanks = [
+  "Access Bank",
+  "Citibank Nigeria",
+  "Ecobank Nigeria",
+  "Fidelity Bank",
+  "First Bank of Nigeria",
+  "First City Monument Bank (FCMB)",
+  "Globus Bank",
+  "Guaranty Trust Bank (GTBank)",
+  "Heritage Bank",
+  "Keystone Bank",
+  "Polaris Bank",
+  "Providus Bank",
+  "Stanbic IBTC Bank",
+  "Standard Chartered Bank",
+  "Sterling Bank",
+  "SunTrust Bank",
+  "Titan Trust Bank",
+  "Union Bank of Nigeria",
+  "United Bank for Africa (UBA)",
+  "Unity Bank",
+  "Wema Bank",
+  "Zenith Bank",
+];
 
 export const transferModes = [
   {

@@ -55,5 +55,28 @@ export const registerSchema = z
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "Passwords do not match",
-    path: ["confirm_password"], 
+    path: ["confirm_password"],
   });
+
+// Withdrawal Schema
+
+export const withdrawSchema = z.object({
+  fullName: z.string().min(2, "Full name is required"),
+
+  amount: z
+    .string()
+    .min(1, "Amount is required")
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Amount must be a valid number",
+    })
+    .refine((val) => Number(val) >= 1000, {
+      message: "Minimum withdrawal is ₦1000",
+    }),
+
+  accountNumber: z
+    .string()
+    .regex(/^\d+$/, "Account number must contain only digits")
+    .length(10, "Account number must be exactly 10 digits"),
+
+  bank: z.string().min(1, "Please select a bank"),
+});

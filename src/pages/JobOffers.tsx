@@ -25,12 +25,10 @@ export default function JobOffers() {
 
   const [sortType, setSortType] = useState("");
 
- 
   const hasActiveFilters = Object.values(filters).some(Boolean);
 
   const services = carouselServices.map((service) => service.text);
 
-  
   const processedJobs = useMemo(() => {
     return jobOffers.map((job) => {
       const { city, state } = extractLocation(job.location);
@@ -46,7 +44,6 @@ export default function JobOffers() {
     });
   }, []);
 
-  
   const filteredJobs = useMemo(() => {
     return processedJobs.filter((job) => {
       if (filters.serviceType && job.serviceType !== filters.serviceType)
@@ -65,7 +62,6 @@ export default function JobOffers() {
     });
   }, [processedJobs, filters]);
 
-  
   const sortedJobs = useMemo(() => {
     const jobs = [...filteredJobs];
 
@@ -114,7 +110,6 @@ export default function JobOffers() {
           </h2>
 
           <div className="flex items-center gap-2 md:gap-3">
-            
             <button
               onClick={() => setFilterOpen(true)}
               className="
@@ -136,13 +131,10 @@ export default function JobOffers() {
             >
               <Sliders className="w-4 h-4" />
               Filter
-              
               {hasActiveFilters && (
                 <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary rounded-full" />
               )}
-            </button>
-
-            {/* SORT */}
+            </button> 
             <SortDropdown value={sortType} setValue={setSortType} />
           </div>
         </div>
