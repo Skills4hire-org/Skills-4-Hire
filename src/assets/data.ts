@@ -357,6 +357,7 @@ export const withdrawData = {
 };
 
 export const nigerianBanks = [
+  // Commercial Banks
   "Access Bank",
   "Citibank Nigeria",
   "Ecobank Nigeria",
@@ -379,6 +380,24 @@ export const nigerianBanks = [
   "Unity Bank",
   "Wema Bank",
   "Zenith Bank",
+
+  // Digital / Fintech Banks
+  "Opay",
+  "PalmPay",
+  "Kuda Bank",
+  "Moniepoint Microfinance Bank",
+  "VFD Microfinance Bank",
+  "Sparkle Microfinance Bank",
+  "Carbon",
+  "FairMoney Microfinance Bank",
+  "Eyowo",
+  "ALAT by Wema",
+  "Rubies Microfinance Bank",
+  "Mintyn Bank",
+  "One Finance (OneBank)",
+  "9PSB (9 Payment Service Bank)",
+  "HopePSB",
+  "MoneyMaster PSB",
 ];
 
 export const transferModes = [
