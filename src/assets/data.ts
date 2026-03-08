@@ -13,7 +13,7 @@ import {
   ShieldAlert,
   Wallet,
 } from 'lucide-react'
-import { CreditCard, User, DollarSign, Search, Users } from 'lucide-react'
+import { CreditCard, User } from 'lucide-react'
 import { MessageSquare, BookOpen } from 'lucide-react'
 import {
   FaWhatsapp,
@@ -353,38 +353,51 @@ export const withdrawData = {
   balance: 0.0,
   minWithdraw: 1000.0,
   title: 'Withdraw Funds',
-  sectionLabel: 'Withdraw',
   buttonLabel: 'Withdraw',
 }
 
-export const transferModes = [
-  {
-    key: 'inApp',
-    label: 'In-App Transfer',
-    icon: Users,
-    description: 'Send money instantly to any other user on the platform.',
-  },
-  {
-    key: 'bankTransfer',
-    label: 'Bank Transfer',
-    icon: Banknote,
-    description:
-      'Transfer funds to external bank accounts (Service Providers/Customers).',
-  },
-]
-
-export const sendInputIcons = {
-  amount: DollarSign,
-  search: Search,
-  bank: Banknote,
-}
-
-export const bankOptions = [
-  'Select Bank',
-  'First Bank PLC',
-  'Zenith Bank',
-  'Guaranty Trust Bank',
+export const nigerianBanks = [
+  // Commercial Banks
   'Access Bank',
+  'Citibank Nigeria',
+  'Ecobank Nigeria',
+  'Fidelity Bank',
+  'First Bank of Nigeria',
+  'First City Monument Bank (FCMB)',
+  'Globus Bank',
+  'Guaranty Trust Bank (GTBank)',
+  'Heritage Bank',
+  'Keystone Bank',
+  'Polaris Bank',
+  'Providus Bank',
+  'Stanbic IBTC Bank',
+  'Standard Chartered Bank',
+  'Sterling Bank',
+  'SunTrust Bank',
+  'Titan Trust Bank',
+  'Union Bank of Nigeria',
+  'United Bank for Africa (UBA)',
+  'Unity Bank',
+  'Wema Bank',
+  'Zenith Bank',
+
+  // Digital / Fintech Banks
+  'Opay',
+  'PalmPay',
+  'Kuda Bank',
+  'Moniepoint Microfinance Bank',
+  'VFD Microfinance Bank',
+  'Sparkle Microfinance Bank',
+  'Carbon',
+  'FairMoney Microfinance Bank',
+  'Eyowo',
+  'ALAT by Wema',
+  'Rubies Microfinance Bank',
+  'Mintyn Bank',
+  'One Finance (OneBank)',
+  '9PSB (9 Payment Service Bank)',
+  'HopePSB',
+  'MoneyMaster PSB',
 ]
 
 export const customerHomeNavLinks = [

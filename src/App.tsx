@@ -55,6 +55,9 @@ import ConversationList from './components/chats/ConversationList'
 import { useEffect } from 'react'
 import { initializeMockChat } from './features/chat/mockData'
 import Search from './pages/Search'
+import WithdrawVerification from './pages/WithdrawVerification'
+import WithdrawSuccess from './pages/WithdrawSuccess'
+import WithdrawPin from './pages/WithdrawPin'
 
 const router = createBrowserRouter([
   {
@@ -200,6 +203,9 @@ const router = createBrowserRouter([
       },
       { path: 'wallet/approve', element: <ApprovePayment /> },
       { path: 'wallet/withdraw', element: <Withdraw /> },
+      { path: 'wallet/withdraw-verify', element: <WithdrawVerification /> },
+      { path: 'wallet/withdraw-pin', element: <WithdrawPin /> },
+      { path: 'wallet/withdraw-success', element: <WithdrawSuccess /> },
       {
         path: 'chats',
         element: <Chat />,
