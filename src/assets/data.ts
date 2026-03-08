@@ -13,7 +13,7 @@ import {
   ShieldAlert,
   Wallet,
 } from "lucide-react";
-import { CreditCard, User, DollarSign, Search, Users } from "lucide-react";
+import { CreditCard, User } from "lucide-react";
 import { MessageSquare, BookOpen } from "lucide-react";
 import {
   FaWhatsapp,
@@ -398,36 +398,6 @@ export const nigerianBanks = [
   "9PSB (9 Payment Service Bank)",
   "HopePSB",
   "MoneyMaster PSB",
-];
-
-export const transferModes = [
-  {
-    key: "inApp",
-    label: "In-App Transfer",
-    icon: Users,
-    description: "Send money instantly to any other user on the platform.",
-  },
-  {
-    key: "bankTransfer",
-    label: "Bank Transfer",
-    icon: Banknote,
-    description:
-      "Transfer funds to external bank accounts (Service Providers/Customers).",
-  },
-];
-
-export const sendInputIcons = {
-  amount: DollarSign,
-  search: Search,
-  bank: Banknote,
-};
-
-export const bankOptions = [
-  "Select Bank",
-  "First Bank PLC",
-  "Zenith Bank",
-  "Guaranty Trust Bank",
-  "Access Bank",
 ];
 
 export const customerHomeNavLinks = [

@@ -61,7 +61,7 @@ export const registerSchema = z
 // Withdrawal Schema
 
 export const withdrawSchema = z.object({
-  fullName: z.string().min(2, "Full name is required"),
+  accountName: z.string().min(2, "Full name is required"),
 
   amount: z
     .string()
@@ -79,4 +79,13 @@ export const withdrawSchema = z.object({
     .length(10, "Account number must be exactly 10 digits"),
 
   bank: z.string().min(1, "Please select a bank"),
+});
+
+// Pin Verification Schema
+export const withdrawPinSchema = z.object({
+  pin: z
+    .string()
+    .min(4, "PIN must be 4 digits")
+    .max(4, "PIN must be 4 digits")
+    .regex(/^\d+$/, "PIN must contain only numbers"),
 });

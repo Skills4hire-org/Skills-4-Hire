@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
 import { ChevronRight, Search, Landmark, CreditCard, User } from "lucide-react";
 import { withdrawData, nigerianBanks } from "@/assets/data";
 import { withdrawSchema } from "@/utils/schemas";
 import { useValidateSchema } from "@/hooks/useValidateSchema";
+import type { WithdrawalDetails } from "@/types/withdrawal";
 
 export default function Withdraw() {
-  const [fullName, setFullName] = useState("");
+  const navigate = useNavigate();
+
+  const [accountName, setAccountName] = useState("");
   const [amount, setAmount] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [selectedBank, setSelectedBank] = useState("");
@@ -23,17 +27,18 @@ export default function Withdraw() {
 
   const handleWithdraw = () => {
     const validatedData = useValidateSchema(withdrawSchema, {
-      fullName,
+      accountName,
       amount,
       accountNumber,
       bank: selectedBank,
-    });
+    }) as WithdrawalDetails;
 
     if (!validatedData) return;
 
-    console.log("Validated Data:", validatedData);
+    navigate("../wallet/withdraw-verify", {
+      state: validatedData,
+    });
   };
-
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="[&>*]:border-none">
@@ -118,8 +123,8 @@ export default function Withdraw() {
             <User className="w-5 h-5 text-gray-400" />
             <input
               type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              value={accountName}
+              onChange={(e) => setAccountName(e.target.value)}
               placeholder="Account Name"
               className="w-full bg-transparent outline-none text-gray-800 text-sm"
             />
