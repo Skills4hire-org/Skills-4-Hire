@@ -61,7 +61,10 @@ export const registerSchema = z
 // Withdrawal Schema
 
 export const withdrawSchema = z.object({
-  accountName: z.string().min(2, "Full name is required"),
+  accountName: z
+    .string()
+    .min(2, "Full name is required")
+    .regex(/^[a-zA-Z\s]+$/, "Full name can only contain letters and spaces"),
 
   amount: z
     .string()

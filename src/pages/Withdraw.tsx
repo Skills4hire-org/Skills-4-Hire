@@ -124,7 +124,14 @@ export default function Withdraw() {
             <input
               type="text"
               value={accountName}
-              onChange={(e) => setAccountName(e.target.value)}
+              onChange={(e) =>
+                setAccountName(e.target.value.replace(/[^a-zA-Z\s]/g, ""))
+              }
+              onKeyDown={(e) => {
+                if (!/[a-zA-Z\s]/.test(e.key) && e.key !== "Backspace") {
+                  e.preventDefault();
+                }
+              }}
               placeholder="Account Name"
               className="w-full bg-transparent outline-none text-gray-800 text-sm"
             />
