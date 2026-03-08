@@ -3,8 +3,11 @@ import SearchBar from '@/components/global/SearchBar'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import ServiceAroundYouCard from '@/components/service-provider/ServiceProviderCard'
 import { serviceAround } from '@/utils/database'
+import { useState } from 'react'
 
 export default function ServicesSearch() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const handleSearchQuery = () => {}
   return (
     <div className="space-y-2 md:space-y-6">
       <HeaderWithBackNavigation title="What are you looking for?" />
@@ -14,6 +17,9 @@ export default function ServicesSearch() {
             placeholder="Search for services"
             maxWidth="w-full md:max-w-xl"
             autoFocus
+            value={searchQuery}
+            onSubmit={handleSearchQuery}
+            setSearchQuery={setSearchQuery}
           />
           <div className="space-y-4 md:space-y-6">
             <h2 className="text-base font-semibold ">Recommended for you</h2>

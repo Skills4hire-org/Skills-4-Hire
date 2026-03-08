@@ -4,14 +4,21 @@ import ProfileImage from '../global/ProfileImage'
 import RecentNotification from '../global/RecentNotification'
 import SearchBar from '../global/SearchBar'
 import Logo from '../global/Logo2'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 export default function MobileHomeHeader() {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
+  const navigate = useNavigate()
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const handleSearchQuery = () => {
+    navigate(`/${userType}/search?query=${searchQuery}`)
+  }
 
   return (
     <header className="md:hidden w-full pb-2">
@@ -38,6 +45,9 @@ export default function MobileHomeHeader() {
           <SearchBar
             placeholder="Search for plumbers, electricians..."
             maxWidth="w-full"
+            value={searchQuery}
+            onSubmit={handleSearchQuery}
+            setSearchQuery={setSearchQuery}
           />
         </div>
 

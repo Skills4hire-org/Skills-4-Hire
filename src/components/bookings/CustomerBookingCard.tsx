@@ -2,8 +2,6 @@ import { dateFormatter, timeFormatter } from '@/utils/format'
 import type { CustomerBooking } from '@/utils/types'
 import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
-import RequestACallButton from '../buttons/RequestACallButton'
-import SMSButton from '../buttons/SMSButton'
 import { Link } from 'react-router-dom'
 
 export default function CustomerBookingCard({
@@ -59,10 +57,6 @@ export default function CustomerBookingCard({
             <h4 className="text-xs">{serviceProviderName}</h4>
             <Ratings rating={serviceProviderRating} />
           </div>
-        </div>
-        <div className="flex flex-wrap gap-16">
-          <RequestACallButton />
-          <SMSButton />
         </div>
       </div>
     </div>

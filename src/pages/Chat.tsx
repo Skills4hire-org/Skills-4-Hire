@@ -13,16 +13,15 @@ export default function Chat() {
     <div className="space-y-4 md:space-y-6">
       <Container className="bg-white">
         {!conversationId && <MobileWalletHeader title="Chats" />}
-
         <DesktopWalletHeader title="Chats" />
       </Container>
       <Container>
         {isMobile ? (
-          <div className={`${conversationId && 'h-[88vh] -mb-8'}`}>
+          <div className={`${conversationId && 'h-[calc(100vh-68px)]'}`}>
             <Outlet />
           </div>
         ) : (
-          <div className="flex h-[84vh] -mb-6">
+          <div className="flex h-[calc(100vh-100px)] -mb-6">
             <div className="w-1/2 lg:w-2/5 border-r pr-4">
               <ConversationList />
             </div>

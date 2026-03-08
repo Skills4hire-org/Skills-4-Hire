@@ -1,4 +1,3 @@
-import SearchBar from '@/components/global/SearchBar'
 import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
 import SectionHeading from '@/components/services/SectionHeading'
 import { availableServices, serviceAround } from '@/utils/database'
@@ -8,6 +7,8 @@ import ServiceProviderCard from '@/components/service-provider/ServiceProviderCa
 import ServicesCard from '@/components/services/ServicesCard'
 import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
 import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
+import { Input } from '@/components/ui/input'
+import { Search } from 'lucide-react'
 
 export default function Services() {
   return (
@@ -21,7 +22,21 @@ export default function Services() {
         <div className="space-y-4 md:space-y-6">
           <div>
             <Link to="/customer/services/search">
-              <SearchBar placeholder="Search for services" maxWidth="w-full" />
+              <div className={`relative w-full mx-auto`}>
+                <Input
+                  type="text"
+                  className={`pl-3 pr-10 rounded-md border h-8 md:h-9 text-sm md:text-base`}
+                  placeholder="Search for services"
+                  name="searchQuery"
+                  id="searchQuery"
+                />
+                <button
+                  type="submit"
+                  className="absolute top-1/2  -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
+                >
+                  <Search className="w-4.5 h-4.5" />
+                </button>
+              </div>
             </Link>
           </div>
           <section className="space-y-3 pb-1.5">

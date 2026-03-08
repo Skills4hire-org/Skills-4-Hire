@@ -54,6 +54,7 @@ import ChatWindow from './components/chats/ChatWindow'
 import ConversationList from './components/chats/ConversationList'
 import { useEffect } from 'react'
 import { initializeMockChat } from './features/chat/mockData'
+import Search from './pages/Search'
 
 const router = createBrowserRouter([
   {
@@ -213,7 +214,10 @@ const router = createBrowserRouter([
           },
         ],
       },
-
+      {
+        path: 'search',
+        element: <Search />,
+      },
       {
         path: 'favorites',
         element: <Favorites />,

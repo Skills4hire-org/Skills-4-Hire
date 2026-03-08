@@ -2,8 +2,6 @@ import { dateFormatter, timeFormatter } from '@/utils/format'
 import type { ServiceProviderBooking } from '@/utils/types'
 import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
-import RequestACallButton from '../buttons/RequestACallButton'
-import SMSButton from '../buttons/SMSButton'
 
 export default function ServiceProviderBookingCard({
   service,
@@ -56,10 +54,6 @@ export default function ServiceProviderBookingCard({
             <h4 className="text-xs">{customerName}</h4>
             <Ratings rating={customerRating} />
           </div>
-        </div>
-        <div className="flex flex-wrap gap-16">
-          <RequestACallButton />
-          <SMSButton />
         </div>
       </div>
     </div>
