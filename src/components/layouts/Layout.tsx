@@ -9,7 +9,7 @@ export default function Layout() {
       <SidebarProvider defaultOpen={true}>
         <Sidebars />
         <div className="flex-1 overflow-hidden">
-          <div className="mb-[52px] md:mb-6">
+          <div className="mb-[66px] md:mb-6">
             <Outlet />
           </div>
           <Navbar />

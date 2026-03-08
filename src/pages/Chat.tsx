@@ -17,7 +17,7 @@ export default function Chat() {
       </Container>
       <Container>
         {isMobile ? (
-          <div className={`${conversationId && 'h-[calc(100vh-68px)]'}`}>
+          <div className={`${conversationId && 'h-[calc(100vh-82px)]'}`}>
             <Outlet />
           </div>
         ) : (

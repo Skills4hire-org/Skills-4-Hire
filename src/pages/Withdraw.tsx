@@ -1,29 +1,29 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
-import { ChevronRight, Search, Landmark, CreditCard, User } from "lucide-react";
-import { withdrawData, nigerianBanks } from "@/assets/data";
-import { withdrawSchema } from "@/utils/schemas";
-import { useValidateSchema } from "@/hooks/useValidateSchema";
-import type { WithdrawalDetails } from "@/types/withdrawal";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
+import { ChevronRight, Search, Landmark, CreditCard, User } from 'lucide-react'
+import { withdrawData, nigerianBanks } from '@/assets/data'
+import { withdrawSchema } from '@/utils/schemas'
+import { useValidateSchema } from '@/hooks/useValidateSchema'
+import type { WithdrawalDetails } from '@/types/withdrawal'
 
 export default function Withdraw() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [accountName, setAccountName] = useState("");
-  const [amount, setAmount] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [selectedBank, setSelectedBank] = useState("");
+  const [accountName, setAccountName] = useState('')
+  const [amount, setAmount] = useState('')
+  const [accountNumber, setAccountNumber] = useState('')
+  const [selectedBank, setSelectedBank] = useState('')
 
-  const [bankSearch, setBankSearch] = useState("");
-  const [showBankDropdown, setShowBankDropdown] = useState(false);
+  const [bankSearch, setBankSearch] = useState('')
+  const [showBankDropdown, setShowBankDropdown] = useState(false)
 
   const filteredBanks = nigerianBanks.filter((bank) =>
     bank.toLowerCase().includes(bankSearch.toLowerCase()),
-  );
+  )
 
   const handleWithdraw = () => {
     const validatedData = useValidateSchema(withdrawSchema, {
@@ -31,14 +31,14 @@ export default function Withdraw() {
       amount,
       accountNumber,
       bank: selectedBank,
-    }) as WithdrawalDetails;
+    }) as WithdrawalDetails
 
-    if (!validatedData) return;
+    if (!validatedData) return
 
-    navigate("../wallet/withdraw-verify", {
+    navigate('../wallet/withdraw-verify', {
       state: validatedData,
-    });
-  };
+    })
+  }
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="[&>*]:border-none">
@@ -55,7 +55,7 @@ export default function Withdraw() {
               maxLength={10}
               value={accountNumber}
               onChange={(e) =>
-                setAccountNumber(e.target.value.replace(/\D/g, ""))
+                setAccountNumber(e.target.value.replace(/\D/g, ''))
               }
               placeholder="Account Number"
               className="w-full bg-transparent outline-none text-gray-800 text-sm"
@@ -70,13 +70,13 @@ export default function Withdraw() {
               <div className="flex items-center gap-3">
                 <Landmark className="w-5 h-5 text-gray-400" />
                 <span className="text-sm text-gray-800">
-                  {selectedBank || "Select Bank"}
+                  {selectedBank || 'Select Bank'}
                 </span>
               </div>
 
               <ChevronRight
                 className={`w-5 h-5 text-gray-500 transition-transform ${
-                  showBankDropdown ? "rotate-90" : ""
+                  showBankDropdown ? 'rotate-90' : ''
                 }`}
               />
             </div>
@@ -100,9 +100,9 @@ export default function Withdraw() {
                       <div
                         key={bank}
                         onClick={() => {
-                          setSelectedBank(bank);
-                          setShowBankDropdown(false);
-                          setBankSearch("");
+                          setSelectedBank(bank)
+                          setShowBankDropdown(false)
+                          setBankSearch('')
                         }}
                         className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
                       >
@@ -125,11 +125,11 @@ export default function Withdraw() {
               type="text"
               value={accountName}
               onChange={(e) =>
-                setAccountName(e.target.value.replace(/[^a-zA-Z\s]/g, ""))
+                setAccountName(e.target.value.replace(/[^a-zA-Z\s]/g, ''))
               }
               onKeyDown={(e) => {
-                if (!/[a-zA-Z\s]/.test(e.key) && e.key !== "Backspace") {
-                  e.preventDefault();
+                if (!/[a-zA-Z\s]/.test(e.key) && e.key !== 'Backspace') {
+                  e.preventDefault()
                 }
               }}
               placeholder="Account Name"
@@ -174,5 +174,5 @@ export default function Withdraw() {
         </div>
       </div>
     </div>
-  );
+  )
 }

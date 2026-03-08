@@ -53,7 +53,7 @@ export default function MessageInput({ conversationId }: MessageInputProps) {
   }
 
   return (
-    <div className="p-3 border-t flex items-end gap-2">
+    <div className="p-2 pb-0 border-t flex items-end gap-2">
       <textarea
         ref={textareaRef}
         value={text}
