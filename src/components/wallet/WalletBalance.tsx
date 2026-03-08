@@ -13,7 +13,7 @@ export default function WalletBalance() {
           <span className="block mt-1 font-medium">
             {currencyFormatter(user?.availableBalance)}
           </span>
-          <div className="block text-xs md:text-sm flex items-center gap-0.5 mt-1 text-white/80">
+          <div className="text-xs md:text-sm flex items-center gap-0.5 mt-1 text-white/80">
             <Lock className="w-3.5 h-3.5 md:w-4 md:h-4" />
             <span>
               Locked: <span>{currencyFormatter(20000)}</span>
