@@ -18,7 +18,9 @@ import {
 export default function Referral() {
   const [referralCode] = useState('fghijk90')
   const [contacts, setContacts] = useState(mockContacts)
+  const [searchQuery, setSearchQuery] = useState('')
 
+  const handleSearch = () => {}
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(referralCode)
@@ -38,7 +40,7 @@ export default function Referral() {
     window.location.href = `sms:?&body=${encodeURIComponent(smsMessage)}`
 
     setContacts((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, status: 'Accepted' } : c))
+      prev.map((c) => (c.id === id ? { ...c, status: 'Accepted' } : c)),
     )
   }
 
@@ -117,7 +119,13 @@ export default function Referral() {
             </h2>
 
             <div className="mt-4 max-w-xs mx-auto">
-              <SearchBar placeholder="Search by name" maxWidth="w-full" />
+              <SearchBar
+                placeholder="Search by name"
+                maxWidth="w-full"
+                value={searchQuery}
+                setSearchQuery={setSearchQuery}
+                onSubmit={handleSearch}
+              />
             </div>
           </div>
 

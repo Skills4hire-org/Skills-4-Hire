@@ -1,14 +1,18 @@
-import { ChevronDown, Star, Heart, MapPin } from "lucide-react";
-import Container from "@/components/global/Container";
-import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
-import SearchBar from "@/components/global/SearchBar";
-import ProfileImage from "@/components/global/ProfileImage";
-import { mockServices } from "@/assets/data";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { ChevronDown, Star, Heart, MapPin } from 'lucide-react'
+import Container from '@/components/global/Container'
+import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
+import SearchBar from '@/components/global/SearchBar'
+import ProfileImage from '@/components/global/ProfileImage'
+import { mockServices } from '@/assets/data'
+import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function SingleService() {
-  const { service } = useParams();
+  const { service } = useParams()
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const handleSearch = () => {}
   return (
     <div className="min-h-screen">
       <div className="capitalize">
@@ -17,10 +21,16 @@ export default function SingleService() {
       <Container>
         <div className="space-y-4">
           <div className="md:hidden">
-            <SearchBar placeholder="Search service" maxWidth="100%" />
+            <SearchBar
+              placeholder="Search service"
+              maxWidth="100%"
+              value={searchQuery}
+              setSearchQuery={setSearchQuery}
+              onSubmit={handleSearch}
+            />
           </div>
           <div className="hidden md:flex items-center justify-center gap-3">
-            {["Another", "Service", "More", "Rating"].map((label) => (
+            {['Another', 'Service', 'More', 'Rating'].map((label) => (
               <div
                 key={label}
                 className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 
@@ -109,5 +119,5 @@ export default function SingleService() {
         </div>
       </Container>
     </div>
-  );
+  )
 }

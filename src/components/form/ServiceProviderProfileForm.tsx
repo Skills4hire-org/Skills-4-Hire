@@ -26,6 +26,15 @@ import PostCard from '../home/PostCard'
 import ServiceProviderServicesCard from '../service-provider/ServiceProviderServicesCard'
 import { Button } from '../ui/button'
 import ServiceProviderAbout from '../service-provider/ServiceProviderAbout'
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '../ui/alert-dialog'
+/* import FormInput from '../form-fields/FormInput' */
 
 export default function ServiceProviderProfileForm() {
   const [formData, setFormData] = useState({
@@ -50,6 +59,13 @@ export default function ServiceProviderProfileForm() {
     setFormData({ ...formData })
   }
 
+/* const [serviceFormData, setServiceFormData] = useState({
+  serviceDescription: '',
+})
+const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+  } */
+
   return (
     <form onSubmit={handleSubmit} className="-mt-2 md:-mt-6">
       <div>
@@ -63,7 +79,6 @@ export default function ServiceProviderProfileForm() {
             <span className="sr-only">edit cover photo</span>
           </button>
         </div>
-
         <Container className="border-b-8 relative">
           <div className="relative">
             <figure className="bg-blue-200 -mt-13 md:-mt-18.5  mb-1 md:mb-2 w-max rounded-full border-4 border-background">
@@ -284,11 +299,26 @@ export default function ServiceProviderProfileForm() {
                 )}
               </ul>
               <div className="w-max mx-auto">
-                <Button className="h-8 md:h-10 md:px-4 px-2 text-sm md:text-base font-medium rounded-sm flex items-center gap-2">
-                  {formData.services.length === 0
-                    ? 'Add a service'
-                    : 'Add more services'}
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button className="h-8 md:h-10 md:px-4 px-2 text-sm md:text-base font-medium rounded-sm flex items-center gap-2">
+                      {formData.services.length === 0
+                        ? 'Add a service'
+                        : 'Add more services'}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader className='text-center'>
+                      <AlertDialogTitle>Add a service</AlertDialogTitle>
+                      <AlertDialogDescription className="sr-only">
+                        Add a specific service you provide with cost.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <form>
+
+                    </form>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </div>
           </Container>
