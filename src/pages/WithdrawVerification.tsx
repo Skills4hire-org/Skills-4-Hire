@@ -3,6 +3,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
+import Container from "@/components/global/Container";
 import { CheckCircle2, Landmark, CreditCard, User } from "lucide-react";
 import type { WithdrawalDetails } from "@/types/withdrawal";
 
@@ -29,8 +30,8 @@ export default function WithdrawVerification() {
         <HeaderWithBackNavigation title="Confirm Transaction" />
       </div>
 
-      <div className="flex justify-center w-full px-4 md:px-6 lg:px-8 mt-10">
-        <div className="w-full max-w-2xl space-y-8">
+      <Container>
+        <div className="w-full max-w-2xl mx-auto space-y-8">
           <div className="bg-white rounded-2xl shadow-sm p-8 text-center space-y-4 border">
             <div className="flex justify-center">
               <div className="bg-green-100 p-3 rounded-full">
@@ -106,7 +107,7 @@ export default function WithdrawVerification() {
             </Button>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

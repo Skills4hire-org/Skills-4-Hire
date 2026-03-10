@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
+import Container from "@/components/global/Container";
 import type { WithdrawalDetails } from "@/types/withdrawal";
 import { withdrawPinSchema } from "@/utils/schemas";
 import { useValidateSchema } from "@/hooks/useValidateSchema";
@@ -34,7 +35,6 @@ export default function WithdrawPin() {
         return;
       }
 
-      // Simulated correct PIN
       if (newPin !== "1234") {
         const newAttempts = attempts + 1;
         setAttempts(newAttempts);
@@ -67,45 +67,56 @@ export default function WithdrawPin() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <HeaderWithBackNavigation title="Enter Transaction PIN" />
-
-      <div className="flex flex-col items-center justify-center flex-1 space-y-10 px-6">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Enter your 4-digit PIN
-        </h2>
-
-        <div className="flex gap-4">
-          {[0, 1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className={`w-4 h-4 rounded-full border ${
-                pin[i] ? "bg-black border-black" : "border-gray-300"
-              }`}
-            />
-          ))}
-        </div>
-
-        <div className="grid grid-cols-3 gap-6 w-64">
-          {numbers.map((num, i) => (
-            <button
-              key={i}
-              disabled={locked || num === ""}
-              onClick={() => {
-                if (num === "⌫") handleDelete();
-                else if (num !== "") handlePinChange(num);
-              }}
-              className={`text-xl font-semibold h-14 rounded-lg 
-                ${locked ? "bg-gray-200 text-gray-400" : "bg-gray-100 active:bg-gray-200"}`}
-            >
-              {num}
-            </button>
-          ))}
-        </div>
-
-        <button onClick={() => navigate(-1)} className="text-gray-500 text-sm">
-          Cancel
-        </button>
+      <div className="[&>*]:border-none">
+        <HeaderWithBackNavigation title="Enter Transaction PIN" />
       </div>
+
+      <Container>
+        <div className="flex flex-col items-center space-y-10 pt-1 pb-10">
+          <h2 className="text-lg font-semibold text-gray-800">
+            Enter your 4-digit PIN
+          </h2>
+
+          <div className="flex gap-4">
+            {[0, 1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className={`w-4 h-4 rounded-full border ${
+                  pin[i] ? "bg-black border-black" : "border-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="grid grid-cols-3 gap-6 w-64">
+            {numbers.map((num, i) => (
+              <button
+                key={i}
+                disabled={locked || num === ""}
+                onClick={() => {
+                  if (num === "⌫") handleDelete();
+                  else if (num !== "") handlePinChange(num);
+                }}
+                className={`text-xl font-semibold h-14 rounded-lg 
+                ${
+                  locked
+                    ? "bg-gray-200 text-gray-400"
+                    : "bg-gray-100 active:bg-gray-200"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => navigate(-1)}
+            className="text-gray-500 text-sm"
+          >
+            Cancel
+          </button>
+        </div>
+      </Container>
     </div>
   );
 }
