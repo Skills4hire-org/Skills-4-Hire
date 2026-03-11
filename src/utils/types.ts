@@ -186,6 +186,7 @@ export type ApplicationProfileFormData = {
 }
 
 export type Registration = {
+  role?: "customer" | "professional"
   personalInfo: PersonalInformationFormData
   experience: ExperienceFormData
   applicationProfile: ApplicationProfileFormData
