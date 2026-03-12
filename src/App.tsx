@@ -60,10 +60,13 @@ import WithdrawSuccess from './pages/WithdrawSuccess'
 import WithdrawPin from './pages/WithdrawPin'
 import AdminLayout from './pages/admin/Admin'
 import UserManagementPage from './pages/admin/UserManagement'
+import OnboardingRole from './pages/OnboardingRole'
+import UploadPhoto from './pages/UploadPhoto'
+import OnboardingGuard from './pages/OnboardingGuard'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <IndexLayout />,
     children: [
       {
@@ -71,37 +74,37 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: 'blog',
+        path: "blog",
         element: <Blog />,
       },
       {
-        path: 'blog/:id',
+        path: "blog/:id",
         element: <BlogPost />,
       },
       {
-        path: 'legal',
+        path: "legal",
         element: <Legal />,
       },
       {
-        path: 'about',
+        path: "about",
         element: <About2 />,
       },
     ],
   },
   {
-    path: 'sign-up',
+    path: "sign-up",
     element: <SignUp />,
   },
   {
-    path: 'sign-in',
+    path: "sign-in",
     element: <SignIn />,
   },
   {
-    path: 'forgot-password',
+    path: "forgot-password",
     element: <ForgotPassword />,
   },
   {
-    path: 'verification',
+    path: "verification",
     element: <Verification />,
   },
   {
@@ -119,190 +122,202 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: ':userType',
+    path: "onboarding",
+    element: <OnboardingRole />,
+  },
+  {
+    path: "onboarding/upload-photo",
+    element: (
+      <OnboardingGuard>
+        <UploadPhoto />
+      </OnboardingGuard>
+    ),
+  },
+  {
+    path: ":userType",
     element: <Layout />,
     children: [
       {
         index: true,
-        element: <Navigate to="home" />,
+        element: <Navigate to="home" />
       },
       {
-        path: 'home',
+        path: "home",
         element: <HomeLayout />,
         children: [
           {
             index: true,
-            element: <Navigate to="posts" />,
+            element: <Navigate to="posts" />
           },
           {
-            path: 'posts',
-            element: <Posts />,
+            path: "posts",
+            element: <Posts />
           },
           {
-            path: 'my-offers',
-            element: <CustomerOffers />,
+            path: "my-offers",
+            element: <CustomerOffers />
           },
           {
-            path: 'job-offers',
-            element: <JobOffers />,
+            path: "job-offers",
+            element: <JobOffers />
           },
         ],
       },
       {
-        path: 'create-offer',
-        element: <CreateOffer />,
+        path: "create-offer",
+        element: <CreateOffer />
       },
       {
-        path: 'create-post',
-        element: <CreatePost />,
+        path: "create-post",
+        element: <CreatePost />
       },
       {
-        path: 'edit-offer/:id',
-        element: <UpdateOffer />,
+        path: "edit-offer/:id",
+        element: <UpdateOffer />
       },
       {
-        path: 'overview',
-        element: <ProviderOverview />,
+        path: "overview",
+        element: <ProviderOverview />
       },
-      { path: 'overview/request', element: <Request /> },
+      { path: "overview/request", element: <Request /> },
       {
-        path: 'services',
-        element: <Services />,
-      },
-      {
-        path: 'services/available-services',
-        element: <AvailableServices />,
+        path: "services",
+        element: <Services />
       },
       {
-        path: 'services/available-services/:service',
-        element: <SingleService />,
+        path: "services/available-services",
+        element: <AvailableServices />
       },
       {
-        path: 'services/services-around-you',
-        element: <ServicesAroundYou />,
+        path: "services/available-services/:service",
+        element: <SingleService />
       },
       {
-        path: 'services/search',
-        element: <ServicesSearch />,
+        path: "services/services-around-you",
+        element: <ServicesAroundYou />
       },
       {
-        path: 'service-provider/:id',
-        element: <ServiceProviderProfile />,
+        path: "services/search",
+        element: <ServicesSearch />
       },
       {
-        path: 'service-provider/:id/services',
-        element: <ServiceProviderServices />,
+        path: "service-provider/:id",
+        element: <ServiceProviderProfile />
       },
       {
-        path: 'service-provider/:id/activity',
-        element: <ServiceProviderActivity />,
+        path: "service-provider/:id/services",
+        element: <ServiceProviderServices />
       },
       {
-        path: 'service-provider/:id/gallery',
-        element: <ServiceProviderImageGallery />,
+        path: "service-provider/:id/activity",
+        element: <ServiceProviderActivity />
       },
       {
-        path: 'service-provider/:id/booking',
-        element: <ServiceProviderBooking />,
+        path: "service-provider/:id/gallery",
+        element: <ServiceProviderImageGallery />
       },
       {
-        path: 'bookings',
-        element: <Bookings />,
+        path: "service-provider/:id/booking",
+        element: <ServiceProviderBooking />
       },
       {
-        path: 'wallet',
-        element: <Wallet />,
+        path: "bookings",
+        element: <Bookings />
       },
       {
-        path: 'wallet/transaction-history',
-        element: <TransactionHistory />,
+        path: "wallet",
+        element: <Wallet />
       },
-      { path: 'wallet/approve', element: <ApprovePayment /> },
-      { path: 'wallet/withdraw', element: <Withdraw /> },
-      { path: 'wallet/withdraw-verify', element: <WithdrawVerification /> },
-      { path: 'wallet/withdraw-pin', element: <WithdrawPin /> },
-      { path: 'wallet/withdraw-success', element: <WithdrawSuccess /> },
       {
-        path: 'chats',
+        path: "wallet/transaction-history",
+        element: <TransactionHistory />
+      },
+      { path: "wallet/approve", element: <ApprovePayment /> },
+      { path: "wallet/withdraw", element: <Withdraw /> },
+      { path: "wallet/withdraw-verify", element: <WithdrawVerification /> },
+      { path: "wallet/withdraw-pin", element: <WithdrawPin /> },
+      { path: "wallet/withdraw-success", element: <WithdrawSuccess /> },
+      {
+        path: "chats",
         element: <Chat />,
         children: [
           {
             index: true,
-            element: <ConversationList />,
+            element: <ConversationList />
           },
           {
-            path: ':conversationId',
-            element: <ChatWindow />,
+            path: ":conversationId",
+            element: <ChatWindow />
           },
         ],
       },
       {
-        path: 'search',
-        element: <Search />,
+        path: "search",
+        element: <Search />
       },
       {
-        path: 'favorites',
-        element: <Favorites />,
+        path: "favorites",
+        element: <Favorites />
       },
       {
-        path: 'rewards',
-        element: <Rewards />,
+        path: "rewards",
+        element: <Rewards />
       },
       {
-        path: 'support',
-        element: <Support />,
+        path: "support",
+        element: <Support />
       },
       {
-        path: 'notification',
-        element: <Notification />,
+        path: "notification",
+        element: <Notification />
       },
       {
-        path: 'referral',
-        element: <Referral />,
+        path: "referral",
+        element: <Referral />
       },
       {
-        path: 'profile',
-        element: <Profile />,
+        path: "profile",
+        element: <Profile />
       },
       {
-        path: 'registration',
-        element: <Registration />,
+        path: "registration",
+        element: <Registration />
       },
       {
-        path: 'registration/personal-information',
-        element: <PersonalInfo />,
+        path: "registration/personal-information",
+        element: <PersonalInfo />
       },
       {
-        path: 'registration/experience',
-        element: <Experience />,
+        path: "registration/experience",
+        element: <Experience />
       },
       {
-        path: 'registration/application-profile',
-        element: <ApplicationProfile />,
+        path: "registration/application-profile",
+        element: <ApplicationProfile />
       },
       {
-        path: 'reviews',
-        element: <Reviews />,
+        path: "reviews",
+        element: <Reviews />
       },
       {
-        path: 'about',
-        element: <About />,
+        path: "about",
+        element: <About />
       },
     ],
   },
   {
-    path: 'terms-and-conditions',
-    element: <TermsAndConditions />,
+    path: "terms-and-conditions",
+    element: <TermsAndConditions />
   },
   {
-    path: 'privacy-policy',
-    element: <PrivacyPolicy />,
+    path: "privacy-policy",
+    element: <PrivacyPolicy />
   },
   {
-    path: 'faq',
-    element: <FAQs />,
+    path: "faq",
+    element: <FAQs />
   },
-])
+]);
 
 export default function App() {
   useEffect(() => {

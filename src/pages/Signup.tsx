@@ -1,49 +1,50 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { FaFacebookF } from 'react-icons/fa'
-import AuthLogo from '@/components/global/AuthLogo'
-import { register } from '@/api/auth'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
-import { registerSchema } from '@/utils/schemas'
-import FormInput from '@/components/form-fields/FormInput'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaFacebookF } from "react-icons/fa";
+import AuthLogo from "@/components/global/AuthLogo";
+import { register } from "@/api/auth";
+import { useValidateSchema } from "@/hooks/useValidateSchema";
+import { registerSchema } from "@/utils/schemas";
+import FormInput from "@/components/form-fields/FormInput";
 
 export default function SignUp() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    phone: '',
-    email: '',
-    password: '',
-    confirm_password: '',
-  })
+    first_name: "",
+    last_name: "",
+    phone: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const validatedData = useValidateSchema(registerSchema, formData)
-    if (!validatedData) return
+    const validatedData = useValidateSchema(registerSchema, formData);
+    if (!validatedData) return;
 
-    setLoading(true)
+    setLoading(true);
 
     try {
-      const res = await register(validatedData)
-      console.log('REGISTER RESPONSE:', res)
+      const res = await register(validatedData);
+      console.log("REGISTER RESPONSE:", res);
 
-      navigate('/sign-in')
+      // Navigate to onboarding after successful registration
+      navigate("/onboarding");
     } catch (err: any) {
-      console.error(err)
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6 py-10">
@@ -121,11 +122,11 @@ export default function SignUp() {
           disabled={loading}
           className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:opacity-90 disabled:opacity-60"
         >
-          {loading ? 'Signing up...' : 'Sign up'}
+          {loading ? "Signing up..." : "Sign up"}
         </button>
 
         <p className="text-sm text-gray-600 mt-3">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link
             to="/sign-in"
             className="text-primary font-medium hover:underline"
@@ -162,5 +163,5 @@ export default function SignUp() {
         </div>
       </form>
     </div>
-  )
+  );
 }

@@ -3,6 +3,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigation";
+import Container from "@/components/global/Container";
 import { CheckCircle2 } from "lucide-react";
 import type { WithdrawalDetails } from "@/types/withdrawal";
 
@@ -23,7 +24,7 @@ export default function WithdrawSuccess() {
         <HeaderWithBackNavigation title="Withdrawal Successful" />
       </div>
 
-      <div className="flex justify-center w-full px-4 md:px-6 lg:px-8 mt-20">
+      <Container className="flex justify-center">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border p-10 text-center space-y-6">
           <div className="flex justify-center">
             <div className="bg-green-100 p-4 rounded-full">
@@ -60,7 +61,7 @@ export default function WithdrawSuccess() {
             Back to Wallet
           </Button>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
