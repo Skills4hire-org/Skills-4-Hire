@@ -28,9 +28,18 @@ export default function UploadPhoto() {
 
   const handleContinue = () => {
     if (role === "professional") {
-      navigate("/professional-registration");
+      navigate("/professional/registration");
     } else {
-      navigate("/home");
+      navigate("/customer/home");
+    }
+  };
+
+  const handleSkip = () => {
+    // Skip uploading photo and continue onboarding
+    if (role === "professional") {
+      navigate("/professional/registration");
+    } else {
+      navigate("/customer/home");
     }
   };
 
@@ -43,7 +52,9 @@ export default function UploadPhoto() {
 
         <h1 className="text-2xl font-bold">Upload Profile Photo</h1>
 
-        <p className="text-sm text-gray-500 mt-2 mb-8">Add a profile picture</p>
+        <p className="text-sm text-gray-500 mt-2 mb-8">
+          Add a profile picture (optional)
+        </p>
 
         <div className="flex justify-center mb-6">
           <div
@@ -71,9 +82,17 @@ export default function UploadPhoto() {
 
         <button
           onClick={handleContinue}
-          className="w-full bg-primary text-white py-3 rounded-lg font-medium"
+          className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:opacity-90"
         >
           Continue
+        </button>
+
+        <button
+          type="button"
+          onClick={handleSkip}
+          className="mt-3 text-sm text-gray-500 hover:text-primary hover:underline"
+        >
+          Skip for now
         </button>
       </div>
     </div>
