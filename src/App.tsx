@@ -58,6 +58,8 @@ import Search from './pages/Search'
 import WithdrawVerification from './pages/WithdrawVerification'
 import WithdrawSuccess from './pages/WithdrawSuccess'
 import WithdrawPin from './pages/WithdrawPin'
+import AdminLayout from './pages/admin/Admin'
+import UserManagementPage from './pages/admin/UserManagement'
 
 const router = createBrowserRouter([
   {
@@ -101,6 +103,20 @@ const router = createBrowserRouter([
   {
     path: 'verification',
     element: <Verification />,
+  },
+  {
+    path: 'admin',
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/admin/user-management" />
+      },
+      {
+        path: 'user-management',
+        element: <UserManagementPage />
+      }
+    ]
   },
   {
     path: ':userType',
