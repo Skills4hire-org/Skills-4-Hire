@@ -56,9 +56,7 @@ export default function SignUp() {
         <h1 className="text-2xl font-bold">Sign up</h1>
 
         <p className="text-sm text-gray-500 mb-6">
-          Get Maximum <span className="text-primary">Satisfaction</span>
-          <br />
-          From Service Providers
+          Connect with skilled professional. Get hired on Skills4hire
         </p>
 
         <div className="space-y-4 mb-6 text-left">
