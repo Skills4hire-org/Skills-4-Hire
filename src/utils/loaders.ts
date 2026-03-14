@@ -21,3 +21,22 @@ export const deleteServiceProvider = (id) => {
         serviceAround.splice(index, 1);
     }
 }
+
+let nextId = serviceAround.length + 1;
+
+export const listenForNewSignups = (callback) => {
+    const interval = setInterval(() => {
+        const newProviders = [
+            {
+                id: nextId++,
+                name: "New User",
+                occupation: "New Service",
+                totalJobs: 0,
+                image: "/src/assets/Admin profile.jpg",
+            },
+        ];
+        callback(newProviders);
+    }, 5000);
+
+    return () => clearInterval(interval);
+}

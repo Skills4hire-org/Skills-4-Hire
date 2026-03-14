@@ -1983,31 +1983,27 @@ export const serviceTypes = [
     label: 'Carpentry',
   },
   {
-    value: 'motionGraphics',
-    label: 'Motion Graphics',
+    image: motionGraphics,
+    text: 'Motion Graphics',
   },
   {
-    value: 'electrical',
-    label: 'Electrical',
+    image: electrical,
+    text: 'Electrical',
   },
   {
-    value: 'devops',
-    label: 'DevOps',
+    image: devops,
+    text: 'DevOps',
   },
   {
-    value: 'plumbing',
-    label: 'Plumbing',
+    image: plumbing,
+    text: 'Plumbing',
   },
   {
-    value: 'videoEditing',
-    label: 'Video Editing',
+    image: videoEditing,
+    text: 'Video Editing',
   },
   {
-    value: 'cleaning',
-    label: 'Cleaning',
-  },
-  {
-    value: 'mobileAppDevelopment',
-    label: 'Mobile App Development',
+    image: cleaning,
+    text: 'Cleaning',
   },
 ]

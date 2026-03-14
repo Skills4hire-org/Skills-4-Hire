@@ -2,14 +2,25 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import { getServiceProviders, deleteServiceProvider } from "@/utils/loaders";
+import { getServiceProviders, deleteServiceProvider, listenForNewSignups } from "@/utils/loaders";
 
 const UserManagementPage = () => {
   const [serviceProviders, setServiceProviders] = useState([]);
 
   useEffect(() => {
     setServiceProviders(getServiceProviders());
+
+    const unsubscribe = listenForNewSignups((newProviders) => {
+      setServiceProviders(prevProviders => [...prevProviders, ...newProviders]);
+    });
+
+    return () => unsubscribe();
   }, []);
+
+  const handleEdit = (id) => {
+    console.log("Editing provider with id:", id);
+    // Implement edit functionality here
+  };
 
   const handleDelete = (id) => {
     deleteServiceProvider(id);
@@ -57,7 +68,7 @@ const UserManagementPage = () => {
                     <td className="p-4 text-gray-600">{provider.totalJobs}</td>
                     <td className="p-4">
                     <div className="flex items-center gap-4">
-                        <Pencil className="text-gray-400 cursor-pointer hover:text-gray-600" size={20} />
+                        <Pencil onClick={() => handleEdit(provider.id)} className="text-gray-400 cursor-pointer hover:text-gray-600" size={20} />
                         <Trash2 onClick={() => handleDelete(provider.id)} className="text-red-400 cursor-pointer hover:text-red-600" size={20} />
                     </div>
                     </td>
