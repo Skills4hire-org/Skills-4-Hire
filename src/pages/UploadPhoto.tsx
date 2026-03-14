@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store";
 import { addPersonalInfo } from "@/features/registration/registrationSlice";
 import AuthLogo from "@/components/global/AuthLogo";
+import Container from "@/components/global/Container";
 import { Camera } from "lucide-react";
 
 export default function UploadPhoto() {
@@ -44,7 +45,7 @@ export default function UploadPhoto() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white px-6 py-10">
+    <Container className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-sm text-center">
         <div className="w-max mx-auto mb-4">
           <AuthLogo />
@@ -95,6 +96,6 @@ export default function UploadPhoto() {
           Skip for now
         </button>
       </div>
-    </div>
+    </Container>
   );
 }

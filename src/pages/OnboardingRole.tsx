@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store";
 import { setRole } from "@/features/registration/registrationSlice";
 import AuthLogo from "@/components/global/AuthLogo";
+import Container from "@/components/global/Container";
 import { User, Wrench } from "lucide-react";
 
 export default function OnboardingRole() {
@@ -17,7 +18,7 @@ export default function OnboardingRole() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white px-6 py-10">
+    <Container className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-sm text-center">
         <div className="w-max mx-auto mb-4">
           <AuthLogo />
@@ -75,6 +76,6 @@ export default function OnboardingRole() {
           Continue
         </button>
       </div>
-    </div>
+    </Container>
   );
 }
