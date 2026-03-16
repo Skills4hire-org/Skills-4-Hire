@@ -4,7 +4,7 @@ import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { getServiceProviders, deleteServiceProvider, listenForNewSignups } from "@/utils/loaders";
 
-const UserManagementPage = () => {
+const UserManagement = () => {
   const [serviceProviders, setServiceProviders] = useState([]);
 
   useEffect(() => {
@@ -92,4 +92,4 @@ const UserManagementPage = () => {
   );
 };
 
-export default UserManagementPage;
+export default UserManagement;

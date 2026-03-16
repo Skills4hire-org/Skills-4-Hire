@@ -4,7 +4,6 @@ import ApplicationProfile from './pages/ApplicationProfile'
 import ApprovePayment from './pages/ApprovePayment'
 import AvailableServices from './pages/AvailableServices'
 import Bookings from './pages/Bookings'
-import HomeLayout from './components/layouts/HomeLayout'
 import CustomerOffers from './pages/CustomerOffers'
 import Profile from './pages/Profile'
 import Experience from './pages/Experience'
@@ -41,6 +40,7 @@ import ServiceProviderServices from './pages/ServiceProviderServices'
 import ServiceProviderActivity from './pages/ServiceProviderActivity'
 import ServiceProviderImageGallery from './pages/ServiceProviderImageGallery'
 import IndexLayout from './components/layouts/IndexLayout'
+import HomeLayout from './components/layouts/HomeLayout'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Legal from './pages/Legal'
@@ -58,11 +58,12 @@ import Search from './pages/Search'
 import WithdrawVerification from './pages/WithdrawVerification'
 import WithdrawSuccess from './pages/WithdrawSuccess'
 import WithdrawPin from './pages/WithdrawPin'
-import AdminLayout from './pages/admin/Admin'
-import UserManagementPage from './pages/admin/UserManagement'
+import AdminLayout from './components/layouts/AdminLayout'
 import OnboardingRole from './pages/OnboardingRole'
 import UploadPhoto from './pages/UploadPhoto'
 import OnboardingGuard from './pages/OnboardingGuard'
+import Dashboard from './pages/admin/Dashboard'
+import UserManagement from './pages/admin/UserManagement'
 
 const router = createBrowserRouter([
   {
@@ -113,11 +114,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/admin/user-management" />
+        element: <Navigate to="/admin/dashboard" />
+      },
+      {
+        path: 'dashboard',
+        element: <Dashboard />
       },
       {
         path: 'user-management',
-        element: <UserManagementPage />
+        element: <UserManagement />
       }
     ]
   },
