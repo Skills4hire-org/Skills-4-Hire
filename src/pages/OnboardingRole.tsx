@@ -5,6 +5,7 @@ import { setRole } from "@/features/registration/registrationSlice";
 import AuthLogo from "@/components/global/AuthLogo";
 import Container from "@/components/global/Container";
 import { User, Wrench } from "lucide-react";
+import { api } from "@/utils/axiosConfig";
 
 export default function OnboardingRole() {
   const navigate = useNavigate();
@@ -12,9 +13,22 @@ export default function OnboardingRole() {
 
   const role = useSelector((state: RootState) => state.registrationState.role);
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (!role) return;
-    navigate("/onboarding/upload-photo");
+
+    const mappedRole =
+      role === "professional" ? "SERVICE_PROVIDER" : "CUSTOMER";
+
+    try {
+      await api.post("/api/v1/onboard/", {
+        role: mappedRole,
+      });
+
+      navigate("/onboarding/upload-photo");
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message);
+    }
   };
 
   return (

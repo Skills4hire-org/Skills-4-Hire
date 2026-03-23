@@ -37,8 +37,8 @@ export default function SignUp() {
       const res = await register(validatedData);
       console.log("REGISTER RESPONSE:", res);
 
-      // Navigate to onboarding after successful registration
-      navigate("/onboarding");
+      // Navigate to verification page after successful registration
+      navigate("/verify");
     } catch (err: any) {
       console.error(err);
     } finally {
