@@ -6,6 +6,7 @@ import AuthLogo from "@/components/global/AuthLogo";
 import Container from "@/components/global/Container";
 import { User, Wrench } from "lucide-react";
 import { api } from "@/utils/axiosConfig";
+import { toast } from "sonner";
 
 export default function OnboardingRole() {
   const navigate = useNavigate();
@@ -23,11 +24,9 @@ export default function OnboardingRole() {
       await api.post("/api/v1/onboard/", {
         role: mappedRole,
       });
-
       navigate("/onboarding/upload-photo");
-    } catch (err: any) {
-      console.error(err);
-      alert(err.message);
+    } catch (error: any) {
+      toast.error(error?.message);
     }
   };
 

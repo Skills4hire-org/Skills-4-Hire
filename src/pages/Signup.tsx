@@ -6,6 +6,7 @@ import { register } from "@/api/auth";
 import { useValidateSchema } from "@/hooks/useValidateSchema";
 import { registerSchema } from "@/utils/schemas";
 import FormInput from "@/components/form-fields/FormInput";
+import { toast } from "sonner";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -38,9 +39,9 @@ export default function SignUp() {
       console.log("REGISTER RESPONSE:", res);
 
       // Navigate to verification page after successful registration
-      navigate("/verify");
-    } catch (err: any) {
-      console.error(err);
+      navigate("/verification");
+    } catch (error: any) {
+      toast.error(error?.message);
     } finally {
       setLoading(false);
     }
