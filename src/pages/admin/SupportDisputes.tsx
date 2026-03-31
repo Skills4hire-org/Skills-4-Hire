@@ -39,6 +39,24 @@ const INITIAL_CHATS: ChatPreview[] = [
   { id: "6", name: "Dwight Schrute", lastMessage: "I sent the proofs.", time: "Last Week", status: "On hold", avatar: "https://images.unsplash.com/photo-1546456073-ea246a7bd25f?auto=format&fit=crop&q=80&w=150" },
 ];
 
+type ChatMessage = {
+  id: string;
+  sender: "user" | "support" | "system";
+  text: string;
+};
+
+const MOCK_MESSAGES: Record<string, ChatMessage[]> = {
+  "1": [{ id: "m1", sender: "user", text: "I need help with my recent payment." }],
+  "2": [{ id: "m1", sender: "user", text: "Can you review my account limits?" }],
+  "3": [
+    { id: "m1", sender: "user", text: "This is completely unacceptable!!" },
+    { id: "s1", sender: "system", text: "Ticket escalated to high priority" }
+  ],
+  "4": [{ id: "m1", sender: "user", text: "Thanks for the swift resolution." }],
+  "5": [{ id: "m1", sender: "user", text: "When will my dispute be reviewed?" }],
+  "6": [{ id: "m1", sender: "user", text: "I sent the proofs." }]
+};
+
 const StatusPill = ({ status }: { status: DisputeStatus }) => {
   return (
     <span
@@ -61,12 +79,37 @@ const StatusPill = ({ status }: { status: DisputeStatus }) => {
 
 export default function SupportDisputes() {
   const [selectedChat, setSelectedChat] = useState<ChatPreview | null>(INITIAL_CHATS[0]);
+  const [messages, setMessages] = useState<Record<string, ChatMessage[]>>(MOCK_MESSAGES);
   const [messageText, setMessageText] = useState("");
 
   const handleSendMessage = () => {
-    if (!messageText.trim()) return;
-    alert(`Message sent to ${selectedChat?.name}: ${messageText}`);
+    if (!messageText.trim() || !selectedChat) return;
+    
+    const newMessage: ChatMessage = {
+      id: Date.now().toString(),
+      sender: "support",
+      text: messageText.trim(),
+    };
+    
+    setMessages(prev => ({
+      ...prev,
+      [selectedChat.id]: [...(prev[selectedChat.id] || []), newMessage]
+    }));
+    
     setMessageText("");
+
+    // Simulate user replying back after 2 seconds
+    setTimeout(() => {
+      const mockReply: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        sender: "user",
+        text: "Thanks! I appreciate the fast response.",
+      };
+      setMessages(curr => ({
+        ...curr,
+        [selectedChat.id]: [...(curr[selectedChat.id] || []), mockReply]
+      }));
+    }, 2000);
   };
 
   return (
@@ -76,10 +119,10 @@ export default function SupportDisputes() {
       <div className="flex gap-6 h-full flex-col xl:flex-row pb-6">
         
         {/* Left Column (Chat Interface replacing Tables) */}
-        <div className="flex-1 border border-gray-200 rounded-3xl bg-white overflow-hidden flex min-h-[600px] shadow-sm">
+        <div className="flex-1 w-full border border-gray-200 rounded-3xl bg-white overflow-hidden flex flex-col md:flex-row min-h-[600px] shadow-sm">
           
           {/* Conversation List Sidebar */}
-          <div className="w-[320px] border-r border-gray-200 flex flex-col bg-gray-50/50">
+          <div className="w-full md:w-[320px] shrink-0 border-b md:border-b-0 md:border-r border-gray-200 flex flex-col bg-gray-50/50 max-h-[300px] md:max-h-none overflow-y-auto">
             <div className="p-5 border-b border-gray-200 bg-white">
                <h2 className="font-semibold text-gray-800 tracking-tight mb-4 text-lg">Active Tickets</h2>
                <div className="relative">
@@ -150,31 +193,28 @@ export default function SupportDisputes() {
                 
                 {/* Chat Messages */}
                 <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50/50 flex flex-col">
-                  {/* Mock Incoming Message */}
-                  <div className="flex justify-start">
-                     <div className="bg-white border border-gray-200 text-gray-700 py-3 px-4 rounded-2xl rounded-tl-sm text-[15px] max-w-[75%] shadow-sm leading-relaxed">
-                       {selectedChat.lastMessage}
-                     </div>
-                  </div>
-
-                  {/* Mock System Notification if Escalated */}
-                  {selectedChat.status === "Escalate" && (
-                    <div className="flex justify-center my-4">
-                      <span className="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm border border-red-100 flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        Ticket escalated to high priority
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Mock Outgoing Message */}
-                  {selectedChat.status !== "Yet to start" && (
-                     <div className="flex justify-end">
-                       <div className="bg-[#243cd6] text-white py-3 px-4 rounded-2xl rounded-tr-sm text-[15px] max-w-[75%] shadow-sm leading-relaxed">
-                         Hello {selectedChat.name}, I am looking directly into your issue right now. Expect an update shortly.
-                       </div>
-                     </div>
-                  )}
+                  {(messages[selectedChat.id] || []).map((msg) => (
+                    msg.sender === "system" ? (
+                      <div key={msg.id} className="flex justify-center my-4">
+                        <span className="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm border border-red-100 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {msg.text}
+                        </span>
+                      </div>
+                    ) : msg.sender === "user" ? (
+                      <div key={msg.id} className="flex justify-start">
+                         <div className="bg-white border border-gray-200 text-gray-700 py-3 px-4 rounded-2xl rounded-tl-sm text-[15px] max-w-[75%] shadow-sm leading-relaxed whitespace-pre-wrap">
+                           {msg.text}
+                         </div>
+                      </div>
+                    ) : (
+                      <div key={msg.id} className="flex justify-end">
+                        <div className="bg-[#243cd6] text-white py-3 px-4 rounded-2xl rounded-tr-sm text-[15px] max-w-[75%] shadow-sm leading-relaxed whitespace-pre-wrap text-left">
+                          {msg.text}
+                        </div>
+                      </div>
+                    )
+                  ))}
                 </div>
 
                 {/* Chat Input */}

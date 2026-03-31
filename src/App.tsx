@@ -68,6 +68,9 @@ import AdminServices from './pages/admin/AdminServices'
 import SupportDisputes from './pages/admin/SupportDisputes'
 import Transactions from './pages/admin/Transactions'
 import Finance from './pages/admin/Finance'
+import ContentModeration from './pages/admin/ContentModeration'
+import Analytics from './pages/admin/Analytics'
+import Overview from './pages/admin/Overview'
 
 const router = createBrowserRouter([
   {
@@ -302,7 +305,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="user-management" replace />,
+        element: <Overview />,
       },
       {
         path: "user-management",
@@ -323,6 +326,14 @@ const router = createBrowserRouter([
       {
         path: "financial",
         element: <Finance />,
+      },
+      {
+        path: "content-moderation",
+        element: <ContentModeration />,
+      },
+      {
+        path: "analytics",
+        element: <Analytics />,
       },
     ],
   },

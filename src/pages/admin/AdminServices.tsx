@@ -126,10 +126,10 @@ export default function AdminServices() {
   };
 
   return (
-    <div className="flex gap-6 w-full h-full mt-2 relative overflow-hidden text-[#333333]">
+    <div className="flex flex-col lg:flex-row gap-6 w-full h-full mt-2 relative overflow-hidden text-[#333333]">
       
       {/* Left Sidebar Profile Panel */}
-      <div className="w-[280px] bg-[#EBEBEB] rounded-[20px] p-6 flex flex-col shrink-0 overflow-y-auto hidden lg:flex">
+      <div className="w-full lg:w-[320px] bg-[#EBEBEB] rounded-[20px] p-6 flex flex-col lg:shrink-0 lg:overflow-y-auto">
         <div className="flex flex-col items-center mt-2 mb-8">
           <div className="w-20 h-20 rounded-full overflow-hidden border-[3px] border-white shadow-sm bg-blue-100 mb-4">
             <img 
