@@ -27,6 +27,7 @@ export default function SignUp() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("SUBMIT CLICKED", formData)
 
     const validatedData = useValidateSchema(registerSchema, formData);
     if (!validatedData) return;
