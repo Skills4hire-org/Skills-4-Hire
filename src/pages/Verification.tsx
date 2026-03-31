@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "@/utils/axiosConfig";
+import { toast } from "sonner";
 
 const BackArrowIcon = () => (
   <svg
@@ -67,25 +68,25 @@ export default function Verification() {
       });
 
       navigate("/onboarding");
-    } catch (err: any) {
-      console.error(err);
-
-      alert(err?.message || "Verification failed");
+    } catch (error: any) {
+      toast.error(error?.message || "Verification failed");
     } finally {
       setLoading(false);
     }
   };
 
+
+
+
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white px-6 font-sans">
       <div className="w-full max-w-sm">
         <div className="mb-8">
-          <button
-            onClick={() => navigate(-1)}
-            className="p-2 rounded-full hover:bg-gray-200 transition-colors"
+          <Link to='/sign-up' className="p-2 rounded-full hover:bg-gray-200 transition-colors block w-max  "
           >
             <BackArrowIcon />
-          </button>
+          </Link>
         </div>
 
         <div className="text-center mb-10">

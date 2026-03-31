@@ -6,6 +6,7 @@ import { addPersonalInfo } from "@/features/registration/registrationSlice";
 import AuthLogo from "@/components/global/AuthLogo";
 import Container from "@/components/global/Container";
 import { Camera } from "lucide-react";
+import { toast } from "sonner";
 
 export default function UploadPhoto() {
   const navigate = useNavigate();
@@ -28,10 +29,16 @@ export default function UploadPhoto() {
   };
 
   const handleContinue = () => {
-    if (role === "professional") {
+
+    try {
+      if (role === "professional") {
       navigate("/professional/registration");
     } else {
       navigate("/customer/home");
+    }
+      
+    } catch (error:any) {
+      toast.error(error?.message)
     }
   };
 
@@ -45,7 +52,7 @@ export default function UploadPhoto() {
   };
 
   return (
-    <Container className="flex items-center justify-center min-h-screen">
+    <Container className="flex items-center justify-center min-h-screen py-20">
       <div className="w-full max-w-sm text-center">
         <div className="w-max mx-auto mb-4">
           <AuthLogo />
