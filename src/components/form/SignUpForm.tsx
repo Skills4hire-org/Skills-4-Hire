@@ -21,7 +21,10 @@ export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (name: string, value: string) => {
-    setFormData((previous) => ({ ...previous, [name]: value }));
+    if (name === "phone") {
+      value = value.replace(/\D/g, "");
+    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -30,15 +33,28 @@ export default function SignUpForm() {
     const validatedData = useValidateSchema(registerSchema, formData);
     if (!validatedData) return;
 
+    const cleanedPhone = validatedData.phone.replace(/\s+/g, "");
+
+    const formattedPhone = cleanedPhone.startsWith("0")
+      ? "+234" + cleanedPhone.slice(1)
+      : cleanedPhone;
+
+    const payload = {
+      ...validatedData,
+      phone: formattedPhone,
+    };
+
+    console.log("Register payload:", payload);
+
     setLoading(true);
 
     try {
-      const response = await register(validatedData);
+      const response = await register(payload);
 
       toast.success(response?.message || "Account created successfully");
 
       navigate("/verification", {
-        state: { email: validatedData.email },
+        state: { email: payload.email },
       });
     } catch (error: any) {
       toast.error(error?.message || "Signup failed");
@@ -75,6 +91,8 @@ export default function SignUpForm() {
         type="tel"
         required
         maxLength={11}
+        inputMode="numeric"
+        pattern="\d*"
       />
 
       <FormInput

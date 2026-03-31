@@ -17,6 +17,12 @@ export interface ResendOtpPayload {
 }
 
 export interface VerifyOtpPayload {
-  email: string;
-  otp: string;
+  data: {
+    email: string;
+    code: string;
+  };
+}
+
+export interface OnboardPayload {
+  service_to_perform: "CUSTOMER" | "SERVICE_PROVIDER";
 }

@@ -20,30 +20,30 @@ const BackArrowIcon = () => (
 );
 
 export default function Verification() {
-  const [code, setCode] = useState(["", "", "", ""]);
+  const [code, setCode] = useState(new Array(6).fill(""));
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
 
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const inputRefs = useRef<Array<HTMLInputElement | null>>(
+    new Array(6).fill(null),
+  );
   const navigate = useNavigate();
   const location = useLocation();
 
   const email = location.state?.email;
+  console.log("Email received in verification page:", email);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
   ) => {
-    const value = e.target.value;
+    const value = e.target.value.replace(/\D/g, "");  
     const newCode = [...code];
+    newCode[index] = value;
+    setCode(newCode);
 
-    if (/^\d?$/.test(value)) {
-      newCode[index] = value;
-      setCode(newCode);
-
-      if (value && index < 3) {
-        inputRefs.current[index + 1]?.focus();
-      }
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
@@ -57,10 +57,10 @@ export default function Verification() {
   };
 
   const handleConfirm = async () => {
-    const enteredCode = code.join("");
+    const enteredCode = code.join("").trim();
 
-    if (enteredCode.length !== 4) {
-      toast.error("Enter complete code");
+    if (enteredCode.length !== 6) {
+      toast.error("Enter complete 6-digit code");
       return;
     }
 
@@ -73,15 +73,21 @@ export default function Verification() {
 
     try {
       const response = await verifyOtp({
-        email,
-        otp: enteredCode,
+        data: {
+          email,
+          code: enteredCode,
+        },
       });
 
       toast.success(response?.message || "Verified");
 
-      navigate("/onboarding");
+      // Navigate to next onboarding step
+      navigate("/onboarding/role");
     } catch (error: any) {
-      toast.error(error?.message || "Verification failed");
+      console.error("Verify OTP error:", error.response?.data || error.message);
+      toast.error(
+        error.response?.data?.detail || "Verification failed. Check code.",
+      );
     } finally {
       setLoading(false);
     }
@@ -93,13 +99,16 @@ export default function Verification() {
       return;
     }
 
+    const payload = { email };
+    console.log("Resend OTP request payload:", payload);
+
     setResendLoading(true);
-
     try {
-      const response = await resendOtp({ email });
-
+      const response = await resendOtp(payload);
+      console.log("Resend OTP response:", response);
       toast.success(response?.message || "OTP resent");
     } catch (error: any) {
+      console.error("Resend OTP error:", error);
       toast.error(error?.message || "Failed to resend");
     } finally {
       setResendLoading(false);
@@ -121,12 +130,12 @@ export default function Verification() {
           Code sent to <span className="font-medium">{email}</span>
         </p>
 
-        <div className="flex justify-center gap-3 mb-6">
+        <div className="flex justify-center gap-3 mb-6 flex-wrap">
           {code.map((digit, index) => (
             <input
               key={index}
-              ref={(element) => {
-                inputRefs.current[index] = element;
+              ref={(el: HTMLInputElement | null): void => {
+                inputRefs.current[index] = el;
               }}
               type="text"
               maxLength={1}
@@ -148,7 +157,11 @@ export default function Verification() {
 
         <p className="text-center mt-4 text-sm">
           Didn’t get the code?{" "}
-          <button onClick={handleResend} disabled={resendLoading}>
+          <button
+            onClick={handleResend}
+            disabled={resendLoading}
+            className="text-primary py-1 px-2 rounded"
+          >
             {resendLoading ? "Resending..." : "Resend"}
           </button>
         </p>

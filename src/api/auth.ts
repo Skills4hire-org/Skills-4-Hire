@@ -2,6 +2,7 @@ import { api } from "@/utils/axiosConfig";
 import { handleApiError } from "./error";
 import type {
   LoginPayload,
+  OnboardPayload,
   RegisterPayload,
   ResendOtpPayload,
   VerifyOtpPayload,
@@ -36,7 +37,16 @@ export const resendOtp = async (data: ResendOtpPayload) => {
 
 export const verifyOtp = async (data: VerifyOtpPayload) => {
   try {
-    const response = await api.post("/api/v1/auth/verify", data);
+    const response = await api.post("/api/v1/auth/verify/", data);
+    return response?.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const onboardRole = async (data: OnboardPayload) => {
+  try {
+    const response = await api.post("/api/v1/onboard/", data);
     return response?.data;
   } catch (error) {
     handleApiError(error);
