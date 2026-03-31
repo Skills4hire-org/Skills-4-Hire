@@ -62,6 +62,13 @@ import OnboardingRole from './pages/OnboardingRole'
 import UploadPhoto from './pages/UploadPhoto'
 import OnboardingGuard from './pages/OnboardingGuard'
 
+import AdminLayout from './components/layouts/AdminLayout'
+import UserManagement from './pages/admin/UserManagement'
+import AdminServices from './pages/admin/AdminServices'
+import SupportDisputes from './pages/admin/SupportDisputes'
+import Transactions from './pages/admin/Transactions'
+import Finance from './pages/admin/Finance'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -286,6 +293,36 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="user-management" replace />,
+      },
+      {
+        path: "user-management",
+        element: <UserManagement />,
+      },
+      {
+        path: "services",
+        element: <AdminServices />,
+      },
+      {
+        path: "support",
+        element: <SupportDisputes />,
+      },
+      {
+        path: "transactions",
+        element: <Transactions />,
+      },
+      {
+        path: "financial",
+        element: <Finance />,
       },
     ],
   },
