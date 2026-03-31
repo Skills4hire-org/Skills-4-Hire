@@ -11,3 +11,12 @@ export interface RegisterPayload {
   password: string;
   confirm_password: string;
 }
+
+export interface ResendOtpPayload {
+  email: string;
+}
+
+export interface VerifyOtpPayload {
+  email: string;
+  otp: string;
+}
