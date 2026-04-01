@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import AuthLogo from "@/components/global/AuthLogo";
-import SignUpForm from "@/components/form/SignupForm";
+import SignUpForm from "@/components/form/SignUpForm";
 import { FaFacebookF } from "react-icons/fa";
 
 export default function SignUp() {
