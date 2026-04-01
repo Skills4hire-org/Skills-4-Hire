@@ -33,14 +33,14 @@ export default function ProviderOverview() {
               Provider Type: <span className="font-semibold">{user.role}</span>
             </p>
             <p>
-              App Commission: {''}
+              App Commission: {""}
               <span className="font-semibold">{user.commission}</span>
             </p>
           </div>
           <section className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4">
             <h2 className="sr-only">Stat</h2>
             {stats.map((item, index) => {
-              const Icon = item.icon
+              const Icon = item.icon;
               return (
                 <div
                   key={index}
@@ -58,7 +58,7 @@ export default function ProviderOverview() {
                     {item.label}
                   </h3>
                 </div>
-              )
+              );
             })}
           </section>
           <section className="bg-white rounded-lg px-2 py-4 md:px-3 md:py-6 space-y-4 md:space-y-6 shadow-md ">
@@ -87,18 +87,20 @@ export default function ProviderOverview() {
               <BarChart data={chart}>
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: 'hsl(var(--primary))', fontSize: 12 }}
+                  tick={{ fill: "hsl(var(--primary))", fontSize: 12 }}
                 />
                 <YAxis
                   tickFormatter={(val) => val.toLocaleString()}
-                  tick={{ fill: '#111', fontSize: 12 }}
+                  tick={{ fill: "#111", fontSize: 12 }}
                   domain={[0, 500000]}
                   ticks={[
                     0, 50000, 100000, 150000, 200000, 250000, 300000, 350000,
                     400000, 450000, 500000,
                   ]}
                 />
-                <Tooltip formatter={(val) => `₦${val.toLocaleString()}`} />
+                <Tooltip
+                  formatter={(val) => `₦${val?.toLocaleString() ?? 0}`}
+                />
                 <Bar dataKey="revenue" fill="#222BDE" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -125,5 +127,5 @@ export default function ProviderOverview() {
         </div>
       </Container>
     </div>
-  )
+  );
 }
