@@ -96,7 +96,7 @@ export default function Transactions() {
     setPendingTxns(prev => prev.filter(txn => txn.id !== id));
   };
 
-  const handleReferralAction = (action: string, id: number) => {
+  const handleReferralAction = (_action: string, id: number) => {
     setReferrals(prev => prev.filter(ref => ref.id !== id));
   };
 

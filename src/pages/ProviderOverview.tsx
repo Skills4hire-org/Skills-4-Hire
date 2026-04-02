@@ -90,7 +90,7 @@ export default function ProviderOverview() {
                   tick={{ fill: 'hsl(var(--primary))', fontSize: 12 }}
                 />
                 <YAxis
-                  tickFormatter={(val) => val.toLocaleString()}
+                  tickFormatter={(val) => (val !== undefined ? val.toLocaleString() : '')}
                   tick={{ fill: '#111', fontSize: 12 }}
                   domain={[0, 500000]}
                   ticks={[
@@ -98,7 +98,7 @@ export default function ProviderOverview() {
                     400000, 450000, 500000,
                   ]}
                 />
-                <Tooltip formatter={(val) => `₦${val.toLocaleString()}`} />
+                <Tooltip formatter={(val: any) => (val !== undefined ? `₦${val.toLocaleString()}` : '')} />
                 <Bar dataKey="revenue" fill="#222BDE" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>

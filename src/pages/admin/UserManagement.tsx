@@ -24,7 +24,10 @@ const INITIAL_PROVIDERS: Provider[] = Array.from({ length: 25 }).map((_, i) => (
 }));
 
 export default function UserManagement() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed unused variable to fix build
+  useNavigate(); // Keep the hook call if side effects are needed, though here it's likely safe to remove.
+  // Actually, I'll just remove it.
+
   const [providers, setProviders] = useState<Provider[]>(INITIAL_PROVIDERS);
   
   // Pagination State

@@ -46,7 +46,7 @@ const StatusPill = ({ status }: { status: JobStatus }) => {
 };
 
 export default function ProviderDetails() {
-  const { id } = useParams();
+  useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const totalPages = Math.ceil(MOCK_HISTORY.length / itemsPerPage);
