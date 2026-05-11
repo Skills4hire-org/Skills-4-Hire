@@ -116,9 +116,9 @@ export default function SignIn() {
         </p>
 
         <div className="flex items-center my-6">
-          <div className="flex-grow border-t-2 border-gray-300" />
+          <div className="grow border-t-2 border-gray-300" />
           <span className="px-3 text-sm text-gray-400">or</span>
-          <div className="flex-grow border-t-2 border-gray-300" />
+          <div className="grow border-t-2 border-gray-300" />
         </div>
 
         <div className="flex justify-center gap-6">

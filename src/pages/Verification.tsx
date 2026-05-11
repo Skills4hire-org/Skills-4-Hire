@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import { resendOtp, verifyOtp } from "@/api/auth";
@@ -27,20 +27,34 @@ export default function Verification() {
   const inputRefs = useRef<Array<HTMLInputElement | null>>(
     new Array(6).fill(null),
   );
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const email = location.state?.email;
-  console.log("Email received in verification page:", email);
+  //Get email from navigation OR fallback to localStorage
+  const email =
+    location.state?.email || localStorage.getItem("pendingVerificationEmail");
+
+  useEffect(() => {
+    if (!email) {
+      toast.error("Session expired. Please sign up again.");
+      navigate("/sign-up");
+    }
+  }, [email, navigate]);
+
+  if (!email) return null;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
   ) => {
-    const value = e.target.value.replace(/\D/g, "");  
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
+    const value = e.target.value.replace(/\D/g, "");
+
+    setCode((prev) => {
+      const updated = [...prev];
+      updated[index] = value;
+      return updated;
+    });
 
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
@@ -64,11 +78,6 @@ export default function Verification() {
       return;
     }
 
-    if (!email) {
-      toast.error("Email missing. Signup again.");
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -81,8 +90,9 @@ export default function Verification() {
 
       toast.success(response?.message || "Verified");
 
-      // Navigate to next onboarding step
-      navigate("/onboarding/role");
+      localStorage.removeItem("pendingVerificationEmail");
+
+      navigate("/onboarding");
     } catch (error: any) {
       console.error("Verify OTP error:", error.response?.data || error.message);
       toast.error(
@@ -94,18 +104,11 @@ export default function Verification() {
   };
 
   const handleResend = async () => {
-    if (!email) {
-      toast.error("Email missing");
-      return;
-    }
-
     const payload = { email };
-    console.log("Resend OTP request payload:", payload);
 
     setResendLoading(true);
     try {
       const response = await resendOtp(payload);
-      console.log("Resend OTP response:", response);
       toast.success(response?.message || "OTP resent");
     } catch (error: any) {
       console.error("Resend OTP error:", error);
