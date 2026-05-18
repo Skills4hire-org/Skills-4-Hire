@@ -2,7 +2,7 @@ import type { AuthUser } from '@/types/user.types'
 import { createSlice } from '@reduxjs/toolkit'
 
 const defaultState: AuthUser = {
-  userType: 'professional',
+  userType: 'customer',
   access: null,
   refresh: null,
   user_data: null,
