@@ -1164,12 +1164,6 @@ export const faqData = {
   ],
 }
 
-export const referralPageData = {
-  title: 'Referral',
-  rewardAmount: 1000,
-  note: 'Note: Your referrals must have 3 hires before you can withdraw.',
-}
-
 export const mockWalletData = {
   userName: 'John Doe',
   balance: 150500.0,

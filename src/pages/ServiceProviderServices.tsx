@@ -1,6 +1,5 @@
 import Container from '@/components/global/Container'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
-import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
 import ServiceProviderServicesCard from '@/components/service-provider/ServiceProviderServicesCard'
 import { serviceAround } from '@/utils/database'
 import { useState } from 'react'
@@ -9,7 +8,7 @@ import { useParams } from 'react-router-dom'
 export default function ServiceProviderServices() {
   const { id } = useParams()
   const serviceProvider = serviceAround?.find(
-    (provider) => provider.id === Number(id)
+    (provider) => provider.id === Number(id),
   )
   const [visibleCount, setVisibleCount] = useState(10)
   const handleVisibleServices = () => {
@@ -44,9 +43,9 @@ export default function ServiceProviderServices() {
                 Similar service providers
               </h2>
               <div className="grid grid-cols-1 gap-4">
-                {serviceAround?.slice(0, 4)?.map((serviceProvider, index) => (
+                {/* {serviceAround?.slice(0, 4)?.map((serviceProvider, index) => (
                   <ServiceProviderCard key={index} {...serviceProvider} />
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

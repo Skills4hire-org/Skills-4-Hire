@@ -3,7 +3,7 @@ import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import { carouselServices } from '@/assets/data'
 
-export default function Carousel() {
+export default function ServicesCarousel() {
   return (
     <Swiper
       modules={[Autoplay]}

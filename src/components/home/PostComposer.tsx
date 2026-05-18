@@ -116,18 +116,20 @@ export default function PostComposer() {
                 <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
               </Link>
             </div>
-            <div className="flex items-center gap-1.5">
-              <div className="flex items-center gap-1 hover:text-gray-700">
-                <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="text-xs md:text-sm">Attachment</span>
+            {userType == 'customer' && (
+              <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1 hover:text-gray-700">
+                  <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
+                  <span className="text-xs md:text-sm">Attachment</span>
+                </div>
+                <Link
+                  to={url}
+                  className="text-white font-medium p-0.5 bg-green-600 rounded-full"
+                >
+                  <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                </Link>
               </div>
-              <Link
-                to={url}
-                className="text-white font-medium p-0.5 bg-green-600 rounded-full"
-              >
-                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-              </Link>
-            </div>
+            )}
           </div>
           <Link to={url}>
             <FormSubmitButton

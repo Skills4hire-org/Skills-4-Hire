@@ -4,12 +4,16 @@ import { currencyFormatter } from '@/utils/format'
 import { FileText, MapPin, Minus, Star } from 'lucide-react'
 import defaultImage from '../../assets/images/profile.jpg'
 import HeaderWithBackNavigation from '../header/HeaderWithBackNavigation'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import EndorseDialog from '../endorse/EndorseDialog'
 
 export default function ServiceProviderOverview({
   getServiceProvider,
 }: {
   getServiceProvider: ServiceProvider | undefined
 }) {
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <div>
       <HeaderWithBackNavigation title="Profile" />
@@ -25,10 +29,21 @@ export default function ServiceProviderOverview({
             className="aspect-square object-cover w-24 md:w-34 rounded-full"
           />
         </figure>
+        <>
+          <button
+            onClick={() => setIsOpen(true)}
+            className=" block bg-primary px-5 md:px-7 text-white py-1 font-medium rounded-full text-sm md:text-base -mt-12 mb-4 ml-auto cursor-pointer"
+          >
+            Endorse
+          </button>
+          <EndorseDialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            provider_pk=""
+            name=""
+          />
+        </>
 
-        <button className=" block bg-primary px-5 md:px-7 text-white py-1 font-medium rounded-full text-sm md:text-base -mt-12 mb-4 ml-auto">
-          Endorse
-        </button>
         <div className=" pb-3 md:pb-4 text-start">
           <div className="space-y-0.5">
             <div className="flex items-center gap-4 ">
@@ -40,9 +55,12 @@ export default function ServiceProviderOverview({
               </span>
             </div>
             <p className=" text-base md:text-lg">{getServiceProvider?.desc}</p>
-            <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize">
-              12 endosers
-            </span>
+            <Link
+              to="endorsers"
+              className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize"
+            >
+              12 endorsers
+            </Link>
             <p className="flex items-center justify-start gap-1  text-sm md:text-base ">
               From
               <span className="flex items-center gap-0.5">

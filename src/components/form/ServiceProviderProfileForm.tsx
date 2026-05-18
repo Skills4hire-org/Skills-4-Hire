@@ -12,7 +12,6 @@ import {
 } from 'lucide-react'
 import { currencyFormatter } from '@/utils/format'
 import { user } from '@/utils/database'
-import SwitchRoleButton from '../buttons/SwitchRoleButton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import {
   serviceProviderActivityTabList,
@@ -22,7 +21,6 @@ import { cn } from '@/lib/utils'
 import { Link } from 'react-router-dom'
 import EmptyTab from '../service-provider/EmptyTab'
 import ServiceProviderGallery from '../service-provider/ServiceProviderGallery'
-import PostCard from '../home/PostCard'
 import ServiceProviderServicesCard from '../service-provider/ServiceProviderServicesCard'
 import { Button } from '../ui/button'
 import ServiceProviderAbout from '../service-provider/ServiceProviderAbout'
@@ -59,7 +57,7 @@ export default function ServiceProviderProfileForm() {
     setFormData({ ...formData })
   }
 
-/* const [serviceFormData, setServiceFormData] = useState({
+  /* const [serviceFormData, setServiceFormData] = useState({
   serviceDescription: '',
 })
 const handleInputChange = (field: string, value: string) => {
@@ -137,9 +135,6 @@ const handleInputChange = (field: string, value: string) => {
                   {user?.serviceProviderInfo?.totalJobs}{' '}
                   {user?.serviceProviderInfo?.totalJobs > 1 ? 'tasks' : 'task'}
                 </span>
-              </div>
-              <div className="mt-4 w-max mx-auto">
-                <SwitchRoleButton className="bg-primary text-white hover:bg-primary/90  h-8" />
               </div>
             </div>
           </div>
@@ -239,9 +234,9 @@ const handleInputChange = (field: string, value: string) => {
                     >
                       {status === 'posts' && (
                         <div className="pb-10 md:pb-12">
-                          {formData.posts?.slice(0, 1)?.map((post, index) => (
+                          {/* {formData.posts?.slice(0, 1)?.map((post, index) => (
                             <PostCard key={index} {...post} />
-                          ))}
+                          ))} */}
 
                           <Link
                             to=""
@@ -308,15 +303,13 @@ const handleInputChange = (field: string, value: string) => {
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
-                    <AlertDialogHeader className='text-center'>
+                    <AlertDialogHeader className="text-center">
                       <AlertDialogTitle>Add a service</AlertDialogTitle>
                       <AlertDialogDescription className="sr-only">
                         Add a specific service you provide with cost.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <form>
-
-                    </form>
+                    <form></form>
                   </AlertDialogContent>
                 </AlertDialog>
               </div>

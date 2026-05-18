@@ -61,10 +61,12 @@ import WithdrawPin from './pages/WithdrawPin'
 import OnboardingRole from './pages/OnboardingRole'
 import UploadPhoto from './pages/UploadPhoto'
 import OnboardingGuard from './pages/OnboardingGuard'
+import Endorsers from './pages/Endorsers'
+import Endorsed from './pages/Endorsed'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <IndexLayout />,
     children: [
       {
@@ -72,45 +74,45 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "blog",
+        path: 'blog',
         element: <Blog />,
       },
       {
-        path: "blog/:id",
+        path: 'blog/:id',
         element: <BlogPost />,
       },
       {
-        path: "legal",
+        path: 'legal',
         element: <Legal />,
       },
       {
-        path: "about",
+        path: 'about',
         element: <About2 />,
       },
     ],
   },
   {
-    path: "sign-up",
+    path: 'sign-up',
     element: <SignUp />,
   },
   {
-    path: "sign-in",
+    path: 'sign-in',
     element: <SignIn />,
   },
   {
-    path: "forgot-password",
+    path: 'forgot-password',
     element: <ForgotPassword />,
   },
   {
-    path: "verification",
+    path: 'verification',
     element: <Verification />,
   },
   {
-    path: "onboarding",
+    path: 'onboarding',
     element: <OnboardingRole />,
   },
   {
-    path: "onboarding/upload-photo",
+    path: 'onboarding/upload-photo',
     element: (
       <OnboardingGuard>
         <UploadPhoto />
@@ -118,7 +120,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: ":userType",
+    path: ':userType',
     element: <Layout />,
     children: [
       {
@@ -126,7 +128,7 @@ const router = createBrowserRouter([
         element: <Navigate to="home" />,
       },
       {
-        path: "home",
+        path: 'home',
         element: <HomeLayout />,
         children: [
           {
@@ -134,95 +136,99 @@ const router = createBrowserRouter([
             element: <Navigate to="posts" />,
           },
           {
-            path: "posts",
+            path: 'posts',
             element: <Posts />,
           },
           {
-            path: "my-offers",
+            path: 'my-offers',
             element: <CustomerOffers />,
           },
           {
-            path: "job-offers",
+            path: 'job-offers',
             element: <JobOffers />,
           },
         ],
       },
       {
-        path: "create-offer",
+        path: 'create-offer',
         element: <CreateOffer />,
       },
       {
-        path: "create-post",
+        path: 'create-post',
         element: <CreatePost />,
       },
       {
-        path: "edit-offer/:id",
+        path: 'edit-offer/:id',
         element: <UpdateOffer />,
       },
       {
-        path: "overview",
+        path: 'overview',
         element: <ProviderOverview />,
       },
-      { path: "overview/request", element: <Request /> },
+      { path: 'overview/request', element: <Request /> },
       {
-        path: "services",
+        path: 'services',
         element: <Services />,
       },
       {
-        path: "services/available-services",
+        path: 'services/available-services',
         element: <AvailableServices />,
       },
       {
-        path: "services/available-services/:service",
+        path: 'services/available-services/:service',
         element: <SingleService />,
       },
       {
-        path: "services/services-around-you",
+        path: 'services/professionals',
         element: <ServicesAroundYou />,
       },
       {
-        path: "services/search",
+        path: 'services/search',
         element: <ServicesSearch />,
       },
       {
-        path: "service-provider/:id",
+        path: 'professionals/:id',
         element: <ServiceProviderProfile />,
       },
       {
-        path: "service-provider/:id/services",
+        path: 'professionals/:id/services',
         element: <ServiceProviderServices />,
       },
       {
-        path: "service-provider/:id/activity",
+        path: 'professionals/:id/activity',
         element: <ServiceProviderActivity />,
       },
       {
-        path: "service-provider/:id/gallery",
+        path: 'professionals/:id/gallery',
         element: <ServiceProviderImageGallery />,
       },
       {
-        path: "service-provider/:id/booking",
+        path: 'professionals/:id/booking',
         element: <ServiceProviderBooking />,
       },
       {
-        path: "bookings",
+        path: 'professionals/:id/endorsers',
+        element: <Endorsers />,
+      },
+      {
+        path: 'bookings',
         element: <Bookings />,
       },
       {
-        path: "wallet",
+        path: 'wallet',
         element: <Wallet />,
       },
       {
-        path: "wallet/transaction-history",
+        path: 'wallet/transaction-history',
         element: <TransactionHistory />,
       },
-      { path: "wallet/approve", element: <ApprovePayment /> },
-      { path: "wallet/withdraw", element: <Withdraw /> },
-      { path: "wallet/withdraw-verify", element: <WithdrawVerification /> },
-      { path: "wallet/withdraw-pin", element: <WithdrawPin /> },
-      { path: "wallet/withdraw-success", element: <WithdrawSuccess /> },
+      { path: 'wallet/approve', element: <ApprovePayment /> },
+      { path: 'wallet/withdraw', element: <Withdraw /> },
+      { path: 'wallet/withdraw-verify', element: <WithdrawVerification /> },
+      { path: 'wallet/withdraw-pin', element: <WithdrawPin /> },
+      { path: 'wallet/withdraw-success', element: <WithdrawSuccess /> },
       {
-        path: "chats",
+        path: 'chats',
         element: <Chat />,
         children: [
           {
@@ -230,78 +236,82 @@ const router = createBrowserRouter([
             element: <ConversationList />,
           },
           {
-            path: ":conversationId",
+            path: ':conversationId',
             element: <ChatWindow />,
           },
         ],
       },
       {
-        path: "search",
+        path: 'search',
         element: <Search />,
       },
       {
-        path: "favorites",
+        path: 'favorites',
         element: <Favorites />,
       },
       {
-        path: "rewards",
+        path: 'rewards',
         element: <Rewards />,
       },
       {
-        path: "support",
+        path: 'support',
         element: <Support />,
       },
       {
-        path: "notification",
+        path: 'notification',
         element: <Notification />,
       },
       {
-        path: "referral",
+        path: 'referral',
         element: <Referral />,
       },
       {
-        path: "profile",
+        path: 'profile',
         element: <Profile />,
       },
       {
-        path: "registration",
+        path: 'profile/endorsed',
+        element: <Endorsed />,
+      },
+      {
+        path: 'registration',
         element: <Registration />,
       },
       {
-        path: "registration/personal-information",
+        path: 'registration/personal-information',
         element: <PersonalInfo />,
       },
       {
-        path: "registration/experience",
+        path: 'registration/experience',
         element: <Experience />,
       },
       {
-        path: "registration/application-profile",
+        path: 'registration/application-profile',
         element: <ApplicationProfile />,
       },
       {
-        path: "reviews",
+        path: 'reviews',
         element: <Reviews />,
       },
       {
-        path: "about",
+        path: 'about',
         element: <About />,
       },
     ],
   },
   {
-    path: "terms-and-conditions",
+    path: 'terms-and-conditions',
     element: <TermsAndConditions />,
   },
   {
-    path: "privacy-policy",
+    path: 'privacy-policy',
     element: <PrivacyPolicy />,
   },
   {
-    path: "faq",
+    path: 'faq',
     element: <FAQs />,
   },
-]);
+])
 
 export default function App() {
   useEffect(() => {

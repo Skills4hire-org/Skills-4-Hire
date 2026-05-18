@@ -19,7 +19,7 @@ export default function MobileServicesOverviewHeader() {
             <ProfileImage size="size-10" />
           </SidebarTrigger>
         ) : (
-          <Link className="block -my-2" to="/service-provider/profile">
+          <Link className="block -my-2" to="/professional/profile">
             <ProfileImage size="size-10" />
           </Link>
         )}

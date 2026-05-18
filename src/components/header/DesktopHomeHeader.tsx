@@ -17,12 +17,14 @@ export default function DesktopHomeHeader() {
   const handleSearchQuery = () => {
     navigate(`/${userType}/search?query=${searchQuery}`)
   }
+  const searchPlaceholder =
+    userType == 'customer' ? 'Search for plumbers, electricians...' : 'Search'
   return (
     <header className="hidden md:block py-4">
       <div className="flex items-center justify-between gap-8">
         <div className="flex-1 items-center max-w-4xl rounded-lg">
           <SearchBar
-            placeholder="Search for plumbers, electricians..."
+            placeholder={searchPlaceholder}
             maxWidth="max-w-md"
             value={searchQuery}
             onSubmit={handleSearchQuery}

@@ -1,8 +1,6 @@
 import { serviceProviderActivityTabList } from '@/assets/data'
-import CommentCard from '@/components/global/CommentCard'
 import Container from '@/components/global/Container'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
-import PostCard from '@/components/home/PostCard'
 import ServiceProviderGallery from '@/components/service-provider/ServiceProviderGallery'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
@@ -13,7 +11,7 @@ import { useParams } from 'react-router-dom'
 export default function ServiceProviderActivity() {
   const { id } = useParams()
   const serviceProvider = serviceAround?.find(
-    (provider) => provider.id === Number(id)
+    (provider) => provider.id === Number(id),
   )
   const getEmptyTab = (status: 'posts' | 'comments' | 'images') => {
     if (serviceProvider && !serviceProvider[status]) {
@@ -25,7 +23,7 @@ export default function ServiceProviderActivity() {
   const [visibleImagesCount, setVisibleImagesCount] = useState(1)
   const handleVisibleTabContent = (
     prev: number,
-    setPrev: (value: number) => void
+    setPrev: (value: number) => void,
   ) => {
     setPrev(prev + 12)
   }
@@ -46,7 +44,7 @@ export default function ServiceProviderActivity() {
                   key={index}
                   value={status}
                   className={cn(
-                    'bg-background cursor-pointer capitalize border border-muted-foreground px-4 pt-2 pb-2.5 rounded-full text-base md:text-lg text-muted-foreground data-[state=active]:bg-green-700 data-[state=active]:border-green-700 data-[state=active]:text-white data-[state=active]:border-b-1 font-medium'
+                    'bg-background cursor-pointer capitalize border border-muted-foreground px-4 pt-2 pb-2.5 rounded-full text-base md:text-lg text-muted-foreground data-[state=active]:bg-green-700 data-[state=active]:border-green-700 data-[state=active]:text-white data-[state=active]:border-b-1 font-medium',
                   )}
                 >
                   {status}
@@ -59,11 +57,11 @@ export default function ServiceProviderActivity() {
               <TabsContent key={status} value={status}>
                 {status === 'posts' && (
                   <div className="grid gap-2 md:gap-4">
-                    {serviceProvider?.posts
+                    {/*  {serviceProvider?.posts
                       ?.slice(0, visiblePostsCount)
                       ?.map((post, index) => (
                         <PostCard key={index} {...post} />
-                      ))}
+                      ))} */}
                     {(serviceProvider?.services &&
                       serviceProvider?.services?.length <=
                         visiblePostsCount) || (
@@ -72,7 +70,7 @@ export default function ServiceProviderActivity() {
                         onClick={() =>
                           handleVisibleTabContent(
                             visiblePostsCount,
-                            setVisiblePostsCount
+                            setVisiblePostsCount,
                           )
                         }
                       >
@@ -99,7 +97,7 @@ export default function ServiceProviderActivity() {
                         onClick={() =>
                           handleVisibleTabContent(
                             visibleImagesCount,
-                            setVisibleImagesCount
+                            setVisibleImagesCount,
                           )
                         }
                       >
@@ -127,15 +125,15 @@ export default function ServiceProviderActivity() {
                                 </span>
                               </p>
 
-                              <PostCard {...comment.post} />
+                              {/* <PostCard {...comment.post} /> */}
                             </div>
 
                             {/* Comment Section */}
                             <div className="p-2 md:p-4 bg-white grid gap-6">
                               {/* Comment Content */}
-                              {comment.comments.map((singleComment, index) => (
+                              {/* {comment.comments.map((singleComment, index) => (
                                 <CommentCard key={index} {...singleComment} />
-                              ))}
+                              ))} */}
                             </div>
                           </div>
                         ))}
@@ -148,7 +146,7 @@ export default function ServiceProviderActivity() {
                         onClick={() =>
                           handleVisibleTabContent(
                             visibleCommentsCount,
-                            setVisibleCommentsCount
+                            setVisibleCommentsCount,
                           )
                         }
                       >

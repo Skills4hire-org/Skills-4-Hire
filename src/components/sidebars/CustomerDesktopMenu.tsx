@@ -9,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import { useNavigate } from 'react-router-dom'
-import SwitchRoleButton from '../buttons/SwitchRoleButton'
 import SignOutButton from '../buttons/SignOutButton'
 
 export default function CustomerDesktopMenu() {
@@ -37,7 +36,7 @@ export default function CustomerDesktopMenu() {
                   navigate(url)
                 }}
                 key={label}
-                className="px-1 group cursor-pointer"
+                className="px-1 group cursor-pointer hover:bg-white"
                 asChild
               >
                 <div className="py-2 flex items-center gap-2 w-full">
@@ -49,9 +48,6 @@ export default function CustomerDesktopMenu() {
               </DropdownMenuItem>
             )
           })}
-          <div className="mt-2">
-            <SwitchRoleButton className="bg-black" />
-          </div>
         </DropdownMenuGroup>
 
         <DropdownMenuLabel className="px-0 text-base py-0 mt-4 ">
@@ -61,22 +57,39 @@ export default function CustomerDesktopMenu() {
           {sidebarAboutUs.map(({ icon, label, url }) => {
             const IconComponent = icon
             return (
-              <DropdownMenuItem
-                key={label}
-                className="px-1 group cursor-pointer"
-                asChild
-                onClick={(event) => {
-                  event.preventDefault()
-                  navigate(url)
-                }}
-              >
-                <div className="py-2 flex items-center gap-2 w-full">
-                  <IconComponent className="w-5 h-5  group-hover:text-foreground" />
-                  <span className="capitalize text-xs flex items-center justify-between flex-1 group-hover:text-foreground">
-                    {label}
-                  </span>
-                </div>
-              </DropdownMenuItem>
+              <>
+                {' '}
+                {label == 'helpline number' ? (
+                  <div className="px-1 group cursor-pointer hover:bg-white rounded-sm">
+                    <a
+                      href={url}
+                      className="py-2 flex items-center gap-2 w-full "
+                    >
+                      <IconComponent className="w-4 h-4  group-hover:text-foreground" />
+                      <span className="capitalize text-xs flex items-center justify-between flex-1 group-hover:text-foreground">
+                        {label}
+                      </span>
+                    </a>
+                  </div>
+                ) : (
+                  <DropdownMenuItem
+                    key={label}
+                    className="px-1 group cursor-pointer hover:bg-white"
+                    asChild
+                    onClick={(event) => {
+                      event.preventDefault()
+                      navigate(url)
+                    }}
+                  >
+                    <div className="py-2 flex items-center gap-2 w-full">
+                      <IconComponent className="w-5 h-5  group-hover:text-foreground" />
+                      <span className="capitalize text-xs flex items-center justify-between flex-1 group-hover:text-foreground">
+                        {label}
+                      </span>
+                    </div>
+                  </DropdownMenuItem>
+                )}
+              </>
             )
           })}
         </DropdownMenuGroup>

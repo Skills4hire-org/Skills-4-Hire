@@ -20,6 +20,9 @@ export default function MobileHomeHeader() {
     navigate(`/${userType}/search?query=${searchQuery}`)
   }
 
+  const searchPlaceholder =
+    userType == 'customer' ? 'Search for plumbers, electricians...' : 'Search'
+
   return (
     <header className="md:hidden w-full pb-2">
       <div className="flex items-center justify-between pt-3 pb-4">
@@ -32,7 +35,7 @@ export default function MobileHomeHeader() {
               </div>
             </SidebarTrigger>
           ) : (
-            <Link to="/service-provider/profile">
+            <Link to="/professional/profile">
               <div className="-my-2">
                 <ProfileImage size="size-10" />
               </div>
@@ -43,7 +46,7 @@ export default function MobileHomeHeader() {
       <div className="flex items-center justify-between gap-4 sm:gap-16">
         <div className="flex-1">
           <SearchBar
-            placeholder="Search for plumbers, electricians..."
+            placeholder={searchPlaceholder}
             maxWidth="w-full"
             value={searchQuery}
             onSubmit={handleSearchQuery}

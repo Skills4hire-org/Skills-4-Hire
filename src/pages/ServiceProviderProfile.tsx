@@ -5,11 +5,16 @@ import ServiceProviderServices from '@/components/service-provider/ServiceProvid
 import ServiceProviderTab from '@/components/service-provider/ServiceProviderTab'
 import { Button } from '@/components/ui/button'
 import { getServiceProvider } from '@/utils/loaders'
+import type { UserType } from '@/utils/types'
+import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 
 export default function ServiceProviderProfile() {
   const { id } = useParams()
   const serviceProvider = getServiceProvider(id)
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
   return (
     <>
       <ServiceProviderOverview getServiceProvider={serviceProvider} />
@@ -33,9 +38,11 @@ export default function ServiceProviderProfile() {
             Message Me
           </Button>
         </Link>
-        <Link to={`/customer/service-provider/${serviceProvider?.id}/booking`}>
-          <Button className="w-30">Book Me</Button>
-        </Link>
+        {userType == 'customer' && (
+          <Link to={`/customer/professionals/${serviceProvider?.id}/booking`}>
+            <Button className="w-30">Book Me</Button>
+          </Link>
+        )}
       </div>
     </>
   )

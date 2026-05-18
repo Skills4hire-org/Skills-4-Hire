@@ -1,52 +1,12 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaFacebookF } from "react-icons/fa";
-import AuthLogo from "@/components/global/AuthLogo";
-import FormInput from "@/components/form-fields/FormInput";
-import { login } from "@/api/auth";
-import { loginSchema } from "@/utils/schemas";
-import { useValidateSchema } from "@/hooks/useValidateSchema";
+import { Link } from 'react-router-dom'
+import { FaFacebookF } from 'react-icons/fa'
+import AuthLogo from '@/components/global/AuthLogo'
+import SignInForm from '@/components/form/SignInForm'
 
 export default function SignIn() {
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (key: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const validatedData = useValidateSchema(loginSchema, formData);
-    if (!validatedData) return;
-
-    setLoading(true);
-
-    try {
-      const res = await login(validatedData);
-      console.log("LOGIN RESPONSE:", res);
-
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm text-center pt-6 md:pt-10"
-      >
+      <div className="w-full max-w-sm text-center pt-6 md:pt-10">
         <div className="w-max mx-auto mb-2">
           <AuthLogo />
         </div>
@@ -57,44 +17,10 @@ export default function SignIn() {
           Enter your email and password you created during registration
         </p>
 
-        <div className="space-y-3 mb-3 text-left">
-          <FormInput
-            name="email"
-            type="email"
-            placeholder="Email address"
-            value={formData.email}
-            handleInputChange={handleChange}
-            required
-          />
+        <SignInForm />
 
-          <FormInput
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            handleInputChange={handleChange}
-            required
-          />
-
-          <div className="flex justify-end">
-            <Link
-              to="/forgot-password"
-              className="text-sm text-primary hover:underline"
-            >
-              Forgot Password?
-            </Link>
-          </div>
-        </div>
-
-        <button
-          disabled={loading}
-          className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:opacity-90 disabled:opacity-60"
-        >
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
-
-        <p className="text-sm text-gray-600 mt-3">
-          Don&apos;t have an account?{" "}
+        <p className="text-sm text-gray-600">
+          Don&apos;t have an account?{' '}
           <Link
             to="/sign-up"
             className="text-primary font-medium hover:underline"
@@ -104,9 +30,9 @@ export default function SignIn() {
         </p>
 
         <p className="text-xs text-gray-600 mt-3 leading-snug">
-          By clicking the{" "}
+          By clicking the{' '}
           <span className="font-medium text-black">Sign in</span> button you
-          accept the{" "}
+          accept the{' '}
           <Link
             to="/privacy-policy"
             className="text-primary font-medium hover:underline"
@@ -140,7 +66,7 @@ export default function SignIn() {
             className="w-8 h-8"
           />
         </div>
-      </form>
+      </div>
     </div>
-  );
+  )
 }

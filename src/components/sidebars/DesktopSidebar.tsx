@@ -23,7 +23,7 @@ import { Icon } from '@iconify/react'
 
 export default function DesktopSidebar() {
   const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState
+    (state: any) => state.userState,
   )
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)
@@ -69,7 +69,7 @@ export default function DesktopSidebar() {
         {userType === 'customer' ? (
           <CustomerDesktopMenu />
         ) : (
-          <Link to="/service-provider/profile" className="mx-auto">
+          <Link to="/professional/profile" className="mx-auto">
             <ProfileImage />
           </Link>
         )}

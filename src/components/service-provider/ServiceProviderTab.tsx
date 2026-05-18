@@ -22,7 +22,7 @@ export default function ServiceProviderTab({
               key={index}
               value={status}
               className={cn(
-                'bg-background cursor-pointer capitalize border-b-1 border-b-transparent text-base md:text-lg text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:border-b-1 px-0 data-[state=active]:text-foreground'
+                'bg-background cursor-pointer capitalize border-b-1 border-b-transparent text-base md:text-lg text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:border-b-1 px-0 data-[state=active]:text-foreground',
               )}
             >
               {status}
@@ -50,7 +50,7 @@ export default function ServiceProviderTab({
                   </div>
                 ) : (
                   <Link
-                    to={`/customer/service-provider/${getServiceProvider?.id}/gallery`}
+                    to={`/customer/professionals/${getServiceProvider?.id}/gallery`}
                     className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
                   >
                     Show all images

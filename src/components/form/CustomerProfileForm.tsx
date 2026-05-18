@@ -8,6 +8,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 import defaultProfileImage from '../../assets/images/profile.jpg'
 import type { ProfileFormData } from '@/utils/types'
 import Container from '../global/Container'
+import { Link } from 'react-router-dom'
 
 export default function CustomerProfileForm() {
   const [formData, setFormData] = useState<ProfileFormData>({
@@ -83,9 +84,12 @@ export default function CustomerProfileForm() {
               {user?.firstName} {user?.lastName}
             </h2>
 
-            <span className=" font-semibold text-sm md:text-base -mt-0.5 text-primary block capitalize">
+            <Link
+              to="endorsed"
+              className=" font-semibold text-sm md:text-base -mt-0.5 text-primary block capitalize hover:opacity-90"
+            >
               24 endorsed
-            </span>
+            </Link>
           </div>
         </div>
         <div className="space-y-3 md:space-y-4">

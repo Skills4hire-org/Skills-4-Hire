@@ -18,7 +18,7 @@ export default function ServiceProviderServices({
             <ServiceProviderServicesCard key={index} {...service} />
           ))}
           <Link
-            to={`/customer/service-provider/${getServiceProvider?.id}/services`}
+            to={`/customer/professionals/${getServiceProvider?.id}/services`}
             className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
           >
             Show all services

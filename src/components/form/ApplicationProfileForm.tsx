@@ -9,10 +9,6 @@ import {
 } from '@/features/registration/registrationSlice'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { applicationProfileFormSchema } from '@/utils/schemas'
-import {
-  setServiceProviderStatus,
-  setUserType,
-} from '@/features/user/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -65,7 +61,7 @@ export default function ApplicationProfileForm() {
         applicationProfile: {
           [field]: value,
         },
-      })
+      }),
     )
   }
   const navigate = useNavigate()
@@ -73,23 +69,14 @@ export default function ApplicationProfileForm() {
     e.preventDefault()
     const validateData = useValidateSchema(
       applicationProfileFormSchema,
-      applicationProfile
+      applicationProfile,
     )
     if (!validateData) {
       return
     }
     //handle creation of account on database
     toast.success('Registration successful!')
-    dispatch(
-      setServiceProviderStatus({
-        serviceProviderStatus: true,
-      })
-    )
-    dispatch(
-      setUserType({
-        userType: 'service-provider',
-      })
-    )
+
     dispatch(clearForms())
     navigate('/service-provider/profile')
   }

@@ -7,10 +7,10 @@ import {
 } from '../ui/carousel'
 
 interface CategoriesCarouselProp {
-  images: string[]
+  images: string[] | undefined
 }
 
-function OfferImageCarousel({ images }: CategoriesCarouselProp) {
+function ImageCarousel({ images }: CategoriesCarouselProp) {
   return (
     <div className="relative">
       <Carousel
@@ -20,7 +20,7 @@ function OfferImageCarousel({ images }: CategoriesCarouselProp) {
         className="w-full h-max px-6  -my-4"
       >
         <CarouselContent className="pl-2">
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <CarouselItem
               key={index}
               className={`${images.length > 1 ? 'basis-1/2' : 'basis-1/1'} ${images.length > 2 ? 'sm:basis-1/3' : 'sm:basis-1/2'} ${images.length > 3 ? 'xl:basis-1/4' : 'xl:basis-1/3'} pl-2`}
@@ -45,4 +45,4 @@ function OfferImageCarousel({ images }: CategoriesCarouselProp) {
     </div>
   )
 }
-export default OfferImageCarousel
+export default ImageCarousel

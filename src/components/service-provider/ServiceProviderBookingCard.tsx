@@ -33,7 +33,7 @@ export default function ServiceProviderBookingCard({
 }: ServiceProviderCardProp) {
   return (
     <div className="rounded-r-md flex bg-white shadow-md">
-      <Link to={`/customer/service-provider/${id}`}>
+      <Link to={`/customer/professionals/${id}`}>
         <figure className="rounded-tr-4xl h-full ">
           <img
             src={image}
