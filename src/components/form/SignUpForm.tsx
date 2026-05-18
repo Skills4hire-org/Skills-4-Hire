@@ -1,14 +1,17 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState} from "react";
+import type { FormEvent } from "react";
 import { register } from "@/api/auth";
 import { useValidateSchema } from "@/hooks/useValidateSchema";
 import { registerSchema } from "@/utils/schemas";
 import FormInput from "@/components/form-fields/FormInput";
+
 import { toast } from "sonner";
 
-export default function SignUpForm() {
-  const navigate = useNavigate();
+interface SignUpFormProps {
+  onSuccess?: (email: string) => void;
+}
 
+export default function SignUpForm({ onSuccess }: SignUpFormProps) {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -16,6 +19,7 @@ export default function SignUpForm() {
     email: "",
     password: "",
     confirm_password: "",
+    referral_code: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -27,9 +31,8 @@ export default function SignUpForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
+ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
     const validatedData = useValidateSchema(registerSchema, formData);
     if (!validatedData) return;
 
@@ -42,9 +45,8 @@ export default function SignUpForm() {
     const payload = {
       ...validatedData,
       phone: formattedPhone,
+      referral_code: formData.referral_code || undefined,
     };
-
-    console.log("Register payload:", payload);
 
     setLoading(true);
 
@@ -53,9 +55,8 @@ export default function SignUpForm() {
 
       toast.success(response?.message || "Account created successfully");
 
-      navigate("/verification", {
-        state: { email: payload.email },
-      });
+      // Call parent handler instead of navigating directly
+      onSuccess?.(payload.email);
     } catch (error: any) {
       toast.error(error?.message || "Signup failed");
     } finally {
@@ -120,6 +121,14 @@ export default function SignUpForm() {
         handleInputChange={handleChange}
         type="password"
         required
+      />
+
+      <FormInput
+        name="referral_code"
+        placeholder="Referral Code (Optional)"
+        value={formData.referral_code}
+        handleInputChange={handleChange}
+        type="text"
       />
 
       <button

@@ -187,7 +187,11 @@ const router = createBrowserRouter([
         element: <ServicesSearch />,
       },
       {
+<<<<<<< HEAD
         path: 'professionals/:id',
+=======
+        path: " /:id",
+>>>>>>> c41fa726ff8f5bd47498e0e915cb3e6ddb383fd6
         element: <ServiceProviderProfile />,
       },
       {
