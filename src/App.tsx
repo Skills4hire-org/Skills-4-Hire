@@ -185,7 +185,7 @@ const router = createBrowserRouter([
         element: <ServicesSearch />,
       },
       {
-        path: "service-provider/:id",
+        path: " /:id",
         element: <ServiceProviderProfile />,
       },
       {
