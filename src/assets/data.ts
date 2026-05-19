@@ -43,7 +43,7 @@ import plumbing from './images/plumbing.jpg'
 import projectManagement from './images/projectManagement.jpg'
 import videoEditing from './images/videoEditing.jpg'
 import webDevelopment from './images/webDevelopment.jpg'
-import heroCarousel1 from './images/hero-carousel1.jpg'
+import heroCarousel1 from './images/hero-carousel-1.jpg'
 import heroCarousel2 from './images/hero-carousel2.jpg'
 import heroCarousel3 from './images/hero-carousel3.png'
 
