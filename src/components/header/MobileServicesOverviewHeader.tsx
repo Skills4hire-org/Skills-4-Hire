@@ -11,16 +11,17 @@ export default function MobileServicesOverviewHeader() {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
+  const is_active = navigator.onLine
   return (
     <header className="flex items-center md:hidden justify-between gap-2 py-1">
       <div className="flex items-center gap-2">
         {userType == 'customer' ? (
           <SidebarTrigger className="ml-1.5">
-            <ProfileImage size="size-10" />
+            <ProfileImage size="size-10" is_active={is_active} />
           </SidebarTrigger>
         ) : (
           <Link className="block -my-2" to="/professional/profile">
-            <ProfileImage size="size-10" />
+            <ProfileImage size="size-10" is_active={is_active} />
           </Link>
         )}
         <div>

@@ -1,4 +1,4 @@
-export default function NoJobsFound({
+export default function NoResultFound({
   icon,
   text,
   subtitle,

@@ -32,6 +32,7 @@ export default function DesktopSidebar() {
     userType == 'customer'
       ? customerDesktopNavLinks
       : serviceProviderDesktopNavLinks
+  const is_active = navigator.onLine
   return (
     <Sidebar className="rounded-r-lg h-full border-none">
       <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center">
@@ -70,7 +71,7 @@ export default function DesktopSidebar() {
           <CustomerDesktopMenu />
         ) : (
           <Link to="/professional/profile" className="mx-auto">
-            <ProfileImage />
+            <ProfileImage is_active={is_active} />
           </Link>
         )}
       </SidebarFooter>

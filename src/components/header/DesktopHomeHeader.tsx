@@ -19,6 +19,7 @@ export default function DesktopHomeHeader() {
   }
   const searchPlaceholder =
     userType == 'customer' ? 'Search for plumbers, electricians...' : 'Search'
+  const is_active = navigator.onLine
   return (
     <header className="hidden md:block py-4">
       <div className="flex items-center justify-between gap-8">
@@ -38,7 +39,7 @@ export default function DesktopHomeHeader() {
           <RecentNotification icon={MessageSquareMore} newAlert />
 
           <div className="flex items-center gap-2">
-            <ProfileImage size="size-10" />
+            <ProfileImage size="size-10" is_active={is_active} />
             <h1 className="text-sm font-semibold">Leo Justin</h1>
           </div>
         </div>

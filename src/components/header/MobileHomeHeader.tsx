@@ -22,7 +22,7 @@ export default function MobileHomeHeader() {
 
   const searchPlaceholder =
     userType == 'customer' ? 'Search for plumbers, electricians...' : 'Search'
-
+  const is_active = navigator.onLine
   return (
     <header className="md:hidden w-full pb-2">
       <div className="flex items-center justify-between pt-3 pb-4">
@@ -31,13 +31,13 @@ export default function MobileHomeHeader() {
           {userType === 'customer' ? (
             <SidebarTrigger className="mr-1.5">
               <div>
-                <ProfileImage size="size-10" />
+                <ProfileImage size="size-10" is_active={is_active} />
               </div>
             </SidebarTrigger>
           ) : (
             <Link to="/professional/profile">
               <div className="-my-2">
-                <ProfileImage size="size-10" />
+                <ProfileImage size="size-10" is_active={is_active} />
               </div>
             </Link>
           )}
