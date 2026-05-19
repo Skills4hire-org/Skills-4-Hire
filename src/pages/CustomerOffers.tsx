@@ -59,11 +59,7 @@ export default function CustomerOffers() {
             <>
               <div className="grid grid-cols-1 gap-4">
                 {offers?.length === 0 ? (
-                  <NoJobsFound
-                    icon={Briefcase}
-                    text="No job offers found"
-                    subtitle=" Try adjusting your filters or reset search"
-                  />
+                  <NoJobsFound icon={Briefcase} text="No job offers found" />
                 ) : (
                   offers?.map((offer) => (
                     <OfferCard key={offer.post_id} {...offer} />

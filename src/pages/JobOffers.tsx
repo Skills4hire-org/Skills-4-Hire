@@ -1,5 +1,5 @@
 import JobOfferCard from '@/components/home/JobOfferCard'
-import { Sliders } from 'lucide-react'
+import { Briefcase, Sliders } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import FilterModal from '@/components/home/FilterModal'
 import SortDropdown from '@/components/home/SortDropdown'
@@ -147,7 +147,11 @@ export default function JobOffers() {
               <>
                 <div className="grid grid-cols-1 gap-4">
                   {sortedOffers?.length === 0 ? (
-                    <NoJobsFound />
+                    <NoJobsFound
+                      icon={Briefcase}
+                      text="No job offers found"
+                      subtitle=" Try adjusting your filters or reset search"
+                    />
                   ) : (
                     sortedOffers?.map((offer) => (
                       <JobOfferCard key={offer.post_id} {...offer} />
