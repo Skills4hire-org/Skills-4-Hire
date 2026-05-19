@@ -108,6 +108,7 @@ export default function AvailableServices() {
                       <Error
                         text="Failed to load services"
                         buttonFunc={handleVocationalServiceFetchingError}
+                        buttonText="Retry"
                       />
                     </div>
                   ) : (
@@ -160,6 +161,7 @@ export default function AvailableServices() {
                       <Error
                         text="Failed to load services"
                         buttonFunc={handleDigitalServiceFetchingError}
+                        buttonText="Retry"
                       />
                     </div>
                   ) : (

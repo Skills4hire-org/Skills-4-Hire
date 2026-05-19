@@ -4,7 +4,8 @@ import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
 import type { Post } from '@/types/post.types'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
-import NoJobsFound from '@/components/home/NoJobsFound'
+import NoJobsFound from '@/components/global/NoResultFound'
+import { Briefcase } from 'lucide-react'
 
 export default function CustomerOffers() {
   const {
@@ -47,7 +48,7 @@ export default function CustomerOffers() {
         </div>
       ) : (
         <>
-          {!isError && !data ? (
+          {isError && !data ? (
             <div className="py-10">
               <Error
                 text="Failed to load your offers"
@@ -58,7 +59,11 @@ export default function CustomerOffers() {
             <>
               <div className="grid grid-cols-1 gap-4">
                 {offers?.length === 0 ? (
-                  <NoJobsFound />
+                  <NoJobsFound
+                    icon={Briefcase}
+                    text="No job offers found"
+                    subtitle=" Try adjusting your filters or reset search"
+                  />
                 ) : (
                   offers?.map((offer) => (
                     <OfferCard key={offer.post_id} {...offer} />

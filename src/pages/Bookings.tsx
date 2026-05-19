@@ -69,6 +69,7 @@ export default function Bookings() {
                   <Error
                     text={`Failed to load ${bookingStatus == 'In_progress' ? 'ongoing' : bookingStatus}  bookings`}
                     buttonFunc={handleBookingsFetchingError}
+                    buttonText="Retry"
                   />
                 </div>
               ) : (

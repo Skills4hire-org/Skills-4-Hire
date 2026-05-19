@@ -10,9 +10,8 @@ import type { Favorite } from '@/types/favourites.type'
 export default function Favorites() {
   const { data, isLoading, isError, refetch } = useFavourites()
   const favourites: Favorite = data
-  const providersID = favourites?.providers?.map(
-    ({ provider_id }) => provider_id,
-  )
+  const allFavourites = favourites?.providers ?? []
+  const providersID = allFavourites?.map(({ provider_id }) => provider_id)
 
   const handleFavouritesFetchingError = () => {
     refetch()
@@ -40,7 +39,7 @@ export default function Favorites() {
             ) : (
               <>
                 <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
-                  {favourites?.providers?.map((favourite) => (
+                  {allFavourites?.map((favourite) => (
                     <ServiceProviderCard
                       key={favourite.provider_id}
                       {...favourite}
@@ -50,7 +49,7 @@ export default function Favorites() {
                   ))}
                 </div>
 
-                {favourites?.providers?.length === 0 && <NoFavoriteCard />}
+                {allFavourites?.length === 0 && <NoFavoriteCard />}
               </>
             )}
           </>

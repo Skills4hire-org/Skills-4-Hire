@@ -96,6 +96,7 @@ export default function Services() {
                     <Error
                       text="Failed to load available services"
                       buttonFunc={handleServicesFetchingError}
+                      buttonText="Retry"
                     />
                   </div>
                 ) : (
@@ -130,6 +131,7 @@ export default function Services() {
                     <Error
                       text="Failed to load professionals"
                       buttonFunc={handleProviderFetchingError}
+                      buttonText="Retry"
                     />
                   </div>
                 ) : (

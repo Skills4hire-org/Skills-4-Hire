@@ -1,12 +1,13 @@
 import Container from '@/components/global/Container'
 import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
+import NoResultFound from '@/components/global/NoResultFound'
 import MobileWithAvatarAndDesktopHeader from '@/components/header/MobileWithAvatarAndDesktopHeader'
-import NoReviewCard from '@/components/reviews/NoReviewCard'
 import ReviewCard from '@/components/reviews/ReviewCard'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { useReviews } from '@/hooks/useReviews'
 import type { Review } from '@/types/reviews.types'
+import { Star } from 'lucide-react'
 
 function Reviews() {
   const {
@@ -59,7 +60,9 @@ function Reviews() {
                     <ReviewCard key={review.review_id} {...review} />
                   ))}
                 </div>
-                {reviews?.length === 0 && <NoReviewCard />}
+                {reviews?.length === 0 && (
+                  <NoResultFound text="No reviews" icon={Star} />
+                )}
 
                 <div ref={loadMoreRef} />
 
