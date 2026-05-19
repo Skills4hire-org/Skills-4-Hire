@@ -10,17 +10,7 @@ import { services, timeFrameOptions } from '@/assets/data'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
-import type { CreatePost, OfferFormType } from '@/types/post.types'
-
-interface OfferFormProps {
-  title: string
-  post: string
-  budget: string
-  timeFrame: string | undefined
-  service: string | undefined
-  city: string
-  state: string
-}
+import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
 
 export default function OfferForm({
   offer,
@@ -28,17 +18,17 @@ export default function OfferForm({
   isSubmitting,
   setIsSubmitting,
 }: {
-  offer?: OfferFormProps
+  offer?: Post
   onSubmit: (data: CreatePost) => void
   isSubmitting: boolean
   setIsSubmitting: (value: boolean) => void
 }) {
   const [formData, setFormData] = useState<OfferFormType>({
-    title: offer?.title ?? '',
-    post: offer?.post ?? '',
-    budget: offer?.budget ?? '',
-    timeFrame: offer?.timeFrame ?? undefined,
-    service: offer?.service ?? undefined,
+    title: offer?.post_title ?? '',
+    post: offer?.post_content ?? '',
+    budget: offer?.amount ?? '',
+    timeFrame: offer?.duration?.toString() ?? undefined,
+    service: offer?.tags?.[0]?.name ?? undefined,
     photo: [],
     attachment: [],
     city: offer?.city ?? '',
