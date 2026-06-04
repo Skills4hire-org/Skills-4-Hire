@@ -142,10 +142,10 @@ export type BookingInfo = {
 }
 
 export type FileStructure = {
-  file: string | null
-  name: string
-  selectNewFile: boolean
-}
+  file: File | string | null;
+  name: string;
+  selectNewFile: boolean;
+};
 
 export type ProfileFormData = {
   firstName: string

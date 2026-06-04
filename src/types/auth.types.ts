@@ -26,3 +26,5 @@ export interface VerifyOtpPayload {
 export interface OnboardPayload {
   service_to_perform: "CUSTOMER" | "SERVICE_PROVIDER";
 }
+
+//
