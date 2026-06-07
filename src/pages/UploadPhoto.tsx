@@ -37,8 +37,8 @@ export default function UploadPhoto() {
   const [loading, setLoading] = useState(false);
 
   const nextRoute =
-    role === "professional"
-      ? "/service-provider/application"
+    role === "service_provider"
+      ? "/service-provider/registration/personal-information"
       : "/customer/home";
 
   const handleFile = (selected: File) => {

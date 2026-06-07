@@ -82,17 +82,21 @@ export default function Verification() {
 
     try {
       const response = await verifyOtp({
-        data: {
-          email,
-          code: enteredCode,
-        },
+        email,
+        code: enteredCode,
       });
 
-      toast.success(response?.message || "Verified");
+      // console.log("OTP RESPONSE (FULL):", {
+      //   data: response,
+      //   access: response?.access,
+      //   refresh: response?.refresh,
+      // });
+
+      toast.success(response?.message || "Verified. Please sign in to continue.");
 
       localStorage.removeItem("pendingVerificationEmail");
 
-      navigate("/onboarding");
+      navigate("/sign-in", { state: { email } });
     } catch (error: any) {
       console.error("Verify OTP error:", error.response?.data || error.message);
       toast.error(

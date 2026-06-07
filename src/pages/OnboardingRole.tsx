@@ -23,7 +23,7 @@ export default function OnboardingRole() {
     }
 
     const mappedRole =
-      role === "professional" ? "SERVICE_PROVIDER" : "CUSTOMER";
+      role === "service_provider" ? "SERVICE_PROVIDER" : "CUSTOMER";
 
     setLoading(true);
 
@@ -32,8 +32,8 @@ export default function OnboardingRole() {
         service_to_perform: mappedRole,
       });
 
-      if (role === "professional") {
-        navigate("/service-provider/application");
+      if (role === "service_provider") {
+        navigate("/service-provider/registration/personal-information");
       } else {
         navigate("/onboarding/upload-photo");
       }
@@ -51,59 +51,42 @@ export default function OnboardingRole() {
   return (
     <Container className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-sm text-center">
-        <div className="w-max mx-auto mb-4">
-          <AuthLogo />
-        </div>
+        <AuthLogo />
 
         <h1 className="text-2xl font-bold">Choose Your Role</h1>
 
-        <p className="text-sm text-gray-500 mt-2 mb-8">
-          Tell us how you want to use the platform
-        </p>
-
-        <div className="space-y-4">
+        <div className="space-y-4 mt-8">
           <button
             type="button"
             onClick={() => dispatch(setRole("customer"))}
-            className={`w-full border rounded-xl p-4 flex items-center gap-3 text-left transition ${
-              role === "customer"
-                ? "border-primary bg-primary/5"
-                : "border-gray-200 hover:border-primary"
+            className={`w-full border rounded-xl p-4 flex gap-3 ${
+              role === "customer" ? "border-primary bg-primary/5" : ""
             }`}
           >
-            <User className="w-6 h-6 text-primary shrink-0" />
-
+            <User />
             <div>
-              <p className="font-semibold">Hire a Service</p>
-              <p className="text-xs text-gray-500">
-                Find skilled professionals
-              </p>
+              <p className="font-semibold">Customer</p>
             </div>
           </button>
 
           <button
             type="button"
-            onClick={() => dispatch(setRole("professional"))}
-            className={`w-full border rounded-xl p-4 flex items-center gap-3 text-left transition ${
-              role === "professional"
-                ? "border-primary bg-primary/5"
-                : "border-gray-200 hover:border-primary"
+            onClick={() => dispatch(setRole("service_provider"))}
+            className={`w-full border rounded-xl p-4 flex gap-3 ${
+              role === "service_provider" ? "border-primary bg-primary/5" : ""
             }`}
           >
-            <Wrench className="w-6 h-6 text-primary shrink-0" />
-
+            <Wrench />
             <div>
-              <p className="font-semibold">Skilled Professional</p>
-              <p className="text-xs text-gray-500">Offer services and earn</p>
+              <p className="font-semibold">Service Provider</p>
             </div>
           </button>
         </div>
 
         <button
-          type="button"
-          disabled={!role || loading}
           onClick={handleContinue}
-          className="w-full mt-8 bg-primary text-white py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition"
+          disabled={!role || loading}
+          className="w-full mt-8 bg-primary text-white py-3 rounded-lg"
         >
           {loading ? "Processing..." : "Continue"}
         </button>

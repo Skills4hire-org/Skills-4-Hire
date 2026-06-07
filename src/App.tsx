@@ -11,6 +11,7 @@ import Experience from './pages/Experience'
 import FAQs from './pages/Faq'
 import Favorites from './pages/Favorites'
 import ForgotPassword from './pages/ForgotPassword'
+import ResetPasswordConfirm from './pages/ResetPasswordConfirm'
 import JobOffers from './pages/JobOffers'
 import Landing from './pages/Landing'
 import PersonalInfo from './pages/PersonalInfo'
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
   {
     path: 'forgot-password',
     element: <ForgotPassword />,
+  },
+  {
+    path: 'password/reset-confirm',
+    element: <ResetPasswordConfirm />,
   },
   {
     path: 'verification',

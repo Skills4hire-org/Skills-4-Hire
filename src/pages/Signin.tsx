@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom'
-import { FaFacebookF } from 'react-icons/fa'
-import AuthLogo from '@/components/global/AuthLogo'
-import SignInForm from '@/components/form/SignInForm'
+import { Link, useLocation } from "react-router-dom";
+import { FaFacebookF } from "react-icons/fa";
+import AuthLogo from "@/components/global/AuthLogo";
+import SignInForm from "@/components/form/SignInForm";
 
 export default function SignIn() {
+  const location = useLocation();
+  const email = (location.state as { email?: string })?.email;
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
       <div className="w-full max-w-sm text-center pt-6 md:pt-10">
@@ -17,10 +20,10 @@ export default function SignIn() {
           Enter your email and password you created during registration
         </p>
 
-        <SignInForm />
+        <SignInForm initialEmail={email} />
 
         <p className="text-sm text-gray-600">
-          Don&apos;t have an account?{' '}
+          Don&apos;t have an account?{" "}
           <Link
             to="/sign-up"
             className="text-primary font-medium hover:underline"
@@ -30,9 +33,9 @@ export default function SignIn() {
         </p>
 
         <p className="text-xs text-gray-600 mt-3 leading-snug">
-          By clicking the{' '}
+          By clicking the{" "}
           <span className="font-medium text-black">Sign in</span> button you
-          accept the{' '}
+          accept the{" "}
           <Link
             to="/privacy-policy"
             className="text-primary font-medium hover:underline"
@@ -68,5 +71,5 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-  )
+  );
 }

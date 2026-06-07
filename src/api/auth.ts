@@ -6,6 +6,8 @@ import type {
   RegisterPayload,
   ResendOtpPayload,
   VerifyOtpPayload,
+  PasswordResetRequestPayload,
+  PasswordResetConfirmPayload,
 } from "@/types/auth.types";
 
 export const login = async (data: LoginPayload) => {
@@ -18,12 +20,8 @@ export const login = async (data: LoginPayload) => {
 };
 
 export const register = async (data: RegisterPayload) => {
-  try {
-    const response = await api.post("/api/v1/auth/register/", data);
-    return response?.data;
-  } catch (error) {
-    handleApiError(error);
-  }
+  const response = await api.post("/api/v1/auth/register/", data);
+  return response.data;
 };
 
 export const resendOtp = async (data: ResendOtpPayload) => {
@@ -38,6 +36,31 @@ export const resendOtp = async (data: ResendOtpPayload) => {
 export const verifyOtp = async (data: VerifyOtpPayload) => {
   try {
     const response = await api.post("/api/v1/auth/verify/", data);
+    return response?.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const passwordResetRequest = async (
+  data: PasswordResetRequestPayload,
+) => {
+  try {
+    const response = await api.post("/api/v1/auth/password/reset/", data);
+    return response?.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const passwordResetConfirm = async (
+  data: PasswordResetConfirmPayload,
+) => {
+  try {
+    const response = await api.post(
+      "/api/v1/auth/password/reset-confirm/",
+      data,
+    );
     return response?.data;
   } catch (error) {
     handleApiError(error);

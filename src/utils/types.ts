@@ -1,206 +1,206 @@
-export type UserType = 'customer' | 'provider'
+export type UserType = "customer" | "service_provider";
 
 export type AppUser = {
-  userType: UserType | null
-  isServiceProvider: boolean
-}
+  userType: UserType | null;
+  isServiceProvider: boolean;
+};
 export type AvailableServices = {
-  serviceName: string
-  serviceImage: string
-  category: string
-}
+  serviceName: string;
+  serviceImage: string;
+  category: string;
+};
 
 export type CustomerBooking = {
-  service: string
-  serviceImage: string
-  createdAt: any
-  serviceProviderName: string
-  serviceProviderRating: number
-  status: string
-  desc: string
-}
+  service: string;
+  serviceImage: string;
+  createdAt: any;
+  serviceProviderName: string;
+  serviceProviderRating: number;
+  status: string;
+  desc: string;
+};
 export type ServiceProviderBooking = {
-  service: string
-  serviceImage: string
-  createdAt: any
-  customerName: string
-  customerRating: number
-  status: string
-  desc: string
-}
+  service: string;
+  serviceImage: string;
+  createdAt: any;
+  customerName: string;
+  customerRating: number;
+  status: string;
+  desc: string;
+};
 
 export type SelectItems = {
-  value: string
-  label: string
-}
+  value: string;
+  label: string;
+};
 
 export type Notification = {
-  id: number
-  createdAt: string | number
-  type: string
-}
+  id: number;
+  createdAt: string | number;
+  type: string;
+};
 
 export type TransactionHistory = {
-  createdAt: number | string
-  name: string
-  service: string
-  status: string
-  amount: number
-}
+  createdAt: number | string;
+  name: string;
+  service: string;
+  status: string;
+  amount: number;
+};
 
 export type PostCard = {
-  id: number
-  profile: string
-  name: string
-  location: string
-  service: string
-  rating: string
-  reviews: string
-  tags: string[]
-  description: string
-  stats: FeedStats
+  id: number;
+  profile: string;
+  name: string;
+  location: string;
+  service: string;
+  rating: string;
+  reviews: string;
+  tags: string[];
+  description: string;
+  stats: FeedStats;
   comments?: {
-    text: string
-    likes: number
-    replies: number
-    name: string
-  }[]
-  recommended?: boolean
-}
+    text: string;
+    likes: number;
+    replies: number;
+    name: string;
+  }[];
+  recommended?: boolean;
+};
 
 export type ServiceProvider = {
-  id: number
-  name: string
-  online: boolean
-  occupation: string
-  verified: boolean
-  desc: string
-  features: string
-  minCharge: number
-  averageRating: number
-  totalReviews: number
-  image: string
-  favorite: boolean
-  maxCharge: number
-  address: string
-  totalJobs: number
-  about: string
-  gallery: string[] | null
-  posts: PostCard[] | null
-  postImages: string[] | null
+  id: number;
+  name: string;
+  online: boolean;
+  occupation: string;
+  verified: boolean;
+  desc: string;
+  features: string;
+  minCharge: number;
+  averageRating: number;
+  totalReviews: number;
+  image: string;
+  favorite: boolean;
+  maxCharge: number;
+  address: string;
+  totalJobs: number;
+  about: string;
+  gallery: string[] | null;
+  posts: PostCard[] | null;
+  postImages: string[] | null;
   services:
     | {
-        id: number
-        image: string
-        desc: string
-        price: number
+        id: number;
+        image: string;
+        desc: string;
+        price: number;
       }[]
-    | null
+    | null;
   comments:
     | {
-        name: string
-        post: PostCard
-        createdAt: number | string
+        name: string;
+        post: PostCard;
+        createdAt: number | string;
         comments: {
-          text: string
-          likes: number
-          replies: number
-          name: string
-        }[]
+          text: string;
+          likes: number;
+          replies: number;
+          name: string;
+        }[];
       }[]
-    | null
-  accountNumber: string
-  images: string[] | null
-}
+    | null;
+  accountNumber: string;
+  images: string[] | null;
+};
 
 export type FeedStats = {
-  likes: number
-  comments: number
-  shares: number
-  impressions: number
-}
+  likes: number;
+  comments: number;
+  shares: number;
+  impressions: number;
+};
 
 export type ServiceProviderServiceCard = {
-  id: number
-  image: string
-  desc: string
-  price: number
-}
+  id: number;
+  image: string;
+  desc: string;
+  price: number;
+};
 
 export type BookingInfo = {
-  emergency: boolean
-  notes: string
-  date: string
-  time: string
-  type: 'onsite' | 'remote' | null
-  address: string
-  savedAddress: string
-  paymentAmount: string
-  paymentRemark: string
-  serviceProviderName: string
-  serviceProviderOccupation: string
-}
+  emergency: boolean;
+  notes: string;
+  date: string;
+  time: string;
+  type: "onsite" | "remote" | null;
+  address: string;
+  savedAddress: string;
+  paymentAmount: string;
+  paymentRemark: string;
+  serviceProviderName: string;
+  serviceProviderOccupation: string;
+};
 
 export type FileStructure = {
-  file: File | string | null;
+  file?: File | string | null;
   name: string;
   selectNewFile: boolean;
 };
 
 export type ProfileFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  gender: string
-  profileImage: string
-}
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  gender: string;
+  profileImage: string;
+};
 
 export type PersonalInformationFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  gender: string
-  profileImage: string
-  nin: string
-  driversLicense: FileStructure
-  passport: FileStructure
-}
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  gender: string;
+  profileImage: string;
+  nin: string;
+  driversLicense: FileStructure;
+  passport: FileStructure;
+};
 
 export type ExperienceFormData = {
-  service: string | undefined
-  certification: string | undefined
-  certificateFile: FileStructure
-  experienceYears: string | undefined
-  previousWorkPlaces: string
-  workImage: FileStructure
-}
+  service: string | undefined;
+  certification: string | undefined;
+  certificateFile: FileStructure;
+  experienceYears: string | undefined;
+  previousWorkPlaces: string;
+  workImage: FileStructure;
+};
 
 export type ApplicationProfileFormData = {
-  country: string
-  city: string
-  address: string
-  dateOfBirth: string
-  headline: string
-}
+  country: string;
+  city: string;
+  address: string;
+  dateOfBirth: string;
+  headline: string;
+};
 
 export type Registration = {
-  role?: "customer" | "professional"
-  personalInfo: PersonalInformationFormData
-  experience: ExperienceFormData
-  applicationProfile: ApplicationProfileFormData
-}
+  role?: UserType;
+  personalInfo: PersonalInformationFormData;
+  experience: ExperienceFormData;
+  applicationProfile: ApplicationProfileFormData;
+};
 
 export type RequiredFormData = {
-  country: string
-  city: string
-  address: string
-  dateOfBirth: string
-  headline: string
-  firstName: string
-  lastName: string
-  phone: string
-  nin: string
-  service: string | undefined
-}
+  country: string;
+  city: string;
+  address: string;
+  dateOfBirth: string;
+  headline: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  nin: string;
+  service: string | undefined;
+};

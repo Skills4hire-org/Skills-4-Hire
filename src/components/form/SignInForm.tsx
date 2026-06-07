@@ -1,57 +1,69 @@
-import { login } from '@/api/auth'
-import { setUserCredentials } from '@/features/user/userSlice'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
-import { loginSchema } from '@/utils/schemas'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import FormInput from '../form-fields/FormInput'
-import { toast } from 'sonner'
+import { login } from "@/api/auth";
+import { setUserCredentials } from "@/features/user/userSlice";
+import { useValidateSchema } from "@/hooks/useValidateSchema";
+import { loginSchema } from "@/utils/schemas";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import FormInput from "../form-fields/FormInput";
+import { toast } from "sonner";
 
-export default function SignInForm() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+interface SignInFormProps {
+  initialEmail?: string;
+}
+
+export default function SignInForm({ initialEmail }: SignInFormProps) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  })
+    email: initialEmail || "",
+    password: "",
+  });
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (key: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [key]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [key]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const validatedData = useValidateSchema(loginSchema, formData)
-    if (!validatedData) return
+    const validatedData = useValidateSchema(loginSchema, formData);
+    if (!validatedData) return;
 
-    setLoading(true)
+    setLoading(true);
 
     try {
-      const response = await login(validatedData)
-      dispatch(setUserCredentials(response))
+      console.debug("Login payload:", validatedData);
+      const response = await login(validatedData);
+      console.debug("Login response:", response);
+      dispatch(setUserCredentials(response));
 
       if (
         !response?.user_data?.is_customer &&
         !response?.user_data?.is_provider
       ) {
-        navigate(`/onboarding`)
+        navigate(`/onboarding`);
       } else {
         const userType = response?.user_data?.is_customer
-          ? 'customer'
-          : 'professional'
-        navigate(`/${userType}/home`)
+          ? "customer"
+          : "service_provider";
+        navigate(`/${userType}/home`);
       }
     } catch (error: any) {
-      toast.error(error?.message)
+      console.error(
+        "Login error:",
+        error?.response?.data || error?.message || error,
+      );
+      toast.error(
+        error?.response?.data?.detail || error?.message || "Login failed",
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
   return (
     <form onSubmit={handleSubmit} className="space-y-3 mb-3 text-left">
       <FormInput
@@ -84,8 +96,8 @@ export default function SignInForm() {
         disabled={loading}
         className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:opacity-90 disabled:opacity-60 cursor-pointer"
       >
-        {loading ? 'Signing in...' : 'Sign in'}
+        {loading ? "Signing in..." : "Sign in"}
       </button>
     </form>
-  )
+  );
 }

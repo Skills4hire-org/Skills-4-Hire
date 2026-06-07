@@ -22,7 +22,7 @@ const userSlice = createSlice({
       state.access = access
       state.refresh = refresh
       state.user_data = user_data
-      state.userType = user_data.is_customer ? 'customer' : 'professional'
+      state.userType = user_data.is_customer ? "customer" : "service_provider";
       sessionStorage.setItem('user', JSON.stringify(state))
     },
     setAccessToken: (state, action) => {

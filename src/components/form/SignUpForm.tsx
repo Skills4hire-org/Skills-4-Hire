@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import type { FormEvent } from "react";
 import { register } from "@/api/auth";
 import { useValidateSchema } from "@/hooks/useValidateSchema";
@@ -31,8 +31,8 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
- const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const validatedData = useValidateSchema(registerSchema, formData);
     if (!validatedData) return;
 
@@ -51,14 +51,22 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
     setLoading(true);
 
     try {
+      console.debug("Register payload:", payload);
       const response = await register(payload);
+      console.debug("Register response:", response);
 
       toast.success(response?.message || "Account created successfully");
 
       // Call parent handler instead of navigating directly
       onSuccess?.(payload.email);
     } catch (error: any) {
-      toast.error(error?.message || "Signup failed");
+      console.error(
+        "Register error:",
+        error?.response?.data || error?.message || error,
+      );
+      toast.error(
+        error?.response?.data?.detail || error?.message || "Signup failed",
+      );
     } finally {
       setLoading(false);
     }
