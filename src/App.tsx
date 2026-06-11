@@ -52,8 +52,6 @@ import TransactionHistory from './pages/TransactionHistory'
 import Chat from './pages/Chat'
 import ChatWindow from './components/chats/ChatWindow'
 import ConversationList from './components/chats/ConversationList'
-import { useEffect } from 'react'
-import { initializeMockChat } from './features/chat/mockData'
 import Search from './pages/Search'
 import WithdrawVerification from './pages/WithdrawVerification'
 import WithdrawSuccess from './pages/WithdrawSuccess'
@@ -63,6 +61,9 @@ import UploadPhoto from './pages/UploadPhoto'
 import OnboardingGuard from './pages/OnboardingGuard'
 import Endorsers from './pages/Endorsers'
 import Endorsed from './pages/Endorsed'
+import ProfileActivity from './pages/ProfileActivity'
+import ProfileServices from './pages/ProfileServices'
+import ProfileGallery from './pages/ProfileGallery'
 
 const router = createBrowserRouter([
   {
@@ -191,7 +192,7 @@ const router = createBrowserRouter([
         element: <ServiceProviderProfile />,
       },
       {
-        path: 'professionals/:id/services',
+        path: 'professionals/:id/:profession/services',
         element: <ServiceProviderServices />,
       },
       {
@@ -270,6 +271,18 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
+        path: 'profile/activity',
+        element: <ProfileActivity />,
+      },
+      {
+        path: 'profile/:profession/services',
+        element: <ProfileServices />,
+      },
+      {
+        path: 'profile/gallery',
+        element: <ProfileGallery />,
+      },
+      {
         path: 'profile/endorsed',
         element: <Endorsed />,
       },
@@ -314,8 +327,5 @@ const router = createBrowserRouter([
 ])
 
 export default function App() {
-  useEffect(() => {
-    initializeMockChat()
-  }, [])
   return <RouterProvider router={router} />
 }

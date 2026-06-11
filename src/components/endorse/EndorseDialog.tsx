@@ -5,23 +5,25 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '../ui/dialog'
 
 interface EndorseDialogProp {
-  open: boolean
-  onOpenChange: (value: boolean) => void
   provider_pk: string | undefined
-  name: string
+  name?: string
 }
 
 export default function EndorseDialog({
-  open,
-  onOpenChange,
   provider_pk,
   name,
 }: EndorseDialogProp) {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog>
+      <DialogTrigger asChild>
+        <button className="capitalize font-semibold text-primary text-sm md:text-base cursor-pointer">
+          endorse
+        </button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader className="gap-1">
           <DialogTitle>Endorse {name}</DialogTitle>

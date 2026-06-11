@@ -6,11 +6,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
+import type { UserData } from '@/types/user.types'
 
 export default function DesktopHomeHeader() {
-  const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { userType, user_data }: { userType: UserType; user_data: UserData } =
+    useSelector((state: any) => state.userState)
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -39,8 +39,14 @@ export default function DesktopHomeHeader() {
           <RecentNotification icon={MessageSquareMore} newAlert />
 
           <div className="flex items-center gap-2">
-            <ProfileImage size="size-10" is_active={is_active} />
-            <h1 className="text-sm font-semibold">Leo Justin</h1>
+            <ProfileImage
+              size="size-10"
+              is_active={is_active}
+              avatar={user_data?.profile.avatar.avatar}
+            />
+            <h1 className="text-sm font-semibold capitalize">
+              {user_data?.profile.display_name}
+            </h1>
           </div>
         </div>
       </div>

@@ -4,10 +4,15 @@ import {
   editPost,
   getCommentReplies,
   getComments,
+  getMyComments,
+  getMyMedia,
   getMyPosts,
   getOffers,
   getPost,
   getPosts,
+  getRepostedBy,
+  getUserComments,
+  getUserPosts,
   likeComment,
   likePost,
   postComment,
@@ -128,6 +133,55 @@ export const useMyPosts = () => {
   const queryData = useInfiniteQuery({
     queryKey: ['posts'],
     queryFn: ({ pageParam }) => getMyPosts(pageParam),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
+}
+export const useUserPosts = ({ id }: { id?: string }) => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['posts'],
+    queryFn: ({ pageParam }) => getUserPosts({ pageParam, id }),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
+}
+export const useMyComments = () => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['comments'],
+    queryFn: ({ pageParam }) => getMyComments(pageParam),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
+}
+export const useUserComments = ({ id }: { id?: string }) => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['comments'],
+    queryFn: ({ pageParam }) => getUserComments({ pageParam, id }),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
+}
+
+export const useMyMedia = ({ user_id }: { user_id?: string }) => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['media'],
+    queryFn: ({ pageParam }) => getMyMedia({ pageParam, user_id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.next ?? undefined
@@ -313,6 +367,19 @@ export const useCommentReplies = ({
     queryKey: ['replies', comment_id],
     queryFn: ({ pageParam }) =>
       getCommentReplies({ pageParam, post_id, comment_id }),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
+}
+
+export const useRepostedBy = ({ post_id }: { post_id: string | undefined }) => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['post', post_id],
+    queryFn: ({ pageParam }) => getRepostedBy({ pageParam, post_id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.next ?? undefined

@@ -1,4 +1,4 @@
-import type { PostCard, UserType } from '@/utils/types'
+import type { UserType } from '@/utils/types'
 import {
   Heart,
   MessageCircle,
@@ -6,19 +6,19 @@ import {
   Star,
   MapPin,
   Dot,
-  Repeat,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
 import CommentForm from '../form/CommentForm'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useLikePost, useRepost, useUnlikePost } from '@/hooks/usePosts'
+import { useLikePost, useUnlikePost } from '@/hooks/usePosts'
 import type { Post } from '@/types/post.types'
 import EndorseDialog from '../endorse/EndorseDialog'
 import ImageCarousel from './ImageCarousel'
 import Comment from './Comment'
 import { formatCommentTime } from '@/utils/format'
+import Repost from './Repost'
 
 export default function PostCard({
   post_id,
@@ -35,7 +35,6 @@ export default function PostCard({
   is_reposted,
 }: Post) {
   const [showComment, setShowComment] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
@@ -46,13 +45,9 @@ export default function PostCard({
 
   const { mutate: likePost, isPending: liking } = useLikePost()
   const { mutate: unlikePost, isPending: unliking } = useUnlikePost()
-  const { mutate: repost, isPending: reposting } = useRepost()
 
   const handleLikePost = () => {
     is_liked ? unlikePost(post_id) : likePost({ post_id })
-  }
-  const handleRepost = () => {
-    repost({ post_id })
   }
 
   return (
@@ -76,27 +71,18 @@ export default function PostCard({
               {userType == 'customer' && (
                 <>
                   <Dot className="w-8.5 h-8.5 -m-1.5" />
-                  <>
-                    <button
-                      onClick={() => setIsOpen(true)}
-                      className="capitalize font-semibold text-primary text-sm md:text-base cursor-pointer"
-                    >
-                      endorse
-                    </button>
-                    <EndorseDialog
-                      open={isOpen}
-                      onOpenChange={setIsOpen}
-                      provider_pk={provider_id}
-                      name={user?.profile?.display_name as string}
-                    />
-                  </>
+
+                  <EndorseDialog
+                    provider_pk={provider_id}
+                    name={user?.profile?.display_name as string}
+                  />
                 </>
               )}
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-gray-500 my-0.5">
               {user?.profile?.city && (
-                <span className="inline-flex items-center gap-1">
+                <span className="inline-flex items-center gap-1 capitalize">
                   <MapPin size={13.5} className="md:w-[14px]" />{' '}
                   {user?.profile?.city}
                 </span>
@@ -175,14 +161,12 @@ export default function PostCard({
         </button>
 
         {/* repost */}
-        <button
-          onClick={handleRepost}
-          disabled={reposting}
-          className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${is_reposted && 'text-blue-600'} `}
-        >
-          <Repeat className="w-5 h-5 md:h-6 md:w-6" />
-          <span>{reposts_count}</span>
-        </button>
+
+        <Repost
+          post_id={post_id}
+          reposts_count={reposts_count}
+          is_reposted={is_reposted}
+        />
 
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
           <BarChart2 className="w-5 h-5 md:h-6 md:w-6" />

@@ -77,7 +77,7 @@ export type Post = {
   is_reposted?: boolean
   duration?: number
   post_status?: string
-  amount: string
+  amount?: string
   start_date?: string
   end_date?: string
   is_remote?: boolean
@@ -125,4 +125,16 @@ export type SendComment = {
 
 export type CommentReplies = PostComment & {
   parent: string
+}
+
+export type Reposted = {
+  repost_id: string
+  reposted_by: {
+    profile: {
+      display_name: string
+      avatar: {
+        avatar: string
+      }
+    }
+  }
 }

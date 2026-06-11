@@ -4,48 +4,53 @@ export interface User {
   avatar?: string
 }
 
-export interface Conversation {
-  id: string
-  participantIds: string[]
-  lastMessageId?: string
-  unreadCount: number
-}
-
-export interface Message {
-  id: string
-  conversationId: string
-  senderId: string
-  text: string
-  createdAt: number
-}
-
 export type CreateConversation = {
-  participant_one: {
-    email?: string
-    first_name: string
-    last_name: string
-    is_active?: boolean
-  }
-  participant_two: {
-    email?: string
-    first_name: string
-    last_name: string
-    is_active?: boolean
-  }
   participant_two_id: string
 }
 
-export type ChatMessage = {
-  message_id: string
-  sender_name: string
-  content: string
-  is_read: boolean
-  created_at: string
+export interface Avatar {
+  avatar_id: string
+  avatar: string
 }
 
-export type ChatMessageParams = {
-  conversation_id?: string
-  page_size?: number
-  cursor?: string
-  ordering?: string
+export interface Profile {
+  display_name: string
+  professional_title: string | null
+  avatar: Avatar | null
+}
+
+export interface User {
+  user_id: string
+  first_name: string
+  last_name: string
+  email: string
+  profile: Profile
+}
+
+export type Message = {
+  message_id: string
+  conversation: string
+  sender: User
+  content: string
+  is_read: boolean
+  is_edited: boolean
+  created_at: string
+  edited_at: string | null
+}
+
+export type Conversation = {
+  conversation_id: string
+  participant_one: string
+  participant_two: User
+  message_count: number
+  unread_count: number
+  last_message: {
+    message_id: string
+    content: string
+    created_at: string
+    is_read: boolean
+  }
+
+  created_at: string
+  updated_at: string
 }

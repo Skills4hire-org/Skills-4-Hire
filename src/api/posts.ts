@@ -81,6 +81,18 @@ export const getMyPosts = async (pageParam?: string) => {
     handleApiError(error)
   }
 }
+export const getMyComments = async (pageParam?: string) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(`/api/v1/comments/mine/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
 
 export const getPost = async ({ post_id }: PostParams) => {
   try {
@@ -217,6 +229,81 @@ export const getCommentReplies = async ({
     const response = await api.get(
       `/api/v1/posts/${post_id}}/comment/${comment_id}}/list-replies/`,
     )
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const getRepostedBy = async ({
+  post_id,
+  pageParam,
+}: {
+  post_id: string | undefined
+  pageParam: string | undefined
+}) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(`/api/v1/posts/${post_id}/reposts/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const getMyMedia = async ({
+  pageParam,
+  user_id,
+}: {
+  pageParam?: string
+  user_id?: string
+}) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(`/api/v1/images/user/${user_id}/activity/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const getUserPosts = async ({
+  pageParam,
+  id,
+}: {
+  pageParam?: string
+  id?: string
+}) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(`/api/v1/posts/user/${id}/posts/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+export const getUserComments = async ({
+  pageParam,
+  id,
+}: {
+  pageParam?: string
+  id?: string
+}) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(`/api/v1/comments/user/${id}/comments/`)
     return response?.data
   } catch (error) {
     handleApiError(error)

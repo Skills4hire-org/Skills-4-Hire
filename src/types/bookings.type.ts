@@ -24,3 +24,17 @@ export type Booking = {
   descriptions: string
   created_at: string
 }
+
+export type BookingInfo = {
+  emergency: boolean
+  notes: string
+  date: string
+  time: string
+  type: 'onsite' | 'remote' | null
+  address: string
+  savedAddress: string
+  paymentAmount: string
+  paymentRemark: string
+  serviceProviderName: string
+  serviceProviderOccupation: string
+}

@@ -12,7 +12,10 @@ export const getReferrals = async () => {
 
 export const withdrawReferralBonus = async (data: { amount: number }) => {
   try {
-    const response = await api.post(`/api/v1/referrals-withdraw/`, data)
+    const response = await api.post(
+      `/api/v1/referrals-withdraw/?local_bank=False`,
+      data,
+    )
     return response?.data
   } catch (error) {
     handleApiError(error)

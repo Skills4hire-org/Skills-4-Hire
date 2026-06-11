@@ -184,13 +184,13 @@ export const user = {
     postImages: [servicesAroundImage1, servicesAroundImage2],
     services: [
       {
-        id: 1,
+        id: '1',
         image: servicesImage1,
         desc: 'Fixing leaks (pipes, faucets)',
         price: 25000,
       },
       {
-        id: 2,
+        id: '2',
         image: servicesImage1,
         desc: 'Fixing leaks (pipes, faucets)',
         price: 20000,

@@ -120,40 +120,10 @@ export type FeedStats = {
   impressions: number
 }
 
-export type ServiceProviderServiceCard = {
-  id: number
-  image: string
-  desc: string
-  price: number
-}
-
-export type BookingInfo = {
-  emergency: boolean
-  notes: string
-  date: string
-  time: string
-  type: 'onsite' | 'remote' | null
-  address: string
-  savedAddress: string
-  paymentAmount: string
-  paymentRemark: string
-  serviceProviderName: string
-  serviceProviderOccupation: string
-}
-
 export type FileStructure = {
   file: string | null
   name: string
   selectNewFile: boolean
-}
-
-export type ProfileFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  gender: string
-  profileImage: string
 }
 
 export type PersonalInformationFormData = {
@@ -186,7 +156,7 @@ export type ApplicationProfileFormData = {
 }
 
 export type Registration = {
-  role?: "customer" | "professional"
+  role?: 'customer' | 'professional'
   personalInfo: PersonalInformationFormData
   experience: ExperienceFormData
   applicationProfile: ApplicationProfileFormData

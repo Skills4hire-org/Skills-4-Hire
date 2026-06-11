@@ -5,7 +5,6 @@ import {
   HelpCircle,
   Info,
   Mail,
-  MessageCircle,
   MessageCircleQuestion,
   Phone,
   PhoneCall,
@@ -485,11 +484,6 @@ export const timeFrameOptions = [
 
 export const supportOptions = [
   {
-    icon: MessageCircle,
-    text: 'Chat with customer support',
-    url: '/customer/customer-support',
-  },
-  {
     icon: Mail,
     text: 'Send an email',
     url: 'mailto:skills4hireofficial@gmail.com',
@@ -556,10 +550,10 @@ export const mockContacts = [
 
 export const serviceProviderTabList = ['about', 'gallery']
 
-export const serviceProviderActivityTabList: ['posts', 'comments', 'images'] = [
+export const serviceProviderActivityTabList: ['posts', 'comments', 'media'] = [
   'posts',
   'comments',
-  'images',
+  'media',
 ]
 
 export const bookingProgress = [
