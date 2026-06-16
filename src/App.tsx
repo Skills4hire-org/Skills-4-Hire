@@ -11,13 +11,13 @@ import Experience from './pages/Experience'
 import FAQs from './pages/Faq'
 import Favorites from './pages/Favorites'
 import ForgotPassword from './pages/ForgotPassword'
+import ResetPasswordConfirm from './pages/ResetPasswordConfirm'
 import JobOffers from './pages/JobOffers'
 import Landing from './pages/Landing'
 import PersonalInfo from './pages/PersonalInfo'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import ProviderOverview from './pages/ProviderOverview'
 import Referral from './pages/Referral'
-import Registration from './pages/Registration'
 import Rewards from './pages/Rewards'
 import ServiceProviderBooking from './pages/ServiceProviderBooking'
 import ServiceProviderProfile from './pages/ServiceProviderProfile'
@@ -58,7 +58,6 @@ import WithdrawSuccess from './pages/WithdrawSuccess'
 import WithdrawPin from './pages/WithdrawPin'
 import OnboardingRole from './pages/OnboardingRole'
 import UploadPhoto from './pages/UploadPhoto'
-import OnboardingGuard from './pages/OnboardingGuard'
 import Endorsers from './pages/Endorsers'
 import Endorsed from './pages/Endorsed'
 import ProfileActivity from './pages/ProfileActivity'
@@ -105,6 +104,10 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
+    path: 'password/reset-confirm',
+    element: <ResetPasswordConfirm />,
+  },
+  {
     path: 'verification',
     element: <Verification />,
   },
@@ -113,12 +116,20 @@ const router = createBrowserRouter([
     element: <OnboardingRole />,
   },
   {
-    path: 'onboarding/upload-photo',
-    element: (
-      <OnboardingGuard>
-        <UploadPhoto />
-      </OnboardingGuard>
-    ),
+    path: 'onboarding/:role/upload',
+    element: <UploadPhoto />,
+  },
+  {
+    path: 'onboarding/professional/personal-information',
+    element: <PersonalInfo />,
+  },
+  {
+    path: 'onboarding/professional/experience',
+    element: <Experience />,
+  },
+  {
+    path: 'onboarding/professional/application-profile',
+    element: <ApplicationProfile />,
   },
   {
     path: ':userType',
@@ -286,22 +297,7 @@ const router = createBrowserRouter([
         path: 'profile/endorsed',
         element: <Endorsed />,
       },
-      {
-        path: 'registration',
-        element: <Registration />,
-      },
-      {
-        path: 'registration/personal-information',
-        element: <PersonalInfo />,
-      },
-      {
-        path: 'registration/experience',
-        element: <Experience />,
-      },
-      {
-        path: 'registration/application-profile',
-        element: <ApplicationProfile />,
-      },
+
       {
         path: 'reviews',
         element: <Reviews />,

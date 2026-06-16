@@ -22,9 +22,9 @@ import ProfileImage from '../global/ProfileImage'
 import { Icon } from '@iconify/react'
 
 export default function DesktopSidebar() {
-  const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { userType, avatar }: { userType: UserType; avatar: string } =
+    useSelector((state: any) => state.userState)
+  const is_active = navigator.onLine
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)
 
@@ -32,7 +32,7 @@ export default function DesktopSidebar() {
     userType == 'customer'
       ? customerDesktopNavLinks
       : serviceProviderDesktopNavLinks
-  const is_active = navigator.onLine
+
   return (
     <Sidebar className="rounded-r-lg h-full border-none">
       <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center">
@@ -71,7 +71,7 @@ export default function DesktopSidebar() {
           <CustomerDesktopMenu />
         ) : (
           <Link to="/professional/profile" className="mx-auto">
-            <ProfileImage is_active={is_active} />
+            <ProfileImage is_active={is_active} avatar={avatar} />
           </Link>
         )}
       </SidebarFooter>

@@ -9,8 +9,14 @@ import { useSelector } from 'react-redux'
 import type { UserData } from '@/types/user.types'
 
 export default function DesktopHomeHeader() {
-  const { userType, user_data }: { userType: UserType; user_data: UserData } =
-    useSelector((state: any) => state.userState)
+  const {
+    userType,
+    user_data,
+    avatar,
+  }: { userType: UserType; user_data: UserData; avatar: string } = useSelector(
+    (state: any) => state.userState,
+  )
+  const is_active = navigator.onLine
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -19,7 +25,7 @@ export default function DesktopHomeHeader() {
   }
   const searchPlaceholder =
     userType == 'customer' ? 'Search for plumbers, electricians...' : 'Search'
-  const is_active = navigator.onLine
+
   return (
     <header className="hidden md:block py-4">
       <div className="flex items-center justify-between gap-8">
@@ -42,7 +48,7 @@ export default function DesktopHomeHeader() {
             <ProfileImage
               size="size-10"
               is_active={is_active}
-              avatar={user_data?.profile.avatar.avatar}
+              avatar={avatar}
             />
             <h1 className="text-sm font-semibold capitalize">
               {user_data?.profile.display_name}

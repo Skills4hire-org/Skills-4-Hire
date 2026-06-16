@@ -6,6 +6,7 @@ const defaultState: AuthUser = {
   access: null,
   refresh: null,
   user_data: null,
+  avatar: '',
 }
 
 const getUserFromLocalStorage: () => AuthUser = () => {
@@ -23,11 +24,17 @@ const userSlice = createSlice({
       state.refresh = refresh
       state.user_data = user_data
       state.userType = user_data.is_customer ? 'customer' : 'professional'
+      state.avatar = user_data?.profile?.avatar?.avatar
       sessionStorage.setItem('user', JSON.stringify(state))
     },
     setAccessToken: (state, action) => {
       const accessToken = action.payload
       state.access = accessToken
+      sessionStorage.setItem('user', JSON.stringify(state))
+    },
+    setProfilePhoto: (state, action) => {
+      const url = action.payload
+      state.avatar = url
       sessionStorage.setItem('user', JSON.stringify(state))
     },
     logoutUser: () => {
@@ -36,7 +43,11 @@ const userSlice = createSlice({
   },
 })
 
-export const { setUserCredentials, setAccessToken, logoutUser } =
-  userSlice.actions
+export const {
+  setUserCredentials,
+  setAccessToken,
+  logoutUser,
+  setProfilePhoto,
+} = userSlice.actions
 
 export default userSlice.reducer

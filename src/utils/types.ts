@@ -1,4 +1,4 @@
-export type UserType = 'customer' | 'provider'
+export type UserType = 'customer' | 'service_provider'
 
 export type AppUser = {
   userType: UserType | null
@@ -120,57 +120,32 @@ export type FeedStats = {
   impressions: number
 }
 
-export type FileStructure = {
-  file: string | null
-  name: string
-  selectNewFile: boolean
+export type ServiceProviderServiceCard = {
+  id: number
+  image: string
+  desc: string
+  price: number
 }
 
-export type PersonalInformationFormData = {
+export type BookingInfo = {
+  emergency: boolean
+  notes: string
+  date: string
+  time: string
+  type: 'onsite' | 'remote' | null
+  address: string
+  savedAddress: string
+  paymentAmount: string
+  paymentRemark: string
+  serviceProviderName: string
+  serviceProviderOccupation: string
+}
+
+export type ProfileFormData = {
   firstName: string
   lastName: string
   email: string
   phone: string
   gender: string
   profileImage: string
-  nin: string
-  driversLicense: FileStructure
-  passport: FileStructure
-}
-
-export type ExperienceFormData = {
-  service: string | undefined
-  certification: string | undefined
-  certificateFile: FileStructure
-  experienceYears: string | undefined
-  previousWorkPlaces: string
-  workImage: FileStructure
-}
-
-export type ApplicationProfileFormData = {
-  country: string
-  city: string
-  address: string
-  dateOfBirth: string
-  headline: string
-}
-
-export type Registration = {
-  role?: 'customer' | 'professional'
-  personalInfo: PersonalInformationFormData
-  experience: ExperienceFormData
-  applicationProfile: ApplicationProfileFormData
-}
-
-export type RequiredFormData = {
-  country: string
-  city: string
-  address: string
-  dateOfBirth: string
-  headline: string
-  firstName: string
-  lastName: string
-  phone: string
-  nin: string
-  service: string | undefined
 }

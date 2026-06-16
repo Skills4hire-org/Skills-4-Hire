@@ -8,15 +8,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import type { UserData } from '@/types/user.types'
 
 export default function MobileHomeHeader() {
   const {
     userType,
-    user_data,
+    avatar,
   }: {
     userType: UserType
-    user_data: UserData
+    avatar: string
   } = useSelector((state: any) => state.userState)
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
@@ -39,7 +38,7 @@ export default function MobileHomeHeader() {
                 <ProfileImage
                   size="size-10"
                   is_active={is_active}
-                  avatar={user_data?.profile.avatar.avatar}
+                  avatar={avatar}
                 />
               </div>
             </SidebarTrigger>
@@ -49,7 +48,7 @@ export default function MobileHomeHeader() {
                 <ProfileImage
                   size="size-10"
                   is_active={is_active}
-                  avatar={user_data?.profile.avatar.avatar}
+                  avatar={avatar}
                 />
               </div>
             </Link>

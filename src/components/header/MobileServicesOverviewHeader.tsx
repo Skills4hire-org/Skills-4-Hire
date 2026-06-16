@@ -10,10 +10,12 @@ import type { UserData } from '@/types/user.types'
 export default function MobileServicesOverviewHeader() {
   const {
     userType,
+    avatar,
     user_data,
   }: {
     userType: UserType
     user_data: UserData
+    avatar: string
   } = useSelector((state: any) => state.userState)
   const is_active = navigator.onLine
   return (
@@ -24,7 +26,7 @@ export default function MobileServicesOverviewHeader() {
             <ProfileImage
               size="size-10"
               is_active={is_active}
-              avatar={user_data?.profile.avatar.avatar}
+              avatar={avatar}
             />
           </SidebarTrigger>
         ) : (
@@ -32,7 +34,7 @@ export default function MobileServicesOverviewHeader() {
             <ProfileImage
               size="size-10"
               is_active={is_active}
-              avatar={user_data?.profile.avatar.avatar}
+              avatar={avatar}
             />
           </Link>
         )}

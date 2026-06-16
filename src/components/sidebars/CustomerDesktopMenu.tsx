@@ -10,13 +10,18 @@ import {
 } from '../ui/dropdown-menu'
 import { useNavigate } from 'react-router-dom'
 import SignOutButton from '../buttons/SignOutButton'
+import { useSelector } from 'react-redux'
 
 export default function CustomerDesktopMenu() {
+  const { avatar }: { avatar: string } = useSelector(
+    (state: any) => state.userState,
+  )
   const navigate = useNavigate()
+  const is_active = navigator.onLine
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="mx-auto">
-        <ProfileImage />
+        <ProfileImage is_active={is_active} avatar={avatar} />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         side="top"

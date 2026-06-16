@@ -198,32 +198,32 @@ export const serviceProviderMobileNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
-    url: '/professional/home',
+    url: '/service_provider/home',
     activeIcon: 'si:home-fill',
   },
   {
     key: 'overview',
     label: 'Overview',
     icon: 'fluent:briefcase-medical-16-regular',
-    url: '/professional/overview',
+    url: '/service_provider/overview',
     activeIcon: 'fluent:briefcase-medical-16-filled',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/professional/bookings',
+    url: '/service_provider/bookings',
     activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
-    url: '/professional/wallet',
+    url: '/service_provider/wallet',
     activeIcon: 'solar:wallet-bold',
   },
   {
     label: 'chats',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/professional/chats',
+    url: '/service_provider/chats',
     activeIcon: 'material-symbols:chat-rounded',
   },
 ]
@@ -232,38 +232,38 @@ export const serviceProviderDesktopNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
-    url: '/professional/home',
+    url: '/service_provider/home',
   },
   {
     key: 'overview',
     label: 'Overview',
     icon: 'fluent:briefcase-medical-20-regular',
-    url: '/professional/overview',
+    url: '/service_provider/overview',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/professional/bookings',
+    url: '/service_provider/bookings',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
-    url: '/professional/wallet',
+    url: '/service_provider/wallet',
   },
   {
     label: 'chats',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/professional/chats',
+    url: '/service_provider/chats',
   },
   {
     label: 'notification',
     icon: 'lucide:bell',
-    url: '/professional/notification',
+    url: '/service_provider/notification',
   },
   {
     label: 'help center',
     icon: 'lucide:circle-help',
-    url: '/professional/support',
+    url: '/service_provider/support',
   },
 ]
 

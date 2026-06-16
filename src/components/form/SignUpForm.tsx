@@ -1,68 +1,76 @@
-import { useState} from "react";
-import type { FormEvent } from "react";
-import { register } from "@/api/auth";
-import { useValidateSchema } from "@/hooks/useValidateSchema";
-import { registerSchema } from "@/utils/schemas";
-import FormInput from "@/components/form-fields/FormInput";
+import { useState } from 'react'
+import type { FormEvent } from 'react'
+import { register } from '@/api/auth'
+import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { registerSchema } from '@/utils/schemas'
+import FormInput from '@/components/form-fields/FormInput'
 
-import { toast } from "sonner";
+import { toast } from 'sonner'
 
 interface SignUpFormProps {
-  onSuccess?: (email: string) => void;
+  onSuccess?: (email: string) => void
 }
 
 export default function SignUpForm({ onSuccess }: SignUpFormProps) {
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    phone: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-    referral_code: "",
-  });
+    first_name: '',
+    last_name: '',
+    phone: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+    referral_code: '',
+  })
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (name: string, value: string) => {
-    if (name === "phone") {
-      value = value.replace(/\D/g, "");
+    if (name === 'phone') {
+      value = value.replace(/\D/g, '')
     }
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
- const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-    const validatedData = useValidateSchema(registerSchema, formData);
-    if (!validatedData) return;
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const validatedData = useValidateSchema(registerSchema, formData)
+    if (!validatedData) return
 
-    const cleanedPhone = validatedData.phone.replace(/\s+/g, "");
+    const cleanedPhone = validatedData.phone.replace(/\s+/g, '')
 
-    const formattedPhone = cleanedPhone.startsWith("0")
-      ? "+234" + cleanedPhone.slice(1)
-      : cleanedPhone;
+    const formattedPhone = cleanedPhone.startsWith('0')
+      ? '+234' + cleanedPhone.slice(1)
+      : cleanedPhone
 
     const payload = {
       ...validatedData,
       phone: formattedPhone,
       referral_code: formData.referral_code || undefined,
-    };
+    }
 
-    setLoading(true);
+    setLoading(true)
 
     try {
-      const response = await register(payload);
+      /* console.debug("Register payload:", payload); */
+      const response = await register(payload)
+      /* console.debug("Register response:", response); */
 
-      toast.success(response?.message || "Account created successfully");
+      toast.success(response?.message || 'Account created successfully')
 
       // Call parent handler instead of navigating directly
-      onSuccess?.(payload.email);
+      onSuccess?.(payload.email)
     } catch (error: any) {
-      toast.error(error?.message || "Signup failed");
+      /* console.error(
+        "Register error:",
+        error?.response?.data || error?.message || error,
+      ); */
+      toast.error(
+        error?.response?.data?.detail || error?.message || 'Signup failed',
+      )
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 mb-6 text-left">
@@ -136,8 +144,8 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
         disabled={loading}
         className="w-full bg-primary text-white py-3 rounded-lg font-medium disabled:opacity-60"
       >
-        {loading ? "Signing up..." : "Sign up"}
+        {loading ? 'Signing up...' : 'Sign up'}
       </button>
     </form>
-  );
+  )
 }

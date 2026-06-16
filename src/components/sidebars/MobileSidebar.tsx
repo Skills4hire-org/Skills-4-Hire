@@ -16,13 +16,18 @@ import { user } from '@/utils/database'
 import { Link, NavLink } from 'react-router-dom'
 import { sidebarAboutUs, sidebarMobileGeneral } from '@/assets/data'
 import SignOutButton from '../buttons/SignOutButton'
+import { useSelector } from 'react-redux'
 
 export default function MobileSidebar() {
+  const { avatar }: { avatar: string } = useSelector(
+    (state: any) => state.userState,
+  )
+  const is_active = navigator.onLine
   return (
     <Sidebar>
       <SidebarHeader className="border-b py-1.5 gap-0.5">
         <div className="flex items-start justify-between ">
-          <ProfileImage size="size-10" />
+          <ProfileImage size="size-10" is_active={is_active} avatar={avatar} />
           <SidebarTrigger
             size="icon"
             variant="outline"

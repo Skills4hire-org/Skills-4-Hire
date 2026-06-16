@@ -3,15 +3,14 @@ import ProfileImage from '../global/ProfileImage'
 import { SidebarTrigger } from '../ui/sidebar'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import type { UserData } from '@/types/user.types'
 
 export default function MobileBookingsHeader() {
   const {
     userType,
-    user_data,
+    avatar,
   }: {
     userType: UserType
-    user_data: UserData
+    avatar: string
   } = useSelector((state: any) => state.userState)
   const is_active = navigator.onLine
   return (
@@ -19,18 +18,11 @@ export default function MobileBookingsHeader() {
       <h1 className="font-bold text-lg text-foreground">Bookings</h1>
       {userType == 'customer' ? (
         <SidebarTrigger size="lg">
-          <ProfileImage
-            size="size-10"
-            avatar={user_data?.profile.avatar.avatar}
-          />
+          <ProfileImage size="size-10" avatar={avatar} />
         </SidebarTrigger>
       ) : (
         <Link className="block -my-2" to="/professional/profile">
-          <ProfileImage
-            size="size-10"
-            is_active={is_active}
-            avatar={user_data?.profile.avatar.avatar}
-          />
+          <ProfileImage size="size-10" is_active={is_active} avatar={avatar} />
         </Link>
       )}
     </header>

@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 interface ApiErrorResponse {
-  message: string
-  success: boolean
+  detail: string
+  status: boolean
   timestamp: string
 }
 
 export const handleApiError = (error: unknown): never => {
   if (axios.isAxiosError<ApiErrorResponse>(error)) {
     const message =
-      error?.response?.data?.message || error?.message || 'Something went wrong'
+      error?.response?.data?.detail || error?.message || 'Something went wrong'
     throw new Error(message)
   }
 

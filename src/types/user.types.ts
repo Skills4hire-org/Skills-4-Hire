@@ -8,10 +8,11 @@ export type UserData = {
   is_verified: boolean
   first_name: string
   last_name: string
+  phone: string
   profile: {
     display_name: string
     professional_title: string
-
+    gender: string
     country: string
     city: string
     avatar: {
@@ -26,6 +27,7 @@ export type AuthUser = {
   access: string | null
   refresh: string | null
   user_data: UserData | null
+  avatar: string
 }
 
 export type Provider = {

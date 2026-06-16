@@ -8,12 +8,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import FormInput from '../form-fields/FormInput'
 import { toast } from 'sonner'
 
-export default function SignInForm() {
+interface SignInFormProps {
+  initialEmail?: string
+}
+
+export default function SignInForm({ initialEmail }: SignInFormProps) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [formData, setFormData] = useState({
-    email: '',
+    email: initialEmail || '',
     password: '',
   })
 
@@ -32,7 +36,7 @@ export default function SignInForm() {
     setLoading(true)
 
     try {
-      const response = await login(validatedData)
+       const response = await login(validatedData)
       dispatch(setUserCredentials(response))
 
       if (

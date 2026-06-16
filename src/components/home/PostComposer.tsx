@@ -11,9 +11,8 @@ import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function PostComposer() {
-  const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { userType, avatar }: { userType: UserType; avatar: string } =
+    useSelector((state: any) => state.userState)
   const navigate = useNavigate()
   const url =
     userType == 'customer'
@@ -52,7 +51,7 @@ export default function PostComposer() {
       )}
 
       <div className="flex items-center gap-2">
-        <ProfileImage noStatus />
+        <ProfileImage noStatus avatar={avatar} />
         <Link to={url} className="w-full">
           <FormTextArea
             name="post"

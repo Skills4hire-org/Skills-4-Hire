@@ -5,20 +5,20 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts'
-import { providerOverviewData } from '@/assets/data'
-import Container from '@/components/global/Container'
-import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
-import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
-import { Link } from 'react-router-dom'
-import NoRequestCard from '@/components/overview/NoRequestCard'
-import RequestCard from '@/components/overview/RequestCard'
-import NoReviewCard from '@/components/reviews/NoReviewCard'
-import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
+} from "recharts";
+import { providerOverviewData } from "@/assets/data";
+import Container from "@/components/global/Container";
+import MobileServicesOverviewHeader from "@/components/header/MobileServicesOverviewHeader";
+import DesktopServicesOverviewHeader from "@/components/header/DesktopServicesOverviewHeader";
+import { Link } from "react-router-dom";
+import NoRequestCard from "@/components/overview/NoRequestCard";
+import RequestCard from "@/components/overview/RequestCard";
+import NoReviewCard from "@/components/reviews/NoReviewCard";
+import ReferAndEarnBanner from "@/components/services/ReferAndEarnBanner";
 
 export default function ProviderOverview() {
   const { user, stats, chart, newBookingRequest, reviews } =
-    providerOverviewData
+    providerOverviewData;
 
   return (
     <div className="space-y-2 md:space-y-6">
@@ -33,14 +33,14 @@ export default function ProviderOverview() {
               Provider Type: <span className="font-semibold">{user.role}</span>
             </p>
             <p>
-              App Commission: {''}
+              App Commission: {""}
               <span className="font-semibold">{user.commission}</span>
             </p>
           </div>
           <section className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4">
             <h2 className="sr-only">Stat</h2>
             {stats.map((item, index) => {
-              const Icon = item.icon
+              const Icon = item.icon;
               return (
                 <div
                   key={index}
@@ -58,7 +58,7 @@ export default function ProviderOverview() {
                     {item.label}
                   </h3>
                 </div>
-              )
+              );
             })}
           </section>
           <section className="bg-white rounded-lg px-2 py-4 md:px-3 md:py-6 space-y-4 md:space-y-6 shadow-md ">
@@ -88,11 +88,11 @@ export default function ProviderOverview() {
               <BarChart data={chart}>
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: 'hsl(var(--primary))', fontSize: 12 }}
+                  tick={{ fill: "hsl(var(--primary))", fontSize: 12 }}
                 />
                 <YAxis
                   tickFormatter={(val) => val.toLocaleString()}
-                  tick={{ fill: '#111', fontSize: 12 }}
+                  tick={{ fill: "#111", fontSize: 12 }}
                   domain={[0, 500000]}
                   ticks={[
                     0, 50000, 100000, 150000, 200000, 250000, 300000, 350000,
@@ -112,7 +112,7 @@ export default function ProviderOverview() {
                 Reviews ({reviews && reviews.length})
               </h2>
               <Link
-                to="/professional/reviews"
+                to="/service_provider/reviews"
                 className="text-xs md:text-sm text-primary hover:underline"
               >
                 View all
@@ -128,5 +128,5 @@ export default function ProviderOverview() {
         </div>
       </Container>
     </div>
-  )
+  );
 }
