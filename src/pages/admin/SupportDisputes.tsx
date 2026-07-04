@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
-import { Search, Send, MoreVertical, Paperclip, AlertCircle, Clock, PlayCircle, CheckCircle2 } from "lucide-react";
+import { Search, Send, MoreVertical, Paperclip, AlertCircle, Clock, PlayCircle, CheckCircle2, ArrowLeft } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 type DisputeStatus = "Yet to start" | "On hold" | "Escalate" | "completed";
@@ -78,7 +78,12 @@ const StatusPill = ({ status }: { status: DisputeStatus }) => {
 };
 
 export default function SupportDisputes() {
-  const [selectedChat, setSelectedChat] = useState<ChatPreview | null>(INITIAL_CHATS[0]);
+  const [selectedChat, setSelectedChat] = useState<ChatPreview | null>(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      return null;
+    }
+    return INITIAL_CHATS[0];
+  });
   const [messages, setMessages] = useState<Record<string, ChatMessage[]>>(MOCK_MESSAGES);
   const [messageText, setMessageText] = useState("");
 
@@ -114,7 +119,12 @@ export default function SupportDisputes() {
 
   return (
     <div className="flex flex-col w-full h-full mt-2 relative">
-      <h1 className="text-3xl font-semibold text-gray-900 tracking-tight mb-6">Support & Disputes</h1>
+      <h1 className={cn(
+        "text-3xl font-semibold text-gray-900 tracking-tight mb-6",
+        selectedChat ? "hidden md:block" : "block"
+      )}>
+        Support & Disputes
+      </h1>
 
       <div className="flex gap-6 h-full flex-col xl:flex-row pb-6">
         
@@ -122,7 +132,10 @@ export default function SupportDisputes() {
         <div className="flex-1 w-full border border-gray-200 rounded-3xl bg-white overflow-hidden flex flex-col md:flex-row min-h-[600px] shadow-sm">
           
           {/* Conversation List Sidebar */}
-          <div className="w-full md:w-[320px] shrink-0 border-b md:border-b-0 md:border-r border-gray-200 flex flex-col bg-gray-50/50 max-h-[300px] md:max-h-none overflow-y-auto">
+          <div className={cn(
+            "w-full md:w-[320px] shrink-0 border-b md:border-b-0 md:border-r border-gray-200 flex-col bg-gray-50/50 overflow-y-auto md:max-h-none md:flex",
+            selectedChat ? "hidden" : "flex flex-1"
+          )}>
             <div className="p-5 border-b border-gray-200 bg-white">
                <h2 className="font-semibold text-gray-800 tracking-tight mb-4 text-lg">Active Tickets</h2>
                <div className="relative">
@@ -174,12 +187,22 @@ export default function SupportDisputes() {
           </div>
 
           {/* Active Chat Window */}
-          <div className="flex-1 flex flex-col bg-white">
+          <div className={cn(
+            "flex-1 flex-col bg-white md:flex",
+            selectedChat ? "flex" : "hidden"
+          )}>
             {selectedChat ? (
               <>
                 {/* Chat Header */}
                 <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-white shadow-sm z-10 sticky top-0">
                   <div className="flex items-center gap-4">
+                    <button 
+                      onClick={() => setSelectedChat(null)}
+                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors md:hidden -ml-2 mr-1"
+                      aria-label="Back to active tickets"
+                    >
+                      <ArrowLeft className="w-6 h-6 text-gray-600" />
+                    </button>
                     <img src={selectedChat.avatar} className="w-10 h-10 rounded-full object-cover shadow-sm" alt="avatar" />
                     <div>
                       <h3 className="font-semibold text-gray-800 text-base">{selectedChat.name}</h3>
@@ -254,7 +277,10 @@ export default function SupportDisputes() {
         </div>
 
         {/* Right Column (Metrics & Recharts - Retained from previous state) */}
-        <div className="w-full xl:w-[350px] bg-[#EBEBEB] rounded-3xl p-6 flex flex-col shrink-0">
+        <div className={cn(
+          "w-full xl:w-[350px] bg-[#EBEBEB] rounded-3xl p-6 flex-col shrink-0 xl:flex",
+          selectedChat ? "hidden" : "flex"
+        )}>
           <h2 className="text-center text-[20px] font-semibold text-gray-800 tracking-tight mt-2 mb-6">
             Dispute Resolution
           </h2>
