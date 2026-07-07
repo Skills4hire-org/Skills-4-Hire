@@ -1,7 +1,7 @@
 import { currencyFormatter } from '@/utils/format'
 import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
-import type { Service, ServiceProviderServiceCard } from '@/types/user.types'
+import type { Service } from '@/types/user.types'
 import { useDispatch, useSelector } from 'react-redux'
 import { addService, removeService } from '@/features/booking/bookingSlice'
 import DeleteServiceDialog from '../profile/DeleteServiceDialog'
@@ -14,7 +14,7 @@ export default function ServiceProviderServicesCard({
   check,
   isDeleteable,
 }: Service & { check?: boolean; isDeleteable?: boolean }) {
-  const { services }: { services: ServiceProviderServiceCard[] } = useSelector(
+  const { services }: { services: Service[] } = useSelector(
     (state: any) => state.bookingState,
   )
   const servicesIds = services.map((service) => service.service_id)

@@ -34,7 +34,7 @@ export default function ApprovePayment() {
             </p>
           </div>
           <PendingPaymentForm
-            from={user_data?.name}
+            from={user_data?.profile?.display_name}
             to={data?.name}
             amount={data?.amount}
             provider_id={data?.provider_id}

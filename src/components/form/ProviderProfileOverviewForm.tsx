@@ -13,7 +13,7 @@ export default function ProviderProfileOverviewForm({
   professional,
   setIsOpen,
 }: {
-  professional: Profile
+  professional: Profile | undefined
   setIsOpen: (value: boolean) => void
 }) {
   const [formData, setFormData] = useState<ProfileOverviewFormData>({
@@ -21,8 +21,8 @@ export default function ProviderProfileOverviewForm({
     lastName: professional?.user?.last_name,
     profession: professional?.professional_title,
     headline: professional?.headline,
-    minCharge: parseFloat(professional?.min_charge).toString(),
-    maxCharge: parseFloat(professional?.max_charge).toString(),
+    minCharge: parseFloat(professional?.min_charge ?? '0').toString(),
+    maxCharge: parseFloat(professional?.max_charge ?? '0').toString(),
     address: professional?.user?.profile.location,
     city: professional?.user?.profile.city,
     state: professional?.user?.profile.state,

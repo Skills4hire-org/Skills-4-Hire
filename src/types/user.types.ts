@@ -1,4 +1,4 @@
-export type UserType = 'customer' | 'professional'
+export type UserType = 'customer' | 'professional' | null
 export type UserData = {
   user_id: string
   email: string

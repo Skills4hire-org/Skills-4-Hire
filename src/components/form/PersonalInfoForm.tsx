@@ -1,6 +1,6 @@
-import { genderOptions } from '@/assets/data'
+/* import { genderOptions } from '@/assets/data' */
 import FormInput from '@/components/form-fields/FormInput'
-import FormSelect from '@/components/form-fields/FormSelect'
+/* import FormSelect from '@/components/form-fields/FormSelect' */
 import { useRef, useState, type FormEvent } from 'react'
 import FormFile from '../form-fields/FormFile'
 import { Button } from '../ui/button'
