@@ -27,7 +27,6 @@ export type AuthUser = {
   access: string | null
   refresh: string | null
   user_data: UserData | null
-  avatar: string
 }
 
 export type Provider = {
@@ -67,12 +66,15 @@ export type ProviderParams = {
 }
 
 export type Service = {
-  service_id: string
+  service_id?: string
   name: string
-  min_charge: string
-  max_charge: string
+  description?: string
+  charge: number
+  category_id?: string
+  years_of_experience?: number
   attachments: {
     image_url: string
+    image_public_id: string
   }[]
 }
 
@@ -84,7 +86,11 @@ export type Media = {
 
 export type Gallery = {
   image_url: string
-  description: string
+  description?: string
+  public_id?: string
+  work_image_id?: string
+  thumbnail_url?: string
+  type?: string
 }
 
 export type Profile = {
@@ -125,6 +131,7 @@ export type Profile = {
       }
     }
   }
+
   posts: {
     post_id: string
     post_title: string
@@ -215,7 +222,7 @@ export type Profile = {
     total_likes: number
   }[]
   services: Service[]
-  gallery: Gallery[]
+  gallary: Gallery[]
   media: Media[]
 }
 
@@ -226,11 +233,12 @@ export type ProfileFormData = {
   phone?: string
   gender?: string
   profileImage?: string
+  profileFile: File[] | null
+  countryCode: string
 }
 export type ProfileOverviewFormData = {
   firstName?: string
   lastName?: string
-  profileImage?: string
   profession?: string
   headline?: string
   minCharge?: string

@@ -27,13 +27,10 @@ export const registerSchema = z
   .object({
     first_name: z.string().min(1, { message: 'First name is required' }),
     last_name: z.string().min(1, { message: 'Last name is required' }),
-
     phone: z
       .string()
-      .trim()
       .min(1, { message: 'Phone number is required' })
-      .startsWith('0', { message: 'Phone number must start with 0' })
-      .length(11, { message: 'Please enter a valid 11-digit phone number' }),
+      .length(10, { message: 'Please enter a valid phone number' }),
 
     email: z.email({ message: 'Enter a valid email address' }),
 

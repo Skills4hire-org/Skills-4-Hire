@@ -5,18 +5,29 @@ import { Input } from '../ui/input'
 import { Check, ImageIcon, Plus } from 'lucide-react'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Button } from '../ui/button'
+import { useAddServices } from '@/hooks/useUsers'
+import { toast } from 'sonner'
+import { uploadToCloudinary } from '@/utils/cloudinary'
 
 export default function ServiceForm({
   setIsOpen,
 }: {
   setIsOpen: (value: boolean) => void
 }) {
-  const [formData, setFormData] = useState({
+  const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState<{
+    name: string
+    amount: string
+    photo: File[] | null
+  }>({
     name: '',
     amount: '',
-    photo: '',
+    photo: null,
   })
   const checkForm = !formData.name || !formData.amount || !formData.photo
+
+  const { mutate: addService, isPending } = useAddServices()
+
   const handleInputChange = (field: string, value: string) => {
     if (field === 'amount') {
       const newValue = value.replace(/[^0-9]/g, '')
@@ -27,17 +38,64 @@ export default function ServiceForm({
   }
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 2 * 1024 * 1024
-    const selectedFile = e.target.files
-    if (!selectedFile) return
-    const isOverSize = selectedFile[0].size > MAX_SIZE_MB
-    if (isOverSize) return
-    const validImage = URL.createObjectURL(selectedFile[0])
-    setFormData({ ...formData, photo: validImage })
+    const selectedFiles = e.target.files || []
+    const files: File[] = Array.from(selectedFiles)
+    let acceptedImageFiles: File[] = []
+    if (files.length === 0) return
+    files.forEach((newFile) => {
+      const fileType = newFile.type.startsWith('image/')
+      if (!fileType) {
+        toast.warning(`${newFile.name} file type is not acceptable`)
+      }
+      const isOverSize = newFile.size > MAX_SIZE_MB
+
+      if (isOverSize) {
+        toast.warning(
+          `${newFile.name}'s size exceeds maximum upload size (2MB)`,
+        )
+        return
+      }
+      acceptedImageFiles.push(newFile)
+    })
+    setFormData({ ...formData, photo: acceptedImageFiles })
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     try {
-    } catch (error: any) {}
+      const uploadedUrls = await uploadToCloudinary(formData.photo)
+      console.log(uploadedUrls)
+
+      if (uploadedUrls) {
+        const data = {
+          name: formData.name,
+          namex: 'fuftfyu',
+          charge: Number(formData.amount),
+          years_of_experience: 0,
+          attachments: [
+            {
+              image_url: uploadedUrls[0].url,
+              image_public_id: uploadedUrls[0].public_id,
+            },
+          ],
+        }
+
+        addService(data, {
+          onSuccess: () => {
+            setIsOpen(false)
+            toast.success('You have added a new service.')
+          },
+          onError: (error) => {
+            toast.error(error.message)
+          },
+        })
+      }
+    } catch (error: any) {
+      setIsLoading(false)
+      toast.error('Failed. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-2 md:space-y-4">
@@ -96,7 +154,7 @@ export default function ServiceForm({
         <FormSubmitButton
           texting="adding"
           text="add"
-          submitting={false}
+          submitting={isPending || isLoading}
           disabled={checkForm}
           className="capitalize w-20"
         />

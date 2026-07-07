@@ -1,9 +1,9 @@
 import Container from '@/components/global/Container'
 import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
+import MediaGallery from '@/components/global/MediaGallery'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import GalleryDialog from '@/components/profile/GalleryDialog'
-import ServiceProviderGallery from '@/components/service-provider/ServiceProviderGallery'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { useMyGallery } from '@/hooks/useUsers'
 import type { Gallery } from '@/types/user.types'
@@ -29,13 +29,14 @@ export default function ProfileGallery() {
     fetchNextPage,
   })
 
-  const gallery: Gallery[] = data?.pages.flatMap((page) => page.results) ?? []
+  const gallery: Gallery[] =
+    data?.pages.flatMap((page) => page.data.results) ?? []
 
   const handleGalleryFetchingError = async () => {
     refetch()
   }
   return (
-    <div className="space-y-2 md:space-y-6">
+    <div className="space-y-2 md:space-y-6 relative">
       <HeaderWithBackNavigation title="Gallery" />
       <Container>
         {isLoading ? (
@@ -52,9 +53,9 @@ export default function ProfileGallery() {
                 />
               </div>
             ) : (
-              <div className="relative">
+              <div>
                 {editGallery ? (
-                  <div className="flex items-center gap-2 absolute top-0 right-0">
+                  <div className="flex items-center gap-2 absolute top-3 md:top-4 right-2 md:right-4">
                     <GalleryDialog />
                     <button
                       className="text-gray-600 hover:text-gray-500 cursor-pointer shadow-sm hover:shadow-md rounded-sm p-0.5"
@@ -69,22 +70,14 @@ export default function ProfileGallery() {
                   </div>
                 ) : (
                   <button
-                    className="text-primary absolute top-0 right-0 cursor-pointer text-primary/80"
+                    className="text-primary absolute top-3 md:top-4 right-2 md:right-4 cursor-pointer text-primary/80"
                     onClick={() => setEditGallery(true)}
                   >
                     <Edit2 strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6" />
                     <span className="sr-only">open edit</span>
                   </button>
                 )}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
-                  {gallery?.map((gallery) => (
-                    <ServiceProviderGallery
-                      key={gallery.description}
-                      image={gallery.image_url}
-                      editGallery={editGallery}
-                    />
-                  ))}
-                </div>
+                <MediaGallery media={gallery} editGallery={editGallery} />
 
                 <div ref={loadMoreRef} />
 

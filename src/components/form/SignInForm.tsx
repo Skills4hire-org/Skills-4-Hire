@@ -36,12 +36,12 @@ export default function SignInForm({ initialEmail }: SignInFormProps) {
     setLoading(true)
 
     try {
-       const response = await login(validatedData)
-      dispatch(setUserCredentials(response))
+      const response = await login(validatedData)
+      dispatch(setUserCredentials(response?.data))
 
       if (
-        !response?.user_data?.is_customer &&
-        !response?.user_data?.is_provider
+        !response?.data?.user_data?.is_customer &&
+        !response?.data?.user_data?.is_provider
       ) {
         navigate(`/onboarding`)
       } else {

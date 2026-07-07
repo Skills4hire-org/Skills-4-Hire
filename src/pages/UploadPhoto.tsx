@@ -1,15 +1,15 @@
 import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import AuthLogo from '@/components/global/AuthLogo'
 import Container from '@/components/global/Container'
 import { Camera } from 'lucide-react'
 import { toast } from 'sonner'
 import { uploadToCloudinary } from '@/utils/cloudinary'
-import { selectRole, uploadAvatar } from '@/api/onboard'
-import { setProfilePhoto } from '@/features/user/userSlice'
+import { selectRole } from '@/api/onboard'
+import { useUpdateProfileImage } from '@/hooks/useUsers'
 
 export default function UploadPhoto() {
+  const { mutate: updateAvatar } = useUpdateProfileImage()
   const { role } = useParams()
   const [formData, setFormData] = useState<{
     image: string
@@ -20,7 +20,6 @@ export default function UploadPhoto() {
   })
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const fileRef = useRef<HTMLInputElement | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -29,9 +28,13 @@ export default function UploadPhoto() {
     const selectedFiles = e.target.files || []
     const files = Array.from(selectedFiles)
     if (files.length === 0) return
+    const fileType = files[0].type.startsWith('image/')
     const isOverSize = files[0].size > MAX_SIZE_MB
+    if (!fileType) {
+      toast.warning('File type is not acceptable')
+    }
     if (isOverSize) {
-      toast.warning('Image size exceeds 2MB')
+      toast.warning('Image size must not exceed 2MB')
       return
     }
     const validImage = URL.createObjectURL(files[0])
@@ -48,10 +51,8 @@ export default function UploadPhoto() {
         avatar_public_id: uploadedUrls && uploadedUrls[0]?.public_id,
         description: 'profile image',
       }
-      const response = await uploadAvatar(data)
-      if (response) {
-        dispatch(setProfilePhoto(data.avatar))
-      }
+      updateAvatar(data)
+
       if (role === 'customer') {
         await selectRole('CUSTOMER')
         toast.success('Registration successful')

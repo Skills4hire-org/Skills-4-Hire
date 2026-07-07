@@ -10,12 +10,14 @@ import {
 } from '../ui/dropdown-menu'
 import { useNavigate } from 'react-router-dom'
 import SignOutButton from '../buttons/SignOutButton'
-import { useSelector } from 'react-redux'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function CustomerDesktopMenu() {
-  const { avatar }: { avatar: string } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { data } = useMyProfile()
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
+
   const navigate = useNavigate()
   const is_active = navigator.onLine
   return (
@@ -63,9 +65,11 @@ export default function CustomerDesktopMenu() {
             const IconComponent = icon
             return (
               <>
-                {' '}
                 {label == 'helpline number' ? (
-                  <div className="px-1 group cursor-pointer hover:bg-white rounded-sm">
+                  <div
+                    key={label}
+                    className="px-1 group cursor-pointer hover:bg-white rounded-sm"
+                  >
                     <a
                       href={url}
                       className="py-2 flex items-center gap-2 w-full "

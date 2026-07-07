@@ -9,18 +9,19 @@ import {
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
 import { Button } from '../ui/button'
+import { Plus } from 'lucide-react'
 
-export default function ServicesDialog({
-  servicesLength,
-}: {
-  servicesLength: number | undefined
-}) {
+export default function ServicesDialog({ text }: { text?: string }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
-        <Button className="h-8 md:h-10 md:px-4 px-2 text-sm md:text-base font-medium rounded-sm flex items-center gap-2">
-          {servicesLength === 0 ? 'Add a service' : 'Add more services'}
+        <Button
+          size={text ? 'default' : 'icon'}
+          className={`h-7 md:h-10 md:px-4 px-1 text-sm md:text-base font-medium rounded-sm flex items-center gap-2 text-white ${!text && 'w-7 md:w-10'}`}
+        >
+          <Plus className="w-4 h-4 md:w-5 md:h-5" />
+          {text}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

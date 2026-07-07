@@ -9,10 +9,16 @@ import FormSubmitButton from '../buttons/FormSubmitButton'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function PostComposer() {
-  const { userType, avatar }: { userType: UserType; avatar: string } =
-    useSelector((state: any) => state.userState)
+  const { data } = useMyProfile()
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
   const navigate = useNavigate()
   const url =
     userType == 'customer'

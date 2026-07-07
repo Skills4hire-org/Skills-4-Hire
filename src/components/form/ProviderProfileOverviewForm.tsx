@@ -6,22 +6,23 @@ import FormSelect from '../form-fields/FormSelect'
 import { serviceTypes } from '@/assets/data'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Button } from '../ui/button'
+import { useUpdateMyProfile } from '../../hooks/useUsers'
+import { toast } from 'sonner'
 
 export default function ProviderProfileOverviewForm({
   professional,
   setIsOpen,
 }: {
-  professional: Profile | undefined
+  professional: Profile
   setIsOpen: (value: boolean) => void
 }) {
   const [formData, setFormData] = useState<ProfileOverviewFormData>({
     firstName: professional?.user?.first_name,
     lastName: professional?.user?.last_name,
-    profileImage: professional?.user?.profile.avatar?.avatar,
     profession: professional?.professional_title,
     headline: professional?.headline,
-    minCharge: professional?.min_charge,
-    maxCharge: professional?.max_charge,
+    minCharge: parseFloat(professional?.min_charge).toString(),
+    maxCharge: parseFloat(professional?.max_charge).toString(),
     address: professional?.user?.profile.location,
     city: professional?.user?.profile.city,
     state: professional?.user?.profile.state,
@@ -35,36 +36,36 @@ export default function ProviderProfileOverviewForm({
       setFormData((prev: any) => ({ ...prev, [field]: value }))
     }
   }
-  /* const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 2 * 1024 * 1024
-    const selectedFile = e.target.files
-    if (!selectedFile) return
-    const isOverSize = selectedFile[0].size > MAX_SIZE_MB
-    if (isOverSize) return
-    const validImage = URL.createObjectURL(selectedFile[0])
-    setFormData({ ...formData, profileImage: validImage })
-  } */
+  const { mutate: updateOverview, isPending } = useUpdateMyProfile()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const data = {
+      professional_title: formData.profession,
+      max_charge: formData.maxCharge,
+      min_charge: formData.minCharge,
+      headline: formData.headline,
+      user: {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        profile: {
+          city: formData.city,
+          state: formData.state,
+          location: formData.address,
+        },
+      },
+    }
+    updateOverview(data, {
+      onSuccess: () => {
+        setIsOpen(false)
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+    })
   }
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto space-y-6">
-      {/* <div className="text-center space-y-2">
-        <figure className="rounded-xl w-max mx-auto  relative">
-          <img
-            src={formData?.profileImage}
-            alt={professional?.profile?.display_name}
-            className="aspect-square object-cover w-32 md:w-36 rounded-xl "
-            loading="lazy"
-          />
-          <FormImage
-            name="profileImage"
-            className="absolute bottom-2 left-2"
-            handleImageChange={handleImageChange}
-          />
-        </figure>
-      </div> */}
       <div className="space-y-3 md:space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
           <FormInput
@@ -105,7 +106,7 @@ export default function ProviderProfileOverviewForm({
           name="headline"
           value={formData?.headline}
           handleInputChange={handleInputChange}
-          type="email"
+          type="text"
           required
           className="bg-gray-300 h-11 pl-4 pr-6 "
           placeholder="Headline"
@@ -182,7 +183,7 @@ export default function ProviderProfileOverviewForm({
         <FormSubmitButton
           texting="updating"
           text="update profile"
-          submitting={false}
+          submitting={isPending}
           className="capitalize min-w-20"
         />
       </div>

@@ -197,3 +197,20 @@ export function formatCommentTime(dateString: string) {
     })
   }
 }
+
+export const getVideoMimeType = (url: string) => {
+  const cleanUrl = url.split('?')[0].split('#')[0]
+
+  const extension = cleanUrl.split('.').pop()?.toLowerCase()
+
+  const mimeTypes: Record<string, string> = {
+    mp4: 'video/mp4',
+    webm: 'video/webm',
+    ogg: 'video/ogg',
+    ogv: 'video/ogg',
+    mov: 'video/quicktime',
+    m4v: 'video/x-m4v',
+  }
+
+  return mimeTypes[extension ?? ''] ?? 'video/mp4'
+}

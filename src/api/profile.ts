@@ -1,10 +1,18 @@
 import { api } from '@/utils/axiosConfig'
 import { handleApiError } from './error'
-import type { ProviderParams, Service } from '@/types/user.types'
+import type { Gallery, ProviderParams, Service } from '@/types/user.types'
 
 export const getMyProfile = async () => {
   try {
     const response = await api.get('/api/v1/profile/me')
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+export const updateMyProfile = async (data: any) => {
+  try {
+    const response = await api.patch('/api/v1/profile/me', data)
     return response?.data
   } catch (error) {
     handleApiError(error)
@@ -97,6 +105,23 @@ export const deleteService = async (id?: string) => {
   }
 }
 
+export const addToGallery = async (data: Gallery[]) => {
+  try {
+    const response = await api.post('/api/v1/images/', data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+export const deleteFromGallery = async (image_id?: string) => {
+  try {
+    const response = await api.delete(`/api/v1/images/${image_id}`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
 export const getMyGallery = async (pageParam?: string) => {
   try {
     if (pageParam) {
@@ -128,13 +153,9 @@ export const getUserGallery = async ({
   }
 }
 
-export const updateCoverPhoto = async ({
-  data,
-}: {
-  data: {
-    image_url: string
-    public_url: string
-  }
+export const updateCoverPhoto = async (data: {
+  image_url: string
+  public_url: string
 }) => {
   try {
     const response = await api.patch(`/api/v1/profile/cover-photo/`, data)
@@ -143,17 +164,29 @@ export const updateCoverPhoto = async ({
     handleApiError(error)
   }
 }
-export const updateProfileImage = async ({
-  data,
-}: {
-  data: {
-    avatar: string
-    avatar_public_id: string
-    description: string
-  }
+export const updateProfileImage = async (data: {
+  avatar: string
+  avatar_public_id: string
+  description: string
 }) => {
   try {
-    const response = await api.post(`/api/v1/avatar/`, data)
+    const response = await api.post(`/api/v1/profile/avatar/`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+export const deleteCoverPhoto = async () => {
+  try {
+    const response = await api.delete(`/api/v1/profile/cover-photo/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+export const deleteProfileImage = async () => {
+  try {
+    const response = await api.delete(`/api/v1/profile/avatar/`)
     return response?.data
   } catch (error) {
     handleApiError(error)

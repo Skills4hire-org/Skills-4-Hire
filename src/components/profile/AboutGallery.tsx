@@ -3,28 +3,23 @@ import Container from '../global/Container'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs'
 import { cn } from '@/lib/utils'
 import AboutDialog from './AboutDialog'
-import ServiceProviderGallery from '../service-provider/ServiceProviderGallery'
 import { ArrowRight, Edit2, Undo2 } from 'lucide-react'
 import ServiceProviderAbout from '../service-provider/ServiceProviderAbout'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import EmptyTab from '../service-provider/EmptyTab'
 import GalleryDialog from './GalleryDialog'
+import type { Gallery } from '@/types/user.types'
+import MediaGallery from '../global/MediaGallery'
 
 export default function AboutGallery({
   about,
   gallery,
 }: {
   about: string | undefined
-  gallery:
-    | {
-        image_url: string
-        description: string
-      }[]
-    | undefined
+  gallery: Gallery[] | undefined
 }) {
   const [editGallery, setEditGallery] = useState(false)
-
   return (
     <div className="border-b-8 pt-2 md:pt-4 relative">
       <Container>
@@ -70,15 +65,10 @@ export default function AboutGallery({
                         </div>
                       ) : (
                         <div className="pb-14 md:pb-16">
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
-                            {gallery?.map((image, index) => (
-                              <ServiceProviderGallery
-                                key={index}
-                                image={image.image_url}
-                                editGallery={editGallery}
-                              />
-                            ))}
-                          </div>
+                          <MediaGallery
+                            media={gallery?.slice(0, 4)}
+                            editGallery={editGallery}
+                          />
                           <Link
                             to="gallery"
                             className="border-t py-2 text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300 "

@@ -20,10 +20,16 @@ import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import ProfileImage from '../global/ProfileImage'
 import { Icon } from '@iconify/react'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function DesktopSidebar() {
-  const { userType, avatar }: { userType: UserType; avatar: string } =
-    useSelector((state: any) => state.userState)
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
+  const { data } = useMyProfile()
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
   const is_active = navigator.onLine
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)

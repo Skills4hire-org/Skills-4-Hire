@@ -1,6 +1,6 @@
 import { User } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import placeholder from '../../assets/JoshuaBarber.png'
+import placeholder from '../../assets/images/profile.jpg'
 
 export default function ProfileImage({
   noStatus,

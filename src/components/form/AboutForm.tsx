@@ -2,6 +2,8 @@ import { useState, type FormEvent } from 'react'
 import FormTextArea from '../form-fields/FormTextArea'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Button } from '../ui/button'
+import { useUpdateMyProfile } from '@/hooks/useUsers'
+import { toast } from 'sonner'
 
 export default function AboutForm({
   setIsOpen,
@@ -13,6 +15,7 @@ export default function AboutForm({
   const [formData, setFormData] = useState({
     about,
   })
+  const { mutate: updateProfile, isPending } = useUpdateMyProfile()
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -20,8 +23,18 @@ export default function AboutForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {
-    } catch (error: any) {}
+    const data = {
+      overview: formData.about,
+    }
+
+    updateProfile(data, {
+      onSuccess: () => {
+        setIsOpen(false)
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+    })
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-2 md:space-y-4">
@@ -31,21 +44,21 @@ export default function AboutForm({
         rows={6}
         required
         handleInputChange={handleInputChange}
-        className="pb-12 min-h-32 md:min-h-40 h-max text-sm md:text-base"
+        className="min-h-32 md:min-h-40 h-max text-sm md:text-base"
       />
       <div className="ml-auto w-max flex items-center gap-2">
         <Button
           variant="destructive"
-          className="w-20"
+          className=""
           onClick={() => setIsOpen(false)}
           type="button"
         >
           Close
         </Button>
         <FormSubmitButton
-          texting="submitting"
-          text="submit"
-          submitting={false}
+          texting="updating"
+          text="update"
+          submitting={isPending}
           disabled={!formData.about}
           className="capitalize w-20"
         />

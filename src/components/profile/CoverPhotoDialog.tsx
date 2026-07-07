@@ -8,14 +8,16 @@ import {
 } from '../ui/dialog'
 import { Edit2 } from 'lucide-react'
 import CoverPhotoForm from '../form/CoverPhotoForm'
+import { useState } from 'react'
 
 export default function CoverPhotoDialog({
   cover_photo,
 }: {
   cover_photo: string | undefined
 }) {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <button className="bg-white p-2 text-primary rounded-full absolute top-3 md:top-5 right-4 md:right-6 cursor-pointer">
           <Edit2 strokeWidth={3} className="w-3.5 h-3.5 md:w-4.5 md:h-4.5" />
@@ -30,7 +32,7 @@ export default function CoverPhotoDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <CoverPhotoForm cover_photo={cover_photo} />
+        <CoverPhotoForm cover_photo={cover_photo} setIsOpen={setIsOpen} />
       </DialogContent>
     </Dialog>
   )

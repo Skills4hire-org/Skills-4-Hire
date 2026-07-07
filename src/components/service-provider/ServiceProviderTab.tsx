@@ -6,6 +6,7 @@ import ServiceProviderGallery from './ServiceProviderGallery'
 import EmptyTab from './EmptyTab'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import type { Gallery } from '@/types/user.types'
 
 export default function ServiceProviderTab({
   about,
@@ -13,12 +14,7 @@ export default function ServiceProviderTab({
   user_id,
 }: {
   about: string | undefined
-  gallery:
-    | {
-        image_url: string
-        description: string
-      }[]
-    | undefined
+  gallery: Gallery[] | undefined
   user_id: string | undefined
 }) {
   return (

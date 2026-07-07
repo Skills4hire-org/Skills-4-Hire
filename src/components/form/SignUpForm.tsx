@@ -20,13 +20,15 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
     password: '',
     confirm_password: '',
     referral_code: '',
+    countryCode: '+234',
   })
 
   const [loading, setLoading] = useState(false)
 
   const handleChange = (name: string, value: string) => {
     if (name === 'phone') {
-      value = value.replace(/\D/g, '')
+      const newValue = value.replace(/[^0-9]/g, '')
+      setFormData((prev: any) => ({ ...prev, [name]: newValue }))
     }
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
@@ -36,37 +38,19 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
     const validatedData = useValidateSchema(registerSchema, formData)
     if (!validatedData) return
 
-    const cleanedPhone = validatedData.phone.replace(/\s+/g, '')
-
-    const formattedPhone = cleanedPhone.startsWith('0')
-      ? '+234' + cleanedPhone.slice(1)
-      : cleanedPhone
-
     const payload = {
       ...validatedData,
-      phone: formattedPhone,
+      phone: `${formData.countryCode} ${validatedData.phone}`,
       referral_code: formData.referral_code || undefined,
     }
-
     setLoading(true)
 
     try {
-      /* console.debug("Register payload:", payload); */
-      const response = await register(payload)
-      /* console.debug("Register response:", response); */
-
-      toast.success(response?.message || 'Account created successfully')
-
-      // Call parent handler instead of navigating directly
+      await register(payload)
+      toast.success('Account created successfully')
       onSuccess?.(payload.email)
     } catch (error: any) {
-      /* console.error(
-        "Register error:",
-        error?.response?.data || error?.message || error,
-      ); */
-      toast.error(
-        error?.response?.data?.detail || error?.message || 'Signup failed',
-      )
+      toast.error(error?.message)
     } finally {
       setLoading(false)
     }
@@ -92,17 +76,29 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
         required
       />
 
-      <FormInput
-        name="phone"
-        placeholder="Phone Number"
-        value={formData.phone}
-        handleInputChange={handleChange}
-        type="tel"
-        required
-        maxLength={11}
-        inputMode="numeric"
-        pattern="\d*"
-      />
+      <div className="relative flex items-center gap-1">
+        <FormInput
+          name="countryCode"
+          value={formData.countryCode}
+          handleInputChange={handleChange}
+          type="text"
+          required
+          className="w-19 disabled:opacity-100"
+          disabled
+        />
+        <div className="flex-1">
+          <FormInput
+            name="phone"
+            value={formData.phone}
+            handleInputChange={handleChange}
+            type="tel"
+            maxLength={10}
+            required
+            className=" "
+            placeholder="Phone Number"
+          />
+        </div>
+      </div>
 
       <FormInput
         name="email"

@@ -8,14 +8,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function MobileHomeHeader() {
+  const { data } = useMyProfile()
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
   const {
     userType,
-    avatar,
   }: {
     userType: UserType
-    avatar: string
   } = useSelector((state: any) => state.userState)
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')

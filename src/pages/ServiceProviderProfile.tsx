@@ -62,7 +62,7 @@ export default function ServiceProviderProfile() {
                 <Container className="border-b-8 py-2 md:py-4 relative">
                   <ServiceProviderTab
                     about={profile?.overview}
-                    gallery={profile?.gallery}
+                    gallery={profile?.gallary}
                     user_id={id}
                   />
                 </Container>

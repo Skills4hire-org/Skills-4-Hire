@@ -1,5 +1,9 @@
 import {
   addServices,
+  addToGallery,
+  deleteCoverPhoto,
+  deleteFromGallery,
+  deleteProfileImage,
   deleteService,
   getMyGallery,
   getMyProfile,
@@ -9,9 +13,10 @@ import {
   getUserGallery,
   getUserServices,
   updateCoverPhoto,
+  updateMyProfile,
   updateProfileImage,
 } from '@/api/profile'
-import type { ProviderParams, Service } from '@/types/user.types'
+import type { Gallery, ProviderParams, Service } from '@/types/user.types'
 import {
   useInfiniteQuery,
   useMutation,
@@ -42,7 +47,7 @@ export const useAllProviders = ({
 export const useMyProfile = () => {
   const getProfile = async () => {
     const profile = await getMyProfile()
-    return profile
+    return profile?.data
   }
   const queryData = useQuery({
     queryKey: ['profile'],
@@ -51,13 +56,34 @@ export const useMyProfile = () => {
   return queryData
 }
 
+export const useUpdateMyProfile = () => {
+  const updateProfileAction = async (data: any) => {
+    try {
+      await updateMyProfile(data)
+      toast.success('Profile updated')
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const updateProfileFunction = useMutation({
+    mutationFn: updateProfileAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
+    },
+  })
+  return updateProfileFunction
+}
+
 export const useMyServices = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['my-services'],
-    queryFn: ({ pageParam }) => getMyServices(pageParam),
+    queryKey: ['profile-services'],
+    queryFn: ({ pageParam }) => {
+      return getMyServices(pageParam)
+    },
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage.data.next ?? undefined
     },
     retry: 1,
   })
@@ -65,7 +91,7 @@ export const useMyServices = () => {
 }
 export const useUserServices = ({ id }: { id: string | undefined }) => {
   const queryData = useInfiniteQuery({
-    queryKey: ['my-services'],
+    queryKey: ['profile-services'],
     queryFn: ({ pageParam }) => getUserServices({ pageParam, id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -81,14 +107,15 @@ export const useAddServices = () => {
     try {
       await addServices(data)
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
   const addServicesFunction = useMutation({
     mutationFn: addServicesAction,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['my-services'] })
+      queryClient.invalidateQueries({ queryKey: ['profile-services'] })
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
     },
   })
 
@@ -99,17 +126,38 @@ export const useDeleteService = () => {
     try {
       await deleteService(id)
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
   const deleteServiceFunction = useMutation({
     mutationFn: deleteServiceAction,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['my-services'] })
+      queryClient.invalidateQueries({ queryKey: ['profile-services'] })
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
     },
   })
   return deleteServiceFunction
+}
+
+export const useAddToGallery = () => {
+  const addToGalleryAction = async (data: Gallery[]) => {
+    try {
+      await addToGallery(data)
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const addToGalleryFunction = useMutation({
+    mutationFn: addToGalleryAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['media'] })
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
+    },
+  })
+
+  return addToGalleryFunction
 }
 
 export const useMyGallery = () => {
@@ -150,20 +198,15 @@ export const useProfileDetails = ({ id }: { id?: string }) => {
 }
 
 export const useUpdateCoverPhoto = () => {
-  const updateCoverPhotoAction = async ({
-    data,
-  }: {
-    data: {
-      image_url: string
-      public_url: string
-    }
+  const updateCoverPhotoAction = async (data: {
+    image_url: string
+    public_url: string
   }) => {
     try {
-      await updateCoverPhoto({
-        data,
-      })
+      await updateCoverPhoto(data)
+      toast.success('Cover photo saved')
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
@@ -178,21 +221,16 @@ export const useUpdateCoverPhoto = () => {
 }
 
 export const useUpdateProfileImage = () => {
-  const updateProfileImageAction = async ({
-    data,
-  }: {
-    data: {
-      avatar: string
-      avatar_public_id: string
-      description: string
-    }
+  const updateProfileImageAction = async (data: {
+    avatar: string
+    avatar_public_id: string
+    description: string
   }) => {
     try {
-      await updateProfileImage({
-        data,
-      })
+      await updateProfileImage(data)
+      toast.success('Profile image saved')
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
@@ -204,4 +242,57 @@ export const useUpdateProfileImage = () => {
   })
 
   return updateProfileImageFunction
+}
+
+export const useDeleteCoverPhoto = () => {
+  const deleteCoverPhotoAction = async () => {
+    try {
+      await deleteCoverPhoto()
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const deleteCoverPhotoFunction = useMutation({
+    mutationFn: deleteCoverPhotoAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
+    },
+  })
+  return deleteCoverPhotoFunction
+}
+export const useDeleteProfileImage = () => {
+  const deleteProfileImageAction = async () => {
+    try {
+      await deleteProfileImage()
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const deleteProfileImageFunction = useMutation({
+    mutationFn: deleteProfileImageAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
+    },
+  })
+  return deleteProfileImageFunction
+}
+export const useDeleteFromGallery = () => {
+  const deleteFromGalleryAction = async (image_id?: string) => {
+    try {
+      await deleteFromGallery(image_id)
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const deleteFromGalleryFunction = useMutation({
+    mutationFn: deleteFromGalleryAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
+      queryClient.invalidateQueries({ queryKey: ['media'] })
+    },
+  })
+  return deleteFromGalleryFunction
 }

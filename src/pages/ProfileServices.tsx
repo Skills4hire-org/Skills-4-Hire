@@ -30,9 +30,10 @@ export default function ProfileServices() {
   } = useAllProviders({
     profession,
   })
-  const services: Service[] = data?.pages.flatMap((page) => page.results) ?? []
+  const services: Service[] =
+    data?.pages.flatMap((page) => page.data.results) ?? []
   const professionals: Provider[] =
-    providers?.pages.flatMap((page) => page.results) ?? []
+    providers?.pages.flatMap((page) => page.data.results) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -47,9 +48,9 @@ export default function ProfileServices() {
     providersRefetch()
   }
   return (
-    <div className="space-y-2 md:space-y-6">
+    <div className="space-y-2 md:space-y-6 relative">
       <HeaderWithBackNavigation title="My Services" />
-      <Container className="relative">
+      <Container>
         <div className="grid grid-cols gap-4 md:gap-6 xl:grid-cols-7 xl:gap-10 ">
           <div className="xl:col-span-4">
             {isLoading ? (
@@ -71,7 +72,7 @@ export default function ProfileServices() {
                       {services?.map((service) => (
                         <ServiceProviderServicesCard
                           check={false}
-                          key={service.service_id}
+                          key={service?.service_id}
                           {...service}
                           isDeleteable={true}
                         />
@@ -100,6 +101,9 @@ export default function ProfileServices() {
                         buttonText="Retry"
                       />
                     )}
+                    <div className="absolute top-2 right-2 md:right-4">
+                      <ServicesDialog />
+                    </div>
                   </>
                 )}
               </>
@@ -147,9 +151,6 @@ export default function ProfileServices() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="absolute -top-1 md:-top-4 right-2 md:right-4">
-          <ServicesDialog servicesLength={services?.length} />
         </div>
       </Container>
     </div>

@@ -36,15 +36,6 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
                     >
                       {status}
                     </TabsTrigger>
-                    {status === 'posts' && (
-                      <Link
-                        to="/professional/create-post"
-                        className="absolute right-2 md:right-4 top-2 md:top-4 border-1 border-primary rounded-full text-primary px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-primary hover:text-white"
-                      >
-                        Create a post{' '}
-                        <Edit2Icon className="w-3 h-3 md:w-4 md:h-4" />
-                      </Link>
-                    )}
                   </div>
                 )
               })}
@@ -52,6 +43,15 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
             {serviceProviderActivityTabList.map((status) => {
               return (
                 <TabsContent key={status} value={status} className="md:pt-1">
+                  {
+                    <Link
+                      to="/professional/create-post"
+                      className={`absolute right-2 md:right-4 top-2 md:top-4 border-1 border-primary rounded-full text-primary px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-primary hover:text-white ${status === 'posts' ? 'flex' : 'hidden'}`}
+                    >
+                      Create a post
+                      <Edit2Icon className="w-3 h-3 md:w-4 md:h-4" />
+                    </Link>
+                  }
                   {status === 'posts' && (
                     <>
                       {posts?.length == 0 ? (
@@ -77,7 +77,7 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
                   {status === 'media' && (
                     <>
                       {media?.length == 0 ? (
-                        <div className="py-10 -mt-2 md:-mt-4">
+                        <div className="py-10 -mt-2 md:-mt-4 mb-2">
                           <EmptyTab label="media uploaded" />
                         </div>
                       ) : (

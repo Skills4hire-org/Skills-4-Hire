@@ -5,6 +5,8 @@ import { Button } from '../ui/button'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Label } from '../ui/label'
 import { toast } from 'sonner'
+import { uploadToCloudinary } from '@/utils/cloudinary'
+import { useAddToGallery } from '@/hooks/useUsers'
 
 export default function GalleryForm({
   setIsOpen,
@@ -12,27 +14,39 @@ export default function GalleryForm({
   setIsOpen: (value: boolean) => void
 }) {
   const [formData, setFormData] = useState<{
-    photos: string[]
-    videos: string[]
+    photos: File[]
+    videos: File[]
   }>({
     photos: [],
     videos: [],
   })
+  const [isLoading, setIsLoading] = useState(false)
+  const { mutate: updateProfileGallery, isPending } = useAddToGallery()
+  const getMediaType = (url: string) => {
+    if (/\.(mp4|webm|ogg)$/i.test(url)) return 'video'
+    return 'image'
+  }
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 2 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
-    let acceptedImageFiles: string[] = []
+    let acceptedImageFiles: File[] = []
     if (files.length === 0) return
     files.forEach((newFile) => {
+      const fileType = newFile.type.startsWith('image/')
+      if (!fileType) {
+        toast.warning(`${newFile.name} file type is not acceptable`)
+      }
       const isOverSize = newFile.size > MAX_SIZE_MB
+
       if (isOverSize) {
-        toast.warning(`${newFile.name}'s size exceeds 2MB`)
+        toast.warning(
+          `${newFile.name}'s size exceeds maximum upload size (2MB)`,
+        )
         return
       }
-      const validImage = URL.createObjectURL(newFile)
-      acceptedImageFiles.push(validImage)
+      acceptedImageFiles.push(newFile)
     })
     setFormData({ ...formData, photos: acceptedImageFiles })
   }
@@ -41,24 +55,59 @@ export default function GalleryForm({
     const MAX_SIZE_MB = 2 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
-    let acceptedImageFiles: string[] = []
+    let acceptedVideoFiles: File[] = []
     if (files.length === 0) return
     files.forEach((newFile) => {
+      const fileType = newFile.type.startsWith('video/')
+      if (!fileType) {
+        toast.warning(`${newFile.name} file type is not acceptable`)
+      }
       const isOverSize = newFile.size > MAX_SIZE_MB
       if (isOverSize) {
-        toast.warning(`${newFile.name}'s size exceeds 2MB`)
+        toast.warning(`${newFile.name}'s size maximum upload size (100MB)`)
         return
       }
-      const validImage = URL.createObjectURL(newFile)
-      acceptedImageFiles.push(validImage)
+
+      acceptedVideoFiles.push(newFile)
     })
-    setFormData({ ...formData, photos: acceptedImageFiles })
+    setFormData({ ...formData, videos: acceptedVideoFiles })
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     try {
-    } catch (error: any) {}
+      const files = [...formData.photos, ...formData.videos]
+      const uploadedUrls = await uploadToCloudinary(files)
+      const formatUrls = uploadedUrls?.map((url) => {
+        return {
+          image_url: url.url,
+          public_id: url.public_id,
+          description: getMediaType(url.url),
+          type: getMediaType(url.url),
+        }
+      })
+      if (formatUrls) {
+        updateProfileGallery(formatUrls, {
+          onSuccess: () => {
+            setIsOpen(false)
+            setFormData({
+              photos: [],
+              videos: [],
+            })
+            toast.success('Upload successful')
+          },
+          onError: (error) => {
+            toast.error(error.message)
+          },
+        })
+      }
+    } catch (error: any) {
+      setIsLoading(false)
+      toast.error('Upload Failed. Please try again')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -79,16 +128,21 @@ export default function GalleryForm({
           />
           <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
           <span className="text-xs md:text-sm">Image</span>
-          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
+          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
             {formData.photos.length !== 0 ? (
-              <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              <>
+                <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
+                  {formData.photos.length}
+                </span>
+              </>
             ) : (
               <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
             )}
           </span>
         </Label>
         <Label
-          htmlFor="photo"
+          htmlFor="video"
           className="flex items-center gap-1 hover:text-gray-700 cursor-pointer pt-2"
         >
           <Input
@@ -96,15 +150,20 @@ export default function GalleryForm({
             name="video"
             type="file"
             multiple
-            accept="image/png, image/jpeg"
+            accept="video/*"
             onChange={(e) => handleVideoChange(e)}
             className="hidden"
           />
           <VideoIcon className="w-4 h-4 md:w-5 md:h-5" />
           <span className="text-xs md:text-sm">Video</span>
-          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
-            {formData.photos.length !== 0 ? (
-              <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
+            {formData.videos.length !== 0 ? (
+              <>
+                <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
+                  {formData.videos.length}
+                </span>
+              </>
             ) : (
               <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
             )}
@@ -124,8 +183,8 @@ export default function GalleryForm({
         <FormSubmitButton
           texting="uploading"
           text="upload"
-          submitting={false}
-          disabled={!formData.photos}
+          submitting={isPending || isLoading}
+          disabled={!formData.photos && !formData.videos}
           className="capitalize w-20"
         />
       </div>

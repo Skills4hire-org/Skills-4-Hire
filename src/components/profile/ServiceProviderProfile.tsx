@@ -43,7 +43,7 @@ export default function ServiceProviderProfile() {
                 <div>
                   <AboutGallery
                     about={professional?.overview}
-                    gallery={professional?.gallery}
+                    gallery={professional?.gallary}
                   />
                   <Activity
                     posts={professional?.posts}
