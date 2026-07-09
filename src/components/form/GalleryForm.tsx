@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Input } from '../ui/input'
 import { Check, ImageIcon, Plus, VideoIcon } from 'lucide-react'
 import { Button } from '../ui/button'
@@ -26,6 +26,8 @@ export default function GalleryForm({
     if (/\.(mp4|webm|ogg)$/i.test(url)) return 'video'
     return 'image'
   }
+  const imageRef = useRef<HTMLInputElement>(null)
+  const videoRef = useRef<HTMLInputElement>(null)
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 2 * 1024 * 1024
@@ -35,12 +37,16 @@ export default function GalleryForm({
     if (files.length === 0) return
     files.forEach((newFile) => {
       const fileType = newFile.type.startsWith('image/')
-      if (!fileType) {
+      if (!fileType && imageRef.current) {
+        imageRef.current.value = ''
         toast.warning(`${newFile.name} file type is not acceptable`)
+
+        return
       }
       const isOverSize = newFile.size > MAX_SIZE_MB
 
-      if (isOverSize) {
+      if (isOverSize && imageRef.current) {
+        imageRef.current.value = ''
         toast.warning(
           `${newFile.name}'s size exceeds maximum upload size (2MB)`,
         )
@@ -59,11 +65,14 @@ export default function GalleryForm({
     if (files.length === 0) return
     files.forEach((newFile) => {
       const fileType = newFile.type.startsWith('video/')
-      if (!fileType) {
+      if (!fileType && videoRef.current) {
+        videoRef.current.value = ''
         toast.warning(`${newFile.name} file type is not acceptable`)
+        return
       }
       const isOverSize = newFile.size > MAX_SIZE_MB
-      if (isOverSize) {
+      if (isOverSize && videoRef.current) {
+        videoRef.current.value = ''
         toast.warning(`${newFile.name}'s size maximum upload size (100MB)`)
         return
       }
@@ -122,6 +131,7 @@ export default function GalleryForm({
             name="photo"
             type="file"
             multiple
+            ref={imageRef}
             accept="image/png, image/jpeg"
             onChange={(e) => handleImageChange(e)}
             className="hidden"
@@ -150,6 +160,7 @@ export default function GalleryForm({
             name="video"
             type="file"
             multiple
+            ref={videoRef}
             accept="video/*"
             onChange={(e) => handleVideoChange(e)}
             className="hidden"
@@ -184,7 +195,7 @@ export default function GalleryForm({
           texting="uploading"
           text="upload"
           submitting={isPending || isLoading}
-          disabled={!formData.photos && !formData.videos}
+          disabled={(!formData.photos && !formData.videos) || isPending}
           className="capitalize w-20"
         />
       </div>

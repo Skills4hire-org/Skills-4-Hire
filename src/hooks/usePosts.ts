@@ -35,7 +35,7 @@ export const useCreatePost = () => {
     try {
       await createPost(data)
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()

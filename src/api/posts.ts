@@ -41,7 +41,7 @@ export const getPosts = async (pageParam?: string) => {
       const response = await api.get(pageParam)
       return response?.data
     }
-    const response = await api.get(`/api/v1/posts/feed/?include_offer=False`)
+    const response = await api.get(`/api/v1/posts/feed/`)
     return response?.data
   } catch (error) {
     handleApiError(error)

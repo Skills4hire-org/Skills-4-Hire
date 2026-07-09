@@ -38,7 +38,7 @@ export default function RepostDialog({
     post_id,
   })
   const repostedBy: Reposted[] =
-    data?.pages.flatMap((page) => page.results) ?? []
+    data?.pages.flatMap((page) => page.data.results) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
