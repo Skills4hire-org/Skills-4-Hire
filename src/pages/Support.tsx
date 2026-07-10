@@ -13,7 +13,7 @@ export default function Support() {
   const handleChatWithSupport = async () => {
     try {
       const response = await chatWithSupport()
-      navigate(`/chats/${response.room_id}/`)
+      navigate(`/messages/${response.room_id}/`)
     } catch (error: any) {
       toast.error(error?.message)
     }

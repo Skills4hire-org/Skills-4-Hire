@@ -240,7 +240,7 @@ const router = createBrowserRouter([
       { path: 'wallet/withdraw-pin', element: <WithdrawPin /> },
       { path: 'wallet/withdraw-success', element: <WithdrawSuccess /> },
       {
-        path: 'chats',
+        path: 'messages',
         element: <Chat />,
         children: [
           {

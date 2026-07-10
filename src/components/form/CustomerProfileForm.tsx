@@ -20,6 +20,8 @@ export default function CustomerProfileForm() {
   const user: Profile | undefined = data
   const { mutate: updateProfile, isPending } = useUpdateMyProfile()
 
+  console.log(user)
+
   const [formData, setFormData] = useState<ProfileFormData>({
     firstName: undefined,
     lastName: undefined,
@@ -124,7 +126,7 @@ export default function CustomerProfileForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!gender || !formData.gender) {
+    if (!gender && !formData.gender) {
       toast.warning('Please select a gender')
       return
     }
@@ -132,7 +134,6 @@ export default function CustomerProfileForm() {
       toast.warning('Please enter a valid phone number')
       return
     }
-
     const phoneWithCode = `${formData.countryCode} ${formData.phone}`
     const phone = formData.phone && phoneWithCode
 

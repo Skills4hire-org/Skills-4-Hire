@@ -34,7 +34,7 @@ export default function ServiceProviderProfile() {
       },
       {
         onSuccess: () => {
-          navigate(`/customer/chats/${response}`)
+          navigate(`/customer/messages/${response}`)
         },
       },
     )

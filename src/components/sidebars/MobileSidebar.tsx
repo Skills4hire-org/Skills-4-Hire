@@ -9,20 +9,22 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarTrigger,
+  useSidebar,
 } from '../ui/sidebar'
 import ProfileImage from '../global/ProfileImage'
 import { X } from 'lucide-react'
-import { user } from '@/utils/database'
 import { Link, NavLink } from 'react-router-dom'
 import { sidebarAboutUs, sidebarMobileGeneral } from '@/assets/data'
 import SignOutButton from '../buttons/SignOutButton'
-import { useSelector } from 'react-redux'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function MobileSidebar() {
-  const { avatar }: { avatar: string } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { data } = useMyProfile()
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
   const is_active = navigator.onLine
+  const { toggleSidebar } = useSidebar()
   return (
     <Sidebar>
       <SidebarHeader className="border-b py-1.5 gap-0.5">
@@ -38,11 +40,12 @@ export default function MobileSidebar() {
         </div>
         <div>
           <span className="font-bold text-lg block">
-            {user?.firstName} {user?.lastName}
+            {user?.user?.first_name} {user?.user?.last_name}
           </span>
           <Link
             to="/customer/profile"
             className="capitalize text-primary underline text-xs block"
+            onClick={toggleSidebar}
           >
             view profile
           </Link>
@@ -62,6 +65,7 @@ export default function MobileSidebar() {
                     <NavLink
                       to={url}
                       className="py-1 px-0 flex items-center gap-2"
+                      onClick={toggleSidebar}
                     >
                       <IconComponent strokeWidth={1.5} className="w-5 h-5 " />
                       <span className="capitalize text-xs flex items-center justify-between flex-1 ">

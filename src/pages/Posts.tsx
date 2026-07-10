@@ -20,6 +20,8 @@ export default function Posts() {
 
   const posts: Post[] = data?.pages.flatMap((page) => page.data.results) ?? []
 
+  console.log(posts)
+
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
     isFetchingNextPage,

@@ -55,7 +55,7 @@ export default function PostCard({
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
           <Link to={`/customer/professionals/${provider_id}`}>
-            <ProfileImage noStatus avatar={user?.profile?.avatar.avatar} />
+            <ProfileImage noStatus avatar={user?.profile?.avatar?.avatar} />
           </Link>
 
           <div className="min-w-0">
@@ -147,7 +147,7 @@ export default function PostCard({
         <button
           onClick={handleLikePost}
           disabled={liking || unliking}
-          className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${is_liked && 'text-blue-600'}`}
+          className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${is_liked && 'text-red-600'}`}
         >
           <Heart className="w-5 h-5 md:h-6 md:w-6" /> <span>{likes_count}</span>
         </button>

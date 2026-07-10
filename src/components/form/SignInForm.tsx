@@ -45,7 +45,7 @@ export default function SignInForm({ initialEmail }: SignInFormProps) {
       ) {
         navigate(`/onboarding`)
       } else {
-        const userType = response?.user_data?.is_customer
+        const userType = response?.data?.user_data?.is_customer
           ? 'customer'
           : 'professional'
         navigate(`/${userType}/home`)

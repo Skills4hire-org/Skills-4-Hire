@@ -95,7 +95,7 @@ export default function ChatWindow() {
           <div>
             <div className="flex items-center gap-3 border-b pb-2 -mt-2">
               {isMobile && (
-                <Link to={`/${userType}/chats`} className="text-sm">
+                <Link to={`/${userType}/messages`} className="text-sm">
                   <ChevronLeft className="w-6 h-6" />
                 </Link>
               )}
@@ -106,7 +106,7 @@ export default function ChatWindow() {
                     {messages[0].sender.profile.display_name}
                   </h2>
                   <div className="text-xs md:text-sm flex items-center gap-1.5 font-medium -mt-0.5">
-                    <span className="w-2 h-2 block bg-primary  rounded-full"></span>
+                    <span className="w-2 h-2 block bg-primary rounded-full"></span>
                     {/*  <span>Online</span> */}
                   </div>
                 </div>

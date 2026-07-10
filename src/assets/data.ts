@@ -154,9 +154,9 @@ export const customerMobileNavLinks = [
     activeIcon: 'solar:wallet-bold',
   },
   {
-    label: 'chats',
+    label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/customer/chats',
+    url: '/customer/messages',
     activeIcon: 'material-symbols:chat-rounded',
   },
 ]
@@ -179,9 +179,9 @@ export const customerDesktopNavLinks = [
   },
   { label: 'wallet', icon: 'solar:wallet-outline', url: '/customer/wallet' },
   {
-    label: 'chats',
+    label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/customer/chats',
+    url: '/customer/messages',
   },
   {
     label: 'notification',
@@ -221,9 +221,9 @@ export const serviceProviderMobileNavLinks = [
     activeIcon: 'solar:wallet-bold',
   },
   {
-    label: 'chats',
+    label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/service_provider/chats',
+    url: '/service_provider/messages',
     activeIcon: 'material-symbols:chat-rounded',
   },
 ]
@@ -251,9 +251,9 @@ export const serviceProviderDesktopNavLinks = [
     url: '/service_provider/wallet',
   },
   {
-    label: 'chats',
+    label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/service_provider/chats',
+    url: '/service_provider/messages',
   },
   {
     label: 'notification',

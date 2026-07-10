@@ -40,7 +40,7 @@ export default function JobOfferCard({
     }
     createConversation(data, {
       onSuccess: () => {
-        navigate(`/professional/chats/${data.participant_two_id}`)
+        navigate(`/professional/messages/${data.participant_two_id}`)
       },
     })
   } */

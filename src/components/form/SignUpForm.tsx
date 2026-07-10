@@ -40,8 +40,8 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
 
     const payload = {
       ...validatedData,
-      phone: `${formData.countryCode} ${validatedData.phone}`,
-      referral_code: formData.referral_code || undefined,
+      phone: `${formData.countryCode}${validatedData.phone}`,
+      referral_code: formData.referral_code,
     }
     setLoading(true)
 
