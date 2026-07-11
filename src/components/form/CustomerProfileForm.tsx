@@ -7,20 +7,24 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 import defaultProfileImage from '../../assets/images/profile.jpg'
 import Container from '../global/Container'
 import { Link } from 'react-router-dom'
-import { useMyProfile, useUpdateMyProfile } from '@/hooks/useUsers'
+import {
+  useMyProfile,
+  useUpdateMyProfile,
+  useUpdateProfileImage,
+} from '@/hooks/useUsers'
 import type { Profile, ProfileFormData } from '@/types/user.types'
 import Loading from '../global/Loading'
 import Error from '../global/Error'
 import { uploadToCloudinary } from '@/utils/cloudinary'
-import { uploadAvatar } from '@/api/onboard'
+
 import { toast } from 'sonner'
 
 export default function CustomerProfileForm() {
   const { data, isLoading, isError, refetch } = useMyProfile()
   const user: Profile | undefined = data
   const { mutate: updateProfile, isPending } = useUpdateMyProfile()
-
-  console.log(user)
+  const { mutate: updateProfileImage, isPending: updatingProfileImage } =
+    useUpdateProfileImage()
 
   const [formData, setFormData] = useState<ProfileFormData>({
     firstName: undefined,
@@ -154,21 +158,28 @@ export default function CustomerProfileForm() {
       const uploadedUrls = await uploadToCloudinary(formData.profileFile)
 
       if (uploadedUrls) {
-        await uploadAvatar({
+        const data = {
           avatar: uploadedUrls[0].url,
           avatar_public_id: uploadedUrls[0].public_id,
           description: 'profile image',
+        }
+        updateProfileImage(data, {
+          onError: (error) => {
+            toast.error(error.message)
+            return
+          },
         })
       }
       updateProfile(data, {
-        onSettled: (error) => {
-          if (!error) {
-            resetForm()
-          }
+        onSuccess: () => {
+          resetForm()
+        },
+        onError: (error) => {
+          toast.error(error.message)
         },
       })
     } catch (error: any) {
-      toast.error('Failed to update profile image')
+      toast.error('Failed to upload profile image')
     }
   }
   return (
@@ -364,7 +375,7 @@ export default function CustomerProfileForm() {
                 <Button
                   type="submit"
                   className=" py-6 w-full"
-                  disabled={isPending || !checkForm}
+                  disabled={isPending || !checkForm || updatingProfileImage}
                 >
                   Update Profile
                 </Button>

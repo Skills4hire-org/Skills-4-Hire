@@ -51,7 +51,12 @@ export default function UploadPhoto() {
         avatar_public_id: uploadedUrls && uploadedUrls[0]?.public_id,
         description: 'profile image',
       }
-      updateAvatar(data)
+      updateAvatar(data, {
+        onError: (error) => {
+          toast.error(error.message)
+          return
+        },
+      })
 
       if (role === 'customer') {
         await selectRole('CUSTOMER')
