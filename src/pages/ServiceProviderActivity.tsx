@@ -64,9 +64,10 @@ export default function ServiceProviderActivity() {
     fetchNextPage: mediaFetchNextPage,
   })
 
-  const postActivity = post?.pages.flatMap((page) => page.results) ?? []
-  const commentActivity = comment?.pages.flatMap((page) => page.results) ?? []
-  const mediaActivity = media?.pages.flatMap((page) => page.results) ?? []
+  const postActivity = post?.pages.flatMap((page) => page.data.results) ?? []
+  const commentActivity =
+    comment?.pages.flatMap((page) => page.data.results) ?? []
+  const mediaActivity = media?.pages.flatMap((page) => page.data.results) ?? []
 
   const handlePostFetchingError = async () => {
     postRefetch()
@@ -125,7 +126,11 @@ export default function ServiceProviderActivity() {
                               </div>
                             ) : (
                               postActivity?.map((post) => (
-                                <PostCard key={post.post_id} {...post} />
+                                <PostCard
+                                  key={post.post_id}
+                                  {...post}
+                                  queryKey={['user-posts']}
+                                />
                               ))
                             )}
                           </div>

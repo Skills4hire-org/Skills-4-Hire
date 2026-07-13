@@ -20,8 +20,6 @@ export default function Posts() {
 
   const posts: Post[] = data?.pages.flatMap((page) => page.data.results) ?? []
 
-  console.log(posts)
-
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
     isFetchingNextPage,
@@ -37,7 +35,7 @@ export default function Posts() {
   }
 
   return (
-    <div className="lg:px-4 space-y-4">
+    <div className="lg:px-4 space-y-2 md:space-y-4">
       <PostComposer />
       <div>
         {isLoading ? (
@@ -55,9 +53,13 @@ export default function Posts() {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-2.5 md:gap-4">
                   {posts?.map((post) => (
-                    <PostCard key={post.post_id} {...post} />
+                    <PostCard
+                      key={post.post_id}
+                      {...post}
+                      queryKey={['posts']}
+                    />
                   ))}
                 </div>
 

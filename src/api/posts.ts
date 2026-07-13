@@ -127,9 +127,19 @@ export const unlikePost = async (post_id: string | undefined) => {
 
 export const repost = async ({ post_id }: { post_id: string | undefined }) => {
   try {
-    const response = await api.post(`/api/v1/posts/${post_id}/repost/`, {
-      repost_quote: 'repost',
-    })
+    const response = await api.post(`/api/v1/posts/${post_id}/repost/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+export const unrepost = async ({
+  post_id,
+}: {
+  post_id: string | undefined
+}) => {
+  try {
+    const response = await api.delete(`/api/v1/posts/${post_id}/repost/`)
     return response?.data
   } catch (error) {
     handleApiError(error)

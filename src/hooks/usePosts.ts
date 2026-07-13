@@ -20,8 +20,14 @@ import {
   repost,
   unlikeComment,
   unlikePost,
+  unrepost,
 } from '@/api/posts'
-import type { CreatePost, PostParams, SendComment } from '@/types/post.types'
+import type {
+  CreatePost,
+  Post,
+  PostParams,
+  SendComment,
+} from '@/types/post.types'
 import { toast } from 'sonner'
 import {
   useQuery,
@@ -131,7 +137,7 @@ export const useOffers = ({
 
 export const useMyPosts = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['posts'],
+    queryKey: ['my-posts'],
     queryFn: ({ pageParam }) => getMyPosts(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -143,7 +149,7 @@ export const useMyPosts = () => {
 }
 export const useUserPosts = ({ id }: { id?: string }) => {
   const queryData = useInfiniteQuery({
-    queryKey: ['posts'],
+    queryKey: ['user-posts'],
     queryFn: ({ pageParam }) => getUserPosts({ pageParam, id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -199,60 +205,221 @@ export const usePost = ({ post_id }: PostParams) => {
     return post
   }
   const queryData = useQuery({
-    queryKey: ['posts', post_id],
+    queryKey: ['post', post_id],
     queryFn: getSinglePost,
   })
 
   return queryData
 }
 
-export const useLikePost = () => {
-  const likePostAction = async ({
-    post_id,
-  }: {
-    post_id: string | undefined
-  }) => {
-    await likePost({ post_id })
-  }
+export const useLikePost = (queryKey: string[]) => {
   const queryClient = useQueryClient()
-  const likePostFunction = useMutation({
-    mutationFn: likePostAction,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
+
+  const likePostMutation = useMutation({
+    mutationFn: ({ post_id }: { post_id: string | undefined }) =>
+      likePost({ post_id }),
+
+    onMutate: async ({ post_id }) => {
+      await queryClient.cancelQueries({ queryKey })
+
+      const previousPosts = queryClient.getQueryData(queryKey)
+
+      queryClient.setQueryData(queryKey, (oldData: any) => {
+        if (!oldData) return oldData
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any) => ({
+            ...page,
+            data: {
+              ...page.data,
+              results: page.data.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      likes_count: post.likes_count ?? 0 + 1,
+                      is_liked: true,
+                    }
+                  : post,
+              ),
+            },
+          })),
+        }
+      })
+
+      return { previousPosts }
+    },
+
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['posts'], context?.previousPosts)
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
     },
   })
-
-  return likePostFunction
+  return likePostMutation
 }
 
-export const useUnlikePost = () => {
-  const unlikePostAction = async (post_id: string | undefined) => {
-    await unlikePost(post_id)
-  }
+export const useUnlikePost = (queryKey: string[]) => {
   const queryClient = useQueryClient()
-  const unlikePostFunction = useMutation({
-    mutationFn: unlikePostAction,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
+
+  const unlikePostMutation = useMutation({
+    mutationFn: ({ post_id }: { post_id: string | undefined }) =>
+      unlikePost(post_id),
+
+    onMutate: async ({ post_id }: { post_id: string | undefined }) => {
+      await queryClient.cancelQueries({ queryKey })
+
+      const previousPosts = queryClient.getQueryData(queryKey)
+
+      queryClient.setQueryData(queryKey, (oldData: any) => {
+        if (!oldData) return oldData
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any) => ({
+            ...page,
+            data: {
+              ...page.data,
+              results: page.data.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      likes_count: Math.max((post.likes_count ?? 0) - 1, 0),
+                      is_liked: false,
+                    }
+                  : post,
+              ),
+            },
+          })),
+        }
+      })
+
+      return { previousPosts }
+    },
+
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['posts'], context?.previousPosts)
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
     },
   })
-
-  return unlikePostFunction
+  return unlikePostMutation
 }
 
-export const useRepost = () => {
-  const repostAction = async ({ post_id }: { post_id: string | undefined }) => {
-    await repost({ post_id })
-  }
+export const useRepost = (queryKey: string[]) => {
   const queryClient = useQueryClient()
-  const repostFunction = useMutation({
-    mutationFn: repostAction,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
+
+  const repostMutation = useMutation({
+    mutationFn: ({ post_id }: { post_id: string | undefined }) =>
+      repost({ post_id }),
+
+    onMutate: async ({ post_id }) => {
+      await queryClient.cancelQueries({ queryKey })
+
+      const previousPosts = queryClient.getQueryData(queryKey)
+
+      queryClient.setQueryData(queryKey, (oldData: any) => {
+        if (!oldData) return oldData
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any) => ({
+            ...page,
+            data: {
+              ...page.data,
+              results: page.data.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      reposts_count: post.reposts_count ?? 0 + 1,
+                      is_reposted: true,
+                    }
+                  : post,
+              ),
+            },
+          })),
+        }
+      })
+
+      return { previousPosts }
+    },
+
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['posts'], context?.previousPosts)
+    },
+
+    onSettled: (_, __, post) => {
+      queryClient.invalidateQueries({ queryKey })
+      queryClient.invalidateQueries({ queryKey: ['repost', post.post_id] })
     },
   })
+  return repostMutation
+}
+export const useUnrepost = (queryKey: string[]) => {
+  const queryClient = useQueryClient()
 
-  return repostFunction
+  const unRepostMutation = useMutation({
+    mutationFn: ({ post_id }: { post_id: string | undefined }) =>
+      unrepost({ post_id }),
+
+    onMutate: async ({ post_id }) => {
+      await queryClient.cancelQueries({ queryKey })
+
+      const previousPosts = queryClient.getQueryData(queryKey)
+
+      queryClient.setQueryData(queryKey, (oldData: any) => {
+        if (!oldData) return oldData
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any) => ({
+            ...page,
+            data: {
+              ...page.data,
+              results: page.data.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      reposts_count: post.reposts_count ?? 0 - 1,
+                      is_reposted: false,
+                    }
+                  : post,
+              ),
+            },
+          })),
+        }
+      })
+
+      return { previousPosts }
+    },
+
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['posts'], context?.previousPosts)
+    },
+
+    onSettled: (_, __, post) => {
+      queryClient.invalidateQueries({ queryKey })
+      queryClient.invalidateQueries({ queryKey: ['repost', post.post_id] })
+    },
+  })
+  return unRepostMutation
+}
+
+export const useRepostedBy = ({ post_id }: { post_id: string | undefined }) => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['repost', post_id],
+    queryFn: ({ pageParam }) => getRepostedBy({ pageParam, post_id }),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
 }
 
 export const useComments = ({ post_id }: { post_id: string | undefined }) => {
@@ -367,19 +534,6 @@ export const useCommentReplies = ({
     queryKey: ['replies', comment_id],
     queryFn: ({ pageParam }) =>
       getCommentReplies({ pageParam, post_id, comment_id }),
-    initialPageParam: undefined,
-    getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
-    },
-    retry: 1,
-  })
-  return queryData
-}
-
-export const useRepostedBy = ({ post_id }: { post_id: string | undefined }) => {
-  const queryData = useInfiniteQuery({
-    queryKey: ['post', post_id],
-    queryFn: ({ pageParam }) => getRepostedBy({ pageParam, post_id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.next ?? undefined

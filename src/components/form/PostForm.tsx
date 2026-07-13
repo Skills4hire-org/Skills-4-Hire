@@ -1,10 +1,4 @@
-import {
-  useRef,
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-  type KeyboardEvent,
-} from 'react'
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import FormTextArea from '../form-fields/FormTextArea'
 import { toast } from 'sonner'
 import { Check, ImageIcon, Plus, VideoIcon } from 'lucide-react'
@@ -17,8 +11,8 @@ import { useNavigate } from 'react-router-dom'
 import { uploadToCloudinary } from '@/utils/cloudinary'
 
 export default function PostForm() {
-  const [input, setInput] = useState('')
-  const [keywords, setKeywords] = useState<string[]>([])
+  /*   const [input, setInput] = useState('') */
+  /*  const [keywords, setKeywords] = useState<string[]>([]) */
   const [formData, setFormData] = useState<{
     post: string
     photos: File[]
@@ -29,7 +23,7 @@ export default function PostForm() {
     videos: [],
   })
 
-  const [showInput, setShowInput] = useState(false)
+  /*  const [showInput, setShowInput] = useState(false) */
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
   const getMediaType = (url: string) => {
@@ -103,7 +97,7 @@ export default function PostForm() {
     setFormData({ ...formData, videos: acceptedVideoFiles })
   }
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  /* const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return
 
     e.preventDefault()
@@ -117,18 +111,18 @@ export default function PostForm() {
     }
 
     setInput('')
-  }
-  const handleAddKeyword = () => {
+  } */
+  /* const handleAddKeyword = () => {
     const newKeyword = input.trim()
     if (!keywords.includes(newKeyword)) {
       setKeywords([...keywords, newKeyword])
       setShowInput(false)
     }
     setInput('')
-  }
-  const removeKeyword = (keyword: string) => {
+  } */
+  /*  const removeKeyword = (keyword: string) => {
     setKeywords(keywords.filter((k) => k !== keyword))
-  }
+  } */
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -147,7 +141,6 @@ export default function PostForm() {
       const allData: CreatePost = {
         post_content: formData.post,
         post_type: 'GENERAL',
-        tags: keywords,
         attachments: formatUrls,
       }
 
@@ -180,7 +173,7 @@ export default function PostForm() {
         rows={3}
         required
       />
-      <div className="w-full">
+      {/*  <div className="w-full">
         <div className="space-y-1">
           <span className="text-xs md:text-sm font-medium block">Keywords</span>
           <p className="text-xs md:text-sm text-muted-foreground">
@@ -236,7 +229,7 @@ export default function PostForm() {
             </button>
           )}
         </div>
-      </div>
+      </div>  */}
 
       <div className="flex items-center gap-3 mt-6 md:mt-8">
         <Label

@@ -1,12 +1,12 @@
 import ProfileImage from '@/components/global/ProfileImage'
 import { MapPin, Clock, Wallet, RefreshCw, MessageSquare } from 'lucide-react'
 import { useState } from 'react'
-import ImageCarousel from './ImageCarousel'
 import NegotiationDialog from './NegotiationDialog'
 /* import { useCreateConversation } from '@/hooks/useChats'
 import { useNavigate } from 'react-router-dom' */
 import type { Post } from '@/types/post.types'
 import { currencyFormatter, formatCommentTime } from '@/utils/format'
+import ImageCarousel from './ImageCarousel'
 
 export default function JobOfferCard({
   post_title,
@@ -21,9 +21,6 @@ export default function JobOfferCard({
 }: Post) {
   const [viewMore, setViewMore] = useState(false)
   const [isNegotiateOpen, setIsNegotiateOpen] = useState(false)
-  const media = attachments
-    ?.filter((attachment) => attachment.attachment_type !== 'FILES')
-    .map(({ attachmentURL }) => attachmentURL)
   /*  const { mutate: createConversation, isPending } = useCreateConversation()
   const navigate = useNavigate()
   const sendMessage = () => {
@@ -122,7 +119,9 @@ export default function JobOfferCard({
           </span>
         </div>
 
-        <div className="my-6">{media && <ImageCarousel images={media} />}</div>
+        <div className="my-6">
+          {attachments && <ImageCarousel attachments={attachments} />}
+        </div>
 
         {/* <OfferFilesCarousel /> */}
 

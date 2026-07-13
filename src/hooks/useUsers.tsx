@@ -172,6 +172,7 @@ export const useMyGallery = () => {
   })
   return queryData
 }
+
 export const useUserGallery = ({ id }: { id?: string }) => {
   const queryData = useInfiniteQuery({
     queryKey: ['media'],

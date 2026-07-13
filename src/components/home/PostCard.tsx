@@ -33,35 +33,35 @@ export default function PostCard({
   is_commented,
   is_liked,
   is_reposted,
-}: Post) {
+  queryKey,
+}: Post & { queryKey: string[] }) {
   const [showComment, setShowComment] = useState(false)
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
-  const provider_id = user?.user_id
+  const provider_id = user?.profile?.provider_id
   const provider_service = user?.profile?.professional_title
   const impression_count = 0
-  const images = attachments?.map((attachment) => attachment.attachmentURL)
 
-  const { mutate: likePost, isPending: liking } = useLikePost()
-  const { mutate: unlikePost, isPending: unliking } = useUnlikePost()
+  const { mutate: likePost, isPending: liking } = useLikePost(queryKey)
+  const { mutate: unlikePost, isPending: unliking } = useUnlikePost(queryKey)
 
   const handleLikePost = () => {
-    is_liked ? unlikePost(post_id) : likePost({ post_id })
+    is_liked ? unlikePost({ post_id }) : likePost({ post_id })
   }
 
   return (
     <div className="bg-white rounded-2xl shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
-          <Link to={`/customer/professionals/${provider_id}`}>
+          <Link to={`/${userType}/professionals/${provider_id}`}>
             <ProfileImage noStatus avatar={user?.profile?.avatar?.avatar} />
           </Link>
 
           <div className="min-w-0">
             <div className="flex items-start">
               <Link
-                to={`/customer/professionals/${provider_id}`}
+                to={`/${userType}/professionals/${provider_id}`}
                 className="no-underline hover:no-underline"
               >
                 <h3 className="text-[15px] md:text-base  font-semibold text-gray-900 leading-tight">
@@ -105,28 +105,30 @@ export default function PostCard({
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 text-[12px] md:text-sm">
               {provider_service && (
                 <Link
                   to={`/customer/professionals/${provider_id}`}
-                  className="text-[12px] md:text-sm text-primary font-medium no-underline hover:no-underline block w-max"
+                  className=" text-primary font-medium no-underline hover:no-underline block w-max"
                 >
                   {provider_service}
                 </Link>
               )}
               <Dot className="w-3 h-3 text-muted-foreground" />
-              <span>{formatCommentTime(created_at as string)}</span>
+              <span className="text-gray-500">
+                {formatCommentTime(created_at as string)}
+              </span>
             </div>
           </div>
         </div>
       </div>
 
-      <p className="text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed">
+      <p className="text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line">
         {post_content}
       </p>
 
-      <div className="my-6">
-        {attachments && <ImageCarousel images={images} />}
+      <div className="my-8">
+        {attachments && <ImageCarousel attachments={attachments} />}
       </div>
 
       {tags && tags?.length > 0 && (
@@ -149,7 +151,10 @@ export default function PostCard({
           disabled={liking || unliking}
           className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${is_liked && 'text-red-600'}`}
         >
-          <Heart className="w-5 h-5 md:h-6 md:w-6" /> <span>{likes_count}</span>
+          <Heart
+            className={`w-5 h-5 md:h-6 md:w-6 ${is_liked && 'fill-red-600'}`}
+          />
+          <span>{likes_count}</span>
         </button>
         {/* comment */}
         <button
@@ -166,6 +171,7 @@ export default function PostCard({
           post_id={post_id}
           reposts_count={reposts_count}
           is_reposted={is_reposted}
+          queryKey={queryKey}
         />
 
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">

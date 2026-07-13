@@ -69,9 +69,10 @@ export default function ProfileActivity() {
     fetchNextPage: mediaFetchNextPage,
   })
 
-  const postActivity = post?.pages.flatMap((page) => page.results) ?? []
-  const commentActivity = comment?.pages.flatMap((page) => page.results) ?? []
-  const mediaActivity = media?.pages.flatMap((page) => page.results) ?? []
+  const postActivity = post?.pages.flatMap((page) => page.data.results) ?? []
+  const commentActivity =
+    comment?.pages.flatMap((page) => page.data.results) ?? []
+  const mediaActivity = media?.pages.flatMap((page) => page.data.results) ?? []
 
   const handlePostFetchingError = async () => {
     postRefetch()
@@ -87,7 +88,7 @@ export default function ProfileActivity() {
     <div className="space-y-2 md:space-y-6">
       <HeaderWithBackNavigation title="All Activity" />
       <Container>
-        <Tabs defaultValue="posts" className="space-y-1 relative ">
+        <Tabs defaultValue="posts" className="space-y-2 md:space-y-4 relative ">
           <TabsList className="border-b-0 bg-background  rounded-none p-0 space-x-4 md:space-x-8">
             {serviceProviderActivityTabList.map((status, index) => {
               return (
@@ -139,7 +140,11 @@ export default function ProfileActivity() {
                               </div>
                             ) : (
                               postActivity?.map((post) => (
-                                <PostCard key={post.post_id} {...post} />
+                                <PostCard
+                                  key={post.post_id}
+                                  {...post}
+                                  queryKey={['my-posts']}
+                                />
                               ))
                             )}
                           </div>

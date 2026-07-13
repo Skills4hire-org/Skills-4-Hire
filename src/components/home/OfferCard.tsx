@@ -1,10 +1,10 @@
 import { currencyFormatter, dateFormatter } from '@/utils/format'
 import { Pencil, Trash2, Calendar } from 'lucide-react'
 import { useState } from 'react'
-import OfferImageCarousel from './ImageCarousel'
 import { Link } from 'react-router-dom'
 import DeleteOfferDialog from './DeleteOfferDialog'
 import type { Post } from '@/types/post.types'
+import ImageCarousel from './ImageCarousel'
 
 export default function OfferCard({
   post_id,
@@ -21,11 +21,9 @@ export default function OfferCard({
 }: Post) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [viewMore, setViewMore] = useState(false)
-  const media = attachments
-    ?.filter((attachment) => attachment.attachment_type !== 'FILES')
-    .map(({ attachmentURL }) => attachmentURL)
+
   /*  const files = attachments
-    ?.filter((attachment) => attachment.attachment_type == 'FILES')
+    ?.((attachment) => attachment.attachment_type == 'FILES')
     .map(({ attachmentURL }) => attachmentURL)
    */
 
@@ -82,8 +80,7 @@ export default function OfferCard({
             Location: {city},<span className="uppercase">{state}</span>
           </span>
         </div>
-        {media && <OfferImageCarousel images={media} />}
-
+        {attachments && <ImageCarousel attachments={attachments} />}
         {/* <OfferFilesCarousel /> */}
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[14px] md:text-base text-gray-500">

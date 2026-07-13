@@ -1,3 +1,5 @@
+import type { PostAttachment } from './post.types'
+
 export type UserType = 'customer' | 'professional' | null
 export type UserData = {
   user_id: string
@@ -120,7 +122,7 @@ export type Profile = {
       country: string
       city: string
       state: string
-      location: 'Beside NYSC lodge'
+      location: string
       avatar: {
         avatar: string
       }
@@ -154,8 +156,8 @@ export type Profile = {
           avatar: string
         }
         user: string
-        customer_id: string | null
-        provider_id: string | null
+        customer_id: string
+        provider_id: string
       }
       avg_rating: number | null
     }
@@ -167,12 +169,7 @@ export type Profile = {
       name: string
       service_category_id: string
     }[]
-    attachments: {
-      post_attachment_id: string
-      attachment_type: string
-      attachmentURL: string
-      created_at: string
-    }[]
+    attachments: PostAttachment[]
     comments_count: number
     likes_count: number
     reposts_count: number

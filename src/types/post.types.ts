@@ -25,6 +25,14 @@ export type PostParams = {
   pageParam?: string
 }
 
+export type PostAttachment = {
+  post_attachment_id: string
+  attachment_type: string
+  attachmentURL: string
+  created_at: string
+  thumbnail_url: string
+}
+
 export type OfferFormType = {
   title: string
   post: string
@@ -53,6 +61,7 @@ export type Post = {
         avatar: string
       }
       professional_title: string
+      provider_id: string
     }
     avg_rating?: number | null
   }
@@ -63,12 +72,7 @@ export type Post = {
     name: string
     service_category_id: string
   }[]
-  attachments?: {
-    post_attachment_id: string
-    attachment_type: string
-    attachmentURL: string
-    created_at: string
-  }[]
+  attachments?: PostAttachment[]
   comments_counts?: number
   likes_count?: number
   reposts_count?: number

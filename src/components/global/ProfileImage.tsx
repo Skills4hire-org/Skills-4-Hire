@@ -17,7 +17,7 @@ export default function ProfileImage({
     <div className="relative w-max cursor-pointer">
       <Avatar className={`${size ? size : 'size-12'}`}>
         <AvatarImage src={avatar ?? placeholder} />
-        <AvatarFallback>
+        <AvatarFallback className="w-full">
           <User className="w-4 h-4" />
         </AvatarFallback>
       </Avatar>
