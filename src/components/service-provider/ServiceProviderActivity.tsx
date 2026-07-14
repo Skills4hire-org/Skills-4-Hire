@@ -47,7 +47,11 @@ export default function ServiceProviderActivity({
               {status === 'posts' && (
                 <>
                   {posts?.map((post) => (
-                    <PostCard key={post.post_id} {...post} />
+                    <PostCard
+                      key={post.post_id}
+                      {...post}
+                      queryKey={['user-posts']}
+                    />
                   ))}
 
                   {posts?.length == 0 || !posts ? (

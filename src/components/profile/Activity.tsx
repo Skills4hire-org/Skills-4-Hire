@@ -61,7 +61,11 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
                       ) : (
                         <div className="pb-10 md:pb-12">
                           {posts?.slice(0, 1)?.map((post) => (
-                            <PostCard key={post.post_id} {...post} />
+                            <PostCard
+                              key={post.post_id}
+                              {...post}
+                              queryKey={['my-posts']}
+                            />
                           ))}
                           <Link
                             to="activity"
