@@ -43,9 +43,9 @@ export default function IndexFooter() {
             </div>
 
             {/* Middle: Links */}
-            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+            <div className="lg:col-span-5 flex flex-col sm:flex-row flex-wrap gap-8">
               {footerLinks.map((linksGroup) => (
-                <div key={linksGroup.heading} className="w-full">
+                <div key={linksGroup.heading} className="flex-1 sm:flex-none">
                   <FooterLink {...linksGroup} />
                 </div>
               ))}

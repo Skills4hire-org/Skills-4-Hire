@@ -21,7 +21,7 @@ function FooterLink({ heading, links }: FooterLinkProp) {
               {label.includes('Contact') || label.includes('@') || label.includes('+') ? (
                 <a
                   href={url}
-                  className="hover:text-white transition-colors text-sm text-white/70"
+                  className="hover:text-white transition-colors text-sm text-white/70 break-all"
                 >
                   {label}
                 </a>

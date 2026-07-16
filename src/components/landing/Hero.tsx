@@ -109,10 +109,7 @@ export default function Hero() {
           <span className="text-xs md:text-sm font-medium text-gray-900">Ecosystem for skilled professionals</span>
         </div>
 
-        {/* Top-Right Pill */}
-        <div className="group hidden md:flex absolute top-4 right-4 md:top-8 md:right-8 bg-white/20 backdrop-blur border border-white/30 px-4 py-2 rounded-full shadow-sm text-white items-center gap-2 text-sm font-medium cursor-pointer hover:bg-white/30 transition-all duration-300 hover:-translate-y-0.5">
-          Learn more <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </div>
+
 
         {/* Content Overlays */}
         <div className="relative z-10 w-full flex flex-col md:flex-row justify-between items-end gap-6 md:gap-10">

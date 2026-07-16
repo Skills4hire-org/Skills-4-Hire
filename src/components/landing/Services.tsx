@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 import webDevelopment from '../../assets/images/webDevelopment.jpg'
 import projectManagement from '../../assets/images/projectManagement.jpg'
@@ -103,13 +104,13 @@ export default function Services() {
             From trusted home repairs and vocational trades to cutting-edge digital solutions —
             Skills4Hire connects you with the right expert in seconds.
           </p>
-          <a
-            href="#"
+          <Link
+            to="/sign-in"
             className="group flex items-center justify-center gap-2 w-full md:w-max px-6 py-2.5 md:py-3 text-sm font-medium rounded-[4px] bg-primary text-primary-foreground hover:opacity-90 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
           >
             Explore All Services
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" size={16} />
-          </a>
+          </Link>
         </motion.div>
       </div>
 
