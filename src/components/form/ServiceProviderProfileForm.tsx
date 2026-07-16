@@ -251,7 +251,7 @@ const handleInputChange = (field: string, value: string) => {
                           )}
                         </div>
                       )}
-                      {status === 'images' && (
+                      {status === 'media' && (
                         <>
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
                             {formData.postsImages.map((image, index) => (
@@ -287,7 +287,7 @@ const handleInputChange = (field: string, value: string) => {
               </div>
               <ul className="grid grid-cols-1 gap-4">
                 {formData.services.map((service, index) => (
-                  <ServiceProviderServicesCard key={index} {...service} />
+                  <ServiceProviderServicesCard key={index} {...(service as any)} />
                 ))}
                 {formData.services.length === 0 && (
                   <EmptyTab label="service added" />

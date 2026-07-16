@@ -13,6 +13,7 @@ export default function IndexLayout() {
       smoothWheel: true,
     })
 
+    // @ts-ignore
     window.lenis = lenis
 
     let rafId: number
@@ -27,6 +28,7 @@ export default function IndexLayout() {
     return () => {
       cancelAnimationFrame(rafId)
       lenis.destroy()
+      // @ts-ignore
       window.lenis = undefined
     }
   }, [])

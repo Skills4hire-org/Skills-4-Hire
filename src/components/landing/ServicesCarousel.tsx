@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
+// @ts-ignore
 import 'swiper/css'
 import { carouselServices } from '@/assets/data'
 
