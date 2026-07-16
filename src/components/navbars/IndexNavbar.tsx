@@ -34,14 +34,14 @@ export default function IndexNavbar() {
           sectionId: string
         },
   ) => {
-    const baseClasses = ' font-medium capitalize text-sm py-1.5 px-3 rounded-sm'
+    const baseClasses = 'font-medium capitalize text-sm py-2 px-5 transition-all duration-300'
     const activeClasses = isActive(url)
-      ? ' text-primary'
-      : 'text-muted-foreground hover:text-foreground'
+      ? 'text-primary bg-white shadow-sm rounded-full'
+      : 'text-slate-500 hover:text-slate-800 hover:bg-black/5 rounded-full'
     return `${baseClasses} ${activeClasses}`
   }
   return (
-    <nav className="flex items-center bg-gray-100 rounded-full ">
+    <nav className="flex items-center gap-1 bg-[#EEF2F6] rounded-full p-2">
       {navLinks.map((link) => {
         const isActive = isSameUrl(link.href, pathname, hash)
         return (

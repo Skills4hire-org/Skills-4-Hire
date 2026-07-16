@@ -7,8 +7,8 @@ export function useIsNavActive(
   const { pathname } = useLocation()
 
   return (link: any) => {
-    // Other pages
-    if (link.href === pathname && !link.sectionId) return true
+    // Other pages (but don't automatically match Home if we're on the home page, let the specific logic handle it)
+    if (link.href === pathname && !link.sectionId && link.href !== '/') return true
 
     // On home page
     if (pathname === '/') {

@@ -89,13 +89,13 @@ export default function Posts() {
         <h2 className="text-white text-2xl md:text-3xl max-w-lg mx-auto">
           Ready to hire trusted professionals or showcase your skills?
         </h2>
-        <p className="text-white text-xs md:text-sm">
+        <p className="text-white/90 text-xs md:text-sm">
           Join Skills4Hire to connect, work, and grow whether you need help or
           offer expertise.
         </p>
         <Link
           to="/sign-up"
-          className="bg-white text-sm py-2 px-8 rounded-md mt-6 block w-max mx-auto shadow-sm hover:shadow-md cursor-pointer"
+          className="bg-white text-slate-900 font-medium text-sm py-2 px-8 rounded-md mt-6 block w-max mx-auto shadow-sm hover:shadow-md cursor-pointer"
         >
           Get Started
         </Link>

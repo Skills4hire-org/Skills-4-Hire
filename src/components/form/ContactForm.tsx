@@ -5,9 +5,9 @@ import FormSubmitButton from '../buttons/FormSubmitButton'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    fullName: '',
     email: '',
+    phone: '',
     message: '',
   })
   const handleInputChange = (field: string, value: string) => {
@@ -17,57 +17,56 @@ export default function ContactForm() {
     e.preventDefault()
   }
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <FormInput
-          name="firstName"
-          label="First Name"
-          value={formData.firstName}
-          handleInputChange={handleInputChange}
-          type="text"
-          placeholder="Enter first name"
-          required
-          labelSize="text-xs md:text-sm"
-          className="placeholder:text-xs placeholder:md:text-sm"
-        />
-        <FormInput
-          name="lastName"
-          label="Last Name"
-          value={formData.lastName}
-          handleInputChange={handleInputChange}
-          type="text"
-          placeholder="Enter last name"
-          required
-          labelSize="text-xs md:text-sm"
-          className="placeholder:text-xs placeholder:md:text-sm"
-        />
-      </div>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <FormInput
+        name="fullName"
+        label="Full Name"
+        value={formData.fullName}
+        handleInputChange={handleInputChange}
+        type="text"
+        placeholder="Enter Your Full Name"
+        required
+        labelSize="text-sm font-bold text-slate-800"
+        className="placeholder:text-sm h-12 rounded-lg border-0 shadow-sm bg-white"
+      />
       <FormInput
         name="email"
-        label="Email"
+        label="Email Address"
         value={formData.email}
         handleInputChange={handleInputChange}
         type="email"
-        placeholder="Enter email"
+        placeholder="Enter Your Email Address"
         required
-        labelSize="text-xs md:text-sm"
-        className="placeholder:text-xs placeholder:md:text-sm"
+        labelSize="text-sm font-bold text-slate-800"
+        className="placeholder:text-sm h-12 rounded-lg border-0 shadow-sm bg-white"
+      />
+      <FormInput
+        name="phone"
+        label="Phone Number"
+        value={formData.phone}
+        handleInputChange={handleInputChange}
+        type="tel"
+        placeholder="Enter Your Phone Number"
+        required
+        labelSize="text-sm font-bold text-slate-800"
+        className="placeholder:text-sm h-12 rounded-lg border-0 shadow-sm bg-white"
       />
       <FormTextArea
         name="message"
         label="Message"
         value={formData.message}
-        rows={4}
+        rows={5}
         handleInputChange={handleInputChange}
         required
-        className="min-h-32"
-        placeholder="Message..."
+        className="min-h-32 placeholder:text-sm rounded-lg border-0 shadow-sm bg-white"
+        placeholder="Write Your Message Here"
+        labelSize="text-sm font-bold text-slate-800"
       />
       <FormSubmitButton
         submitting={false}
-        text="Send message"
-        texting="sending"
-        className="w-full font-normal"
+        text="Send Message"
+        texting="Sending"
+        className="px-6 py-2.5 h-auto font-medium rounded-md w-auto"
       />
     </form>
   )

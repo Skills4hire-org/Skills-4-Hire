@@ -10,6 +10,7 @@ interface FormTextAreaProp {
   rows: number
   required?: boolean
   className?: string
+  labelSize?: string
 }
 
 export default function FormTextArea({
@@ -21,11 +22,12 @@ export default function FormTextArea({
   rows,
   required,
   className,
+  labelSize,
 }: FormTextAreaProp) {
   return (
     <div className="space-y-1 md:space-y-2 w-full">
       {label && (
-        <Label htmlFor={name} className="text-xs md:text-sm">
+        <Label htmlFor={name} className={labelSize || "text-xs md:text-sm"}>
           {label}{' '}
         </Label>
       )}

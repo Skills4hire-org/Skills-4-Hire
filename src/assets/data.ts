@@ -1641,7 +1641,6 @@ export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services', sectionId: 'services' },
-  { label: 'Blog', href: '/blog' },
   { label: 'FAQs', href: '/#faqs', sectionId: 'faqs' },
   { label: 'Contact Us', href: '/#contact', sectionId: 'contact' },
 ]
@@ -1657,10 +1656,6 @@ export const footerLinks = [
       {
         label: 'About',
         url: '/about',
-      },
-      {
-        label: 'Blog',
-        url: '/blog',
       },
     ],
   },
