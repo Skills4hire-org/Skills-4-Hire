@@ -1643,7 +1643,10 @@ export const navLinks = [
   { label: 'Services', href: '/#services', sectionId: 'services' },
   { label: 'FAQs', href: '/#faqs', sectionId: 'faqs' },
   { label: 'Contact Us', href: '/#contact', sectionId: 'contact' },
-]
+] as const
+
+/** Type of a single item in the public nav links array. */
+export type NavLink = (typeof navLinks)[number]
 
 export const footerLinks = [
   {

@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { navLinks } from '@/assets/data'
 import { useCurrentSection } from '@/hooks/useCurrentSection'
 import { useIsNavActive } from '@/hooks/useIsNavActive'
-import { useScrollToHash } from '@/hooks/useScrollToHash'
 import { isSameUrl } from '@/utils/format'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -19,7 +18,6 @@ export default function MobileDropdownNav() {
   const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
-  useScrollToHash()
   const { pathname, hash } = useLocation()
   const currentSection = useCurrentSection(sectionIds)
   const isActive = useIsNavActive(currentSection, navSectionIds)
@@ -102,6 +100,18 @@ export default function MobileDropdownNav() {
                 )
               })}
             </nav>
+
+            {/* CTA Button */}
+            <div className="px-2 pb-2">
+              <div className="h-px bg-slate-100 mb-2" />
+              <Link
+                to="/sign-up"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center w-full py-2.5 px-4 text-sm font-medium rounded-[8px] bg-primary text-white hover:bg-primary/90 transition-colors duration-200"
+              >
+                Get Started
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

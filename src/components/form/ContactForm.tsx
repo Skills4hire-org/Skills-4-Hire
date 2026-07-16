@@ -15,6 +15,9 @@ export default function ContactForm() {
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    // TODO: Wire up to a backend or email service before going to production.
+    // Options: Resend (https://resend.com), EmailJS, or Formspree.
+    // The form fields are: fullName, email, phone, message.
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-5">

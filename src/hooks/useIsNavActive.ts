@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom'
+import type { NavLink } from '@/assets/data'
 
 export function useIsNavActive(
   currentSection: string | null,
@@ -6,29 +7,26 @@ export function useIsNavActive(
 ) {
   const { pathname } = useLocation()
 
-  return (link: any) => {
-    // Other pages (but don't automatically match Home if we're on the home page, let the specific logic handle it)
-    if (link.href === pathname && !link.sectionId && link.href !== '/') return true
+  return (link: NavLink) => {
+    const sectionId = 'sectionId' in link ? link.sectionId : undefined
 
-    // On home page
+    // Non-home page links: active when the href exactly matches the current pathname
+    if (link.href === pathname && !sectionId && link.href !== '/') return true
+
+    // On the home page
     if (pathname === '/') {
-      // Navbar section active ONLY if current section is in navbar
+      // Hash-section link: active only when that section is currently visible and is a navbar section
       if (
-        link.sectionId &&
+        sectionId &&
         currentSection &&
         navSectionIds.includes(currentSection) &&
-        link.sectionId === currentSection
+        sectionId === currentSection
       ) {
         return true
       }
 
-      // Home active if:
-      // - no section
-      // - OR section not in navbar
-      if (
-        link.href === '/' &&
-        (!currentSection || !navSectionIds.includes(currentSection))
-      ) {
+      // Home link: active when no navbar section is in view
+      if (link.href === '/' && (!currentSection || !navSectionIds.includes(currentSection))) {
         return true
       }
     }

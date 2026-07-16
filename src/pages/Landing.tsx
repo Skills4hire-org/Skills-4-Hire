@@ -47,9 +47,12 @@ export default function Landing() {
       <Container>
         <div className="py-16 md:py-24">
           <div className="relative rounded-[8px] py-16 md:py-20 text-center px-4 overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${landingHero})` }}
+            {/* Background image — hidden from screen readers */}
+            <img
+              src={landingHero}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-slate-900/70" />
 

@@ -18,8 +18,14 @@ export default function IndexHeader() {
             <IndexNavbar />
           </div>
 
-          {/* Right side — Get Started + mobile menu */}
-          <div className="flex items-center gap-3">
+          {/* Right side — Buttons + mobile menu */}
+          <div className="flex items-center gap-4">
+            <Link
+              to="/sign-in"
+              className="inline-flex items-center justify-center px-5 py-2 text-sm font-medium rounded-[4px] bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            >
+              Sign In
+            </Link>
             <Link
               to="/sign-up"
               className="group hidden md:inline-flex items-center justify-center gap-2 px-6 py-2 text-sm font-medium rounded-[4px] bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
