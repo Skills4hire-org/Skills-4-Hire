@@ -56,7 +56,7 @@ export default function Hero() {
         {/* Headline */}
         <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-[60px] font-semibold tracking-tighter leading-[1.1] md:leading-[1.0] mb-4 md:mb-6 text-foreground">
           Find the right skills.<br />
-          Connect. Get it done.
+          <span className="text-primary">Connect.</span> Get it done.
         </motion.h1>
 
         {/* Subtitle */}
