@@ -1,9 +1,4 @@
-import {
-  format,
-  formatDistanceToNowStrict,
-  isToday,
-  isYesterday,
-} from 'date-fns'
+import { format, isToday, isYesterday } from 'date-fns'
 import type {
   AvailableServices,
   Notification,
@@ -173,29 +168,41 @@ export function isSameUrl(linkPath: string, pathname: string, hash: string) {
 
 export function formatCommentTime(dateString: string) {
   const date = new Date(dateString)
-
-  // Today
-  if (isToday(date)) {
-    return formatDistanceToNowStrict(date, {
-      addSuffix: true,
-    })
-  }
-
-  // Yesterday
-  if (isYesterday(date)) {
-    return 'Yesterday'
-  }
-
   const now = new Date()
 
-  const diffInDays = (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000)
 
-  // Within 7 days
-  if (diffInDays < 7) {
-    return formatDistanceToNowStrict(date, {
-      addSuffix: true,
-    })
+  if (diffInSeconds < 60) {
+    return `${diffInSeconds}s`
   }
+
+  const diffInMinutes = Math.floor(diffInSeconds / 60)
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes}m`
+  }
+
+  const diffInHours = Math.floor(diffInMinutes / 60)
+  if (diffInHours < 24) {
+    return `${diffInHours}h`
+  }
+
+  const diffInDays = Math.floor(diffInHours / 24)
+  if (diffInDays < 7) {
+    return `${diffInDays}d`
+  }
+
+  const diffInWeeks = Math.floor(diffInDays / 7)
+  if (diffInWeeks < 4) {
+    return `${diffInWeeks}w`
+  }
+
+  const diffInMonths = Math.floor(diffInDays / 30)
+  if (diffInMonths < 12) {
+    return `${diffInMonths}mo`
+  }
+
+  const diffInYears = Math.floor(diffInDays / 365)
+  return `${diffInYears}y`
 }
 
 export const getVideoMimeType = (url: string) => {

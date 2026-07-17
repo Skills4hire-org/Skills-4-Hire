@@ -45,7 +45,7 @@ export default function PostForm() {
   const videoRef = useRef<HTMLInputElement>(null)
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 2 * 1024 * 1024
+    const MAX_SIZE_MB = 10 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
     let acceptedImageFiles: File[] = []
@@ -73,7 +73,7 @@ export default function PostForm() {
   }
 
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 2 * 1024 * 1024
+    const MAX_SIZE_MB = 250 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
     let acceptedVideoFiles: File[] = []

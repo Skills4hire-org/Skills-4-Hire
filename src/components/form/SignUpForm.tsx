@@ -6,6 +6,7 @@ import { registerSchema } from '@/utils/schemas'
 import FormInput from '@/components/form-fields/FormInput'
 
 import { toast } from 'sonner'
+import { Eye, EyeClosed } from 'lucide-react'
 
 interface SignUpFormProps {
   onSuccess?: (email: string) => void
@@ -24,6 +25,8 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
   })
 
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const handleChange = (name: string, value: string) => {
     if (name === 'phone') {
@@ -108,24 +111,54 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
         type="email"
         required
       />
+      <div className="relative">
+        <FormInput
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          handleInputChange={handleChange}
+          type={showPassword ? 'text' : 'password'}
+          className="pr-9"
+          required
+        />
+        <button
+          type="button"
+          className="absolute top-1/2 -translate-y-1/2 right-3 cursor-pointer"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? (
+            <Eye className="w-3 h-3 md:w-4 md:h-4" />
+          ) : (
+            <EyeClosed className="w-3 h-3 md:w-4 md:h-4" />
+          )}
+          <span className="sr-only">show password</span>
+        </button>
+      </div>
 
-      <FormInput
-        name="password"
-        placeholder="Password"
-        value={formData.password}
-        handleInputChange={handleChange}
-        type="password"
-        required
-      />
+      <div className="relative">
+        <FormInput
+          name="confirm_password"
+          placeholder="Confirm Password"
+          value={formData.confirm_password}
+          handleInputChange={handleChange}
+          type={showConfirmPassword ? 'text' : 'password'}
+          className="pr-9"
+          required
+        />
 
-      <FormInput
-        name="confirm_password"
-        placeholder="Confirm Password"
-        value={formData.confirm_password}
-        handleInputChange={handleChange}
-        type="password"
-        required
-      />
+        <button
+          type="button"
+          className="absolute top-1/2 -translate-y-1/2 right-3 cursor-pointer"
+          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+        >
+          {showConfirmPassword ? (
+            <Eye className="w-3 h-3 md:w-4 md:h-4" />
+          ) : (
+            <EyeClosed className="w-3 h-3 md:w-4 md:h-4" />
+          )}
+          <span className="sr-only">show password</span>
+        </button>
+      </div>
 
       <FormInput
         name="referral_code"

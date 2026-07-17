@@ -4,7 +4,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
@@ -53,9 +52,6 @@ export default function MobileSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="px-0 text-base text-primary">
-            General
-          </SidebarGroupLabel>
           <SidebarGroupContent className="-mt-1">
             <SidebarMenu className="space-y-0.5">
               {sidebarMobileGeneral.map(({ icon, label, url }) => {
@@ -67,8 +63,8 @@ export default function MobileSidebar() {
                       className="py-1 px-0 flex items-center gap-2"
                       onClick={toggleSidebar}
                     >
-                      <IconComponent strokeWidth={1.5} className="w-5 h-5 " />
-                      <span className="capitalize text-xs flex items-center justify-between flex-1 ">
+                      <IconComponent strokeWidth={1.5} className="w-7  h-7 " />
+                      <span className="capitalize text-lg flex items-center justify-between flex-1 ">
                         {label}
                       </span>
                     </NavLink>
@@ -79,9 +75,6 @@ export default function MobileSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel className="px-0 text-base text-primary">
-            About Us
-          </SidebarGroupLabel>
           <SidebarGroupContent className="-mt-1">
             <SidebarMenu className="space-y-0.5">
               {sidebarAboutUs.map(({ icon, label, url }) => {
@@ -95,9 +88,9 @@ export default function MobileSidebar() {
                       >
                         <IconComponent
                           strokeWidth={1.5}
-                          className="w-5 h-5 p-0.5 "
+                          className="w-7 h-7 p-0.5 "
                         />
-                        <span className="capitalize text-xs flex items-center justify-between flex-1 ">
+                        <span className="capitalize text-lg flex items-center justify-between flex-1 ">
                           {label}
                         </span>
                       </a>
@@ -108,9 +101,9 @@ export default function MobileSidebar() {
                       >
                         <IconComponent
                           strokeWidth={1.5}
-                          className="w-5 h-5 p-0.5 "
+                          className="w-7 h-7 p-0.5 "
                         />
-                        <span className="capitalize text-xs flex items-center justify-between flex-1 ">
+                        <span className="capitalize text-lg flex items-center justify-between flex-1 ">
                           {label}
                         </span>
                       </NavLink>

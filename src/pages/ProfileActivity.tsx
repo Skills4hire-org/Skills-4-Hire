@@ -85,10 +85,13 @@ export default function ProfileActivity() {
   }
 
   return (
-    <div className="space-y-2 md:space-y-6">
+    <div className="space-y-2 md:space-y-6 ">
       <HeaderWithBackNavigation title="All Activity" />
       <Container>
-        <Tabs defaultValue="posts" className="space-y-2 md:space-y-4 relative ">
+        <Tabs
+          defaultValue="posts"
+          className="space-y-2 md:space-y-4 pt-9 sm:pt-0 relative   "
+        >
           <TabsList className="border-b-0 bg-background  rounded-none p-0 space-x-4 md:space-x-8">
             {serviceProviderActivityTabList.map((status, index) => {
               return (
@@ -104,9 +107,9 @@ export default function ProfileActivity() {
                   {status === 'posts' && (
                     <Link
                       to="/professional/create-post"
-                      className="absolute right-2 md:right-4 top-0  border-1 border-primary rounded-full text-primary px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-primary hover:text-white"
+                      className="absolute right-0 top-0  border-1 border-primary rounded-full text-primary px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-primary hover:text-white"
                     >
-                      Create a post{' '}
+                      <span>Create a post</span>
                       <Edit2Icon className="w-3 h-3 md:w-4 md:h-4" />
                     </Link>
                   )}

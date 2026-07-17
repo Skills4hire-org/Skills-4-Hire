@@ -3,7 +3,6 @@ import {
   Banknote,
   FileText,
   HelpCircle,
-  Info,
   Mail,
   MessageCircleQuestion,
   Phone,
@@ -100,11 +99,6 @@ export const sidebarDesktopGeneral = [
 ]
 
 export const sidebarAboutUs = [
-  {
-    icon: Info,
-    label: 'about us',
-    url: '/about',
-  },
   {
     icon: ShieldAlert,
     label: 'privacy policy',

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import FormInput from '../form-fields/FormInput'
 import { toast } from 'sonner'
+import { Eye, EyeClosed } from 'lucide-react'
 
 interface SignInFormProps {
   initialEmail?: string
@@ -20,6 +21,7 @@ export default function SignInForm({ initialEmail }: SignInFormProps) {
     email: initialEmail || '',
     password: '',
   })
+  const [showPassword, setShowPassword] = useState(false)
 
   const [loading, setLoading] = useState(false)
 
@@ -66,15 +68,30 @@ export default function SignInForm({ initialEmail }: SignInFormProps) {
         handleInputChange={handleChange}
         required
       />
+      <div className="relative">
+        <FormInput
+          name="password"
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Password"
+          value={formData.password}
+          handleInputChange={handleChange}
+          className="pr-9"
+          required
+        />
+        <button
+          type="button"
+          className="absolute top-1/2 -translate-y-1/2 right-3 cursor-pointer"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? (
+            <Eye className="w-3 h-3 md:w-4 md:h-4" />
+          ) : (
+            <EyeClosed className="w-3 h-3 md:w-4 md:h-4" />
+          )}
+          <span className="sr-only">show password</span>
+        </button>
+      </div>
 
-      <FormInput
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        handleInputChange={handleChange}
-        required
-      />
       <div className="flex justify-end">
         <Link
           to="/forgot-password"

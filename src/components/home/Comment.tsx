@@ -17,7 +17,7 @@ export default function Comment({ post_id }: { post_id: string | undefined }) {
     isFetchNextPageError,
   } = useComments({ post_id })
   const comments: PostComment[] =
-    data?.pages.flatMap((page) => page.results) ?? []
+    data?.pages.flatMap((page) => page.data.results) ?? []
   const handleCommentFetchingError = () => {
     if (!data) {
       refetch()

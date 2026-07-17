@@ -1,12 +1,5 @@
 import type { UserType } from '@/utils/types'
-import {
-  Heart,
-  MessageCircle,
-  BarChart2,
-  Star,
-  MapPin,
-  Dot,
-} from 'lucide-react'
+import { Heart, MessageCircle, BarChart2, MapPin, Dot } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
 import CommentForm from '../form/CommentForm'
@@ -36,6 +29,9 @@ export default function PostCard({
   queryKey,
 }: Post & { queryKey: string[] }) {
   const [showComment, setShowComment] = useState(false)
+  const [viewMore, setViewMore] = useState(false)
+  const [clickOnce, setClickOnce] = useState(false)
+
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
@@ -79,7 +75,20 @@ export default function PostCard({
                 </>
               )}
             </div>
-
+            <div className="flex items-center gap-0.5 text-[12px] md:text-sm font-medium ">
+              {provider_service && (
+                <Link
+                  to={`/customer/professionals/${provider_id}`}
+                  className=" text-primary font-medium no-underline hover:no-underline block w-max capitalize"
+                >
+                  {provider_service.replace(/([A-Z])/g, ' $1').trim()}
+                </Link>
+              )}
+              <Dot className="w-3 h-3 text-muted-foreground" strokeWidth={6} />
+              <span className="text-gray-600">
+                {formatCommentTime(created_at as string)}
+              </span>
+            </div>
             <div className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-gray-500 my-0.5">
               {user?.profile?.city && (
                 <span className="inline-flex items-center gap-1 capitalize">
@@ -87,7 +96,7 @@ export default function PostCard({
                   {user?.profile?.city}
                 </span>
               )}
-              {user?.avg_rating && (
+              {/* {user?.avg_rating && (
                 <span className="inline-flex items-center gap-1">
                   <Star
                     size={13.5}
@@ -103,33 +112,32 @@ export default function PostCard({
                     </span>
                   )}
                 </span>
-              )}
-            </div>
-            <div className="flex items-center gap-1 text-[12px] md:text-sm">
-              {provider_service && (
-                <Link
-                  to={`/customer/professionals/${provider_id}`}
-                  className=" text-primary font-medium no-underline hover:no-underline block w-max"
-                >
-                  {provider_service}
-                </Link>
-              )}
-              <Dot className="w-3 h-3 text-muted-foreground" />
-              <span className="text-gray-500">
-                {formatCommentTime(created_at as string)}
-              </span>
+               )} */}
             </div>
           </div>
         </div>
       </div>
-
-      <p className="text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line">
-        {post_content}
-      </p>
-
-      <div className="my-8">
-        {attachments && <ImageCarousel attachments={attachments} />}
+      <div>
+        <p
+          className={`text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line ${!viewMore && 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4'}`}
+        >
+          {post_content}
+        </p>
+        <button
+          onClick={() => {
+            setViewMore(true)
+            setClickOnce(true)
+          }}
+          className={`text-[14px] md:text-base text-primary underline cursor-pointer hover:no-underline ${clickOnce && 'hidden'}`}
+        >
+          more
+        </button>
       </div>
+      {attachments?.length !== 0 && (
+        <div className="my-8">
+          <ImageCarousel attachments={attachments} />
+        </div>
+      )}
 
       {tags && tags?.length > 0 && (
         <div className="flex flex-wrap gap-1.5 md:gap-2">

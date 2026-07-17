@@ -6,7 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '../ui/carousel'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { getVideoMimeType } from '@/utils/format'
 import Lightbox from 'yet-another-react-lightbox'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
@@ -20,6 +20,8 @@ function ImageCarousel({
 }) {
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
+  const [showControls, setShowControls] = useState(false)
+  const videoRef = useRef(null)
   const slides = useMemo(
     () =>
       attachments?.map((item) =>
@@ -65,9 +67,16 @@ function ImageCarousel({
               >
                 {attachment.attachment_type === 'VIDEO' && (
                   <>
-                    <img
+                    <video
+                      ref={videoRef}
                       src={attachment.thumbnail_url}
-                      alt={attachment.attachment_type}
+                      poster={attachment.thumbnail_url}
+                      autoPlay
+                      muted
+                      playsInline
+                      preload="metadata"
+                      controls={showControls}
+                      onPlay={() => setShowControls(true)}
                       className="w-full aspect-4/3 object-contain"
                     />
 
@@ -83,6 +92,7 @@ function ImageCarousel({
                     src={attachment.attachmentURL}
                     alt={attachment.attachment_type}
                     className="w-full aspect-4/3 object-contain"
+                    loading="lazy"
                   />
                 )}
               </CarouselItem>

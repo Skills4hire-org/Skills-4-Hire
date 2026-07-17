@@ -44,10 +44,10 @@ export default function PostComposer() {
         rounded-md
         space-y-4
         px-2 py-4 md:py-6 md:px-3
-        shadow-md
+        shadow-md 
         border
-        border-gray-500
-        md:border-gray-400
+        border-gray-300
+        
       "
     >
       {userType == 'customer' && (

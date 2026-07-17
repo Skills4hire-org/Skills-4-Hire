@@ -5,6 +5,7 @@ import FormSubmitButton from '../buttons/FormSubmitButton'
 import { usePostReplies } from '@/hooks/usePosts'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { commentFormSchema } from '@/utils/schemas'
+import { toast } from 'sonner'
 
 export default function CommentReplyForm({
   setShowReplyForm,
@@ -18,7 +19,7 @@ export default function CommentReplyForm({
   const [formData, setFormData] = useState({
     message: '',
   })
-  const { mutate: postReplies, isPending } = usePostReplies()
+  const { mutate: postReplies, isPending } = usePostReplies({ comment_id })
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
@@ -28,7 +29,14 @@ export default function CommentReplyForm({
     if (!validatedData) {
       return
     }
-    postReplies({ post_id, data: validatedData, comment_id })
+    postReplies(
+      { post_id, data: validatedData, comment_id },
+      {
+        onError: (error) => {
+          toast.error(error.message)
+        },
+      },
+    )
   }
 
   return (

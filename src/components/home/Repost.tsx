@@ -33,7 +33,7 @@ export default function Repost({
         <DropdownMenuTrigger asChild>
           <button
             disabled={reposting || unreposting}
-            className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${is_reposted && 'text-green-600'} outline-none `}
+            className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${is_reposted && 'text-green-600'} outline-none w-max `}
           >
             <Repeat className="w-5 h-5 md:h-6 md:w-6" />
             <span>{reposts_count}</span>

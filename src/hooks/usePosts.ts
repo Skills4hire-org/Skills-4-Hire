@@ -435,7 +435,11 @@ export const useComments = ({ post_id }: { post_id: string | undefined }) => {
   return queryData
 }
 
-export const usePostComment = () => {
+export const usePostComment = ({
+  post_id,
+}: {
+  post_id: string | undefined
+}) => {
   const postCommentAction = async ({
     post_id,
     data,
@@ -446,21 +450,45 @@ export const usePostComment = () => {
     try {
       await postComment({ post_id, data })
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
   const postCommentFunction = useMutation({
     mutationFn: postCommentAction,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] })
+      queryClient.invalidateQueries({ queryKey: ['comments', post_id] })
     },
   })
 
   return postCommentFunction
 }
 
-export const usePostReplies = () => {
+export const useCommentReplies = ({
+  post_id,
+  comment_id,
+}: {
+  post_id: string | undefined
+  comment_id: string | undefined
+}) => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['replies', comment_id],
+    queryFn: ({ pageParam }) =>
+      getCommentReplies({ pageParam, post_id, comment_id }),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
+}
+
+export const usePostReplies = ({
+  comment_id,
+}: {
+  comment_id: string | undefined
+}) => {
   const postRepliesAction = async ({
     post_id,
     comment_id,
@@ -473,14 +501,14 @@ export const usePostReplies = () => {
     try {
       await postReplies({ post_id, comment_id, data })
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
   const postRepliesFunction = useMutation({
     mutationFn: postRepliesAction,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['replies'] })
+      queryClient.invalidateQueries({ queryKey: ['replies', comment_id] })
     },
   })
 
@@ -521,24 +549,4 @@ export const useUnlikeComment = () => {
   })
 
   return unlikeCommentFunction
-}
-
-export const useCommentReplies = ({
-  post_id,
-  comment_id,
-}: {
-  post_id: string | undefined
-  comment_id: string | undefined
-}) => {
-  const queryData = useInfiniteQuery({
-    queryKey: ['replies', comment_id],
-    queryFn: ({ pageParam }) =>
-      getCommentReplies({ pageParam, post_id, comment_id }),
-    initialPageParam: undefined,
-    getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
-    },
-    retry: 1,
-  })
-  return queryData
 }
