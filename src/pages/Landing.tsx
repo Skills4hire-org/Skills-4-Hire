@@ -1,5 +1,8 @@
 import Container from '@/components/global/Container'
 import About from '@/components/landing/About'
+import { Link } from 'react-router-dom'
+import landingHero from '@/assets/images/landing-hero.jpg'
+import { ArrowRight } from 'lucide-react'
 import Contact from '@/components/landing/Contact'
 import FAQs from '@/components/landing/FAQs'
 import Features from '@/components/landing/Features'
@@ -11,20 +14,67 @@ import Value from '@/components/landing/Value'
 
 export default function Landing() {
   return (
-    <>
+    <div className="flex flex-col">
       <ScrollToSection />
+      
+      {/* Hero Section */}
       <Container>
-        <div className="space-y-10 md:space-y-12 pb-12 pt-4 md:pt-6">
+        <div className="pt-6 md:pt-10 pb-16 md:pb-24">
           <Hero />
-          <About />
-          <Services />
-          <Value />
-          <HowItWorks />
-          <Features />
-          <FAQs />
-          <Contact />
         </div>
       </Container>
-    </>
+      
+      {/* Full-width sections with internal padding */}
+      <About />
+      <Services />
+      
+      {/* Value needs a container and padding */}
+      <Container>
+        <div className="py-16 md:py-24">
+          <Value />
+        </div>
+      </Container>
+      
+      {/* HowItWorks has its own internal wrapper and padding */}
+      <HowItWorks />
+      
+      {/* Full-width sections with internal padding */}
+      <Features />
+      <FAQs />
+      <Contact />
+      
+      {/* CTA Section needs a container and padding */}
+      <Container>
+        <div className="py-16 md:py-24">
+          <div className="relative rounded-[8px] py-16 md:py-20 text-center px-4 overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
+            {/* Background image — hidden from screen readers */}
+            <img
+              src={landingHero}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-slate-900/70" />
+
+            <div className="relative z-10 flex flex-col items-center max-w-xl mx-auto">
+              <h2 className="text-white text-3xl md:text-4xl font-medium tracking-tight mb-4">
+                Ready to hire trusted professionals or showcase your skills?
+              </h2>
+              <p className="text-white/80 text-sm md:text-base leading-relaxed mb-8 max-w-md mx-auto">
+                Join Skills4Hire to connect, work, and grow whether you need help or
+                offer expertise.
+              </p>
+              <Link
+                to="/sign-up"
+                className="group flex items-center justify-center gap-2 px-6 py-3 text-sm md:text-base font-medium rounded-[4px] bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+              >
+                Get Started
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
   )
 }

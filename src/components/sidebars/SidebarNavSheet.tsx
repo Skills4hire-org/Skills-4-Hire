@@ -1,6 +1,6 @@
 import { Menu } from 'lucide-react'
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../ui/sheet'
-import { navLinks } from '@/assets/data'
+import { navLinks, type NavLink } from '@/assets/data'
 import { Link, useLocation } from 'react-router-dom'
 import { Separator } from '../ui/separator'
 import { useState } from 'react'
@@ -28,19 +28,7 @@ export default function SidebarNavSheet() {
 
   const currentSection = useCurrentSection(sectionIds)
   const isActive = useIsNavActive(currentSection, navSectionIds)
-  const getClassName = (
-    url:
-      | {
-          label: string
-          href: string
-          sectionId?: undefined
-        }
-      | {
-          label: string
-          href: string
-          sectionId: string
-        },
-  ) => {
+  const getClassName = (url: NavLink) => {
     const baseClasses = ' font-medium capitalize text-sm py-1.5 px-3 rounded-sm'
     const activeClasses = isActive(url)
       ? 'bg-primary/10 text-primary'

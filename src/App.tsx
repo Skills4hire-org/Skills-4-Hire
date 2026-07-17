@@ -41,8 +41,6 @@ import ServiceProviderServices from './pages/ServiceProviderServices'
 import ServiceProviderActivity from './pages/ServiceProviderActivity'
 import ServiceProviderImageGallery from './pages/ServiceProviderImageGallery'
 import IndexLayout from './components/layouts/IndexLayout'
-import Blog from './pages/Blog'
-import BlogPost from './pages/BlogPost'
 import Legal from './pages/Legal'
 import About2 from './pages/About2'
 import CreateOffer from './pages/CreateOffer'
@@ -73,14 +71,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing />,
-      },
-      {
-        path: 'blog',
-        element: <Blog />,
-      },
-      {
-        path: 'blog/:id',
-        element: <BlogPost />,
       },
       {
         path: 'legal',

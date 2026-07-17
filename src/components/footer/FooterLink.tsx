@@ -10,25 +10,25 @@ interface FooterLinkProp {
 
 function FooterLink({ heading, links }: FooterLinkProp) {
   return (
-    <div className="nth-of-type-2:col-span-2">
-      <h2 className="font-semibold text-sm capitalize text-background">
+    <div className="space-y-4">
+      <h2 className="font-semibold text-sm capitalize text-white">
         {heading}
       </h2>
-      <ul>
+      <ul className="space-y-1.5">
         {links.map(({ label, url }) => {
           return (
-            <li key={label} className="py-0.5">
-              {label == 'Contact Information' ? (
+            <li key={label}>
+              {label.includes('Contact') || label.includes('@') || label.includes('+') ? (
                 <a
                   href={url}
-                  className="hover:text-white hover:underline text-sm text-muted-foreground"
+                  className="hover:text-white transition-colors text-sm text-white/70 break-all"
                 >
                   {label}
                 </a>
               ) : (
                 <Link
                   to={url}
-                  className="hover:text-white hover:underline text-sm text-muted-foreground"
+                  className="hover:text-white transition-colors text-sm text-white/70"
                 >
                   {label}
                 </Link>

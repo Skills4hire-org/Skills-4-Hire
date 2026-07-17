@@ -1,20 +1,15 @@
 import Hero from '@/components/about/Hero'
 import Mission from '@/components/about/Mission'
 import CTA from '@/components/about/CTA'
-import Container from '@/components/global/Container'
 import Vision from '@/components/about/Vision'
 
 function About2() {
   return (
     <div>
       <Hero />
-      <Container>
-        <Mission />
-      </Container>
+      <Mission />
       <Vision />
-      <Container>
-        <CTA />
-      </Container>
+      <CTA />
     </div>
   )
 }

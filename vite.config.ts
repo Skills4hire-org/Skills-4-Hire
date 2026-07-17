@@ -10,4 +10,14 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://theskills4hire.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 })
+

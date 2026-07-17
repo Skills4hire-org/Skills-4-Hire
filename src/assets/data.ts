@@ -480,7 +480,7 @@ export const supportOptions = [
   {
     icon: Mail,
     text: 'Send an email',
-    url: 'mailto:skills4hireofficial@gmail.com',
+    url: 'mailto:Support@theskills4hire.com',
   },
   {
     icon: MessageCircleQuestion,
@@ -1635,10 +1635,12 @@ export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services', sectionId: 'services' },
-  { label: 'Blog', href: '/blog' },
   { label: 'FAQs', href: '/#faqs', sectionId: 'faqs' },
   { label: 'Contact Us', href: '/#contact', sectionId: 'contact' },
-]
+] as const
+
+/** Type of a single item in the public nav links array. */
+export type NavLink = (typeof navLinks)[number]
 
 export const footerLinks = [
   {
@@ -1652,18 +1654,14 @@ export const footerLinks = [
         label: 'About',
         url: '/about',
       },
-      {
-        label: 'Blog',
-        url: '/blog',
-      },
     ],
   },
   {
     heading: 'Contact Information',
     links: [
       {
-        label: 'Email: support@skills4hireapp.com',
-        url: 'mailto:support@skills4hireapp.com',
+        label: 'Email: Support@theskills4hire.com',
+        url: 'mailto:Support@theskills4hire.com',
       },
       {
         label: 'Phone: +234-707-374-3287',
@@ -1689,8 +1687,8 @@ export const footerLinks = [
 export const contact = [
   {
     label: 'email',
-    text: 'support@skills4hireapp.com',
-    url: 'mailto:support@skills4hireapp.com',
+    text: 'Support@theskills4hire.com',
+    url: 'mailto:Support@theskills4hire.com',
     icon: Mail,
   },
   {
