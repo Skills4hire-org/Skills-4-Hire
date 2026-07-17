@@ -1,12 +1,5 @@
 import type { UserType } from '@/utils/types'
-import {
-  Heart,
-  MessageCircle,
-  BarChart2,
-  MapPin,
-  Dot,
-  Repeat,
-} from 'lucide-react'
+import { Heart, MessageCircle, BarChart2, MapPin, Dot } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
 import CommentForm from '../form/CommentForm'
@@ -38,7 +31,6 @@ export default function PostCard({
   const [showComment, setShowComment] = useState(false)
   const [viewMore, setViewMore] = useState(false)
   const [clickOnce, setClickOnce] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState(false)
 
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
@@ -190,7 +182,6 @@ export default function PostCard({
             queryKey={queryKey}
           />
         </div>
-
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
           <BarChart2 className="w-5 h-5 md:h-6 md:w-6" />
           <span>{impression_count}</span>
