@@ -31,6 +31,11 @@ export default function CommentCard({
     setShowReplies((prev) => !prev)
     setShowReplyForm(false)
   }
+  const handleShowReplyForm = () => {
+    setShowReplyForm((prev) => !prev)
+    setShowReplies(false)
+  }
+
   return (
     <div
       className="space-y-2"
@@ -77,7 +82,7 @@ export default function CommentCard({
         </button>
 
         <button
-          onClick={() => setShowReplyForm(!showReplyForm)}
+          onClick={handleShowReplyForm}
           className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-primary rounded-full transition-all cursor-pointer"
         >
           <Reply className="w-4 h-4 md:h-5 md:w-5" />
@@ -89,7 +94,7 @@ export default function CommentCard({
           onClick={handleShowReply}
         >
           <MessageCircle className="w-4 h-4 md:h-5 md:w-5" />
-          <span className="text-xs md:text-sm text-muted-foreground">
+          <span className="text-xs md:text-sm text-muted-foreground capitalize">
             {total_replies} repl{total_replies > 1 ? 'ies' : 'y'}
           </span>
         </button>

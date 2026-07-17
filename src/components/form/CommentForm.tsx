@@ -15,7 +15,6 @@ export default function CommentForm({
   post_id: string | undefined
 }) {
   const { data } = useMyProfile()
-  console.log(post_id)
 
   const user: Profile | undefined = data
   const avatar = user?.user?.profile?.avatar?.avatar

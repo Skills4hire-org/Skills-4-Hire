@@ -2,17 +2,17 @@ import { useRepost, useUnrepost } from '@/hooks/usePosts'
 import {
   DropdownMenu,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuContent,
 } from '../ui/dropdown-menu'
 import { Repeat, Users } from 'lucide-react'
-import { DropdownMenuContent } from '@radix-ui/react-dropdown-menu'
 import RepostDialog from './RepostDialog'
 import { useState } from 'react'
+import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 
 export default function Repost({
   post_id,
-  reposts_count,
   is_reposted,
+  reposts_count,
   queryKey,
 }: {
   post_id?: string
@@ -27,13 +27,16 @@ export default function Repost({
   const handleRepost = () => {
     is_reposted ? unrepost({ post_id }) : repost({ post_id })
   }
+
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
-            disabled={reposting || unreposting}
-            className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${is_reposted && 'text-green-600'} outline-none w-max `}
+            type="button"
+            className={`flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer ${
+              is_reposted ? 'text-green-600' : ''
+            }`}
           >
             <Repeat className="w-5 h-5 md:h-6 md:w-6" />
             <span>{reposts_count}</span>
@@ -48,6 +51,7 @@ export default function Repost({
             onClick={handleRepost}
             className="text-gray-800"
             asChild
+            disabled={reposting || unreposting}
           >
             <button className="cursor-pointer group focus:bg-transparent">
               <Repeat className="w-4 h-4 md:w-5 md:h-5  group-hover:text-foreground" />

@@ -6,6 +6,8 @@ import { usePostReplies } from '@/hooks/usePosts'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { commentFormSchema } from '@/utils/schemas'
 import { toast } from 'sonner'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function CommentReplyForm({
   setShowReplyForm,
@@ -16,6 +18,10 @@ export default function CommentReplyForm({
   post_id: string | undefined
   comment_id: string | undefined
 }) {
+  const { data } = useMyProfile()
+
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
   const [formData, setFormData] = useState({
     message: '',
   })
@@ -45,7 +51,7 @@ export default function CommentReplyForm({
       className="flex gap-2 border-t border-gray-100 pt-4"
     >
       <div>
-        <ProfileImage size="size-8 md:size-10" noStatus />
+        <ProfileImage size="size-8 md:size-10" noStatus avatar={avatar} />
       </div>
       <div className="flex-1">
         <FormTextArea

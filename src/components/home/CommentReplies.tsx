@@ -38,14 +38,18 @@ export default function CommentReplies({
   return (
     <>
       {isLoading ? (
-        <Loading />
+        <div className="h-25">
+          <Loading />
+        </div>
       ) : (
         <>
           {isError ? (
-            <Error
-              text="Failed to load replies"
-              buttonFunc={handleRepliesFetchingError}
-            />
+            <div className="py-4">
+              <Error
+                text="Failed to load replies"
+                buttonFunc={handleRepliesFetchingError}
+              />
+            </div>
           ) : (
             <>
               <div className="grid gap-6">
@@ -59,6 +63,11 @@ export default function CommentReplies({
                   />
                 ))}
               </div>
+              {replies?.length === 0 && (
+                <p className="text-base md:text-lg font-medium text-center h-25 flex items-center justify-center">
+                  No replies yet.
+                </p>
+              )}
               {hasNextPage && (
                 <div className="flex items-center gap-1">
                   <div className="p-1 bg-gray-100 w-max rounded-full">
