@@ -15,7 +15,7 @@ export default function AboutDialog({ about }: { about: string | undefined }) {
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
-        <button className="text-primary absolute top-2 md:top-4 right-2 md:right-4 cursor-pointer text-primary/80">
+        <button className="text-black absolute top-2 md:top-4 right-2 md:right-4 cursor-pointer hover:text-black/80">
           <Edit2 strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6" />
           <span className="sr-only">edit about</span>
         </button>

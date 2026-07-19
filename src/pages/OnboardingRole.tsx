@@ -11,11 +11,10 @@ export default function OnboardingRole() {
 
   const handleContinue = async () => {
     navigate(`/onboarding/${role}/upload`)
-
   }
 
   return (
-    <Container className="flex items-center justify-center min-h-screen">
+    <Container className="flex items-center justify-center min-h-screen py-20  ">
       <div className="w-full max-w-sm text-center">
         <AuthLogo />
 

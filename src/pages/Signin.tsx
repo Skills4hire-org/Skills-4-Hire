@@ -1,11 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
-import { FaFacebookF } from "react-icons/fa";
-import AuthLogo from "@/components/global/AuthLogo";
-import SignInForm from "@/components/form/SignInForm";
+import { Link, useLocation } from 'react-router-dom'
+import AuthLogo from '@/components/global/AuthLogo'
+import SignInForm from '@/components/form/SignInForm'
 
 export default function SignIn() {
-  const location = useLocation();
-  const email = (location.state as { email?: string })?.email;
+  const location = useLocation()
+  const email = (location.state as { email?: string })?.email
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-6">
@@ -23,7 +22,7 @@ export default function SignIn() {
         <SignInForm initialEmail={email} />
 
         <p className="text-sm text-gray-600">
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?{' '}
           <Link
             to="/sign-up"
             className="text-primary font-medium hover:underline"
@@ -33,9 +32,9 @@ export default function SignIn() {
         </p>
 
         <p className="text-xs text-gray-600 mt-3 leading-snug">
-          By clicking the{" "}
+          By clicking the{' '}
           <span className="font-medium text-black">Sign in</span> button you
-          accept the{" "}
+          accept the{' '}
           <Link
             to="/privacy-policy"
             className="text-primary font-medium hover:underline"
@@ -50,26 +49,17 @@ export default function SignIn() {
           <div className="grow border-t-2 border-gray-300" />
         </div>
 
-        <div className="flex justify-center gap-6">
-          <button
-            aria-label="Continue with Facebook"
-            className="w-8 h-8 rounded-full bg-[#1877F2] grid place-items-center"
-          >
-            <FaFacebookF className="w-4 h-4" color="#FFFFFF" />
-          </button>
-
+        <button className="flex justify-center items-center gap-2 w-full bg-gray-200 p-2 rounded-sm">
           <img
             src="https://img.icons8.com/color/48/google-logo.png"
             alt="Google"
-            className="w-8 h-8"
+            className="w-7 h-7"
           />
-          <img
-            src="https://img.icons8.com/ios-filled/50/mac-os.png"
-            alt="Apple"
-            className="w-8 h-8"
-          />
-        </div>
+          <span className="font-medium text-gray-600 text-lg">
+            Sign in with Google
+          </span>
+        </button>
       </div>
     </div>
-  );
+  )
 }

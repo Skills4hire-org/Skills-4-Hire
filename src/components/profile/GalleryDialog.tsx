@@ -16,7 +16,7 @@ export default function GalleryDialog() {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <button
-          className="text-primary hover:text-primary/80 cursor-pointer shadow-sm hover:shadow-md rounded-sm p-0.5"
+          className="text-black hover:text-black/80 cursor-pointer shadow-sm hover:shadow-md rounded-sm p-0.5"
           onClick={() => setIsOpen(true)}
         >
           <Plus strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6" />

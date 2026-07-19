@@ -46,7 +46,7 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
                   {
                     <Link
                       to="/professional/create-post"
-                      className={`absolute right-2 md:right-4 top-2 md:top-4 border-1 border-primary rounded-full text-primary px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-primary hover:text-white ${status === 'posts' ? 'flex' : 'hidden'}`}
+                      className={`absolute right-2 md:right-4 top-2 md:top-4 border-1 border-black rounded-full text-black px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-black hover:text-white ${status === 'posts' ? 'flex' : 'hidden'}`}
                     >
                       Create a post
                       <Edit2Icon className="w-3 h-3 md:w-4 md:h-4" />

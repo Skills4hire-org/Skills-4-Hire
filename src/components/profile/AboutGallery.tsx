@@ -96,7 +96,7 @@ export default function AboutGallery({
                       </div>
                     ) : (
                       <button
-                        className="text-primary absolute top-2 md:top-4 right-2 md:right-4 cursor-pointer text-primary/80"
+                        className="text-black  absolute top-2 md:top-4 right-2 md:right-4 cursor-pointer hover:text-black/80"
                         onClick={() => setEditGallery(true)}
                       >
                         <Edit2

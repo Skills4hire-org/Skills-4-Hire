@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react'
+/* import { useRef, useState, type FormEvent } from 'react'
 import FormSelect from '../form-fields/FormSelect'
 import {
   certificationOptions,
@@ -141,7 +141,7 @@ export default function ExperienceForm() {
         selectItemClassName="place-content-center w-64 rounded-none px-4"
         sideOffset={-4}
         indicator
-        required
+        required 
       />
       <FormSelect
         label="Do you have any certifications or training related to your work?"
@@ -209,3 +209,4 @@ export default function ExperienceForm() {
     </form>
   )
 }
+ */

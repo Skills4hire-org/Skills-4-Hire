@@ -1,16 +1,20 @@
 import ApplicationProfileForm from '@/components/form/ApplicationProfileForm'
+import AuthLogo from '@/components/global/AuthLogo'
 import Container from '@/components/global/Container'
-import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 
 export default function ApplicationProfile() {
   return (
-    <div className="space-y-2 md:space-y-4">
-      <HeaderWithBackNavigation title="Application Profile" />
-      <Container>
-        <div className="max-w-lg mx-auto space-y-6 md:space-y-8">
+    <Container className="flex items-center justify-center min-h-screen py-20">
+      <div className="w-full max-w-lg text-center">
+        <div className="w-max mx-auto mb-4">
+          <AuthLogo />
+        </div>
+
+        <h1 className="text-2xl font-bold">Complete Registration</h1>
+        <div className="mt-8">
           <ApplicationProfileForm />
         </div>
-      </Container>
-    </div>
+      </div>
+    </Container>
   )
 }

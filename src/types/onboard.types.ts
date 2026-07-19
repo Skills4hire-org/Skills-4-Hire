@@ -4,24 +4,10 @@ export type FileStructure = {
   selectNewFile: boolean
 }
 
-export type PersonalInformationFormData = {
-  nin: string
-  driversLicense: FileStructure
-  passport: FileStructure
-}
-
-export type ExperienceFormData = {
-  service: string | undefined
-  certification: string | undefined
-  certificateFile: FileStructure
-  experienceYears: string | undefined
-  previousWorkPlaces: string
-  workImage: FileStructure
-}
-
 export type ApplicationProfileFormData = {
+  service: string | undefined
   country: string
-  state:string
+  state: string
   city: string
   address: string
   dateOfBirth: string
@@ -29,9 +15,7 @@ export type ApplicationProfileFormData = {
 }
 
 export type Registration = {
-  personalInfo: PersonalInformationFormData
-  experience: ExperienceFormData
-  applicationProfile: ApplicationProfileFormData
+  additionalInfo: ApplicationProfileFormData
 }
 
 export type RequiredFormData = {

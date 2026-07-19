@@ -4,33 +4,33 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import FormInput from '../form-fields/FormInput'
 import { Button } from '../ui/button'
-import {
-  addApplicationProfile,
-  clearForms,
-} from '@/features/registration/registrationSlice'
-
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { applicationProfileFormSchema } from '@/utils/schemas'
-
-import { uploadToCloudinary } from '@/utils/cloudinary'
 import { completeOnboard, selectRole } from '@/api/onboard'
 import type { Registration } from '@/types/onboard.types'
+import FormSelect from '../form-fields/FormSelect'
+import { serviceTypes } from '@/assets/data'
+import {
+  clearForm,
+  completeProfile,
+} from '@/features/registration/registrationSlice'
 
 export default function ApplicationProfileForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { personalInfo, experience, applicationProfile }: Registration =
-    useSelector((state: any) => state.registrationState)
+  const { additionalInfo }: Registration = useSelector(
+    (state: any) => state.registrationState,
+  )
 
-  const { country, city, address, dateOfBirth, headline, state } = applicationProfile
-
+  const { service, country, city, address, dateOfBirth, headline, state } =
+    additionalInfo
   const [submitting, setSubmitting] = useState(false)
 
   const handleInputChange = (field: string, value: string) => {
     dispatch(
-      addApplicationProfile({
-        applicationProfile: { [field]: value },
+      completeProfile({
+        additionalInfo: { [field]: value },
       }),
     )
   }
@@ -40,81 +40,28 @@ export default function ApplicationProfileForm() {
 
     const valid = useValidateSchema(
       applicationProfileFormSchema,
-      applicationProfile,
+      additionalInfo,
     )
 
     if (!valid) return
 
     setSubmitting(true)
 
-
     try {
-      const driversLicense = await uploadToCloudinary(
-        personalInfo.driversLicense?.file,
-      )
-
-      const passport = await uploadToCloudinary(personalInfo.passport?.file)
-
-      const cert = await uploadToCloudinary(experience.certificateFile?.file)
-
-      const workImg = await uploadToCloudinary(experience.workImage?.file)
       const profilePayload = {
-        professional_title: experience.service,
+        professional_title: additionalInfo.service,
         headline,
         profile: {
           country,
           city,
           location: address,
         },
-
-        years_of_experience: experience.experienceYears ? Number(experience.experienceYears) : 0,
-
-        nin: personalInfo.nin,
-
         date_of_birth: dateOfBirth,
-
-        place_of_work: experience.previousWorkPlaces,
-
-        is_certified: experience.certification === 'yes',
-
-        certifications: cert
-          ? [
-              {
-                file_url: cert[0]?.url,
-                public_id: cert[0]?.public_id,
-                description: 'Certification document',
-              },
-            ]
-          : [],
-
-        work_images: workImg
-          ? [
-              {
-                image_url: workImg[0]?.url,
-                public_id: workImg[0]?.public_id,
-                description: 'Work sample',
-              },
-            ]
-          : null,
-
-        drivers_license: driversLicense
-          ? {
-              file_url: driversLicense[0]?.url,
-              public_id: driversLicense[0]?.public_id,
-            }
-          : null,
-
-        passport_photo: passport
-          ? {
-              file_url: passport[0]?.url,
-              public_id: passport[0]?.public_id,
-            }
-          : null,
       }
       await completeOnboard(profilePayload)
       await selectRole('SERVICE_PROVIDER')
       toast.success('Registration successful!')
-      dispatch(clearForms())
+      dispatch(clearForm())
       navigate('/professional/home')
     } catch (error: any) {
       toast.error(error?.message || 'Registration failed. Please try again.')
@@ -122,9 +69,22 @@ export default function ApplicationProfileForm() {
       setSubmitting(false)
     }
   }
-
   return (
     <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+      <FormSelect
+        label="What skill/service do you want to offer?"
+        name="service"
+        value={service}
+        handleInputChange={handleInputChange}
+        selectItems={serviceTypes}
+        className="capitalize bg-transparent pb-1 pl-3 pr-6 h-9 pt-0  [&>svg]:hidden "
+        align="end"
+        selectContentClassName="bg-gray-300 shadow-none rounded-none border-0 absolute   break-all w-66 -right-0.5"
+        selectItemClassName="place-content-center w-64 rounded-none px-4"
+        sideOffset={-4}
+        indicator
+        required
+      />
       <FormInput
         name="country"
         label="Country/Region"
@@ -166,12 +126,13 @@ export default function ApplicationProfileForm() {
         value={dateOfBirth}
         handleInputChange={handleInputChange}
         type="date"
+        className="h-9"
         required
       />
 
       <FormInput
         name="headline"
-        label="Headline"
+        label="Headline/Description"
         value={headline}
         handleInputChange={handleInputChange}
         type="text"
@@ -179,8 +140,16 @@ export default function ApplicationProfileForm() {
         required
       />
 
-      <div className="max-w-xs mx-auto mt-6">
-        <Button className="w-full py-4" disabled={submitting}>
+      <div className="flex items-center justify-between mt-6">
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outline"
+          className=" py-4"
+          disabled={submitting}
+        >
+          Back
+        </Button>
+        <Button className="py-4     " disabled={submitting}>
           {submitting ? 'Registering...' : 'Register'}
         </Button>
       </div>

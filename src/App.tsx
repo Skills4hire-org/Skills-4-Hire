@@ -7,14 +7,12 @@ import Bookings from './pages/Bookings'
 import HomeLayout from './components/layouts/HomeLayout'
 import CustomerOffers from './pages/CustomerOffers'
 import Profile from './pages/Profile'
-import Experience from './pages/Experience'
 import FAQs from './pages/Faq'
 import Favorites from './pages/Favorites'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordConfirm from './pages/ResetPasswordConfirm'
 import JobOffers from './pages/JobOffers'
 import Landing from './pages/Landing'
-import PersonalInfo from './pages/PersonalInfo'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import ProviderOverview from './pages/ProviderOverview'
 import Referral from './pages/Referral'
@@ -111,15 +109,7 @@ const router = createBrowserRouter([
     element: <UploadPhoto />,
   },
   {
-    path: 'onboarding/professional/personal-information',
-    element: <PersonalInfo />,
-  },
-  {
-    path: 'onboarding/professional/experience',
-    element: <Experience />,
-  },
-  {
-    path: 'onboarding/professional/application-profile',
+    path: 'onboarding/professional/complete-registration',
     element: <ApplicationProfile />,
   },
   {

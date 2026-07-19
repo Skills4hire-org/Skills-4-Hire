@@ -1,6 +1,6 @@
-/* import { genderOptions } from '@/assets/data' */
+/* import { genderOptions } from '@/assets/data'
 import FormInput from '@/components/form-fields/FormInput'
-/* import FormSelect from '@/components/form-fields/FormSelect' */
+import FormSelect from '@/components/form-fields/FormSelect'
 import { useRef, useState, type FormEvent } from 'react'
 import FormFile from '../form-fields/FormFile'
 import { Button } from '../ui/button'
@@ -76,7 +76,7 @@ export default function PersonalInfoForm() {
     if (!prevFile) {
       setFiles({ ...files, [field]: selectedFile })
     } else {
-      // delete uploaded image logic
+     
       dispatch(
         addPersonalInfo({
           personalInfo: {
@@ -91,7 +91,6 @@ export default function PersonalInfoForm() {
   }
 
   const handleFileUpload = (field: string, file: File[]) => {
-    //uploading of image logic here
     const uploadedImage = file
     dispatch(
       addPersonalInfo({
@@ -187,7 +186,7 @@ export default function PersonalInfoForm() {
         disabled
       />
 
-      {/* <FormSelect
+      <FormSelect
         name="gender"
         value={user_data?.profile?.gender}
         handleInputChange={handleInputChange}
@@ -196,7 +195,7 @@ export default function PersonalInfoForm() {
         required
         placeholder="Gender"
         disabled
-      /> */}
+      /> 
 
       <FormInput
         name="nin"
@@ -241,3 +240,4 @@ export default function PersonalInfoForm() {
     </form>
   )
 }
+ */

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { logoutUser } from '@/features/user/userSlice'
 import { useNavigate } from 'react-router-dom'
 
-export default function SignOutButton({ className }: { className: string }) {
+export default function SignOutButton({ className }: { className?: string }) {
   const { toggleSidebar } = useSidebar()
   const dispatch = useDispatch()
   const navigate = useNavigate()

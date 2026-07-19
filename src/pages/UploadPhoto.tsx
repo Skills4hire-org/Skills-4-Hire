@@ -63,7 +63,7 @@ export default function UploadPhoto() {
         toast.success('Registration successful')
         navigate('/customer/home')
       } else {
-        navigate('/onboarding/professional/personal-information')
+        navigate('/onboarding/professional/complete-registration')
       }
     } catch (error: any) {
       toast.error(error?.message)
@@ -80,7 +80,7 @@ export default function UploadPhoto() {
         toast.success('Registration successful')
         navigate('/customer/home')
       } else {
-        navigate('onboarding/professional/personal-information')
+        navigate('/onboarding/professional/complete-registration')
       }
     } catch (error: any) {
       toast.error(error?.message)
@@ -141,15 +141,24 @@ export default function UploadPhoto() {
                 ? 'Uploading...'
                 : 'Continue'}
           </button>
-
-          <button
-            type="button"
-            onClick={handleSkip}
-            className="w-full mt-3 text-sm text-gray-500 hover:text-primary hover:underline cursor-pointer"
-            disabled={loading}
-          >
-            Skip for now
-          </button>
+          <div className="flex items-center justify-between mt-3">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className=" text-sm text-black hover:text-black/80 hover:underline cursor-pointer"
+              disabled={loading}
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={handleSkip}
+              className=" text-sm text-gray-600 hover:text-primary hover:underline cursor-pointer"
+              disabled={loading}
+            >
+              Skip for now
+            </button>
+          </div>
         </form>
       </div>
     </Container>

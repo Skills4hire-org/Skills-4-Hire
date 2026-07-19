@@ -104,15 +104,14 @@ export default function ProfileActivity() {
                   >
                     {status}
                   </TabsTrigger>
-                  {status === 'posts' && (
-                    <Link
-                      to="/professional/create-post"
-                      className="absolute right-0 top-0  border-1 border-primary rounded-full text-primary px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-primary hover:text-white"
-                    >
-                      <span>Create a post</span>
-                      <Edit2Icon className="w-3 h-3 md:w-4 md:h-4" />
-                    </Link>
-                  )}
+
+                  <Link
+                    to="/professional/create-post"
+                    className={`absolute right-0 top-0 border-1 border-black rounded-full text-black px-2 py-1 text-xs md:text-sm font-medium flex items-center gap-2 hover:bg-black hover:text-white ${status === 'posts' ? 'flex' : 'hidden'}`}
+                  >
+                    <span>Create a post</span>
+                    <Edit2Icon className="w-3 h-3 md:w-4 md:h-4" />
+                  </Link>
                 </div>
               )
             })}

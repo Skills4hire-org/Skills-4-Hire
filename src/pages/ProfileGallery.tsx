@@ -70,7 +70,7 @@ export default function ProfileGallery() {
                   </div>
                 ) : (
                   <button
-                    className="text-primary absolute top-3 md:top-4 right-2 md:right-4 cursor-pointer text-primary/80"
+                    className="text-black absolute top-3 md:top-4 right-2 md:right-4 cursor-pointer hover:text-black/80"
                     onClick={() => setEditGallery(true)}
                   >
                     <Edit2 strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6" />

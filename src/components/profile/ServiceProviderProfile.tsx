@@ -7,6 +7,7 @@ import Overview from './Overview'
 import CoverPhoto from './CoverPhoto'
 import Loading from '../global/Loading'
 import Error from '../global/Error'
+import SignOutButton from '../buttons/SignOutButton'
 
 export default function ServiceProviderProfile() {
   const { data, isLoading, isError, refetch } = useMyProfile()
@@ -54,6 +55,9 @@ export default function ServiceProviderProfile() {
                     services={professional?.services}
                     profession={professional?.professional_title}
                   />
+                </div>
+                <div className="m-4 text-destructive">
+                  <SignOutButton />
                 </div>
               </div>
             </div>

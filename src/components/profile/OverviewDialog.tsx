@@ -20,7 +20,7 @@ export default function OverviewDialog({
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
-        <button className="text-primary absolute bottom-6 md:bottom-8 right-0 cursor-pointer">
+        <button className="text-black absolute bottom-6 md:bottom-8 right-0 cursor-pointer">
           <Edit2 strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6" />
           <span className="sr-only">edit profile overview</span>
         </button>
