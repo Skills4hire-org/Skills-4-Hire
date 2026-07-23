@@ -17,6 +17,19 @@ const mockJobListings: JobListing[] = [
     category: 'Electrical',
     website_url: 'https://lagosstate.gov.ng/careers',
     created_at: '2026-07-22T08:00:00Z',
+    is_direct_apply: true,
+    requirements: [
+      'Valid electrical certification',
+      '5+ years industrial experience',
+      'Knowledge of safety regulations',
+      'Ability to read technical diagrams',
+    ],
+    responsibilities: [
+      'Install and maintain electrical systems',
+      'Inspect and test electrical components',
+      'Troubleshoot electrical issues',
+      'Ensure compliance with safety standards',
+    ],
   },
   {
     id: '2',
@@ -31,6 +44,17 @@ const mockJobListings: JobListing[] = [
     category: 'Plumbing',
     website_url: 'https://dangote.com/careers',
     created_at: '2026-07-21T10:30:00Z',
+    is_direct_apply: false,
+    requirements: [
+      '3+ years plumbing experience',
+      'Commercial plumbing expertise',
+      'Knowledge of building codes',
+    ],
+    responsibilities: [
+      'Install pipe systems',
+      'Repair and maintain plumbing fixtures',
+      'Inspect plumbing installations',
+    ],
   },
   {
     id: '3',
@@ -45,6 +69,19 @@ const mockJobListings: JobListing[] = [
     category: 'Technology',
     website_url: 'https://techhub.ng/careers',
     created_at: '2026-07-20T14:15:00Z',
+    is_direct_apply: true,
+    requirements: [
+      'Proficiency in React, Node.js, TypeScript',
+      'Experience with REST APIs',
+      'Knowledge of database systems',
+      'Strong problem-solving skills',
+    ],
+    responsibilities: [
+      'Develop web applications',
+      'Write clean, maintainable code',
+      'Collaborate with design team',
+      'Participate in code reviews',
+    ],
   },
   {
     id: '4',
@@ -59,6 +96,17 @@ const mockJobListings: JobListing[] = [
     category: 'Design',
     website_url: 'https://creativestudio.ng/jobs',
     created_at: '2026-07-19T09:45:00Z',
+    is_direct_apply: false,
+    requirements: [
+      'Adobe Creative Suite expertise',
+      'Strong portfolio',
+      'Understanding of branding',
+    ],
+    responsibilities: [
+      'Create visual concepts',
+      'Design marketing materials',
+      'Develop brand identities',
+    ],
   },
   {
     id: '5',
@@ -73,6 +121,18 @@ const mockJobListings: JobListing[] = [
     category: 'Fitness',
     website_url: 'https://fitlife.ng/careers',
     created_at: '2026-07-18T11:00:00Z',
+    is_direct_apply: true,
+    requirements: [
+      'Fitness certification',
+      'CPR/First Aid certified',
+      '2+ years training experience',
+    ],
+    responsibilities: [
+      'Create personalized workout plans',
+      'Guide clients during sessions',
+      'Monitor client progress',
+      'Maintain equipment',
+    ],
   },
   {
     id: '6',
@@ -87,6 +147,17 @@ const mockJobListings: JobListing[] = [
     category: 'Carpentry',
     website_url: 'https://woodcraft.ng/jobs',
     created_at: '2026-07-17T16:30:00Z',
+    is_direct_apply: false,
+    requirements: [
+      '3+ years carpentry experience',
+      'Knowledge of wood types',
+      'Attention to detail',
+    ],
+    responsibilities: [
+      'Build custom furniture',
+      'Finish and polish products',
+      'Read and interpret designs',
+    ],
   },
   {
     id: '7',
@@ -101,6 +172,19 @@ const mockJobListings: JobListing[] = [
     category: 'Technology',
     website_url: 'https://fintechsolutions.ng/careers',
     created_at: '2026-07-16T13:20:00Z',
+    is_direct_apply: true,
+    requirements: [
+      'Proficiency in SQL and Python',
+      'Data visualization experience',
+      'Analytical mindset',
+      'Excellent communication skills',
+    ],
+    responsibilities: [
+      'Analyze large datasets',
+      'Create reports and dashboards',
+      'Identify trends and insights',
+      'Support decision-making processes',
+    ],
   },
   {
     id: '8',
@@ -115,6 +199,19 @@ const mockJobListings: JobListing[] = [
     category: 'Hair Dressing',
     website_url: 'https://glamoursalon.ng/apply',
     created_at: '2026-07-15T10:10:00Z',
+    is_direct_apply: true,
+    requirements: [
+      'Hair styling certification',
+      'Experience with natural hair',
+      'Knowledge of chemical treatments',
+      'Good customer service skills',
+    ],
+    responsibilities: [
+      'Style hair according to client preferences',
+      'Perform hair treatments',
+      'Advise clients on hair care',
+      'Maintain clean workstations',
+    ],
   },
 ]
 

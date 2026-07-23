@@ -421,7 +421,7 @@ export const serviceProviderHomeNavLinks = [
   },
   {
     url: 'job-offers',
-    label: 'Job Offers',
+    label: 'Hire requests',
     hasNotification: true,
   },
   {
