@@ -420,6 +420,10 @@ export const serviceProviderHomeNavLinks = [
     url: 'job-offers',
     label: 'Job Offers',
   },
+  {
+    url: 'jobs',
+    label: 'Jobs',
+  },
 ]
 
 export const providerHomeNavLinks = [
