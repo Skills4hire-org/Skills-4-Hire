@@ -405,24 +405,29 @@ export const customerHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'my-offers',
     label: 'My Offers',
+    hasNotification: false,
   },
 ]
 export const serviceProviderHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'job-offers',
     label: 'Job Offers',
+    hasNotification: true,
   },
   {
     url: 'jobs',
     label: 'Jobs',
+    hasNotification: false,
   },
 ]
 
@@ -430,10 +435,12 @@ export const providerHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'jobs',
     label: 'Job Offers',
+    hasNotification: false,
   },
 ]
 

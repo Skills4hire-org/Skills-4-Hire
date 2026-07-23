@@ -15,7 +15,7 @@ export default function HomeNavbar() {
   return (
     <nav className="border-b ">
       <div className="flex gap-8 justify-evenly">
-        {navLinks.map(({ label, url }) => (
+        {navLinks.map(({ label, url, hasNotification }) => (
           <NavLink
             key={label}
             to={url}
@@ -28,6 +28,9 @@ export default function HomeNavbar() {
             }
           >
             {label}
+            {hasNotification && (
+              <span className="absolute -top-1 -right-2 w-2 h-2 bg-red-500 rounded-full" />
+            )}
           </NavLink>
         ))}
       </div>
