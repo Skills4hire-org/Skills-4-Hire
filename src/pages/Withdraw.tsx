@@ -40,7 +40,7 @@ export default function Withdraw() {
     })
   }
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col max-[1023px]:min-[768px]:w-135 max-[1023px]:min-[768px]:ml-17">
       <div className="[&>*]:border-none">
         <HeaderWithBackNavigation title={withdrawData.title} />
       </div>
