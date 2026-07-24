@@ -1,1 +1,1 @@
-add a notification dot for jobs tab
+add a notification dot for jobs tab   - done

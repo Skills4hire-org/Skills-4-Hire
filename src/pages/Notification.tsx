@@ -9,7 +9,7 @@ export default function Notification() {
   const groupedNotifications = groupNotificationsByDay(notifications)
   const groupedNotificationsArray = Object.entries(groupedNotifications)
   return (
-    <div className="space-y-2 md:space-y-4">
+    <div className="space-y-2 md:space-y-4 lg:w-[64rem] lg:ml-17">
       <HeaderWithBackNavigation title="Notification" onlyMobile />
       <Container className="bg-white">
         <TitleOnlyDesktopHeader title="Notification" />

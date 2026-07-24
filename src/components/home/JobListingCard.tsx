@@ -221,7 +221,7 @@ function ViewMoreButton({
         onClick={() => setIsOpen(true)}
         className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1.5 md:py-2 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base hover:bg-gray-50 transition font-medium cursor-pointer"
       >
-        <span>View More</span>
+        <span>View Details</span>
       </button>
 
       {isOpen && (

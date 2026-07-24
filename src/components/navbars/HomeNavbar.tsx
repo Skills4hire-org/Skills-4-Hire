@@ -29,7 +29,7 @@ export default function HomeNavbar() {
           >
             {label}
             {hasNotification && (
-              <span className="absolute -top-1 -right-2 w-2 h-2 bg-red-500 rounded-full" />
+              <span className="absolute top-2.5 -right-1.5 w-2 h-2 bg-red-500 rounded-full" />
             )}
           </NavLink>
         ))}

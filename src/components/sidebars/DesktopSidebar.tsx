@@ -14,7 +14,7 @@ import {
   serviceProviderDesktopNavLinks,
 } from '@/assets/data'
 import CustomerDesktopMenu from './CustomerDesktopMenu'
-import Logo from '../global/Logo'
+import Logo2 from '../global/Logo2'
 import { getBasePath } from '@/utils/format'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
@@ -40,15 +40,15 @@ export default function DesktopSidebar() {
       : serviceProviderDesktopNavLinks
 
   return (
-    <Sidebar className="rounded-r-lg w-65 h-full border-none">
+    <Sidebar className="rounded-r-lg w-65 h-full border-none bg-white">
       <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center">
-        <Logo />
+        <Logo2 />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup className="px-0">
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
-              {desktopNavLinks.map(({ icon, label, url }) => {
+              {desktopNavLinks.map(({ icon, activeIcon, label, url }) => {
                 const active = url === basePath
                 return (
                   <SidebarMenuItem key={label} className="group">
@@ -56,12 +56,15 @@ export default function DesktopSidebar() {
                       to={url}
                       className={`py-2 px-4 flex items-center transition duration-150 gap-2  ${
                         active
-                          ? 'text-white border-l-2 border-white'
-                          : 'text-white/60 hover:bg-background hover:text-foreground'
+                          ? 'text-black border-l-2 border-primary'
+                          : 'text-black/60 hover:bg-background hover:text-foreground'
                       }`}
                     >
-                      <Icon icon={icon} className="w-5 h-5 " />
-                      <span className="capitalize text-xs flex items-center justify-between flex-1 ">
+                      <Icon
+                        icon={active && activeIcon ? activeIcon : icon}
+                        className={`w-5 h-5 ${active ? 'text-primary' : ''}`}
+                      />
+                      <span className="capitalize text-[1rem] flex items-center justify-between flex-1 ">
                         {label}
                       </span>
                     </NavLink>
