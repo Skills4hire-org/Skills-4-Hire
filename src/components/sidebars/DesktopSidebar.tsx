@@ -48,7 +48,7 @@ export default function DesktopSidebar() {
         <SidebarGroup className="px-0">
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
-              {desktopNavLinks.map(({ icon, activeIcon, label, url }) => {
+              {desktopNavLinks.map(({ icon, activeIcon, label, url }: { icon: string; activeIcon?: string; label: string; url: string; key?: string }) => {
                 const active = url === basePath
                 return (
                   <SidebarMenuItem key={label} className="group">
