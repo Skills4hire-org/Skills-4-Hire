@@ -62,7 +62,7 @@ export default function Hero() {
         {/* Subtitle */}
         <motion.p variants={itemVariants} className="text-sm md:text-base lg:text-[16px] font-normal text-muted-foreground max-w-[580px] leading-relaxed mb-6 mx-auto">
           Connect with verified professionals, showcase your work and pay
-          securely — all in one platform. From local services to digital expertise.
+          securely, all in one platform. From local services to digital expertise.
         </motion.p>
 
         {/* CTA Buttons */}

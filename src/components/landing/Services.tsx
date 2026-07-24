@@ -101,7 +101,7 @@ export default function Services() {
             <span className="text-primary">Ready for hire</span>
           </h2>
           <p className="text-white/50 text-base leading-relaxed max-w-[500px] mb-8">
-            From trusted home repairs and vocational trades to cutting-edge digital solutions —
+            From trusted home repairs and vocational trades to cutting-edge digital solutions,
             Skills4Hire connects you with the right expert in seconds.
           </p>
           <Link
