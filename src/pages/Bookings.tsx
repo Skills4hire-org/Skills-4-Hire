@@ -50,7 +50,7 @@ export default function Bookings() {
   }
 
   return (
-    <div className="space-y-2 md:space-y-6 lg:ml-17 lg:w-[63.8rem]">
+    <div className="space-y-2 md:space-y-6 lg:ml-17 lg:w-[63.8rem] max-[1023px]:min-[768px]:w-135 max-[1023px]:min-[768px]:ml-17">
       <Container className="bg-white">
         <MobileBookingsHeader />
         <TitleOnlyDesktopHeader title="Bookings" />

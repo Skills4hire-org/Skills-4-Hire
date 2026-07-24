@@ -13,7 +13,7 @@ export default function HomeNavbar() {
   const navLinks =
     userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
   return (
-    <nav className="border-b ">
+    <nav className="border-b h-12 pt-2">
       <div className="flex gap-8 justify-evenly">
         {navLinks.map(({ label, url, hasNotification }) => (
           <NavLink
