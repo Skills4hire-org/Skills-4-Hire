@@ -226,37 +226,44 @@ export const serviceProviderDesktopNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
+    activeIcon: 'si:home-fill',
     url: '/service_provider/home',
   },
   {
     key: 'overview',
     label: 'Overview',
     icon: 'fluent:briefcase-medical-20-regular',
+    activeIcon: 'fluent:briefcase-medical-20-filled',
     url: '/service_provider/overview',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
+    activeIcon: 'fluent:clipboard-settings-24-filled',
     url: '/service_provider/bookings',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
+    activeIcon: 'solar:wallet-bold',
     url: '/service_provider/wallet',
   },
   {
     label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
+    activeIcon: 'material-symbols:chat-rounded',
     url: '/service_provider/messages',
   },
   {
     label: 'notification',
     icon: 'lucide:bell',
+    activeIcon: 'lucide:bell-dot',
     url: '/service_provider/notification',
   },
   {
     label: 'help center',
     icon: 'lucide:circle-help',
+    activeIcon: 'lucide:circle-help',
     url: '/service_provider/support',
   },
 ]
@@ -405,20 +412,29 @@ export const customerHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'my-offers',
     label: 'My Offers',
+    hasNotification: false,
   },
 ]
 export const serviceProviderHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'job-offers',
-    label: 'Job Offers',
+    label: 'Hire requests',
+    hasNotification: true,
+  },
+  {
+    url: 'jobs',
+    label: 'Jobs',
+    hasNotification: true,
   },
 ]
 
@@ -426,10 +442,12 @@ export const providerHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'jobs',
     label: 'Job Offers',
+    hasNotification: false,
   },
 ]
 

@@ -20,7 +20,7 @@ export default function Support() {
   }
 
   return (
-    <div className="space-y-2 md:space-y-4">
+    <div className="space-y-2 md:space-y-4 lg:w-[64rem] lg:ml-17">
       <Container className="bg-white">
         <MobileWithAvatarAndDesktopHeader title="Support" />
       </Container>

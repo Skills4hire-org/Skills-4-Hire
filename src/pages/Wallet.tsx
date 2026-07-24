@@ -16,7 +16,7 @@ export default function Wallet() {
   const groupedTransactionsArray = Object.entries(groupedTransactions)
 
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="space-y-4 md:space-y-6 lg:w-[64rem] lg:ml-17">
       <div>
         <Container className="bg-white">
           <MobileWalletHeader />
