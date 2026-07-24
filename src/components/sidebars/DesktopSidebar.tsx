@@ -40,7 +40,7 @@ export default function DesktopSidebar() {
       : serviceProviderDesktopNavLinks
 
   return (
-    <Sidebar className="rounded-r-lg h-full border-none">
+    <Sidebar className="rounded-r-lg w-65 h-full border-none">
       <SidebarHeader className="mt-4 mb-2 px-0 flex-col items-center">
         <Logo />
       </SidebarHeader>

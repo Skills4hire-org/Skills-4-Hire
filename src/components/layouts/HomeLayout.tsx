@@ -13,11 +13,11 @@ export default function HomeLayout() {
         <MobileHomeHeader />
       </Container>
       <div className="flex max-w-6xl xl:max-w-7xl mx-auto px-2 sm:px-4 lg:px-0 mt-2 md:mt-3">
-        <main className="lg:w-[75%] w-full space-y-2.5 md:space-y-4">
+        <main className="lg:w-[70%] lg:ml-20 w-full space-y-2.5 md:space-y-4">
           <HomeNavbar />
           <Outlet />
         </main>
-        <aside className="hidden lg:block lg:w-[25%] bg-white rounded-l-lg h-max">
+        <aside className="hidden lg:block lg:w-[30%] bg-white rounded-l-lg h-max">
           <CustomerDesktopRightSidebar />
         </aside>
       </div>
