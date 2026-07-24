@@ -86,7 +86,7 @@ export default function JobListingCard({
         </span>
       </div>
 
-      <p className="text-xs text-[1rem] text-gray-600 line-clamp-3">
+      <p className="text-xs text-[0.9rem] text-gray-600 line-clamp-3">
         {description}
       </p>
 
