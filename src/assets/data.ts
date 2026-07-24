@@ -158,6 +158,7 @@ export const customerDesktopNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
+    activeIcon: 'si:home-fill',
     url: '/customer/home',
   },
   {
@@ -192,32 +193,32 @@ export const serviceProviderMobileNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
-    url: '/service_provider/home',
+    url: '/professional/home',
     activeIcon: 'si:home-fill',
   },
   {
     key: 'overview',
     label: 'Overview',
     icon: 'fluent:briefcase-medical-16-regular',
-    url: '/service_provider/overview',
+    url: '/professional/overview',
     activeIcon: 'fluent:briefcase-medical-16-filled',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/service_provider/bookings',
+    url: '/professional/bookings',
     activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
-    url: '/service_provider/wallet',
+    url: '/professional/wallet',
     activeIcon: 'solar:wallet-bold',
   },
   {
     label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/service_provider/messages',
+    url: '/professional/messages',
     activeIcon: 'material-symbols:chat-rounded',
   },
 ]
@@ -227,44 +228,44 @@ export const serviceProviderDesktopNavLinks = [
     label: 'Home',
     icon: 'si:home-line',
     activeIcon: 'si:home-fill',
-    url: '/service_provider/home',
+    url: '/professional/home',
   },
   {
     key: 'overview',
     label: 'Overview',
     icon: 'fluent:briefcase-medical-20-regular',
     activeIcon: 'fluent:briefcase-medical-20-filled',
-    url: '/service_provider/overview',
+    url: '/professional/overview',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
     activeIcon: 'fluent:clipboard-settings-24-filled',
-    url: '/service_provider/bookings',
+    url: '/professional/bookings',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
     activeIcon: 'solar:wallet-bold',
-    url: '/service_provider/wallet',
+    url: '/professional/wallet',
   },
   {
     label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
     activeIcon: 'material-symbols:chat-rounded',
-    url: '/service_provider/messages',
+    url: '/professional/messages',
   },
   {
     label: 'notification',
     icon: 'lucide:bell',
     activeIcon: 'lucide:bell-dot',
-    url: '/service_provider/notification',
+    url: '/professional/notification',
   },
   {
     label: 'help center',
     icon: 'lucide:circle-help',
     activeIcon: 'lucide:circle-help',
-    url: '/service_provider/support',
+    url: '/professional/support',
   },
 ]
 

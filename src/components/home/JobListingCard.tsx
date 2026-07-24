@@ -59,10 +59,10 @@ export default function JobListingCard({
     <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1">
-          <p className="text-xs md:text-[1rem] font-medium text-gray-500 mb-0.5">
+          <p className="text-xs text-[1rem] font-medium text-gray-500 mb-0.5">
             {company}
           </p>
-          <h3 className="font-semibold text-gray-900 text-sm md:text-[1rem] leading-tight">
+          <h3 className="font-semibold text-gray-900 text-sm text-[1rem] leading-tight">
             {title}
           </h3>
         </div>
@@ -73,7 +73,7 @@ export default function JobListingCard({
       </div>
 
       <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
-        <span className="inline-flex items-center gap-1 md:text-[0.7rem]">
+        <span className="inline-flex items-center gap-1 text-[0.7rem]">
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           {location}
         </span>
@@ -86,7 +86,7 @@ export default function JobListingCard({
         </span>
       </div>
 
-      <p className="text-xs md:text-[1rem] text-gray-600 line-clamp-3">
+      <p className="text-xs text-[1rem] text-gray-600 line-clamp-3">
         {description}
       </p>
 
