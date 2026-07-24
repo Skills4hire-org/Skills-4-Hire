@@ -1,6 +1,27 @@
 import { useState } from 'react'
-import { MapPin, Wallet, ExternalLink, Briefcase, Calendar, Check } from 'lucide-react'
+import { MapPin, Wallet, ExternalLink, Briefcase, Calendar, Check, Share2 } from 'lucide-react'
 import { dateFormatter, currencyFormatter } from '@/utils/format'
+
+function ShareButton({ title, company }: { title: string; company: string }) {
+  const handleShare = async () => {
+    const text = `${title} at ${company}`
+    if (navigator.share) {
+      await navigator.share({ title: text, url: window.location.href })
+    } else {
+      await navigator.clipboard.writeText(`${text} — ${window.location.href}`)
+    }
+  }
+
+  return (
+    <button
+      onClick={handleShare}
+      className="shrink-0 flex items-center justify-center gap-1.5 px-3 py-1.5 md:py-2 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base hover:bg-gray-50 transition font-medium cursor-pointer"
+      title="Share this job"
+    >
+      <Share2 className="w-4 h-4" />
+    </button>
+  )
+}
 
 export type JobListing = {
   id: string
@@ -38,10 +59,10 @@ export default function JobListingCard({
     <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1">
-          <p className="text-xs md:text-sm font-medium text-gray-500 mb-0.5">
+          <p className="text-xs md:text-[1rem] font-medium text-gray-500 mb-0.5">
             {company}
           </p>
-          <h3 className="font-semibold text-gray-900 text-sm md:text-base leading-tight">
+          <h3 className="font-semibold text-gray-900 text-sm md:text-[1rem] leading-tight">
             {title}
           </h3>
         </div>
@@ -52,7 +73,7 @@ export default function JobListingCard({
       </div>
 
       <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
-        <span className="inline-flex items-center gap-1">
+        <span className="inline-flex items-center gap-1 md:text-[0.7rem]">
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           {location}
         </span>
@@ -65,7 +86,7 @@ export default function JobListingCard({
         </span>
       </div>
 
-      <p className="text-xs md:text-sm text-gray-600 line-clamp-3">
+      <p className="text-xs md:text-[1rem] text-gray-600 line-clamp-3">
         {description}
       </p>
 
@@ -92,6 +113,7 @@ export default function JobListingCard({
               requirements={requirements}
               responsibilities={responsibilities}
             />
+            <ShareButton title={title} company={company} />
           </>
         ) : (
           <>
@@ -113,9 +135,11 @@ export default function JobListingCard({
               salary_max={salary_max}
               job_type={job_type}
               category={category}
+              website_url={website_url}
               requirements={requirements}
               responsibilities={responsibilities}
             />
+            <ShareButton title={title} company={company} />
           </>
         )}
       </div>
@@ -214,6 +238,15 @@ function ViewMoreButton({
   responsibilities,
 }: Omit<JobListing, 'id' | 'created_at' | 'is_direct_apply' | 'website_url'>) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isApplied, setIsApplied] = useState(false)
+
+  const handleApply = () => {
+    setIsApplied(true)
+    setTimeout(() => {
+      setIsOpen(false)
+      setIsApplied(false)
+    }, 2000)
+  }
 
   return (
     <>
@@ -227,72 +260,88 @@ function ViewMoreButton({
       {isOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-lg p-6 w-full max-w-lg max-h-[80vh] overflow-y-auto space-y-4">
-            <div>
-              <p className="text-sm font-medium text-gray-500">{company}</p>
-              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-            </div>
-
-            <div className="flex flex-wrap gap-2 text-xs">
-              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-gray-100 text-gray-600">
-                <MapPin className="w-3.5 h-3.5" />
-                {location}
-              </span>
-              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-blue-50 text-blue-700">
-                <Briefcase className="w-3.5 h-3.5" />
-                {job_type}
-              </span>
-              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-green-50 text-green-700">
-                {category}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1 text-sm">
-              <Wallet className="w-4 h-4 text-green-600" />
-              <span className="font-semibold text-gray-900">
-                {currencyFormatter(salary_min)} -{' '}
-                {currencyFormatter(salary_max)}
-              </span>
-            </div>
-
-            <div>
-              <h4 className="font-medium text-gray-900 mb-1">Description</h4>
-              <p className="text-sm text-gray-600">{description}</p>
-            </div>
-
-            {requirements && requirements.length > 0 && (
-              <div>
-                <h4 className="font-medium text-gray-900 mb-1">
-                  Requirements
-                </h4>
-                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                  {requirements.map((req, i) => (
-                    <li key={i}>{req}</li>
-                  ))}
-                </ul>
+            {isApplied ? (
+              <div className="text-center py-4">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">Application Submitted!</h3>
+                <p className="text-sm text-gray-500 mt-1">
+                  Your application for {title} at {company} has been submitted.
+                </p>
               </div>
-            )}
+            ) : (
+              <>
+                <div>
+                  <p className="text-sm font-medium text-gray-500">{company}</p>
+                  <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+                </div>
 
-            {responsibilities && responsibilities.length > 0 && (
-              <div>
-                <h4 className="font-medium text-gray-900 mb-1">
-                  Responsibilities
-                </h4>
-                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                  {responsibilities.map((resp, i) => (
-                    <li key={i}>{resp}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+                <div className="flex flex-wrap gap-2 text-xs">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-gray-100 text-gray-600">
+                    <MapPin className="w-3.5 h-3.5" />
+                    {location}
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-blue-50 text-blue-700">
+                    <Briefcase className="w-3.5 h-3.5" />
+                    {job_type}
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-green-50 text-green-700">
+                    {category}
+                  </span>
+                </div>
 
-            <div className="pt-2">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="w-full px-4 py-2 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 transition cursor-pointer"
-              >
-                Close
-              </button>
-            </div>
+                <div className="flex items-center gap-1 text-sm">
+                  <Wallet className="w-4 h-4 text-green-600" />
+                  <span className="font-semibold text-gray-900">
+                    {currencyFormatter(salary_min)} -{' '}
+                    {currencyFormatter(salary_max)}
+                  </span>
+                </div>
+
+                <div>
+                  <h4 className="font-medium text-gray-900 mb-1">Description</h4>
+                  <p className="text-sm text-gray-600">{description}</p>
+                </div>
+
+                {requirements && requirements.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-1">Requirements</h4>
+                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                      {requirements.map((req, i) => (
+                        <li key={i}>{req}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {responsibilities && responsibilities.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-1">Responsibilities</h4>
+                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                      {responsibilities.map((resp, i) => (
+                        <li key={i}>{resp}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div className="flex gap-2 pt-2">
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="flex-1 px-4 py-2 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 transition cursor-pointer"
+                  >
+                    Close
+                  </button>
+                  <button
+                    onClick={handleApply}
+                    className="flex-1 px-4 py-2 bg-primary text-white rounded-md text-sm font-medium hover:bg-primary/90 transition cursor-pointer"
+                  >
+                    Apply Now
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -309,9 +358,10 @@ function ViewDetailsButton({
   salary_max,
   job_type,
   category,
+  website_url,
   requirements,
   responsibilities,
-}: Omit<JobListing, 'id' | 'created_at' | 'is_direct_apply' | 'website_url'>) {
+}: Omit<JobListing, 'id' | 'created_at' | 'is_direct_apply'>) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -360,9 +410,7 @@ function ViewDetailsButton({
 
             {requirements && requirements.length > 0 && (
               <div>
-                <h4 className="font-medium text-gray-900 mb-1">
-                  Requirements
-                </h4>
+                <h4 className="font-medium text-gray-900 mb-1">Requirements</h4>
                 <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                   {requirements.map((req, i) => (
                     <li key={i}>{req}</li>
@@ -373,9 +421,7 @@ function ViewDetailsButton({
 
             {responsibilities && responsibilities.length > 0 && (
               <div>
-                <h4 className="font-medium text-gray-900 mb-1">
-                  Responsibilities
-                </h4>
+                <h4 className="font-medium text-gray-900 mb-1">Responsibilities</h4>
                 <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                   {responsibilities.map((resp, i) => (
                     <li key={i}>{resp}</li>
@@ -384,13 +430,22 @@ function ViewDetailsButton({
               </div>
             )}
 
-            <div className="pt-2">
+            <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full px-4 py-2 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 transition cursor-pointer"
+                className="flex-1 px-4 py-2 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 transition cursor-pointer"
               >
                 Close
               </button>
+              <a
+                href={website_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 bg-primary text-white rounded-md text-sm font-medium hover:bg-primary/90 transition"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Apply Now
+              </a>
             </div>
           </div>
         </div>
