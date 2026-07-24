@@ -116,9 +116,9 @@ const router = createBrowserRouter([
   {
     path: ':userType',
     element: (
-      // <AuthProtectedRoute>
+      <AuthProtectedRoute>
         <Layout />
-      // </AuthProtectedRoute>
+      </AuthProtectedRoute>
     ),
 
     children: [
