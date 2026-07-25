@@ -11,7 +11,7 @@ export default function Profile() {
   const UserForm =
     userType == 'customer' ? CustomerProfileForm : ServiceProviderProfile
   return (
-    <div>
+    <div className='lg:ml-17 max-[1023px]:min-[768px]:ml-17'>
       <HeaderWithBackNavigation title="Profile" />
       <div>
         <UserForm />
