@@ -5,18 +5,19 @@ import { SidebarTrigger } from '../ui/sidebar'
 import { Link } from 'react-router-dom'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
-import type { UserData } from '@/types/user.types'
+import type { Profile } from '@/types/user.types'
+import { useMyProfile } from '@/hooks/useUsers'
 
 export default function MobileServicesOverviewHeader() {
+  const { data } = useMyProfile()
+  const user_data: Profile | undefined = data
+  const avatar = user_data?.user?.profile?.avatar?.avatar
   const {
     userType,
-    avatar,
-    user_data,
   }: {
     userType: UserType
-    user_data: UserData
-    avatar: string
   } = useSelector((state: any) => state.userState)
+
   const is_active = navigator.onLine
   return (
     <header className="flex items-center md:hidden justify-between gap-2 py-1">
@@ -40,10 +41,11 @@ export default function MobileServicesOverviewHeader() {
         )}
         <div>
           <h1 className="font-semibold">
-            Hi, {user_data?.first_name}{' '}
-            <span className="text-primary">{user_data?.last_name}</span>
+            Hi, {user_data?.user?.first_name}
+            {'   '}
+            <span className="text-primary">{user_data?.user?.last_name}</span>
           </h1>
-          <p className="text-xs">{user_data?.profile.city}</p>
+          <p className="text-xs">{user_data?.user?.profile?.city}</p>
         </div>
       </div>
       <div className="flex items-center gap-2">

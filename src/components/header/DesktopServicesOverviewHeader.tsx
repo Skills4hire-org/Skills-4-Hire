@@ -1,15 +1,15 @@
-import type { UserData } from '@/types/user.types'
-import { useSelector } from 'react-redux'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function DesktopServicesOverviewHeader() {
-  const { user_data }: { user_data: UserData } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { data } = useMyProfile()
+  const user_data: Profile | undefined = data
+
   return (
-    <header className="hidden md:block text-center py-4">
+    <header className=" hidden md:block text-center py-4">
       <h1 className="text-2xl font-semibold">
-        Hi, {user_data?.first_name}
-        <span className="text-primary">{user_data?.last_name}</span>
+        Hi, {user_data?.user?.first_name}{' '}
+        <span className="text-primary">{user_data?.user?.last_name}</span>
       </h1>
       <p className="text-base">Welcome back!</p>
     </header>

@@ -35,7 +35,7 @@ export default function AvailableServices() {
   } = useAllServices({ category: 'digital' })
 
   const vocationalServicesList: Service[] =
-    vocationalServices?.pages.flatMap((page) => page.results) ?? []
+    vocationalServices?.pages.flatMap((page) => page.data.results) ?? []
 
   const handleVocationalServiceFetchingError = async () => {
     if (!vocationalServices) {
@@ -51,7 +51,7 @@ export default function AvailableServices() {
     fetchNextPage: vocationalServicesFetchNextPage,
   })
   const digitalServicesList: Service[] =
-    digitalServices?.pages.flatMap((page) => page.results) ?? []
+    digitalServices?.pages.flatMap((page) => page.data.results) ?? []
 
   const handleDigitalServiceFetchingError = async () => {
     if (!digitalServices) {
