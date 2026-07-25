@@ -8,7 +8,7 @@ import CustomerDesktopRightSidebar from '../sidebars/CustomerDesktopRightSidebar
 export default function HomeLayout() {
   return (
     <>
-      <Container className="bg-white border-b shadow-sm max-[1023px]:min-[768px]:w-135 max-[1023px]:min-[768px]:ml-17">
+      <Container className="bg-white border-b shadow-sm max-[1023px]:min-[768px]:ml-17">
         <DesktopHomeHeader />
         <MobileHomeHeader />
       </Container>
