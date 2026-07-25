@@ -158,6 +158,7 @@ export const customerDesktopNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
+    activeIcon: 'si:home-fill',
     url: '/customer/home',
   },
   {
@@ -192,32 +193,32 @@ export const serviceProviderMobileNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
-    url: '/service_provider/home',
+    url: '/professional/home',
     activeIcon: 'si:home-fill',
   },
   {
     key: 'overview',
     label: 'Overview',
     icon: 'fluent:briefcase-medical-16-regular',
-    url: '/service_provider/overview',
+    url: '/professional/overview',
     activeIcon: 'fluent:briefcase-medical-16-filled',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/service_provider/bookings',
+    url: '/professional/bookings',
     activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
-    url: '/service_provider/wallet',
+    url: '/professional/wallet',
     activeIcon: 'solar:wallet-bold',
   },
   {
     label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/service_provider/messages',
+    url: '/professional/messages',
     activeIcon: 'material-symbols:chat-rounded',
   },
 ]
@@ -226,38 +227,45 @@ export const serviceProviderDesktopNavLinks = [
   {
     label: 'Home',
     icon: 'si:home-line',
-    url: '/service_provider/home',
+    activeIcon: 'si:home-fill',
+    url: '/professional/home',
   },
   {
     key: 'overview',
     label: 'Overview',
     icon: 'fluent:briefcase-medical-20-regular',
-    url: '/service_provider/overview',
+    activeIcon: 'fluent:briefcase-medical-20-filled',
+    url: '/professional/overview',
   },
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/service_provider/bookings',
+    activeIcon: 'fluent:clipboard-settings-24-filled',
+    url: '/professional/bookings',
   },
   {
     label: 'wallet',
     icon: 'solar:wallet-outline',
-    url: '/service_provider/wallet',
+    activeIcon: 'solar:wallet-bold',
+    url: '/professional/wallet',
   },
   {
     label: 'messages',
     icon: 'material-symbols:chat-outline-rounded',
-    url: '/service_provider/messages',
+    activeIcon: 'material-symbols:chat-rounded',
+    url: '/professional/messages',
   },
   {
     label: 'notification',
     icon: 'lucide:bell',
-    url: '/service_provider/notification',
+    activeIcon: 'lucide:bell-dot',
+    url: '/professional/notification',
   },
   {
     label: 'help center',
     icon: 'lucide:circle-help',
-    url: '/service_provider/support',
+    activeIcon: 'lucide:circle-help',
+    url: '/professional/support',
   },
 ]
 
@@ -405,20 +413,29 @@ export const customerHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'my-offers',
     label: 'My Offers',
+    hasNotification: false,
   },
 ]
 export const serviceProviderHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'job-offers',
-    label: 'Job Offers',
+    label: 'Hire requests',
+    hasNotification: true,
+  },
+  {
+    url: 'jobs',
+    label: 'Jobs',
+    hasNotification: true,
   },
 ]
 
@@ -426,10 +443,12 @@ export const providerHomeNavLinks = [
   {
     url: 'posts',
     label: 'Posts',
+    hasNotification: false,
   },
   {
     url: 'jobs',
     label: 'Job Offers',
+    hasNotification: false,
   },
 ]
 

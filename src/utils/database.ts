@@ -939,9 +939,9 @@ export const aboutPageData = {
   description: [
     `Skills4Hire is a platform that makes it easy to discover, trust, and book digital or vocational service providers. With social feeds serving as living portfolios, providers showcase their skills while customers gain confidence through real work and authentic interactions.`,
     `From barbers, plumbers, and cleaners to designers, developers, and marketers, we give every skilled individual the opportunity to be seen, hired, and rewarded for their talent.`,
-    `What makes Skills4Hire different is that it doesn’t just connect people for transactions—it builds trust through interaction. At the heart of the platform is a social feed, where service providers can showcase their work, share updates, and engage with potential clients.`,
+    `What makes Skills4Hire different is that it doesn’t just connect people for transactions, it builds trust through interaction. At the heart of the platform is a social feed, where service providers can showcase their work, share updates, and engage with potential clients.`,
     `Whether you’re booking a haircut, fixing your home, designing a logo, or hiring a developer, Skills4Hire makes the process safe, engaging, and transparent. Secure payments, verified providers, reviews, and a built-in dispute resolution system ensure that both customers and providers are protected every step of the way.`,
-    `At its core, Skills4Hire is more than a marketplace—it’s a platform that empowers skilled individuals with visibility, credibility, and sustainable income, while giving customers the easiest and safest way to hire talent at their fingertips.`,
+    `At its core, Skills4Hire is more than a marketplace, it’s a platform that empowers skilled individuals with visibility, credibility, and sustainable income, while giving customers the easiest and safest way to hire talent at their fingertips.`,
   ],
 }
 
@@ -1154,7 +1154,7 @@ export const faqData = {
     {
       question: 'Q7. Who can register as a provider?',
       answer:
-        'Anyone with a skill—whether vocational (plumber, barber, cleaner) or digital (designer, developer, marketer)—can join Skills4Hire to showcase their work and earn income.',
+        'Anyone with a skill, whether vocational (plumber, barber, cleaner) or digital (designer, developer, marketer), can join Skills4Hire to showcase their work and earn income.',
     },
     {
       question: 'Q8. How do I get started as a service provider?',

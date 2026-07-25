@@ -12,6 +12,7 @@ import Favorites from './pages/Favorites'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordConfirm from './pages/ResetPasswordConfirm'
 import JobOffers from './pages/JobOffers'
+import Jobs from './pages/Jobs'
 import Landing from './pages/Landing'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import ProviderOverview from './pages/ProviderOverview'
@@ -144,6 +145,10 @@ const router = createBrowserRouter([
           {
             path: 'job-offers',
             element: <JobOffers />,
+          },
+          {
+            path: 'jobs',
+            element: <Jobs />,
           },
         ],
       },

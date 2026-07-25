@@ -18,7 +18,7 @@ export default function CreatePost() {
   }
 
   return (
-    <div className="pb-10">
+    <div className="pb-10 max-[1023px]:min-[768px]:w-135 max-[1023px]:min-[768px]:ml-17">
       <HeaderWithBackNavigation title="Create Post" />
       <Container className="pt-1 max-w-2xl mx-auto">
         {isLoading ? (

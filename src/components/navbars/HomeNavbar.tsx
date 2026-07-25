@@ -13,9 +13,9 @@ export default function HomeNavbar() {
   const navLinks =
     userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
   return (
-    <nav className="border-b ">
+    <nav className="border-b h-11 pt-2">
       <div className="flex gap-8 justify-evenly">
-        {navLinks.map(({ label, url }) => (
+        {navLinks.map(({ label, url, hasNotification }) => (
           <NavLink
             key={label}
             to={url}
@@ -28,6 +28,9 @@ export default function HomeNavbar() {
             }
           >
             {label}
+            {hasNotification && (
+              <span className="absolute top-1.5 lg:top-2.5 -right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+            )}
           </NavLink>
         ))}
       </div>

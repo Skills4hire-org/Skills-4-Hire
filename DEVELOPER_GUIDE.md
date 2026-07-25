@@ -7,7 +7,7 @@
 
 ## Table of Contents
 
-1. [Project Overview](#1-project-overview)
+1. [Project Overview](#1-project-overview)  
 2. [Getting Started](#2-getting-started)
 3. [Project Structure](#3-project-structure)
 4. [Architecture & Key Decisions](#4-architecture--key-decisions)
@@ -513,7 +513,7 @@ Use a proper `<img>` element with `object-cover` instead.
 - Avoid `any` — use explicit types or `unknown`
 - Use `'key' in obj` narrowing when accessing properties that only exist on some union members
 - Global types → `src/declarations.d.ts`
-- App types → `src/utils/types.ts` or `src/types/`
+- App types → `src/utils/types.ts`- or `src/types/`
 - Nav link type → `NavLink` from `src/assets/data.ts`
 
 ### Module-Level Constants

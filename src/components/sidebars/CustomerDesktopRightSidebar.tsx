@@ -2,7 +2,7 @@ import SmallDP from '../../assets/Small-DP.png'
 
 export default function CustomerDesktopRightSidebar() {
   return (
-    <div className="p-4 space-y-6 flex flex-col">
+    <div className="p-4 space-y-6 flex flex-col border-l-1">
       <section>
         <h3 className="font-semibold text-gray-700 mb-3">
           Top-rated providers

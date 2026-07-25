@@ -23,7 +23,7 @@ export default function Navbar() {
   return (
     <Container>
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background md:hidden  ">
-        <div className="relative bg-white flex items-center justify-evenly pb-1.5 pt-2">
+        <div className="relative bg-white border-t flex items-center justify-evenly pb-1.5 pt-2">
           {navLinks.map(({ url, icon, label, activeIcon }) => {
             const active = basePath === url
             const props = { url, icon, label, active, activeIcon }

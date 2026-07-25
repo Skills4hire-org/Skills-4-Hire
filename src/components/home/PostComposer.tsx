@@ -4,7 +4,7 @@ import ProfileImage from '../global/ProfileImage'
 import FormTextArea from '../form-fields/FormTextArea'
 import FormSelect from '../form-fields/FormSelect'
 import { timeFrameOptions } from '@/assets/data'
-import { ImageIcon, Paperclip, Plus } from 'lucide-react'
+import { ImageIcon, Paperclip, Plus, VideoIcon } from 'lucide-react'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
@@ -121,6 +121,21 @@ export default function PostComposer() {
                 <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
               </Link>
             </div>
+            {userType != 'customer' && (
+              <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1 hover:text-gray-700">
+                  <VideoIcon className="w-4 h-4 md:w-5 md:h-5" />
+                  <span className="text-xs md:text-sm">Video</span>
+                </div>
+
+                <Link
+                  to={url}
+                  className="text-white font-medium p-0.5 bg-green-600 rounded-full"
+                >
+                  <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                </Link>
+              </div>
+            )}
             {userType == 'customer' && (
               <div className="flex items-center gap-1.5">
                 <div className="flex items-center gap-1 hover:text-gray-700">
