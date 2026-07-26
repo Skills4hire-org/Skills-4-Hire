@@ -2,8 +2,9 @@ import ProfileImage from '@/components/global/ProfileImage'
 import { MapPin, Clock, Wallet, RefreshCw, MessageSquare } from 'lucide-react'
 import { useState } from 'react'
 import NegotiationDialog from './NegotiationDialog'
-/* import { useCreateConversation } from '@/hooks/useChats'
-import { useNavigate } from 'react-router-dom' */
+import { useCreateConversation } from '@/hooks/useChats'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 import type { Post } from '@/types/post.types'
 import { currencyFormatter, formatCommentTime } from '@/utils/format'
 import ImageCarousel from './ImageCarousel'
@@ -21,26 +22,16 @@ export default function JobOfferCard({
 }: Post) {
   const [viewMore, setViewMore] = useState(false)
   const [isNegotiateOpen, setIsNegotiateOpen] = useState(false)
-  /*  const { mutate: createConversation, isPending } = useCreateConversation()
+  const { mutate: createConversation, isPending } = useCreateConversation()
   const navigate = useNavigate()
-  const sendMessage = () => {
-    const data = {
-      participant_one: {
-        first_name: '',
-        last_name: '',
-      },
-      participant_two: {
-        first_name: '',
-        last_name: '',
-      },
-      participant_two_id: '',
-    }
-    createConversation(data, {
-      onSuccess: () => {
-        navigate(`/professional/messages/${data.participant_two_id}`)
-      },
-    })
-  } */
+  const handleApply = () => {
+    if (!user?.user_id) return toast.error('This offer is missing customer details.')
+    createConversation({ participant_two_id: user.user_id }, { onSuccess: (conversation) => {
+      const conversationId = conversation?.conversation_id ?? conversation?.data?.conversation_id
+      if (!conversationId) return toast.error('Unable to open a conversation for this offer.')
+      navigate(`/professional/messages/${conversationId}`)
+    } })
+  }
 
   return (
     <>
@@ -135,9 +126,9 @@ export default function JobOfferCard({
               <span>Negotiate</span>
             </button>
 
-            <button className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base hover:bg-gray-50 transition font-medium cursor-pointer hover:bg-gray-200">
+            <button onClick={handleApply} disabled={isPending} className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base hover:bg-gray-50 transition font-medium cursor-pointer hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-60">
               <MessageSquare className="w-4 h-4" />
-              <span>Message</span>
+              <span>{isPending ? 'Opening…' : 'Apply'}</span>
             </button>
           </div>
         </div>

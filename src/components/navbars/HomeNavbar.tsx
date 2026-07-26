@@ -5,6 +5,7 @@ import {
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { useUnreadNotificationCount } from '@/hooks/useNotifications'
 
 export default function HomeNavbar() {
   const { userType }: { userType: UserType } = useSelector(
@@ -12,6 +13,7 @@ export default function HomeNavbar() {
   )
   const navLinks =
     userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
+  const { count: unreadCount } = useUnreadNotificationCount()
   return (
     <nav className="border-b h-11 pt-2">
       <div className="flex gap-8 justify-evenly">
@@ -28,8 +30,10 @@ export default function HomeNavbar() {
             }
           >
             {label}
-            {hasNotification && (
-              <span className="absolute top-1.5 lg:top-2.5 -right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+            {hasNotification && unreadCount > 0 && (
+              <span className="absolute -top-0.5 lg:top-0.5 -right-3 min-w-4 h-4 px-1 bg-red-600 text-white text-[10px] leading-4 text-center rounded-full">
+                {unreadCount > 99 ? '99+' : unreadCount}
+              </span>
             )}
           </NavLink>
         ))}

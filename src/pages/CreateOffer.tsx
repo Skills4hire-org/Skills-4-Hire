@@ -6,6 +6,7 @@ import { useCreatePost } from '@/hooks/usePosts'
 import type { CreatePost } from '@/types/post.types'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export default function CreateOffer() {
   const { mutate: createOffer } = useCreatePost()
@@ -16,8 +17,9 @@ export default function CreateOffer() {
       onSuccess: () => {
         navigate('/customer/home/my-offer')
       },
-      onError: () => {
+      onError: (error) => {
         setIsSubmitting(false)
+        toast.error(error.message || 'Unable to create your offer.')
       },
     })
   }

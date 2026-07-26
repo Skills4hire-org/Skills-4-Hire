@@ -60,7 +60,6 @@ import Endorsed from './pages/Endorsed'
 import ProfileActivity from './pages/ProfileActivity'
 import ProfileServices from './pages/ProfileServices'
 import ProfileGallery from './pages/ProfileGallery'
-import AuthProtectedRoute from './components/global/AuthProtectedRoute'
 
 const router = createBrowserRouter([
   {
@@ -116,9 +115,9 @@ const router = createBrowserRouter([
   {
     path: ':userType',
     element: (
-      <AuthProtectedRoute>
+      // <AuthProtectedRoute>
         <Layout />
-      </AuthProtectedRoute>
+      // </AuthProtectedRoute>
     ),
 
     children: [

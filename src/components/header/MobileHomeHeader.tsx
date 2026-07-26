@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useMyProfile } from '@/hooks/useUsers'
 import type { Profile } from '@/types/user.types'
+import { useUnreadNotificationCount } from '@/hooks/useNotifications'
 
 export default function MobileHomeHeader() {
   const { data } = useMyProfile()
@@ -30,6 +31,7 @@ export default function MobileHomeHeader() {
   const searchPlaceholder =
     userType == 'customer' ? 'Search for plumbers, electricians...' : 'Search'
   const is_active = navigator.onLine
+  const { count: unreadCount } = useUnreadNotificationCount()
   return (
     <header className="md:hidden w-full pb-2">
       <div className="flex items-center justify-between pt-3 pb-4">
@@ -69,8 +71,8 @@ export default function MobileHomeHeader() {
           />
         </div>
 
-        <Link to="/customer/notification">
-          <RecentNotification icon={Bell} newAlert />
+        <Link to={`/${userType}/notification`}>
+          <RecentNotification icon={Bell} count={unreadCount} />
         </Link>
       </div>
     </header>

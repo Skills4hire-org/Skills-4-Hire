@@ -35,7 +35,7 @@ export type SelectItems = {
 }
 
 export type Notification = {
-  id: number
+  id: string | number
   createdAt: string | number
   type: string
 }

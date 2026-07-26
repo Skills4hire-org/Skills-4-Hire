@@ -3,7 +3,7 @@ export type CreatePost = {
   post_content: string
   post_type?: 'GENERAL' | 'SERVICE' | 'JOB'
   amount?: string
-  duration?: string
+  duration?: number
   country?: string
   city?: string
   state?: string

@@ -49,6 +49,8 @@ export const useCreatePost = () => {
     mutationFn: createPostAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] })
+      queryClient.invalidateQueries({ queryKey: ['my-posts'] })
+      queryClient.invalidateQueries({ queryKey: ['notifications'] })
     },
   })
 
@@ -76,6 +78,7 @@ export const useEditPost = () => {
     mutationFn: createPostAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] })
+      queryClient.invalidateQueries({ queryKey: ['my-posts'] })
     },
   })
 
@@ -96,6 +99,7 @@ export const useDeletePost = () => {
     mutationFn: deletePostAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] })
+      queryClient.invalidateQueries({ queryKey: ['my-posts'] })
     },
   })
 

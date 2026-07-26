@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import FormInput from '../form-fields/FormInput'
 import FormTextArea from '../form-fields/FormTextArea'
@@ -6,11 +6,25 @@ import FormSelect from '../form-fields/FormSelect'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Check, ImageIcon, Paperclip, Plus } from 'lucide-react'
-import { services, timeFrameOptions } from '@/assets/data'
+import { timeFrameOptions } from '@/assets/data'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
 import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
+import { useServiceCategories } from '@/hooks/useServices'
+import type { SelectItems } from '@/utils/types'
+
+type ServiceCategory = { name: string; service_category_id?: string; id?: string }
+
+const extractServiceCategories = (response: unknown): ServiceCategory[] => {
+  if (Array.isArray(response)) return response as ServiceCategory[]
+  if (!response || typeof response !== 'object') return []
+
+  const value = response as Record<string, unknown>
+  return extractServiceCategories(
+    value.results ?? value.data ?? value.categories ?? value.service_categories,
+  )
+}
 
 export default function OfferForm({
   offer,
@@ -34,6 +48,34 @@ export default function OfferForm({
     city: offer?.city ?? '',
     state: offer?.state ?? '',
   })
+  const {
+    data: serviceCategoriesResponse,
+    isLoading: isLoadingServiceCategories,
+    isError: hasServiceCategoriesError,
+  } =
+    useServiceCategories()
+  const serviceCategories = extractServiceCategories(serviceCategoriesResponse)
+  const serviceOptions: SelectItems[] =
+    serviceCategories
+      .filter((category) => category.name && (category.service_category_id || category.id))
+      .map((category) => ({
+      label: category.name,
+      value: category.service_category_id || category.id!,
+    })) ?? []
+
+  useEffect(() => {
+    if (!formData.service || serviceOptions.some(({ value }) => value === formData.service)) return
+    const existingCategory = serviceCategories?.find(
+      (category: ServiceCategory) =>
+        category.name.toLowerCase() === formData.service?.toLowerCase(),
+    )
+    if (existingCategory) {
+      setFormData((current) => ({
+        ...current,
+        service: existingCategory.service_category_id || existingCategory.id,
+      }))
+    }
+  }, [formData.service, serviceCategories, serviceOptions])
 
   const handleInputChange = (field: string, value: string) => {
     if (field === 'budget') {
@@ -88,7 +130,7 @@ export default function OfferForm({
         post_content: validatedData.post,
         post_type: 'JOB',
         amount: validatedData.budget,
-        duration: validatedData.timeFrame,
+        duration: Number(validatedData.timeFrame),
         tags: [validatedData.service],
         /* attachment: {
           attachment_type: 'VIDEO' | 'PHOTO' | 'FILE'
@@ -156,12 +198,18 @@ export default function OfferForm({
             label="Type of Service"
             value={formData.service}
             handleInputChange={handleInputChange}
-            selectItems={services}
+            selectItems={serviceOptions}
             placeholder="Select"
             className="border-0 border-b h-9 [&_svg]:block pl-3 text-sm md:text-base"
             labelSize="text-xs md:text-sm"
             required
+            disabled={isLoadingServiceCategories}
           />
+          {hasServiceCategoriesError && (
+            <p className="text-xs text-red-600">
+              Unable to load service types. Please refresh and try again.
+            </p>
+          )}
         </div>
         <div className="space-y-2">
           <span className="text-xs md:text-sm block font-medium">Location</span>

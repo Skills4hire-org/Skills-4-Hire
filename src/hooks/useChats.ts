@@ -102,9 +102,9 @@ export const useChatSocket = (
   useEffect(() => {
     if (!conversationId) return
 
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL
-
-    const ws = new WebSocket(`${BASE_URL}/ws/chats/${conversationId}/`)
+    const baseUrl = new URL(import.meta.env.VITE_API_BASE_URL)
+    baseUrl.protocol = baseUrl.protocol === 'https:' ? 'wss:' : 'ws:'
+    const ws = new WebSocket(`${baseUrl.toString().replace(/\/$/, '')}/ws/chats/${conversationId}/`)
 
     socketRef.current = ws
 

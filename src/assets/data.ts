@@ -435,7 +435,7 @@ export const serviceProviderHomeNavLinks = [
   {
     url: 'jobs',
     label: 'Jobs',
-    hasNotification: true,
+    hasNotification: false,
   },
 ]
 

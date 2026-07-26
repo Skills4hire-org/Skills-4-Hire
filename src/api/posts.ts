@@ -96,7 +96,7 @@ export const getMyComments = async (pageParam?: string) => {
 
 export const getPost = async ({ post_id }: PostParams) => {
   try {
-    const response = await api.get(`/api/v1/posts?${post_id}/`)
+    const response = await api.get(`/api/v1/posts/${post_id}/`)
     return response?.data
   } catch (error) {
     handleApiError(error)
