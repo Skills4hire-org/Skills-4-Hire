@@ -6,8 +6,7 @@ import ProfileImage from '../global/ProfileImage'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
 
 export default function ServiceProviderServiceCard({
-  skills,
-  profile,
+  user,
   min_charge,
   provider_id,
   avg_rating,
@@ -20,15 +19,15 @@ export default function ServiceProviderServiceCard({
     <div className="relative">
       <div className="relative w-full overflow-visible rounded-2xl">
         <img
-          src={skills[0].skill.image}
-          alt={profile.display_name}
+          src={user?.profile?.avatar?.avatar}
+          alt={user?.profile.display_name}
           className="w-[99%] md:w-[98.5%] mx-auto rounded-2xl object-cover h-40 sm:h-60 md:h-72 lg:h-80"
         />
         <span className="absolute top-3 right-7 bg-white/90 p-2 rounded-full shadow-sm z-30">
           <AddToFavoriteButton
             id={provider_id}
             isFavourite={isFavourite}
-            name={profile?.display_name}
+            name={user?.profile?.display_name}
             favouriteID={favouriteID}
           />
         </span>
@@ -41,10 +40,7 @@ export default function ServiceProviderServiceCard({
       <div className="mt-5 flex flex-col md:flex-row items-start md:items-center md:justify-between gap-2 sm:gap-3">
         <div className="flex items-center gap-3">
           <Link to={`/customer/professionals/${provider_id}`}>
-            <ProfileImage
-              avatar={profile.avatar.avatar}
-              is_active={profile.avatar.is_active}
-            />
+            <ProfileImage avatar={user?.profile.avatar.avatar} />
           </Link>
 
           <div>
@@ -53,7 +49,7 @@ export default function ServiceProviderServiceCard({
               className="no-underline hover:no-underline"
             >
               <p className="text-sm sm:text-base font-medium text-gray-800 flex items-center gap-2">
-                {profile.display_name}
+                {user?.profile.display_name}
               </p>
             </Link>
 
@@ -69,7 +65,7 @@ export default function ServiceProviderServiceCard({
 
               <span className="flex items-center gap-1 text-xs text-green-600">
                 <MapPin className="w-3.5 h-3.5" />
-                {profile.city}, {profile.state}
+                {user?.profile.city}, {user?.profile.state}
               </span>
             </div>
           </div>
