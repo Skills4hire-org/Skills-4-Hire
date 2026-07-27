@@ -40,6 +40,8 @@ export default function Services() {
   const professionals: Provider[] =
     providers?.pages.flatMap((page) => page.data.results) ?? []
 
+  console.log(providers)
+
   const handleProviderFetchingError = () => {
     refetchProviders()
   }

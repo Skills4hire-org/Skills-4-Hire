@@ -46,7 +46,7 @@ export default function ServiceProviderActivity({
             <TabsContent key={status} value={status} className="pb-10 md:pb-12">
               {status === 'posts' && (
                 <>
-                  {posts?.map((post) => (
+                  {posts?.slice(0, 1)?.map((post) => (
                     <PostCard
                       key={post.post_id}
                       {...post}
@@ -72,7 +72,7 @@ export default function ServiceProviderActivity({
               {status === 'media' && (
                 <>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
-                    {media?.map((media) => (
+                    {media?.slice(0, 8)?.map((media) => (
                       <ServiceProviderGallery
                         key={media.post_attachment_id}
                         image={media?.attachmentURL}
@@ -96,7 +96,7 @@ export default function ServiceProviderActivity({
               )}
               {status === 'comments' && (
                 <div className="grid gap-2 md:gap-4">
-                  {comments?.map((singleComment) => (
+                  {comments?.slice(0, 2)?.map((singleComment) => (
                     <CommentCard
                       key={singleComment.comment_id}
                       {...singleComment}

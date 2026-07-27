@@ -39,7 +39,7 @@ export default function ServicesSearch() {
     ({ provider_id }) => provider_id,
   )
   const professionals: Provider[] =
-    data?.pages.flatMap((page) => page.results) ?? []
+    data?.pages.flatMap((page) => page.data.results) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

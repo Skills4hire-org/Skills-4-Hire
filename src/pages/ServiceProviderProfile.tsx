@@ -1,6 +1,7 @@
 import Container from '@/components/global/Container'
 import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
+import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import ServiceProviderActivity from '@/components/service-provider/ServiceProviderActivity'
 import ServiceProviderOverview from '@/components/service-provider/ServiceProviderOverview'
 import ServiceProviderServices from '@/components/service-provider/ServiceProviderServices'
@@ -16,7 +17,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 export default function ServiceProviderProfile() {
   const { id } = useParams()
   const { data, isLoading, isError, refetch } = useProfileDetails({ id })
-  const profile: Profile | undefined = data
+  const profile: Profile | undefined = data?.data
 
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
@@ -41,9 +42,9 @@ export default function ServiceProviderProfile() {
   }
 
   return (
-    <>
-      <ServiceProviderOverview profile={profile} />
-      <div className="pb-10">
+    <div>
+      <HeaderWithBackNavigation title="Profile" />
+      <div className="pb-10 lg:pb-16">
         {isLoading ? (
           <div className="h-24">
             <Loading />
@@ -51,57 +52,60 @@ export default function ServiceProviderProfile() {
         ) : (
           <>
             {isError && !data ? (
-              <div className="py-10">
+              <div className="py-6">
                 <Error
-                  text="Failed to load profile"
+                  text="Failed to load professional's profile"
                   buttonFunc={handleProfileFetchingError}
                 />
               </div>
             ) : (
-              <>
-                <Container className="border-b-8 py-2 md:py-4 relative">
-                  <ServiceProviderTab
-                    about={profile?.overview}
-                    gallery={profile?.gallary}
-                    user_id={id}
-                  />
-                </Container>
-                <Container className="border-b-8 py-2 md:py-4 relative">
-                  <ServiceProviderActivity
-                    posts={profile?.posts}
-                    comments={profile?.comments}
-                    media={profile?.media}
-                    user_id={id}
-                  />
-                </Container>
-                {profile?.services && (
-                  <Container className="border-b-8 pt-2 pb-4 md:py-4 relative">
-                    <ServiceProviderServices
-                      services={profile?.services}
+              <div className="-mt-2 md:-mt-6">
+                <ServiceProviderOverview profile={profile} />
+                <>
+                  <Container className="border-b-8 py-2 md:py-4 relative">
+                    <ServiceProviderTab
+                      about={profile?.overview}
+                      gallery={profile?.gallary}
                       user_id={id}
-                      profession={profile?.professional_title}
                     />
                   </Container>
-                )}
-                <div className="flex items-center justify-center gap-8 md:gap-10 fixed left-1/2 -translate-x-1/2 bottom-16 md:bottom-4 md:ml-[6rem] z-50">
-                  <Button
-                    className="bg-green-700 rounded-sm hover:bg-green-700/80 w-30"
-                    onClick={handleMessageMe}
-                    disabled={isPending}
-                  >
-                    Message Me
-                  </Button>
-                  {userType == 'customer' && (
-                    <Link to={`/customer/professionals/${id}/booking`}>
-                      <Button className="w-30">Book Me</Button>
-                    </Link>
+                  <Container className="border-b-8 py-2 md:py-4 relative">
+                    <ServiceProviderActivity
+                      posts={profile?.posts}
+                      comments={profile?.comments}
+                      media={profile?.media}
+                      user_id={id}
+                    />
+                  </Container>
+                  {profile?.services && (
+                    <Container className="border-b-8 pt-2 pb-4 md:py-4 relative">
+                      <ServiceProviderServices
+                        services={profile?.services}
+                        user_id={id}
+                        profession={profile?.professional_title}
+                      />
+                    </Container>
                   )}
-                </div>
-              </>
+                  <div className="flex items-center justify-center gap-8 md:gap-10 fixed left-1/2 -translate-x-1/2 bottom-16 md:bottom-4 md:ml-[6rem] z-50">
+                    <Button
+                      className="bg-green-700 rounded-sm hover:bg-green-700/80 w-30"
+                      onClick={handleMessageMe}
+                      disabled={isPending}
+                    >
+                      Message Me
+                    </Button>
+                    {userType == 'customer' && (
+                      <Link to={`/customer/professionals/${id}/booking`}>
+                        <Button className="w-30">Book Me</Button>
+                      </Link>
+                    )}
+                  </div>
+                </>
+              </div>
             )}
           </>
         )}
       </div>
-    </>
+    </div>
   )
 }

@@ -31,7 +31,7 @@ export default function ServicesAroundYou() {
   const providersID = favourites?.providers?.map(
     ({ provider_id }) => provider_id,
   )
-  const professionals = data?.pages.flatMap((page) => page.results) ?? []
+  const professionals = data?.pages.flatMap((page) => page.data.results) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
