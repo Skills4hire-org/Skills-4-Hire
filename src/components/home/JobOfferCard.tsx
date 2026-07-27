@@ -27,7 +27,7 @@ export default function JobOfferCard({
   const handleApply = () => {
     if (!user?.user_id) return toast.error('This offer is missing customer details.')
     createConversation({ participant_two_id: user.user_id }, { onSuccess: (conversation) => {
-      const conversationId = conversation?.conversation_id ?? conversation?.data?.conversation_id
+      const conversationId = conversation?.conversation_id
       if (!conversationId) return toast.error('Unable to open a conversation for this offer.')
       navigate(`/professional/messages/${conversationId}`)
     } })
@@ -91,23 +91,28 @@ export default function JobOfferCard({
         </div>
 
         <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm">
-          <span className="inline-flex items-center gap-1 px-2 py-1.5 rounded-sm bg-green-50 text-green-700 whitespace-nowrap capitalize">
-            <MapPin className="w-4 h-4 shrink-0" />
-            <span>
-              {city}, <span className="uppercase">{state}</span>
+          {(city || state) && (
+            <span className="inline-flex items-center gap-1 px-2 py-1.5 rounded-sm bg-green-50 text-green-700 whitespace-nowrap capitalize">
+              <MapPin className="w-4 h-4 shrink-0" />
+              <span>
+                {city}{city && state && ','}{' '}<span className="uppercase">{state}</span>
+              </span>
             </span>
-          </span>
-          <span className="inline-flex items-center gap-1 px-2 py-1.5 rounded-sm bg-yellow-50 text-yellow-800 whitespace-nowrap">
-            <Clock className="w-4 h-4 shrink-0" />
-            <span>
-              {duration} day{duration && duration > 1 && 's'}
+          )}
+          {duration ? (
+            <span className="inline-flex items-center gap-1 px-2 py-1.5 rounded-sm bg-yellow-50 text-yellow-800 whitespace-nowrap">
+              <Clock className="w-4 h-4 shrink-0" />
+              <span>
+                {duration} day{duration > 1 && 's'}
+              </span>
             </span>
-          </span>
-          (
-          <span className="inline-flex items-center gap-1 px-2 py-1.5 rounded-sm bg-blue-50 text-blue-700 whitespace-nowrap">
-            <Wallet className="w-4 h-4 shrink-0" />
-            <span>{currencyFormatter(Number(amount))}</span>
-          </span>
+          ) : null}
+          {amount ? (
+            <span className="inline-flex items-center gap-1 px-2 py-1.5 rounded-sm bg-blue-50 text-blue-700 whitespace-nowrap">
+              <Wallet className="w-4 h-4 shrink-0" />
+              <span>{currencyFormatter(Number(amount))}</span>
+            </span>
+          ) : null}
         </div>
 
         <div className="my-6">

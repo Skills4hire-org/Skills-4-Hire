@@ -21,7 +21,7 @@ export default function UpdateOffer() {
       { post_id: id, data: allData },
       {
         onSuccess: () => {
-          navigate('/customer/home/my-offer')
+          navigate('/customer/home/my-offers')
         },
         onError: (error) => {
           setIsSubmitting(false)

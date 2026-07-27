@@ -48,6 +48,7 @@ export type OfferFormType = {
 export type Post = {
   post_id?: string
   post_title?: string | null
+  post_type?: 'GENERAL' | 'SERVICE' | 'JOB'
   user?: {
     user_id: string
     first_name?: string

@@ -18,7 +18,7 @@ export default function Posts() {
     isFetchNextPageError,
   } = usePosts()
 
-  const posts: Post[] = data?.pages.flatMap((page) => page.data.results) ?? []
+  const posts: Post[] = data?.pages.flatMap((page) => page.results) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

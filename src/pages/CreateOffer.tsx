@@ -6,22 +6,24 @@ import { useCreatePost } from '@/hooks/usePosts'
 import type { CreatePost } from '@/types/post.types'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 export default function CreateOffer() {
-  const { mutate: createOffer } = useCreatePost()
+  const { mutateAsync: createOffer } = useCreatePost()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
-  const onSubmit = (allData: CreatePost) => {
-    createOffer(allData, {
-      onSuccess: () => {
-        navigate('/customer/home/my-offer')
-      },
-      onError: (error) => {
-        setIsSubmitting(false)
-        toast.error(error.message || 'Unable to create your offer.')
-      },
-    })
+  const queryClient = useQueryClient()
+  const onSubmit = async (allData: CreatePost) => {
+    try {
+      await createOffer(allData)
+      await queryClient.invalidateQueries({ queryKey: ['my-posts'] })
+      await queryClient.invalidateQueries({ queryKey: ['posts'] })
+      navigate('/customer/home/my-offers')
+    } catch (error: any) {
+      setIsSubmitting(false)
+      toast.error(error.message || 'Unable to create your offer.')
+    }
   }
 
   return (

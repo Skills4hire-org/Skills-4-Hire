@@ -64,10 +64,10 @@ export default function ServiceProviderActivity() {
     fetchNextPage: mediaFetchNextPage,
   })
 
-  const postActivity = post?.pages.flatMap((page) => page.data.results) ?? []
+  const postActivity = post?.pages.flatMap((page) => page.results) ?? []
   const commentActivity =
-    comment?.pages.flatMap((page) => page.data.results) ?? []
-  const mediaActivity = media?.pages.flatMap((page) => page.data.results) ?? []
+    comment?.pages.flatMap((page) => page.results) ?? []
+  const mediaActivity = media?.pages.flatMap((page) => page.results) ?? []
 
   const handlePostFetchingError = async () => {
     postRefetch()

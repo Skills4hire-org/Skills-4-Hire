@@ -37,7 +37,7 @@ export default function JobOffers() {
     max_amount: filters.maxAmount,
   })
 
-  const offers: Post[] = data?.pages.flatMap((page) => page.results) ?? []
+  const offers: Post[] = data?.pages.flatMap((page) => page.results ?? []).filter(Boolean) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

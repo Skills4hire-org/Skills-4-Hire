@@ -2,6 +2,8 @@ import { currencyFormatter, dateFormatter } from '@/utils/format'
 import { Pencil, Trash2, Calendar } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { UserType } from '@/utils/types'
 import DeleteOfferDialog from './DeleteOfferDialog'
 import type { Post } from '@/types/post.types'
 import ImageCarousel from './ImageCarousel'
@@ -21,6 +23,9 @@ export default function OfferCard({
 }: Post) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [viewMore, setViewMore] = useState(false)
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
 
   /*  const files = attachments
     ?.((attachment) => attachment.attachment_type == 'FILES')
@@ -67,18 +72,24 @@ export default function OfferCard({
 
         <div className="flex flex-wrap items-start justify-between gap-2 text-[14px] md:text-base text-gray-500 mb-4 ">
           <div className="flex flex-col gap-0.5 md:gap-1">
-            <span className="flex items-center gap-1">
-              Amount: {currencyFormatter(Number(amount))}
-            </span>
+            {amount ? (
+              <span className="flex items-center gap-1">
+                Amount: {currencyFormatter(Number(amount))}
+              </span>
+            ) : null}
 
-            <span className="flex items-center gap-1">
-              Time Frame: {duration} day{duration && duration > 1 && 's'}
-            </span>
+            {duration ? (
+              <span className="flex items-center gap-1">
+                Time Frame: {duration} day{duration > 1 && 's'}
+              </span>
+            ) : null}
           </div>
 
-          <span className="flex items-center gap-1 capitalize">
-            Location: {city},<span className="uppercase">{state}</span>
-          </span>
+          {(city || state) ? (
+            <span className="flex items-center gap-1 capitalize">
+              Location: {city}{city && state && ','}{' '}<span className="uppercase">{state}</span>
+            </span>
+          ) : null}
         </div>
         {attachments && <ImageCarousel attachments={attachments} />}
         {/* <OfferFilesCarousel /> */}
@@ -91,7 +102,7 @@ export default function OfferCard({
         {post_status == 'active' && (
           <div className="flex gap-2 mt-4">
             <Link
-              to={`/customer/edit-offer/${post_id}`}
+              to={`/${userType}/edit-offer/${post_id}`}
               className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-[var(--primary)] text-white text-sm md:text-base hover:opacity-90"
             >
               <Pencil size={16} /> Edit

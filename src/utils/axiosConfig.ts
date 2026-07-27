@@ -70,7 +70,12 @@ api.interceptors.request.use(async (config) => {
 /* RESPONSE INTERCEPTOR */
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    if (response.data?.success && response.data?.data !== undefined) {
+      response.data = response.data.data
+    }
+    return response
+  },
   async (error) => {
     const originalRequest = error.config
 

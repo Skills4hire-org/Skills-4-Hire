@@ -47,7 +47,7 @@ export const useAllProviders = ({
 export const useMyProfile = () => {
   const getProfile = async () => {
     const profile = await getMyProfile()
-    return profile?.data
+    return profile
   }
   const queryData = useQuery({
     queryKey: ['profile'],
@@ -83,7 +83,7 @@ export const useMyServices = () => {
     },
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.next ?? undefined
+      return lastPage.next ?? undefined
     },
     retry: 1,
   })

@@ -15,10 +15,14 @@ import NoRequestCard from "@/components/overview/NoRequestCard";
 import RequestCard from "@/components/overview/RequestCard";
 import NoReviewCard from "@/components/reviews/NoReviewCard";
 import ReferAndEarnBanner from "@/components/services/ReferAndEarnBanner";
+import { useHireRequests } from "@/hooks/usePosts";
 
 export default function ProviderOverview() {
-  const { user, stats, chart, newBookingRequest, reviews } =
+  const { user, stats, chart, reviews } =
     providerOverviewData;
+
+  const { data: offersData } = useHireRequests()
+  const latestRequests = offersData?.pages.flatMap((page) => page?.results ?? []).filter(Boolean) ?? []
 
   return (
     <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17">
@@ -64,8 +68,7 @@ export default function ProviderOverview() {
           <section className="bg-white rounded-lg px-2 py-4 md:px-3 md:py-6 space-y-4 md:space-y-6 shadow-md ">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-gray-900">
-                {newBookingRequest.title} (
-                {newBookingRequest && newBookingRequest.requests.length})
+                Hire Requests ({latestRequests.length})
               </h2>
               <Link
                 to="request"
@@ -75,8 +78,11 @@ export default function ProviderOverview() {
               </Link>
             </div>
             <div>
-              <RequestCard {...newBookingRequest.requests[0]} />
-              {newBookingRequest.requests.length === 0 && <NoRequestCard />}
+              {latestRequests.length > 0 ? (
+                <RequestCard post={latestRequests[0]} />
+              ) : (
+                <NoRequestCard />
+              )}
             </div>
           </section>
           <ReferAndEarnBanner />
