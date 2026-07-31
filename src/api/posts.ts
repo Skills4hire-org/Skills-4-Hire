@@ -86,12 +86,12 @@ export const getHireRequests = async ({
     }
 
     const response = await api.get("/api/v1/posts/feed/", {
-      params: {
-        post_type__icontains: "JOB",
-      },
-    });
+  params: {
+    post_type__iexact: "JOB",
+  },
+});
 
-    console.log("🔥 Response:", response.data);
+    console.log("Response:", response.data);
 
     return response.data;
   } catch (error) {
