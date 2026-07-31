@@ -8,6 +8,7 @@ import CoverPhoto from './CoverPhoto'
 import Loading from '../global/Loading'
 import Error from '../global/Error'
 import SignOutButton from '../buttons/SignOutButton'
+import type { Post } from '@/types/post.types'
 
 export default function ServiceProviderProfile() {
   const { data, isLoading, isError, refetch } = useMyProfile()
@@ -47,7 +48,7 @@ export default function ServiceProviderProfile() {
                     gallery={professional?.gallary}
                   />
                   <Activity
-                    posts={professional?.posts}
+                    posts={professional?.posts as Post[]}
                     comments={professional?.comments}
                     media={professional?.media}
                   />

@@ -18,21 +18,23 @@ export default function CustomerProfileForm() {
   const user: Profile | undefined = data
   const { mutate: updateProfile, isPending } = useUpdateMyProfile()
 
-  const [formData, setFormData] = useState<ProfileFormData>({
-    firstName: undefined,
-    lastName: undefined,
-    phone: undefined,
-    gender: undefined,
-    countryCode: '+234',
-  })
+const [formData, setFormData] = useState<ProfileFormData>({
+  firstName: undefined,
+  lastName: undefined,
+  phone: undefined,
+  gender: undefined,
+  countryCode: '+234',
+  profileFile: null,
+})
   const resetForm = () => {
     setFormData({
-      firstName: undefined,
-      lastName: undefined,
-      phone: undefined,
-      gender: undefined,
-      countryCode: '+234',
-    })
+  firstName: undefined,
+  lastName: undefined,
+  phone: undefined,
+  gender: undefined,
+  countryCode: '+234',
+  profileFile: null,
+})
   }
   const [activeEdit, setActiveEdit] = useState({
     firstName: true,

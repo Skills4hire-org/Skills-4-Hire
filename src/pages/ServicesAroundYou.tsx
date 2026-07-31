@@ -8,7 +8,7 @@ import { useFavourites } from '@/hooks/useFavourites'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { useAllProviders } from '@/hooks/useUsers'
 import type { Favorite } from '@/types/favourites.type'
-import { Search, SlidersHorizontal } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 

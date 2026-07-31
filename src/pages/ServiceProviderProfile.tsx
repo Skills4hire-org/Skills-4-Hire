@@ -8,6 +8,7 @@ import ServiceProviderTab from '@/components/service-provider/ServiceProviderTab
 import { Button } from '@/components/ui/button'
 import { useCreateConversation } from '@/hooks/useChats'
 import { useProfileDetails } from '@/hooks/useUsers'
+import type { Post } from '@/types/post.types'
 import type { Profile } from '@/types/user.types'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
@@ -68,7 +69,7 @@ export default function ServiceProviderProfile() {
                 </Container>
                 <Container className="border-b-8 py-2 md:py-4 relative">
                   <ServiceProviderActivity
-                    posts={profile?.posts}
+                    posts={profile?.posts as Post[]}
                     comments={profile?.comments}
                     media={profile?.media}
                     user_id={id}
