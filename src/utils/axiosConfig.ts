@@ -64,7 +64,12 @@ api.interceptors.request.use(async (config) => {
     config.headers.Authorization = `Bearer ${token}`
   }
 
+  console.log(store.getState().userState);
+    console.log("Authorization header:", config.headers.Authorization);
+    console.log("Access:", state.userState.access)
+console.log("Refresh:", state.userState.refresh)
   return config
+
 })
 
 /* RESPONSE INTERCEPTOR */

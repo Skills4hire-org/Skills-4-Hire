@@ -65,11 +65,7 @@ export const getOffers = async ({
     if (city) params.city = city;
     if (state) params.state = state;
     if (min_amount) params.amount = min_amount;
-    params.include_offers = "true";
-
-    const response = await api.get("/api/v1/posts/feed/", {
-      params,
-    });
+    const response = await api.get("/api/v1/posts/feed/", { params });
     return response?.data;
   } catch (error) {
     handleApiError(error);
@@ -82,19 +78,24 @@ export const getHireRequests = async ({
   pageParam?: string;
 }) => {
   try {
+    console.log("🔥 getHireRequests called");
+
     if (pageParam) {
       const response = await api.get(pageParam);
       return response?.data;
     }
-    const response = await api.get("/api/v1/posts/", {
+
+    const response = await api.get("/api/v1/posts/feed/", {
       params: {
         post_type__icontains: "JOB",
-        ordering: "-created_at",
-        _t: Date.now(),
       },
     });
-    return response?.data;
+
+    console.log("🔥 Response:", response.data);
+
+    return response.data;
   } catch (error) {
+    console.error(error);
     handleApiError(error);
   }
 };

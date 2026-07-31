@@ -33,6 +33,8 @@ export default function JobOfferCard({
     } })
   }
 
+  const isTextLong = post_content && post_content.length > 200
+
   return (
     <>
       {isNegotiateOpen && (
@@ -75,18 +77,20 @@ export default function JobOfferCard({
           <div>
             <p
               className={`text-xs md:text-sm text-gray-600 ${
-                !viewMore && 'line-clamp-2 sm:line-clamp-none'
+                isTextLong && !viewMore ? 'line-clamp-2 sm:line-clamp-none' : ''
               }`}
             >
               {post_content}
             </p>
 
-            <button
-              onClick={() => setViewMore(!viewMore)}
-              className="text-xs md:text-sm text-primary underline cursor-pointer hover:no-underline sm:hidden"
-            >
-              {viewMore ? 'less' : 'more'}
-            </button>
+            {isTextLong && (
+              <button
+                onClick={() => setViewMore(!viewMore)}
+                className="text-xs md:text-sm text-primary underline cursor-pointer hover:no-underline sm:hidden"
+              >
+                {viewMore ? 'less' : 'more'}
+              </button>
+            )}
           </div>
         </div>
 

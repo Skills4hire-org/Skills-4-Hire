@@ -15,7 +15,7 @@ export default function HomeNavbar() {
     userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
   const { count: hireRequestCount } = useHireRequestNotificationCount()
   return (
-    <nav className="border-b h-11 pt-2">
+    <nav className="border-b h-11 pt-2 bg-white lg:bg-accent md:rounded-2xl">
       <div className="flex gap-8 justify-evenly">
         {navLinks.map(({ label, url, hasNotification }) => (
           <NavLink
@@ -24,7 +24,7 @@ export default function HomeNavbar() {
             className={({ isActive }) =>
               `py-2 text-sm md:text-base relative ${
                 isActive
-                  ? 'text-black font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-1 after:bg-primary after:rounded-full'
+                  ? 'text-black font-bold after:absolute after:bottom-0 lg:after:bottom-1 max-[1023px]:min-[768px]:after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-1 after:bg-primary after:rounded-full'
                   : 'text-gray-500 font-medium'
               }`
             }

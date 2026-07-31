@@ -46,8 +46,10 @@ export default function PostCard({
     is_liked ? unlikePost({ post_id }) : likePost({ post_id })
   }
 
+  const isTextLong = post_content && post_content.length > 200
+
   return (
-    <div className="bg-white rounded-2xl shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
+    <div className="bg-white lg:rounded-2xl md:rounded-2xl md:shadow lg:shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
           <Link to={`/${userType}/professionals/${provider_id}`}>
@@ -119,19 +121,21 @@ export default function PostCard({
       </div>
       <div>
         <p
-          className={`text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line ${!viewMore && 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4'}`}
+          className={`text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line ${isTextLong && !viewMore ? 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4' : ''}`}
         >
           {post_content}
         </p>
-        <button
-          onClick={() => {
-            setViewMore(true)
-            setClickOnce(true)
-          }}
-          className={`text-[14px] md:text-base text-primary underline cursor-pointer hover:no-underline ${clickOnce && 'hidden'}`}
-        >
-          more
-        </button>
+        {isTextLong && !clickOnce && (
+          <button
+            onClick={() => {
+              setViewMore(true)
+              setClickOnce(true)
+            }}
+            className="text-[14px] md:text-base text-primary underline cursor-pointer hover:no-underline"
+          >
+            more
+          </button>
+        )}
       </div>
       {attachments?.length !== 0 && (
         <div className="my-8">

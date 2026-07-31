@@ -8,10 +8,14 @@ import { useFavourites } from '@/hooks/useFavourites'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { useAllProviders } from '@/hooks/useUsers'
 import type { Favorite } from '@/types/favourites.type'
-import { Search } from 'lucide-react'
+import { Search, SlidersHorizontal } from 'lucide-react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function ServicesAroundYou() {
+  const [serviceFilter, setServiceFilter] = useState('')
+  const [locationFilter, setLocationFilter] = useState('')
+
   const {
     data,
     isLoading,
@@ -21,23 +25,28 @@ export default function ServicesAroundYou() {
     hasNextPage,
     isFetchingNextPage,
     isFetchNextPageError,
-  } = useAllProviders({})
+  } = useAllProviders({
+    service: serviceFilter,
+    location: locationFilter,
+  })
+
   const {
     data: favoritesData,
     isLoading: favoritesLoading,
     isError: favouritesError,
   } = useFavourites()
+
   const favourites: Favorite = favoritesData
   const providersID = favourites?.providers?.map(
     ({ provider_id }) => provider_id,
   )
   const professionals = data?.pages.flatMap((page) => page.results) ?? []
-
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
   })
+
   const handleProviderFetchingError = async () => {
     if (!data) {
       refetch()
@@ -51,25 +60,45 @@ export default function ServicesAroundYou() {
       <HeaderWithBackNavigation title="Professionals for you" />
       <Container>
         <div className="space-y-4 md:space-y-6">
-          <div>
-            <Link to="/customer/services/search">
-              <div className={`relative w-full mx-auto`}>
+          {/* Search bar and inline filters */}
+          <div className="flex flex-col sm:flex-row gap-2 items-center">
+            <Link to="/customer/services/search" className="w-full sm:flex-1">
+              <div className="relative w-full mx-auto">
                 <Input
                   type="text"
-                  className={`pl-3 pr-10 rounded-md border h-8 md:h-9 text-sm md:text-base`}
+                  className="pl-3 pr-10 rounded-md border h-8 md:h-9 text-sm md:text-base"
                   placeholder="Search for services"
                   name="searchQuery"
                   id="searchQuery"
                 />
                 <button
                   type="submit"
-                  className="absolute top-1/2  -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
+                  className="absolute top-1/2 -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
                 >
                   <Search className="w-4.5 h-4.5" />
                 </button>
               </div>
             </Link>
+
+            {/* Service & Location Filter Inputs */}
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Input
+                type="text"
+                placeholder="Filter service"
+                value={serviceFilter}
+                onChange={(e) => setServiceFilter(e.target.value)}
+                className="h-8 md:h-9 text-sm md:text-base px-2 rounded-md border w-full sm:w-36"
+              />
+              <Input
+                type="text"
+                placeholder="Filter location"
+                value={locationFilter}
+                onChange={(e) => setLocationFilter(e.target.value)}
+                className="h-8 md:h-9 text-sm md:text-base px-2 rounded-md border w-full sm:w-36"
+              />
+            </div>
           </div>
+
           {isLoading || favoritesLoading ? (
             <div className="h-24">
               <Loading />
@@ -96,7 +125,6 @@ export default function ServicesAroundYou() {
                     ))}
                   </div>
                   <div ref={loadMoreRef} />
-
                   {isFetchingNextPage && (
                     <div className="py-4 text-center">
                       <Loading />
