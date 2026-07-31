@@ -29,6 +29,7 @@ export default function ProfileImageForm({
     const isOverSize = files[0].size > MAX_SIZE_MB
     if (!fileType) {
       toast.warning('File type is not acceptable')
+      return
     }
     if (isOverSize) {
       toast.warning('Image size must not exceed 2MB')

@@ -3,7 +3,7 @@ export type CreatePost = {
   post_content: string
   post_type?: 'GENERAL' | 'SERVICE' | 'JOB'
   amount?: string
-  duration?: string
+  duration?: number
   country?: string
   city?: string
   state?: string
@@ -48,6 +48,7 @@ export type OfferFormType = {
 export type Post = {
   post_id?: string
   post_title?: string | null
+  post_type?: 'GENERAL' | 'SERVICE' | 'JOB'
   user?: {
     user_id: string
     first_name?: string

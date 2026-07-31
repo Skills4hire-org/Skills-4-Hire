@@ -10,7 +10,7 @@ export default function Chat() {
   const { conversationId } = useParams()
 
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="space-y-4 md:space-y-6 max-[1023px]:min-[768px]:ml-17">
       <Container className="bg-white">
         {!conversationId && <MobileWalletHeader title="Chats" />}
         <DesktopWalletHeader title="Chats" />

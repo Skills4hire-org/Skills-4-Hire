@@ -4,6 +4,7 @@ import {
   editPost,
   getCommentReplies,
   getComments,
+  getHireRequests,
   getMyComments,
   getMyMedia,
   getMyPosts,
@@ -49,6 +50,8 @@ export const useCreatePost = () => {
     mutationFn: createPostAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] })
+      queryClient.invalidateQueries({ queryKey: ['my-posts'] })
+      queryClient.invalidateQueries({ queryKey: ['notifications'] })
     },
   })
 
@@ -76,6 +79,7 @@ export const useEditPost = () => {
     mutationFn: createPostAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] })
+      queryClient.invalidateQueries({ queryKey: ['my-posts'] })
     },
   })
 
@@ -96,6 +100,7 @@ export const useDeletePost = () => {
     mutationFn: deletePostAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] })
+      queryClient.invalidateQueries({ queryKey: ['my-posts'] })
     },
   })
 
@@ -135,14 +140,28 @@ export const useOffers = ({
   return queryData
 }
 
-export const useMyPosts = () => {
+export const useHireRequests = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['my-posts'],
-    queryFn: ({ pageParam }) => getMyPosts(pageParam),
+    queryKey: ['hire-requests'],
+    queryFn: ({ pageParam }) => getHireRequests({ pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.next ?? undefined
     },
+    retry: 1,
+  })
+  return queryData
+}
+
+export const useMyPosts = ({ user_id }: { user_id?: string } = {}) => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['my-posts', user_id],
+    queryFn: ({ pageParam }) => getMyPosts({ pageParam, user_id }),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    enabled: !!user_id,
     retry: 1,
   })
   return queryData
@@ -231,18 +250,15 @@ export const useLikePost = (queryKey: string[]) => {
           ...oldData,
           pages: oldData.pages.map((page: any) => ({
             ...page,
-            data: {
-              ...page.data,
-              results: page.data.results.map((post: Post) =>
-                post.post_id === post_id
-                  ? {
-                      ...post,
-                      likes_count: post.likes_count ?? 0 + 1,
-                      is_liked: true,
-                    }
-                  : post,
-              ),
-            },
+            results: page.results.map((post: Post) =>
+              post.post_id === post_id
+                ? {
+                    ...post,
+                    likes_count: post.likes_count ?? 0 + 1,
+                    is_liked: true,
+                  }
+                : post,
+            ),
           })),
         }
       })
@@ -280,18 +296,15 @@ export const useUnlikePost = (queryKey: string[]) => {
           ...oldData,
           pages: oldData.pages.map((page: any) => ({
             ...page,
-            data: {
-              ...page.data,
-              results: page.data.results.map((post: Post) =>
-                post.post_id === post_id
-                  ? {
-                      ...post,
-                      likes_count: Math.max((post.likes_count ?? 0) - 1, 0),
-                      is_liked: false,
-                    }
-                  : post,
-              ),
-            },
+            results: page.results.map((post: Post) =>
+              post.post_id === post_id
+                ? {
+                    ...post,
+                    likes_count: Math.max((post.likes_count ?? 0) - 1, 0),
+                    is_liked: false,
+                  }
+                : post,
+            ),
           })),
         }
       })
@@ -329,18 +342,15 @@ export const useRepost = (queryKey: string[]) => {
           ...oldData,
           pages: oldData.pages.map((page: any) => ({
             ...page,
-            data: {
-              ...page.data,
-              results: page.data.results.map((post: Post) =>
-                post.post_id === post_id
-                  ? {
-                      ...post,
-                      reposts_count: post.reposts_count ?? 0 + 1,
-                      is_reposted: true,
-                    }
-                  : post,
-              ),
-            },
+            results: page.results.map((post: Post) =>
+              post.post_id === post_id
+                ? {
+                    ...post,
+                    reposts_count: post.reposts_count ?? 0 + 1,
+                    is_reposted: true,
+                  }
+                : post,
+            ),
           })),
         }
       })
@@ -378,18 +388,15 @@ export const useUnrepost = (queryKey: string[]) => {
           ...oldData,
           pages: oldData.pages.map((page: any) => ({
             ...page,
-            data: {
-              ...page.data,
-              results: page.data.results.map((post: Post) =>
-                post.post_id === post_id
-                  ? {
-                      ...post,
-                      reposts_count: post.reposts_count ?? 0 - 1,
-                      is_reposted: false,
-                    }
-                  : post,
-              ),
-            },
+            results: page.results.map((post: Post) =>
+              post.post_id === post_id
+                ? {
+                    ...post,
+                    reposts_count: post.reposts_count ?? 0 - 1,
+                    is_reposted: false,
+                  }
+                : post,
+            ),
           })),
         }
       })

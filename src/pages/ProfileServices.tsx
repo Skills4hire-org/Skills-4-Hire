@@ -31,9 +31,9 @@ export default function ProfileServices() {
     profession,
   })
   const services: Service[] =
-    data?.pages.flatMap((page) => page.data.results) ?? []
+    data?.pages.flatMap((page) => page.results) ?? []
   const professionals: Provider[] =
-    providers?.pages.flatMap((page) => page.data.results) ?? []
+    providers?.pages.flatMap((page) => page.results) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

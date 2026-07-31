@@ -37,7 +37,7 @@ export default function JobOffers() {
     max_amount: filters.maxAmount,
   })
 
-  const offers: Post[] = data?.pages.flatMap((page) => page.results) ?? []
+  const offers: Post[] = data?.pages.flatMap((page) => page.results ?? []).filter(Boolean) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -95,7 +95,7 @@ export default function JobOffers() {
       />
 
       <div className="space-y-4">
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 px-2 lg:px-0 md:px-0">
           <h2 className="font-bold text-sm md:text-base text-gray-900">
             Recent Job Offers
           </h2>

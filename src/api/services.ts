@@ -21,3 +21,12 @@ export const getAllServices = async ({
     handleApiError(error)
   }
 }
+
+export const getServiceCategories = async () => {
+  try {
+    const response = await api.get('/api/v1/services-categories/')
+    return response.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}

@@ -15,7 +15,6 @@ import {
 } from '@/assets/data'
 import CustomerDesktopMenu from './CustomerDesktopMenu'
 import Logo2 from '../global/Logo2'
-import { getBasePath } from '@/utils/format'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import ProfileImage from '../global/ProfileImage'
@@ -32,7 +31,6 @@ export default function DesktopSidebar() {
   const avatar = user?.user?.profile?.avatar?.avatar
   const is_active = navigator.onLine
   const pathname = useLocation().pathname
-  const basePath = getBasePath(pathname)
 
   const desktopNavLinks =
     userType == 'customer'
@@ -49,7 +47,7 @@ export default function DesktopSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
               {desktopNavLinks.map(({ icon, activeIcon, label, url }: { icon: string; activeIcon?: string; label: string; url: string; key?: string }) => {
-                const active = url === basePath
+                const active = pathname.startsWith(url)
                 return (
                   <SidebarMenuItem key={label} className="group">
                     <NavLink

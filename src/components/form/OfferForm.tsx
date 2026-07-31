@@ -6,7 +6,7 @@ import FormSelect from '../form-fields/FormSelect'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Check, ImageIcon, Paperclip, Plus } from 'lucide-react'
-import { services, timeFrameOptions } from '@/assets/data'
+import { serviceTypes, timeFrameOptions } from '@/assets/data'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
@@ -88,8 +88,9 @@ export default function OfferForm({
         post_content: validatedData.post,
         post_type: 'JOB',
         amount: validatedData.budget,
-        duration: validatedData.timeFrame,
-        tags: [validatedData.service],
+        duration: Number(validatedData.timeFrame),
+        // The API accepts category UUIDs only. The temporary UI list contains
+        // labels, so do not submit an invalid tag until those UUIDs are known.
         /* attachment: {
           attachment_type: 'VIDEO' | 'PHOTO' | 'FILE'
           attachmentURL: string
@@ -156,7 +157,7 @@ export default function OfferForm({
             label="Type of Service"
             value={formData.service}
             handleInputChange={handleInputChange}
-            selectItems={services}
+            selectItems={serviceTypes}
             placeholder="Select"
             className="border-0 border-b h-9 [&_svg]:block pl-3 text-sm md:text-base"
             labelSize="text-xs md:text-sm"

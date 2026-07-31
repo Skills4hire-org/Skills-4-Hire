@@ -1,36 +1,32 @@
-import { currencyFormatter, dateFormatter, timeFormatter } from '@/utils/format'
+import { currencyFormatter, dateFormatter } from '@/utils/format'
 import { Button } from '../ui/button'
+import type { Post } from '@/types/post.types'
 
 interface RequestCardProp {
-  id: string
-  name: string
-  avatar: string
-  status: string
-  service: string
-  price: number
-  address: string
-  date: string | number
-  time: string | number
+  post: Post
 }
 
-export default function RequestCard({
-  id,
-  name,
-  avatar,
-  status,
-  service,
-  price,
-  address,
-  date,
-  time,
-}: RequestCardProp) {
+export default function RequestCard({ post }: RequestCardProp) {
+  const name = post.user?.profile?.display_name || `${post.user?.first_name ?? ''} ${post.user?.last_name ?? ''}`.trim() || 'Customer'
+  const avatar = post.user?.profile?.avatar?.avatar
+  const status = post.post_status || 'Pending'
+  const service = post.tags?.[0]?.name
+  const price = Number(post.amount) || 0
+  const address = [post.city, post.state].filter(Boolean).join(', ') || 'Location not set'
+
   const statusColor = (status: string) =>
     status === 'Pending' ? 'bg-red-500' : 'bg-primary'
   return (
     <div className="rounded-md shadow-md border border-gray-200 overflow-hidden bg-white">
       <div className="px-2 md:px-3 md:py-6 py-4 flex flex-col gap-3">
         <div className="flex items-start gap-3">
-          <img src={avatar} alt={name} />
+          {avatar ? (
+            <img src={avatar} alt={name} className="w-10 h-10 rounded-full object-cover" />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
+              {name.charAt(0).toUpperCase()}
+            </div>
+          )}
 
           <div className="flex flex-col flex-1">
             <span
@@ -49,17 +45,16 @@ export default function RequestCard({
               {currencyFormatter(price)}
             </span>
           </div>
-
-          <span className="text-gray-500 font-semibold">#{id}</span>
         </div>
 
         <div className="bg-gray-100 p-3 rounded-xl text-sm text-gray-700">
           <h2 className="mt-1 font-medium text-gray-700">{name}</h2>
           <p className="font-medium">{address}</p>
-          <p className="mt-1 text-gray-500 flex items-center gap-2 ">
-            <span> {dateFormatter(date)}</span> —
-            <span>{timeFormatter(time)}</span>
-          </p>
+          {post.created_at && (
+            <p className="mt-1 text-gray-500">
+              <span>{dateFormatter(post.created_at)}</span>
+            </p>
+          )}
         </div>
 
         {status === 'Pending' && (

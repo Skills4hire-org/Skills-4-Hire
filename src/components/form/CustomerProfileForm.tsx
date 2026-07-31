@@ -1,21 +1,15 @@
 import { genderOptions } from '@/assets/data'
-import FormImage from '@/components/form-fields/FormImage'
 import FormInput from '@/components/form-fields/FormInput'
 import FormSelect from '@/components/form-fields/FormSelect'
 import { Button } from '@/components/ui/button'
-import { useState, type ChangeEvent, type FormEvent } from 'react'
-import defaultProfileImage from '../../assets/images/profile.jpg'
+import { useState, type FormEvent } from 'react'
 import Container from '../global/Container'
 import { Link } from 'react-router-dom'
-import {
-  useMyProfile,
-  useUpdateMyProfile,
-  useUpdateProfileImage,
-} from '@/hooks/useUsers'
+import { useMyProfile, useUpdateMyProfile } from '@/hooks/useUsers'
 import type { Profile, ProfileFormData } from '@/types/user.types'
 import Loading from '../global/Loading'
 import Error from '../global/Error'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import ProfileImageDialog from '../profile/ProfileImageDialog'
 
 import { toast } from 'sonner'
 
@@ -23,16 +17,12 @@ export default function CustomerProfileForm() {
   const { data, isLoading, isError, refetch } = useMyProfile()
   const user: Profile | undefined = data
   const { mutate: updateProfile, isPending } = useUpdateMyProfile()
-  const { mutate: updateProfileImage, isPending: updatingProfileImage } =
-    useUpdateProfileImage()
 
   const [formData, setFormData] = useState<ProfileFormData>({
     firstName: undefined,
     lastName: undefined,
     phone: undefined,
     gender: undefined,
-    profileImage: undefined,
-    profileFile: null,
     countryCode: '+234',
   })
   const resetForm = () => {
@@ -41,8 +31,6 @@ export default function CustomerProfileForm() {
       lastName: undefined,
       phone: undefined,
       gender: undefined,
-      profileImage: undefined,
-      profileFile: null,
       countryCode: '+234',
     })
   }
@@ -95,21 +83,6 @@ export default function CustomerProfileForm() {
       setFormData((prev: any) => ({ ...prev, [field]: value }))
     }
   }
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 2 * 1024 * 1024
-    const files = e.target.files ?? []
-    const selectedFile = Array.from(files)
-    if (!selectedFile) return
-    const isOverSize = selectedFile[0].size > MAX_SIZE_MB
-    if (isOverSize) return
-    const validImage = URL.createObjectURL(selectedFile[0])
-    setFormData({
-      ...formData,
-      profileImage: validImage,
-      profileFile: selectedFile,
-    })
-  }
-
   const handleProfileFetchingError = () => {
     refetch()
   }
@@ -125,8 +98,7 @@ export default function CustomerProfileForm() {
     (formData.firstName && formData.firstName != user?.user?.first_name) ||
     (formData.lastName && formData.lastName != user?.user?.last_name) ||
     (formData.phone && formData.phone != phoneWithoutCode) ||
-    (formData.gender && formData.gender.toLowerCase() != gender) ||
-    formData.profileFile
+    (formData.gender && formData.gender.toLowerCase() != gender)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -154,33 +126,14 @@ export default function CustomerProfileForm() {
       },
     }
 
-    try {
-      const uploadedUrls = await uploadToCloudinary(formData.profileFile)
-
-      if (uploadedUrls) {
-        const data = {
-          avatar: uploadedUrls[0].url,
-          avatar_public_id: uploadedUrls[0].public_id,
-          description: 'profile image',
-        }
-        updateProfileImage(data, {
-          onError: (error) => {
-            toast.error(error.message)
-            return
-          },
-        })
-      }
-      updateProfile(data, {
-        onSuccess: () => {
-          resetForm()
-        },
-        onError: (error) => {
-          toast.error(error.message)
-        },
-      })
-    } catch (error: any) {
-      toast.error('Failed to upload profile image')
-    }
+    updateProfile(data, {
+      onSuccess: () => {
+        resetForm()
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+    })
   }
   return (
     <Container>
@@ -203,23 +156,7 @@ export default function CustomerProfileForm() {
               className="w-full max-w-xl mx-auto space-y-6"
             >
               <div className="text-center space-y-2">
-                <figure className="rounded-xl w-max mx-auto  relative">
-                  <img
-                    src={
-                      formData.profileImage ??
-                      user?.user?.profile?.avatar?.avatar ??
-                      defaultProfileImage
-                    }
-                    alt={user?.user?.profile?.display_name}
-                    className="aspect-square object-cover w-32 md:w-36 rounded-xl "
-                    loading="lazy"
-                  />
-                  <FormImage
-                    name="profileImage"
-                    className="absolute bottom-2 left-2"
-                    handleImageChange={handleImageChange}
-                  />
-                </figure>
+                <ProfileImageDialog professional={user} />
                 <div>
                   <h2 className="text-base md:text-lg font-medium -mb-0.5 md:mb-0">
                     {user?.user?.first_name} {user?.user?.last_name}
@@ -375,7 +312,7 @@ export default function CustomerProfileForm() {
                 <Button
                   type="submit"
                   className=" py-6 w-full"
-                  disabled={isPending || !checkForm || updatingProfileImage}
+                  disabled={isPending || !checkForm}
                 >
                   Update Profile
                 </Button>
