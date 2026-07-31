@@ -52,7 +52,7 @@ export default function ServiceProviderServicesCard({
           />
         )}
         <img
-          src={attachments[0].image_url}
+          src={attachments[0]?.image_url}
           alt="service image"
           className="aspect-square object-cover w-20 md:w-22 rounded-l-md"
           loading="lazy"

@@ -23,6 +23,33 @@ export type UserData = {
   }
   avg_rating: number
 }
+type User = {
+  user_id: string
+  phone: string
+  email: string
+  first_name: string
+  last_name: string
+  is_provider: boolean
+  is_customer: boolean
+  is_verified: boolean
+  profile: {
+    gender: string
+    display_name: string
+    trust_score: number
+    country: string
+    city: string
+    state: string
+    location: string
+    avatar: {
+      avatar: string
+    }
+    customer_id: string
+    provider_id: string
+    cover_photo: {
+      image_url: string
+    }
+  }
+}
 
 export type AuthUser = {
   userType: UserType | null
@@ -33,29 +60,14 @@ export type AuthUser = {
 
 export type Provider = {
   provider_id: string
-  profile: {
-    display_name: string
-    city: string
-    state: string
-    avatar: {
-      avatar: string
-      is_active: boolean
-    }
-  }
   professional_title: string
   avg_rating: string
   total_reviews: string
-  skills: [
-    {
-      skill: {
-        image: string
-      }
-    },
-  ]
   providerIDs?: string[]
   favouriteID?: string
   min_charge: number
   headline: string
+  user: User
 }
 
 export type ProviderParams = {
@@ -108,34 +120,7 @@ export type Profile = {
   headline: string
   overview: string
   endorsement_count: number
-  user: {
-    user_id: string
-    phone: string
-    email: string
-    first_name: string
-    last_name: string
-    is_provider: boolean
-    is_customer: boolean
-    is_verified: boolean
-    profile: {
-      gender: string
-      display_name: string
-      trust_score: number
-      country: string
-      city: string
-      state: string
-      location: string
-      avatar: {
-        avatar: string
-      }
-      customer_id: string
-      provider_id: string
-      cover_photo: {
-        image_url: string
-      }
-    }
-  }
-
+  user: User
   posts: {
     post_id: string
     post_title: string

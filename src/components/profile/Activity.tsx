@@ -87,7 +87,7 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
                       ) : (
                         <div className="pb-10 md:pb-12">
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4 pb-2">
-                            {media?.map((image, index) => (
+                            {media?.slice(0, 8)?.map((image, index) => (
                               <ServiceProviderGallery
                                 key={index}
                                 image={image.attachmentURL}
@@ -114,7 +114,7 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
                       ) : (
                         <div className="pb-10 md:pb-12">
                           <div className="grid gap-2 md:gap-4">
-                            {comments?.map((comment) => (
+                            {comments?.slice(0, 2)?.map((comment) => (
                               <CommentCard
                                 key={comment.comment_id}
                                 {...comment}

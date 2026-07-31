@@ -36,9 +36,12 @@ export default function Services() {
     ({ provider_id }) => provider_id,
   )
 
-  const services: Service[] = data?.pages.flatMap((page) => page.results) ?? []
+  const services: Service[] =
+    data?.pages.flatMap((page) => page.data.results) ?? []
   const professionals: Provider[] =
-    providers?.pages.flatMap((page) => page.results) ?? []
+    providers?.pages.flatMap((page) => page.data.results) ?? []
+
+  console.log(providers)
 
   const handleProviderFetchingError = () => {
     refetchProviders()

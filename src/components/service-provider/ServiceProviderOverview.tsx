@@ -2,7 +2,6 @@ import Container from '../global/Container'
 import { currencyFormatter } from '@/utils/format'
 import { FileText, MapPin, Minus, Star } from 'lucide-react'
 import defaultImage from '../../assets/images/profile.jpg'
-import HeaderWithBackNavigation from '../header/HeaderWithBackNavigation'
 import { Link } from 'react-router-dom'
 import EndorseDialog from '../endorse/EndorseDialog'
 import type { Profile } from '@/types/user.types'
@@ -14,7 +13,6 @@ export default function ServiceProviderOverview({
 }) {
   return (
     <div>
-      <HeaderWithBackNavigation title="Profile" />
       <div
         className={` w-full bg-cover bg-center h-[20vh] md:h-[25vh] -mt-2 md:-mt-6`}
         style={{

@@ -22,8 +22,7 @@ export default function CustomerOffers() {
     isFetchNextPageError,
   } = useMyPosts({ user_id: user?.user_id })
 
-  const allOffers: Post[] = data?.pages.flatMap((page) => page?.results ?? []).filter(Boolean) ?? []
-  const offers = [...new Map(allOffers.filter((offer) => offer.post_type === 'JOB').map((offer) => [offer.post_id, offer])).values()]
+  const offers: Post[] = data?.pages.flatMap((page) => page.data.results) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
