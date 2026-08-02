@@ -25,7 +25,7 @@ export default function ProviderOverview() {
   const latestRequests = offersData?.pages.flatMap((page) => page?.results ?? []).filter(Boolean) ?? []
 
   return (
-    <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17">
+    <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17 lg:ml-17">
       <Container className="bg-white">
         <MobileServicesOverviewHeader />
         <DesktopServicesOverviewHeader />
@@ -71,7 +71,7 @@ export default function ProviderOverview() {
                 Hire Requests ({latestRequests.length})
               </h2>
               <Link
-                to="request"
+                to="/professional/home/request"
                 className="text-xs md:text-sm text-primary hover:underline"
               >
                 View all

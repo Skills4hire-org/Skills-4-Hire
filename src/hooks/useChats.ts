@@ -59,11 +59,7 @@ export const useConversations = () => {
     queryFn: ({ pageParam }) => getConversationList(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      if (lastPage.pagination.current_page < lastPage.pagination.total_pages) {
-        return lastPage.pagination.current_page + 1
-      }
-
-      return undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
   })
@@ -81,11 +77,7 @@ export const useMessages = ({
     queryFn: ({ pageParam }) => getMessages({ pageParam, conversation_id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      if (lastPage.pagination.current_page < lastPage.pagination.total_pages) {
-        return lastPage.pagination.current_page + 1
-      }
-
-      return undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
     enabled: !!conversation_id,

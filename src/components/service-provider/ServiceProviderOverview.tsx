@@ -28,10 +28,12 @@ export default function ServiceProviderOverview({
           />
         </figure>
 
-        <EndorseDialog
-          provider_pk={profile?.user?.user_id}
-          name={profile?.user?.profile?.display_name}
-        />
+        <div className="flex justify-end md:justify-start bg-blue-400 absolute top-10 md:top-14 right-2 md:right-4 rounded-md p-2">
+          <EndorseDialog
+            provider_pk={profile?.user?.user_id}
+            name={profile?.user?.profile?.display_name}
+          />
+        </div>
 
         <div className=" pb-3 md:pb-4 text-start">
           <div className="space-y-0.5">

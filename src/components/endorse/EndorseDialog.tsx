@@ -20,7 +20,7 @@ export default function EndorseDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="capitalize font-semibold text-primary text-sm md:text-base cursor-pointer">
+        <button className="capitalize font-semibold text-white text-sm md:text-base cursor-pointer">
           endorse
         </button>
       </DialogTrigger>

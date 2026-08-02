@@ -142,16 +142,15 @@ export const useOffers = ({
 
 export const useHireRequests = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['hire-requests'],
+    queryKey: ["hire-requests"],
     queryFn: ({ pageParam }) => getHireRequests({ pageParam }),
     initialPageParam: undefined,
-    getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
-    },
+    getNextPageParam: (lastPage) => lastPage.next ?? undefined,
     retry: 1,
-  })
-  return queryData
-}
+  });
+
+  return queryData;
+};
 
 export const useMyPosts = ({ user_id }: { user_id?: string } = {}) => {
   const queryData = useInfiniteQuery({

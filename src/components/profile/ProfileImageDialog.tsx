@@ -8,6 +8,7 @@ import {
 } from '../ui/dialog'
 import type { Profile } from '@/types/user.types'
 import ProfileImageForm from '../form/ProfileImageForm'
+import defaultImage from '../../assets/images/profile.jpg'
 import { useState } from 'react'
 
 export default function ProfileImageDialog({
@@ -21,7 +22,7 @@ export default function ProfileImageDialog({
       <DialogTrigger asChild>
         <figure className="bg-gray-100 -mt-13 md:-mt-18.5  mb-1 md:mb-2 w-max rounded-full border-4 border-background">
           <img
-            src={professional?.user?.profile?.avatar?.avatar}
+            src={professional?.user?.profile?.avatar?.avatar ?? defaultImage}
             alt={professional?.user?.profile?.display_name}
             className="aspect-square object-cover w-24 md:w-34 rounded-full"
           />

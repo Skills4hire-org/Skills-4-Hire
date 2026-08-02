@@ -14,12 +14,13 @@ import type { Post } from '@/types/post.types'
 import type { Profile } from '@/types/user.types'
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
+import { toast } from 'sonner'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 export default function ServiceProviderProfile() {
   const { id } = useParams()
   const { data, isLoading, isError, refetch } = useProfileDetails({ id })
-  const profile: Profile | undefined = data?.data
+  const profile: Profile | undefined = data
 
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
@@ -31,20 +32,24 @@ export default function ServiceProviderProfile() {
 
   const navigate = useNavigate()
   const handleMessageMe = () => {
-    const response = createConversation(
+    createConversation(
       {
         participant_two_id: id!,
       },
       {
-        onSuccess: () => {
-          navigate(`/customer/messages/${response}`)
+        onSuccess: (conversation) => {
+          const conversationId = conversation?.conversation_id
+          if (!conversationId)
+            return toast.error('Unable to open a conversation.')
+          const basePath = userType == 'customer' ? '/customer' : '/professional'
+          navigate(`${basePath}/messages/${conversationId}`)
         },
       },
     )
   }
 
   return (
-    <div>
+    <div className='lg:ml-17'>
       <HeaderWithBackNavigation title="Profile" />
       <div className="pb-10 lg:pb-16">
         {isLoading ? (

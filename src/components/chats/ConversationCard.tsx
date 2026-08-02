@@ -36,7 +36,7 @@ export default function ConversationCard({ conversation }: ConversationProps) {
             Plumber {conversation.participant_two.profile.professional_title}
           </span>
           <p className="text-sm md:text-base break-all line-clamp-1 w-full">
-            {conversation.last_message.content || 'No messages yet'}
+            {conversation.last_message?.content || 'No messages yet'}
           </p>
         </div>
         <div className="flex flex-col items-center justify-between shrink-0">

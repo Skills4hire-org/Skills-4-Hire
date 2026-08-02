@@ -1,6 +1,7 @@
 import { dateFormatter, timeFormatter } from '@/utils/format'
 import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
+import defaultImage from '../../assets/images/profile.jpg'
 import { Link } from 'react-router-dom'
 import type { Booking } from '@/types/bookings.type'
 
@@ -32,7 +33,7 @@ export default function CustomerBookingCard({
         <Link to={`/customer/professionals/${provider?.provider_id}`}>
           <figure className="w-24 h-24 md:w-30 md:h-30">
             <img
-              src={provider?.profile?.avatar?.avatar}
+              src={provider?.profile?.avatar?.avatar ?? defaultImage}
               alt={provider?.profile?.display_name}
               className="aspect-square object-cover h-full w-full"
               loading="lazy"

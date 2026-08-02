@@ -150,6 +150,10 @@ const router = createBrowserRouter([
             path: 'jobs',
             element: <Jobs />,
           },
+          {
+            path: 'request',
+            element: <Request />,
+          },
         ],
       },
       {
@@ -168,7 +172,6 @@ const router = createBrowserRouter([
         path: 'overview',
         element: <ProviderOverview />,
       },
-      { path: 'overview/request', element: <Request /> },
       {
         path: 'services',
         element: <Services />,

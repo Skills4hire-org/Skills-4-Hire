@@ -22,7 +22,7 @@ export default function CustomerOffers() {
     isFetchNextPageError,
   } = useMyPosts({ user_id: user?.user_id })
 
-  const offers: Post[] = data?.pages.flatMap((page) => page.data.results) ?? []
+  const offers: Post[] = data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

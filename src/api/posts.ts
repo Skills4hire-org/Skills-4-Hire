@@ -72,30 +72,21 @@ export const getOffers = async ({
   }
 };
 
-export const getHireRequests = async ({
-  pageParam,
-}: {
-  pageParam?: string;
-}) => {
+export const getHireRequests = async ({ pageParam }: { pageParam?: string }) => {
   try {
-    console.log("🔥 getHireRequests called");
-
     if (pageParam) {
       const response = await api.get(pageParam);
       return response?.data;
     }
 
     const response = await api.get("/api/v1/posts/feed/", {
-  params: {
-    post_type__iexact: "JOB",
-  },
-});
+      params: {
+        post_type: "JOB",
+      },
+    });
 
-    console.log("Response:", response.data);
-
-    return response.data;
+    return response?.data;
   } catch (error) {
-    console.error(error);
     handleApiError(error);
   }
 };

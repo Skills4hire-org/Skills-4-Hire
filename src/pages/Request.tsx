@@ -1,4 +1,3 @@
-import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import Container from '@/components/global/Container'
 import RequestCard from '@/components/overview/RequestCard'
 import { useHireRequests } from '@/hooks/usePosts'
@@ -19,7 +18,10 @@ export default function Request() {
     isFetchingNextPage,
   } = useHireRequests()
 
-  const requests = data?.pages.flatMap((page) => page?.results ?? []).filter(Boolean) ?? []
+  const requests =
+    data?.pages
+      .flatMap((page) => page?.results ?? [])
+      .filter((post) => post?.post_type?.toUpperCase() === 'JOB') ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -28,8 +30,7 @@ export default function Request() {
   })
 
   return (
-    <div>
-      <HeaderWithBackNavigation title="Hire Requests" onlyMobile={false} />
+    <div className="lg:px-4">
       <Container>
         <div className="w-full flex flex-col gap-2 md:gap-4 max-w-xl mx-auto">
           {isLoading ? (

@@ -17,8 +17,6 @@ export default function ServiceProviderTab({
   gallery: Gallery[] | undefined
   user_id: string | undefined
 }) {
-  console.log(gallery)
-
   return (
     <Tabs defaultValue="about" className="space-y-1 ">
       <TabsList className="border-b-0 bg-background  rounded-none relative p-0 space-x-12 md:space-x-24">

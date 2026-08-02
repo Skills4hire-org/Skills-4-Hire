@@ -1,5 +1,6 @@
 import { dateFormatter, timeFormatter } from '@/utils/format'
 import ProfileImage from '../global/ProfileImage'
+import defaultImage from '../../assets/images/profile.jpg'
 import type { Booking } from '@/types/bookings.type'
 
 export default function ServiceProviderBookingCard({
@@ -30,7 +31,7 @@ export default function ServiceProviderBookingCard({
         </div>
         <figure>
           <img
-            src={provider?.profile?.avatar?.avatar}
+            src={provider?.profile?.avatar?.avatar ?? defaultImage}
             alt={provider?.profile?.display_name}
             className="aspect-square object-cover h-full max-w-24 md:max-w-42"
             loading="lazy"
