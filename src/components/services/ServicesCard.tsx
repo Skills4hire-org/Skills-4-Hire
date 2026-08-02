@@ -1,9 +1,13 @@
 import type { Service } from '@/types/services.types'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { ImageIcon } from 'lucide-react'
 
 export default function ServicesCard({ name, attachments }: Service) {
   const formatServiceName = name.replaceAll(' ', '-')
-  
+  const imageUrl = attachments?.[0]?.image_url
+  const [imageError, setImageError] = useState(false)
+
   return (
     <Link to={`/customer/services/available-services/${formatServiceName}`} className="block h-full">
       {/* 
@@ -19,12 +23,20 @@ export default function ServicesCard({ name, attachments }: Service) {
 
         {/* IMAGE LAYER: Wrapped in a container box mimicking the asset design from the screenshot */}
         <figure className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-100 p-1 flex items-center justify-center">
-          <img
-            src={attachments[0]?.image_url}
-            alt={name}
-            className="rounded-lg object-cover w-full h-full"
-            loading="lazy"
-          />
+          {imageUrl && !imageError ? (
+            <img
+              src={imageUrl}
+              alt={name}
+              className="rounded-lg object-cover w-full h-full"
+              loading="lazy"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-1.5 w-full h-full">
+              <ImageIcon className="w-8 h-8 text-neutral-300" />
+              <span className="text-xs text-neutral-400 capitalize">{name}</span>
+            </div>
+          )}
         </figure>
       </div>
     </Link>

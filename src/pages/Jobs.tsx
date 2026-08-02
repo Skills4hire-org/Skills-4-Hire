@@ -250,7 +250,7 @@ export default function Jobs() {
     <div className="lg:px-4">
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-2">
-          <h2 className="font-bold text-sm md:text-base text-gray-900">
+          <h2 className="font-bold ml-2 lg:ml-0 md:ml-0 text-sm md:text-base text-gray-900">
             Job Listings
           </h2>
         </div>
@@ -263,7 +263,7 @@ export default function Jobs() {
               placeholder="Search jobs by title, company, or location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+              className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
             />
             {searchQuery && (
               <button
@@ -282,7 +282,6 @@ export default function Jobs() {
               gap-2
               h-[36px]
               px-4
-              rounded-md
               border
               text-xs md:text-sm
               shadow-sm

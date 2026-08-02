@@ -253,7 +253,7 @@ export const useLikePost = (queryKey: string[]) => {
               post.post_id === post_id
                 ? {
                     ...post,
-                    likes_count: post.likes_count ?? 0 + 1,
+                    likes_count: (post.likes_count ?? 0) + 1,
                     is_liked: true,
                   }
                 : post,
@@ -266,7 +266,7 @@ export const useLikePost = (queryKey: string[]) => {
     },
 
     onError: (_, __, context) => {
-      queryClient.setQueryData(['posts'], context?.previousPosts)
+      queryClient.setQueryData(queryKey, context?.previousPosts)
     },
 
     onSettled: () => {
@@ -312,7 +312,7 @@ export const useUnlikePost = (queryKey: string[]) => {
     },
 
     onError: (_, __, context) => {
-      queryClient.setQueryData(['posts'], context?.previousPosts)
+      queryClient.setQueryData(queryKey, context?.previousPosts)
     },
 
     onSettled: () => {
@@ -345,7 +345,7 @@ export const useRepost = (queryKey: string[]) => {
               post.post_id === post_id
                 ? {
                     ...post,
-                    reposts_count: post.reposts_count ?? 0 + 1,
+                    reposts_count: (post.reposts_count ?? 0) + 1,
                     is_reposted: true,
                   }
                 : post,
@@ -358,7 +358,7 @@ export const useRepost = (queryKey: string[]) => {
     },
 
     onError: (_, __, context) => {
-      queryClient.setQueryData(['posts'], context?.previousPosts)
+      queryClient.setQueryData(queryKey, context?.previousPosts)
     },
 
     onSettled: (_, __, post) => {
@@ -391,7 +391,7 @@ export const useUnrepost = (queryKey: string[]) => {
               post.post_id === post_id
                 ? {
                     ...post,
-                    reposts_count: post.reposts_count ?? 0 - 1,
+                    reposts_count: Math.max((post.reposts_count ?? 0) - 1, 0),
                     is_reposted: false,
                   }
                 : post,
@@ -404,7 +404,7 @@ export const useUnrepost = (queryKey: string[]) => {
     },
 
     onError: (_, __, context) => {
-      queryClient.setQueryData(['posts'], context?.previousPosts)
+      queryClient.setQueryData(queryKey, context?.previousPosts)
     },
 
     onSettled: (_, __, post) => {

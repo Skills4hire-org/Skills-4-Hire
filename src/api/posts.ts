@@ -266,7 +266,7 @@ export const getCommentReplies = async ({
       return response?.data;
     }
     const response = await api.get(
-      `/api/v1/posts/${post_id}}/comment/${comment_id}}/list-replies/`,
+      `/api/v1/posts/${post_id}/comment/${comment_id}/replies/`,
     );
     return response?.data;
   } catch (error) {

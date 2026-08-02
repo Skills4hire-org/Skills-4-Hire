@@ -35,6 +35,7 @@ export default function BookingDateTime({
               <ServiceProviderServicesCard
                 key={service.service_id}
                 {...service}
+                check
               />
             ))}
           </div>
@@ -48,6 +49,7 @@ export default function BookingDateTime({
                   <ServiceProviderServicesCard
                     key={service.service_id}
                     {...service}
+                    check
                   />
                 ))}
           </div>

@@ -1,17 +1,73 @@
 import type { PostAttachment } from '@/types/post.types'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '../ui/carousel'
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { getVideoMimeType } from '@/utils/format'
 import Lightbox from 'yet-another-react-lightbox'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
 import Video from 'yet-another-react-lightbox/plugins/video'
 import { PlayIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
+
+const MAX_VISIBLE = 4
+
+function AttachmentCell({
+  attachment,
+  onClick,
+  className,
+  overlay,
+}: {
+  attachment: PostAttachment
+  onClick: () => void
+  className?: string
+  overlay?: number
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={attachment.post_attachment_id}
+      className={cn(
+        'group relative w-full h-full overflow-hidden bg-neutral-100 cursor-pointer focus:outline-none',
+        className,
+      )}
+    >
+      {attachment.attachment_type === 'VIDEO' ? (
+        <>
+          <video
+            src={attachment.thumbnail_url || attachment.attachmentURL}
+            poster={attachment.thumbnail_url}
+            autoPlay
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
+            <div className="rounded-full bg-white/90 p-1.5">
+              <PlayIcon className="w-4 h-4 md:w-5 md:h-5" />
+            </div>
+          </div>
+        </>
+      ) : (
+        <img
+          src={attachment.attachmentURL}
+          alt={attachment.post_attachment_id}
+          loading="lazy"
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+      )}
+      {overlay !== undefined && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+          <span className="text-white text-2xl md:text-3xl font-semibold">
+            +{overlay}
+          </span>
+        </div>
+      )}
+    </button>
+  )
+}
 
 function ImageCarousel({
   attachments,
@@ -20,8 +76,7 @@ function ImageCarousel({
 }) {
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
-  const [showControls, setShowControls] = useState(false)
-  const videoRef = useRef(null)
+
   const slides = useMemo(
     () =>
       attachments?.map((item) =>
@@ -46,67 +101,36 @@ function ImageCarousel({
     [attachments],
   )
 
+  if (!attachments || attachments.length === 0) return null
+
+  const count = attachments.length
+  const visible = attachments.slice(0, MAX_VISIBLE)
+  const overflow = count > MAX_VISIBLE ? count - (MAX_VISIBLE - 1) : undefined
+
+  const openAt = (i: number) => {
+    setIndex(i)
+    setOpen(true)
+  }
+
+  const gridClass =
+    count === 1
+      ? 'grid-cols-1 aspect-[4/3]'
+      : count === 2
+        ? 'grid-cols-2 aspect-[2/1] auto-rows-fr'
+        : 'grid-cols-2 grid-rows-2 aspect-square auto-rows-fr'
+
   return (
     <>
-      <div className="relative">
-        <Carousel
-          opts={{
-            align: 'end',
-          }}
-          className="w-full h-max px-6  -my-4"
-        >
-          <CarouselContent className="pl-2 justify-center">
-            {attachments?.map((attachment, index) => (
-              <CarouselItem
-                key={index}
-                className={`  ${attachments.length > 1 ? 'basis-1/2' : 'basis-1/1'} ${attachments.length > 2 ? 'sm:basis-1/3' : 'sm:basis-1/2'} ${attachments.length > 3 ? 'xl:basis-1/4' : 'xl:basis-1/3'} pl-2`}
-                onClick={() => {
-                  setIndex(index)
-                  setOpen(true)
-                }}
-              >
-                {attachment.attachment_type === 'VIDEO' && (
-                  <>
-                    <video
-                      ref={videoRef}
-                      src={attachment.thumbnail_url}
-                      poster={attachment.thumbnail_url}
-                      autoPlay
-                      muted
-                      playsInline
-                      preload="metadata"
-                      controls={showControls}
-                      onPlay={() => setShowControls(true)}
-                      className="w-full aspect-4/3 object-contain"
-                    />
-
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                      <div className="rounded-full bg-white/90 p-1">
-                        <PlayIcon className="w-4 h-4 md:w-5 md:h-5" />
-                      </div>
-                    </div>
-                  </>
-                )}
-                {attachment.attachment_type === 'PHOTO' && (
-                  <img
-                    src={attachment.attachmentURL}
-                    alt={attachment.attachment_type}
-                    className="w-full aspect-4/3 object-contain"
-                    loading="lazy"
-                  />
-                )}
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious
-            size="lg"
-            className={`-left-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary border-0 shadow-none  `}
+      <div className={cn('grid w-full gap-1 overflow-hidden rounded-md md:rounded-lg', gridClass)}>
+        {visible.map((attachment, i) => (
+          <AttachmentCell
+            key={attachment.post_attachment_id || i}
+            attachment={attachment}
+            onClick={() => openAt(i)}
+            className={count === 3 && i === 0 ? 'row-span-2' : undefined}
+            overlay={i === MAX_VISIBLE - 1 ? overflow : undefined}
           />
-          <CarouselNext
-            variant="ghost"
-            className={`-right-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary border-0 shadow-none`}
-          />
-        </Carousel>
+        ))}
       </div>
       <Lightbox
         open={open}

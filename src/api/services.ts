@@ -13,9 +13,9 @@ export const getAllServices = async ({
       const response = await api.get(pageParam)
       return response?.data
     }
-    const response = await api.get(
-      `/api/v1/services/?category_name_icontains=${category && category}`,
-    )
+    const response = await api.get('/api/v1/services/', {
+      params: category ? { category__name: category } : undefined,
+    })
     return response?.data
   } catch (error) {
     handleApiError(error)

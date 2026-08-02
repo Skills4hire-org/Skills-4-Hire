@@ -26,7 +26,10 @@ export default function Bookings() {
     isFetchingNextPage,
     isFetchNextPageError,
   } = useBookings({ booking_status: bookingStatus })
-  const bookings = data?.pages.flatMap((page) => page.results) ?? []
+  const bookings =
+    data?.pages
+      .flatMap((page) => page?.results ?? [])
+      .filter(Boolean) ?? []
 
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,

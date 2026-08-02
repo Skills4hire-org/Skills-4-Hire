@@ -14,8 +14,17 @@ export const getBookings = async ({
       return response?.data
     }
     const response = await api.get(
-      `/api/v1/booking/?booking_status=${booking_status}`,
+      `/api/v1/bookings/?booking_status=${booking_status}`,
     )
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const createBooking = async (data: Record<string, unknown>) => {
+  try {
+    const response = await api.post('/api/v1/bookings/', data)
     return response?.data
   } catch (error) {
     handleApiError(error)
