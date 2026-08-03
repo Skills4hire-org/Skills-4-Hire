@@ -9,8 +9,7 @@ import {
   DrawerTrigger,
 } from '../ui/drawer'
 import { Separator } from '../ui/separator'
-<<<<<<< HEAD
-import { Check, RefreshCcw, Wallet } from 'lucide-react'
+import { Check, Loader2, RefreshCcw, Wallet } from 'lucide-react'
 import ProfileImage from '../global/ProfileImage'
 import { useAddBooking } from '@/hooks/useBookings'
 import type { BookingInfo } from '@/types/bookings.type'
@@ -19,18 +18,6 @@ import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import { useWallet } from '@/hooks/useWallet'
 import type { WalletBalance } from '@/types/wallet.types'
-=======
-import { Check, Loader2, Wallet } from 'lucide-react'
-import { user } from '@/utils/database'
-import ProfileImage from '../global/ProfileImage'
-import { useCreateBooking } from '@/hooks/useBookings'
-import { useDispatch, useSelector } from 'react-redux'
-import type { BookingInfo } from '@/types/bookings.type'
-import type { ServiceProviderServiceCard } from '@/types/user.types'
-import { resetBooking } from '@/features/booking/bookingSlice'
-import { toast } from 'sonner'
-import { useNavigate, useParams } from 'react-router-dom'
->>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
 
 export default function PaymentDrawer({
   name,
@@ -49,18 +36,8 @@ export default function PaymentDrawer({
   provider_id: string | undefined
   services: Service[]
 }) {
-<<<<<<< HEAD
   const { data, isLoading, isError, refetch } = useWallet()
   const wallet: WalletBalance = data?.data
-=======
-  const { info, services }: { info: BookingInfo; services: ServiceProviderServiceCard[] } =
-    useSelector((state: any) => state.bookingState)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { id } = useParams()
-  const { mutate: createBooking, isPending } = useCreateBooking()
-
->>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
   const content = [
     {
       title: 'Skilled Professional',
@@ -72,7 +49,6 @@ export default function PaymentDrawer({
     },
   ]
 
-<<<<<<< HEAD
   const servicesIds = services.map((service) => service.service_id)
   const { mutate: bookProvider, isPending } = useAddBooking()
   const navigate = useNavigate()
@@ -97,44 +73,6 @@ export default function PaymentDrawer({
         toast.error(error.message)
       },
     })
-=======
-  const handlePay = () => {
-    if (services.length === 0) {
-      toast.error('Please select at least one service')
-      return
-    }
-    if (!paymentAmount) return
-
-    const startDate =
-      info.date && info.time ? new Date(`${info.date}T${info.time}`) : null
-    const endDate = startDate
-      ? new Date(startDate.getTime() + 60 * 60 * 1000)
-      : null
-
-    createBooking(
-      {
-        provider: id,
-        provider_service: services[0].service_id,
-        price: paymentAmount,
-        descriptions: info.notes,
-        notes: info.notes,
-        requirements: info.paymentRemark,
-        start_date: startDate ? startDate.toISOString() : undefined,
-        end_date: endDate ? endDate.toISOString() : undefined,
-        location:
-          info.type === 'remote' ? '' : info.address || info.savedAddress,
-        currency: 'NGN',
-        is_remote: info.type === 'remote',
-        is_urgent: info.emergency,
-      },
-      {
-        onSuccess: () => {
-          dispatch(resetBooking())
-          navigate('/customer/bookings')
-        },
-      },
-    )
->>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
   }
 
   return (
@@ -199,17 +137,11 @@ export default function PaymentDrawer({
         </div>
         <Button
           size="lg"
-<<<<<<< HEAD
           className="text-xl font-normal h-12 w-full max-w-xs mx-auto mb-6"
           onClick={handlePayment}
           disabled={
             isPending || isLoading || info.price < wallet?.available_balance
           }
-=======
-          className="text-xl font-normal h-12 w-full max-w-xs mx-auto mb-6 "
-          onClick={handlePay}
-          disabled={isPending}
->>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
         >
           {isPending && <Loader2 className="w-5 h-5 animate-spin" />}
           Pay

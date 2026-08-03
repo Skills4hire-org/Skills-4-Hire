@@ -15,11 +15,7 @@ export const getBookings = async ({
       return response?.data
     }
     const response = await api.get(
-<<<<<<< HEAD
       `/api/v1/bookings/?booking_status_icontains=${booking_status}`,
-=======
-      `/api/v1/bookings/?booking_status=${booking_status}`,
->>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
     )
     return response?.data
   } catch (error) {
@@ -27,11 +23,7 @@ export const getBookings = async ({
   }
 }
 
-<<<<<<< HEAD
 export const addBooking = async (data: BookingInfo) => {
-=======
-export const createBooking = async (data: Record<string, unknown>) => {
->>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
   try {
     const response = await api.post('/api/v1/bookings/', data)
     return response?.data
