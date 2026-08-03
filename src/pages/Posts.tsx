@@ -57,7 +57,7 @@ export default function Posts() {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 gap-2.5 md:gap-4">
+                <div className="grid grid-cols-1 gap-1 md:gap-4">
                   {posts?.map((post) => (
                     <PostCard
                       key={post.post_id}

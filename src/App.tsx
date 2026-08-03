@@ -45,6 +45,7 @@ import About2 from './pages/About2'
 import CreateOffer from './pages/CreateOffer'
 import UpdateOffer from './pages/UpdateOffer'
 import CreatePost from './pages/CreatePost'
+import UpdatePost from './pages/UpdatePost'
 import TransactionHistory from './pages/TransactionHistory'
 import Chat from './pages/Chat'
 import ChatWindow from './components/chats/ChatWindow'
@@ -167,6 +168,10 @@ const router = createBrowserRouter([
       {
         path: 'edit-offer/:id',
         element: <UpdateOffer />,
+      },
+      {
+        path: 'edit-post/:id',
+        element: <UpdatePost />,
       },
       {
         path: 'overview',

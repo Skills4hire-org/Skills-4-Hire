@@ -71,7 +71,7 @@ export const useEditPost = () => {
         data,
       })
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()

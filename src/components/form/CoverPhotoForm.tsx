@@ -5,6 +5,7 @@ import { Label } from '../ui/label'
 import { useDeleteCoverPhoto, useUpdateCoverPhoto } from '@/hooks/useUsers'
 import { toast } from 'sonner'
 import { uploadToCloudinary } from '@/utils/cloudinary'
+import ImageEditor from '../global/ImageEditor'
 
 export default function CoverPhotoForm({
   cover_photo,
@@ -20,6 +21,8 @@ export default function CoverPhotoForm({
     image: '',
     image_file: null,
   })
+  const [editingSrc, setEditingSrc] = useState<string | null>(null)
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 2 * 1024 * 1024
     const selectedFiles = e.target.files || []
@@ -29,13 +32,24 @@ export default function CoverPhotoForm({
     const isOverSize = files[0].size > MAX_SIZE_MB
     if (!fileType) {
       toast.warning('File type is not acceptable')
+      return
     }
     if (isOverSize) {
       toast.warning('Image size must not exceed 2MB')
       return
     }
-    const validImage = URL.createObjectURL(files[0])
-    setFormData({ image: validImage, image_file: files })
+    if (e.target) {
+      e.target.value = ''
+    }
+    setEditingSrc(URL.createObjectURL(files[0]))
+  }
+
+  const handleEditConfirm = (file: File) => {
+    setFormData({
+      image: URL.createObjectURL(file),
+      image_file: [file],
+    })
+    setEditingSrc(null)
   }
   const { mutate: updateCoverPhoto, isPending } = useUpdateCoverPhoto()
   const { mutate: deleteCoverPhoto, isPending: deleting } =
@@ -132,6 +146,16 @@ export default function CoverPhotoForm({
           {isPending ? 'Saving' : 'Save Changes'}
         </Button>
       </div>
+      <ImageEditor
+        open={!!editingSrc}
+        imageSrc={editingSrc ?? ''}
+        aspect={3 / 1}
+        outputWidth={1200}
+        outputHeight={400}
+        fileName="cover-photo.jpg"
+        onCancel={() => setEditingSrc(null)}
+        onConfirm={handleEditConfirm}
+      />
     </form>
   )
 }

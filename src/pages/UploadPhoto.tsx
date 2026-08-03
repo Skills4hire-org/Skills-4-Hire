@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import { uploadToCloudinary } from '@/utils/cloudinary'
 import { selectRole } from '@/api/onboard'
 import { useUpdateProfileImage } from '@/hooks/useUsers'
+import ImageEditor from '@/components/global/ImageEditor'
 
 export default function UploadPhoto() {
   const { mutate: updateAvatar } = useUpdateProfileImage()
@@ -22,6 +23,7 @@ export default function UploadPhoto() {
   const navigate = useNavigate()
   const fileRef = useRef<HTMLInputElement | null>(null)
   const [loading, setLoading] = useState(false)
+  const [editingSrc, setEditingSrc] = useState<string | null>(null)
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 2 * 1024 * 1024
@@ -32,13 +34,24 @@ export default function UploadPhoto() {
     const isOverSize = files[0].size > MAX_SIZE_MB
     if (!fileType) {
       toast.warning('File type is not acceptable')
+      return
     }
     if (isOverSize) {
       toast.warning('Image size must not exceed 2MB')
       return
     }
-    const validImage = URL.createObjectURL(files[0])
-    setFormData({ image: validImage, image_file: files })
+    if (e.target) {
+      e.target.value = ''
+    }
+    setEditingSrc(URL.createObjectURL(files[0]))
+  }
+
+  const handleEditConfirm = (file: File) => {
+    setFormData({
+      image: URL.createObjectURL(file),
+      image_file: [file],
+    })
+    setEditingSrc(null)
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -161,6 +174,16 @@ export default function UploadPhoto() {
           </div>
         </form>
       </div>
+      <ImageEditor
+        open={!!editingSrc}
+        imageSrc={editingSrc ?? ''}
+        aspect={1}
+        outputWidth={1024}
+        outputHeight={1024}
+        fileName="profile-image.jpg"
+        onCancel={() => setEditingSrc(null)}
+        onConfirm={handleEditConfirm}
+      />
     </Container>
   )
 }

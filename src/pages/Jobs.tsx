@@ -326,7 +326,7 @@ export default function Jobs() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-1">
           {filteredJobs.length === 0 ? (
             <NoJobsFound
               icon={Briefcase}

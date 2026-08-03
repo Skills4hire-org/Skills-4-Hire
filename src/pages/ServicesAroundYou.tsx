@@ -57,7 +57,7 @@ export default function ServicesAroundYou() {
   }
 
   return (
-    <div className="space-y-2 md:space-y-6">
+    <div className="space-y-2 md:space-y-6 lg:ml-17 md:ml-17">
       <HeaderWithBackNavigation title="Professionals for you" />
       <Container>
         <div className="space-y-4 md:space-y-6">

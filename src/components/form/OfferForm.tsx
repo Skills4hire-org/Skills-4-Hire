@@ -11,6 +11,7 @@ import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
 import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
+import ImageEditor from '../global/ImageEditor'
 
 export default function OfferForm({
   offer,
@@ -44,6 +45,33 @@ export default function OfferForm({
     }
   }
   const fileRef = useRef<HTMLInputElement>(null)
+  const editQueueRef = useRef<File[]>([])
+  const [editingSrc, setEditingSrc] = useState<string | null>(null)
+  const [editingFile, setEditingFile] = useState<File | null>(null)
+
+  const openNextEditor = () => {
+    const next = editQueueRef.current.shift()
+    if (!next) {
+      setEditingSrc(null)
+      setEditingFile(null)
+      return
+    }
+    setEditingFile(next)
+    setEditingSrc(URL.createObjectURL(next))
+  }
+
+  const handleEditConfirm = (file: File) => {
+    setFormData((prev) => ({
+      ...prev,
+      photo: [...prev.photo, file],
+    }))
+    openNextEditor()
+  }
+
+  const handleEditCancel = () => {
+    openNextEditor()
+  }
+
   const handleFileChange = (field: string, file: any) => {
     const selectedFiles = file || []
     const files: File[] = Array.from(selectedFiles)
@@ -65,7 +93,19 @@ export default function OfferForm({
       }
       acceptedImageFiles.push(newFile)
     })
-    setFormData({ ...formData, [field]: acceptedImageFiles })
+    if (fileRef.current) {
+      fileRef.current.value = ''
+    }
+    if (acceptedImageFiles.length === 0) return
+
+    if (field === 'photo') {
+      editQueueRef.current.push(...acceptedImageFiles)
+      if (!editingSrc) {
+        openNextEditor()
+      }
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: acceptedImageFiles }))
+    }
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -249,6 +289,16 @@ export default function OfferForm({
           className="px-4 md:px-8 text-sm md:text-base"
         />
       </div>
+      <ImageEditor
+        open={!!editingSrc}
+        imageSrc={editingSrc ?? ''}
+        aspect={4 / 5}
+        outputWidth={1024}
+        outputHeight={1280}
+        fileName={editingFile?.name}
+        onCancel={handleEditCancel}
+        onConfirm={handleEditConfirm}
+      />
     </form>
   )
 }
