@@ -7,11 +7,11 @@ import FormTextArea from '../form-fields/FormTextArea'
 import { Button } from '../ui/button'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleBookingInfo, handleSteps } from '@/features/booking/bookingSlice'
-import type { BookingInfo } from '@/utils/types'
+import type { BookingInfo } from '@/types/bookings.type'
 
 export default function BookingDateTimeForm() {
   const { info }: { info: BookingInfo } = useSelector(
-    (state: any) => state.bookingState
+    (state: any) => state.bookingState,
   )
   const dispatch = useDispatch()
   const handleInputChange = (field: string, value: string) => {
@@ -20,7 +20,7 @@ export default function BookingDateTimeForm() {
         info: {
           [field]: value,
         },
-      })
+      }),
     )
   }
   const handleEmergencyService = (checked: any) => {
@@ -29,7 +29,7 @@ export default function BookingDateTimeForm() {
         info: {
           emergency: checked,
         },
-      })
+      }),
     )
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -59,27 +59,27 @@ export default function BookingDateTimeForm() {
         />
       </div>
       <div className="text-white bg-primary rounded flex items-center justify-between px-0.5 mb-4">
-        <Label htmlFor="emergency">
+        <Label htmlFor="is_urgent">
           emergency service?
           <Timer />
         </Label>
         <Checkbox
-          name="emergency"
+          name="is_urgent"
           id="emergency"
-          checked={info.emergency}
+          checked={info.is_urgent}
           onCheckedChange={(checked) => handleEmergencyService(checked)}
         />
       </div>
       <div className="relative mb-6">
         <Label
-          htmlFor="notes"
+          htmlFor="descriptions"
           className="underline absolute font-semibold left-2 top-1 text-base"
         >
           Notes
         </Label>
         <FormTextArea
-          name="notes"
-          value={info.notes}
+          name="descriptions"
+          value={info.descriptions}
           rows={6}
           handleInputChange={handleInputChange}
           className="rounded-none text-sm md:text-base min-h-32 pt-8"

@@ -1,4 +1,4 @@
-import { currencyFormatter } from '@/utils/format'
+import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import { Button } from '../ui/button'
 import {
   Drawer,
@@ -9,29 +9,72 @@ import {
   DrawerTrigger,
 } from '../ui/drawer'
 import { Separator } from '../ui/separator'
-import { Check, Wallet } from 'lucide-react'
-import { user } from '@/utils/database'
+import { Check, RefreshCcw, Wallet } from 'lucide-react'
 import ProfileImage from '../global/ProfileImage'
+import { useAddBooking } from '@/hooks/useBookings'
+import type { BookingInfo } from '@/types/bookings.type'
+import type { Service } from '@/types/user.types'
+import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
+import { useWallet } from '@/hooks/useWallet'
+import type { WalletBalance } from '@/types/wallet.types'
 
 export default function PaymentDrawer({
   name,
   occupation,
   paymentAmount,
+  avatar,
+  info,
+  provider_id,
+  services,
 }: {
-  name: string
-  occupation: string
+  name: string | undefined
+  occupation: string | undefined
   paymentAmount: string
+  avatar?: string
+  info: BookingInfo
+  provider_id: string | undefined
+  services: Service[]
 }) {
+  const { data, isLoading, isError, refetch } = useWallet()
+  const wallet: WalletBalance = data?.data
   const content = [
     {
-      title: 'Handyman',
+      title: 'Skilled Professional',
       value: name,
     },
     {
-      title: 'Handyman Service',
-      value: occupation,
+      title: 'Professional Title',
+      value: formatSpaceToString(occupation),
     },
   ]
+
+  const servicesIds = services.map((service) => service.service_id)
+  const { mutate: bookProvider, isPending } = useAddBooking()
+  const navigate = useNavigate()
+  const handlePayment = () => {
+    const data = {
+      address: info.address,
+      provider: provider_id,
+      price: info.price,
+      notes: info.notes,
+      descriptions: info.descriptions,
+      start_date: `${info.date}T${info.time}`,
+      is_urgent: info.is_urgent,
+      is_remote: info.is_remote,
+      provider_service: servicesIds,
+    }
+
+    bookProvider(data, {
+      onSuccess: () => {
+        navigate('/customer/bookings')
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+    })
+  }
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -64,7 +107,7 @@ export default function PaymentDrawer({
                 <span className="text-muted-foreground">{title}</span>
                 <span className="capitalize text-foreground flex items-center gap-1">
                   {title == 'Handyman' && (
-                    <ProfileImage size="size-8" noStatus />
+                    <ProfileImage size="size-8" noStatus avatar={avatar} />
                   )}
                   {value}
                 </span>
@@ -74,21 +117,31 @@ export default function PaymentDrawer({
           <Separator />
           <div className="bg-gray-300 px-2 py-2.5 md:py-4 rounded-md flex items-center justify-between font-medium">
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                <Wallet className="w-10 h-10 md:w-12 md:h-12 text-white bg-primary p-2 rounded-full" />
+              <div className="flex items-center gap-2">
+                <Wallet className="w-8 h-8 md:w-10 md:h-10 text-white bg-primary p-2 rounded-full" />
                 <span className="text-base md:text-lg">Wallet</span>
+                {isError && (
+                  <button onClick={() => refetch()}>
+                    <RefreshCcw className="w-4 h-4 md:w-5 md:h-5" />
+                  </button>
+                )}
               </div>
               <span className="text-lg md:text-xl">
-                ( {currencyFormatter(user?.availableBalance)} )
+                {isError
+                  ? '---'
+                  : currencyFormatter(Number(wallet?.available_balance))}
               </span>
             </div>
             <Check strokeWidth={5} className="w-4 h-4 text-primary" />
           </div>
         </div>
-
         <Button
           size="lg"
-          className="text-xl font-normal h-12 w-full max-w-xs mx-auto mb-6 "
+          className="text-xl font-normal h-12 w-full max-w-xs mx-auto mb-6"
+          onClick={handlePayment}
+          disabled={
+            isPending || isLoading || info.price < wallet?.available_balance
+          }
         >
           Pay
         </Button>

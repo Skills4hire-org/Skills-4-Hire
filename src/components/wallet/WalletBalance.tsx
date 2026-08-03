@@ -1,21 +1,32 @@
 import { currencyFormatter } from '@/utils/format'
-import { ChevronRight, Lock } from 'lucide-react'
+import { ChevronRight, Lock, RefreshCcw } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import WalletActions from './WalletActions'
 import { useWallet } from '@/hooks/useWallet'
-import type { WallerBalance } from '@/types/wallet.types'
+
 import { Skeleton } from '../ui/skeleton'
+import type { WalletBalance } from '@/types/wallet.types'
 
 export default function WalletBalance() {
-  const { data, isLoading, isError } = useWallet()
-  const wallet: WallerBalance = data
+  const { data, isLoading, isError, refetch } = useWallet()
+  const wallet: WalletBalance = data?.data
+
+  console.log(data)
 
   return (
     <div className="text-white  bg-primary rounded-md md:rounded-lg py-4 md:py-6 md:px-4 px-2 space-y-6">
       <div className="  flex items-start justify-between">
         <div>
           <div className="text-base md:text-lg">
-            <span className="text-white/80 block">Available Balance</span>
+            <span className="flex items-center gap-2">
+              <span className="text-white/80 block">Available Balance</span>
+              {isError && (
+                <button onClick={() => refetch()}>
+                  <RefreshCcw className="w-4 h-4 md:w-5 md:h-5" />
+                </button>
+              )}
+            </span>
+
             <div className="block font-medium h-6 md:h-7">
               {isLoading ? (
                 <Skeleton className="w-16 h-6 md:h-7 rounded-sm" />

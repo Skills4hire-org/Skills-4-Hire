@@ -1,8 +1,12 @@
 import { api } from '@/utils/axiosConfig'
 import { handleApiError } from './error'
 
-export const getFavourites = async () => {
+export const getFavourites = async (pageParam: string | undefined) => {
   try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
     const response = await api.get(`/api/v1/favourite/`)
     return response?.data
   } catch (error) {

@@ -2,7 +2,8 @@ import { ChevronLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { SidebarTrigger } from '../ui/sidebar'
 import ProfileImage from '../global/ProfileImage'
-import { useSelector } from 'react-redux'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function MobileWithAvatarAndDesktopHeader({
   title,
@@ -11,9 +12,11 @@ export default function MobileWithAvatarAndDesktopHeader({
 }) {
   const navigate = useNavigate()
   const is_active = navigator.onLine
-  const { avatar }: { avatar: string } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { data } = useMyProfile()
+
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
+
   return (
     <header className="flex md:block items-center justify-between items-center py-3 md:py-4">
       <button onClick={() => navigate(-1)} className="md:hidden">

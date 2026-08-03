@@ -1,6 +1,6 @@
 import { Star } from 'lucide-react'
 import { Badge } from '../ui/badge'
-import { currencyFormatter } from '@/utils/format'
+import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import { Link } from 'react-router-dom'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
 import type { Provider } from '@/types/user.types'
@@ -42,18 +42,16 @@ export default function ServiceProviderCard({
               <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-600" />
             )} */}
           </div>
-          <div className="flex items-center gap-2 md:gap-3">
-            <Badge className="capitalize rounded-full font-normal py-0 px-2 md:py-1 md:px-4 text-xs md:text-sm">
-              {professional_title}
-            </Badge>
-          </div>
-          <div className="space-y-1">
-            <Link to={`/customer/professionals/${provider_id}`}>
-              <p className="font-medium text-xs md:text-sm line-clamp-3">
-                {headline}
-              </p>
-            </Link>
-          </div>
+
+          <Badge className="capitalize rounded-full font-normal py-0 px-2 md:py-1 md:px-4 text-xs md:text-sm">
+            {formatSpaceToString(professional_title)}
+          </Badge>
+
+          <Link to={`/customer/professionals/${provider_id}`}>
+            <p className="font-medium text-xs md:text-sm line-clamp-3">
+              {headline}
+            </p>
+          </Link>
         </div>
         <div className="flex flex-col justify-between gap-2 items-center h-full">
           <div className="flex items-center gap-1 font-medium sm:mt-1">

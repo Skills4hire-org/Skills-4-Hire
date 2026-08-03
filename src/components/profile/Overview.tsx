@@ -1,7 +1,7 @@
 import type { Profile } from '@/types/user.types'
 import Container from '../global/Container'
 import { AlertCircle, FileText, MapPin, Minus, Star } from 'lucide-react'
-import { currencyFormatter } from '@/utils/format'
+import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import OverviewDialog from './OverviewDialog'
 import ProfileImageDialog from './ProfileImageDialog'
 
@@ -25,9 +25,7 @@ export default function Overview({
                 {professional?.user?.profile?.display_name}
               </h1>
               <span className="text-base md:text-lg capitalize text-primary font-medium block">
-                {professional?.professional_title
-                  .replace(/([A-Z])/g, ' $1')
-                  .trim()}
+                {formatSpaceToString(professional?.professional_title)}
               </span>
             </div>
           </div>

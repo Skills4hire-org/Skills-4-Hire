@@ -9,9 +9,13 @@ import type { Favorite } from '@/types/favourites.type'
 
 export default function Favorites() {
   const { data, isLoading, isError, refetch } = useFavourites()
-  const favourites: Favorite = data
-  const allFavourites = favourites?.providers ?? []
+  const favourites: Favorite[] =
+    data?.pages.flatMap((page) => page.data.results) ?? []
+  console.log(data)
+
+  const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
   const providersID = allFavourites?.map(({ provider_id }) => provider_id)
+  const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
 
   const handleFavouritesFetchingError = () => {
     refetch()
@@ -44,7 +48,7 @@ export default function Favorites() {
                       key={favourite.provider_id}
                       {...favourite}
                       providerIDs={providersID}
-                      favouriteID={favourites?.favourite_id}
+                      favouriteID={favoriteID[0]}
                     />
                   ))}
                 </div>
