@@ -34,10 +34,12 @@ export default function ServicesSearch() {
     isLoading: favoritesLoading,
     isError: favouritesError,
   } = useFavourites()
-  const favourites: Favorite = favoritesData
-  const providersID = favourites?.providers?.map(
-    ({ provider_id }) => provider_id,
-  )
+  const favourites: Favorite[] =
+    favoritesData?.pages.flatMap((page) => page.data.results) ?? []
+  const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
+  const providersID = allFavourites?.map(({ provider_id }) => provider_id)
+  const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
+
   const professionals: Provider[] =
     data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
@@ -94,7 +96,7 @@ export default function ServicesSearch() {
                           key={professional.provider_id}
                           {...professional}
                           providerIDs={providersID}
-                          favouriteID={favourites?.favourite_id}
+                          favouriteID={favoriteID[0]}
                         />
                       ))}
                     </div>
