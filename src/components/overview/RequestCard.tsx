@@ -64,8 +64,8 @@ export default function RequestCard({ post }: RequestCardProp) {
         <NegotiationDialog setIsNegotiateOpen={setIsNegotiateOpen} />
       )}
 
-      <div className="rounded-md shadow-md border border-gray-200 overflow-hidden bg-white">
-      <div className="px-2 md:px-6 py-4 md:py-6 flex flex-col gap-3">
+      <div className="shadow-md border border-gray-200 overflow-hidden">
+      <div className="px-3 md:px-6 py-4 md:py-6 flex flex-col gap-2">
         <div className="flex items-start gap-3">
           <div className="shrink-0">
             <ProfileImage noStatus size="size-10 md:size-12" avatar={avatar} />

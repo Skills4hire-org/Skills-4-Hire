@@ -140,10 +140,31 @@ export const useOffers = ({
   return queryData
 }
 
-export const useHireRequests = () => {
+export const useHireRequests = ({
+  tags_name,
+  city,
+  state,
+  min_amount,
+  max_amount,
+}: PostParams = {}) => {
   const queryData = useInfiniteQuery({
-    queryKey: ["hire-requests"],
-    queryFn: ({ pageParam }) => getHireRequests({ pageParam }),
+    queryKey: [
+      'hire-requests',
+      tags_name,
+      city,
+      state,
+      min_amount,
+      max_amount,
+    ],
+    queryFn: ({ pageParam }) =>
+      getHireRequests({
+        pageParam,
+        tags_name,
+        city,
+        state,
+        min_amount,
+        max_amount,
+      }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.next ?? undefined,
     retry: 1,

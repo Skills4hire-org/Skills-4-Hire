@@ -152,7 +152,7 @@ export default function Services() {
                     />
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-1">
                     {professionals?.slice(0, 4).map((professional) => (
                       <ServiceProviderCard
                         key={professional.provider_id}
