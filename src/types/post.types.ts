@@ -53,6 +53,8 @@ export type Post = {
     user_id: string
     first_name?: string
     last_name?: string
+    is_provider?: boolean
+    is_customer?: boolean
     total_reviews?: number
     profile?: {
       display_name: string
