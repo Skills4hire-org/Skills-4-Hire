@@ -18,7 +18,7 @@ export default function ConversationCard({ conversation }: ConversationProps) {
 
   return (
     <Link
-      to={`/${userType}/chats/${conversation.conversation_id}`}
+      to={`/${userType}/messages/${conversation.conversation_id}`}
       className={`flex items-center p-2 rounded-md cursor-pointer bg-white gap-2 shadow-md 
         ${isActive ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
     >
@@ -36,7 +36,7 @@ export default function ConversationCard({ conversation }: ConversationProps) {
             Plumber {conversation.participant_two.profile.professional_title}
           </span>
           <p className="text-sm md:text-base break-all line-clamp-1 w-full">
-            {conversation.last_message.content || 'No messages yet'}
+            {conversation.last_message?.content || 'No messages yet'}
           </p>
         </div>
         <div className="flex flex-col items-center justify-between shrink-0">

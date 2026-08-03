@@ -50,6 +50,11 @@ const bookingSlice = createSlice({
       const { info } = action.payload
       state.info = { ...state.info, ...info }
     },
+    resetBooking: (state) => {
+      state.services = []
+      state.step = 1
+      state.info = { ...defaultState.info }
+    },
   },
 })
 
@@ -59,6 +64,7 @@ export const {
   resetService,
   handleSteps,
   handleBookingInfo,
+  resetBooking,
 } = bookingSlice.actions
 
 export default bookingSlice.reducer

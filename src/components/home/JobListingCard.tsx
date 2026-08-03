@@ -56,7 +56,7 @@ export default function JobListingCard({
   responsibilities,
 }: JobListing) {
   return (
-    <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">
+    <div className="bg-white shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1">
           <p className="text-xs text-[1rem] font-medium text-gray-500 mb-0.5">

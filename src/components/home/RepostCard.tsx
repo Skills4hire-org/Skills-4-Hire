@@ -7,7 +7,7 @@ export default function RepostCard({ reposted_by }: Reposted) {
       <ProfileImage
         noStatus
         size="size-9"
-        avatar={reposted_by.profile.avatar.avatar}
+        avatar={reposted_by.profile.avatar?.avatar}
       />
       <h3 className="font-semibold text-base md:text-lg">
         {reposted_by.profile.display_name}

@@ -1,6 +1,11 @@
 import { Star } from 'lucide-react'
 import { Badge } from '../ui/badge'
+<<<<<<< HEAD
 import { currencyFormatter, formatSpaceToString } from '@/utils/format'
+=======
+import { currencyFormatter } from '@/utils/format'
+import defaultImage from '../../assets/images/profile.jpg'
+>>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
 import { Link } from 'react-router-dom'
 import type { Profile } from '@/types/user.types'
 
@@ -18,9 +23,15 @@ export default function ServiceProviderBookingCard({
       <Link to={`/customer/professionals/${provider_id}`}>
         <figure className="rounded-tr-4xl h-full ">
           <img
+<<<<<<< HEAD
             src={user?.profile?.avatar?.avatar}
             alt={user?.profile?.display_name}
             className="w-24 md:w-42 aspect-square object-cover  rounded-tr-4xl"
+=======
+            src={user?.profile?.avatar?.avatar ?? defaultImage}
+            alt={professional_title}
+            className="max-w-24 md:max-w-42 h-full object-cover rounded-tr-4xl"
+>>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
             loading="lazy"
           />
         </figure>

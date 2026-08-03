@@ -1,6 +1,7 @@
 import { dateFormatter, timeFormatter } from '@/utils/format'
 import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
+import defaultImage from '../../assets/images/profile.jpg'
 import { Link } from 'react-router-dom'
 import type { Booking } from '@/types/bookings.type'
 
@@ -32,8 +33,8 @@ export default function CustomerBookingCard({
         <Link to={`/customer/professionals/${provider?.provider_id}`}>
           <figure className="w-24 h-24 md:w-30 md:h-30">
             <img
-              src={provider?.profile?.avatar?.avatar}
-              alt={provider?.profile?.display_name}
+              src={provider?.user?.profile?.avatar?.avatar ?? defaultImage}
+              alt={provider?.user?.profile?.display_name}
               className="aspect-square object-cover h-full w-full"
               loading="lazy"
             />
@@ -52,12 +53,17 @@ export default function CustomerBookingCard({
         </h3>
         <div className="flex items-center gap-2 mb-2">
           <Link to={`/customer/professionals/${provider?.provider_id}`}>
-            <ProfileImage noStatus avatar={provider?.profile?.avatar?.avatar} />
+            <ProfileImage
+              noStatus
+              avatar={provider?.user?.profile?.avatar?.avatar}
+            />
           </Link>
 
           <div className="flex flex-col gap-1.5">
             <Link to={`/customer/professionals/${provider?.provider_id}`}>
-              <h4 className="text-xs">{provider?.profile?.display_name}</h4>
+              <h4 className="text-xs">
+                {provider?.user?.profile?.display_name}
+              </h4>
             </Link>
 
             <Ratings rating={provider?.avg_rating} />

@@ -1,5 +1,5 @@
-import { getAllServices } from '@/api/services'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { getAllServices, getServiceCategories } from '@/api/services'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 export const useAllServices = ({ category }: { category?: string }) => {
   const queryData = useInfiniteQuery({
@@ -13,3 +13,10 @@ export const useAllServices = ({ category }: { category?: string }) => {
   })
   return queryData
 }
+
+export const useServiceCategories = () =>
+  useQuery({
+    queryKey: ['service-categories'],
+    queryFn: getServiceCategories,
+    retry: 1,
+  })

@@ -1,17 +1,44 @@
 import type { UserType } from '@/utils/types'
-import { Heart, MessageCircle, BarChart2, MapPin, Dot } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import {
+  Heart,
+  MessageCircle,
+  BarChart2,
+  MapPin,
+  Dot,
+  MoreVertical,
+  Pencil,
+  Trash2,
+} from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
 import CommentForm from '../form/CommentForm'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useLikePost, useUnlikePost } from '@/hooks/usePosts'
+import { useDeletePost, useLikePost, useUnlikePost } from '@/hooks/usePosts'
 import type { Post } from '@/types/post.types'
+import type { UserData } from '@/types/user.types'
 import EndorseDialog from '../endorse/EndorseDialog'
 import ImageCarousel from './ImageCarousel'
 import Comment from './Comment'
 import { formatCommentTime } from '@/utils/format'
 import Repost from './Repost'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 
 export default function PostCard({
   post_id,
@@ -30,24 +57,28 @@ export default function PostCard({
 }: Post & { queryKey: string[] }) {
   const [showComment, setShowComment] = useState(false)
   const [viewMore, setViewMore] = useState(false)
-  const [clickOnce, setClickOnce] = useState(false)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const navigate = useNavigate()
 
-  const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState,
-  )
+  const { userType, user_data }: { userType: UserType; user_data: UserData } =
+    useSelector((state: any) => state.userState)
   const provider_id = user?.profile?.provider_id
   const provider_service = user?.profile?.professional_title
   const impression_count = 0
+  const isOwner = user_data?.user_id === user?.user_id
 
   const { mutate: likePost, isPending: liking } = useLikePost(queryKey)
   const { mutate: unlikePost, isPending: unliking } = useUnlikePost(queryKey)
+  const { mutate: deletePost } = useDeletePost()
 
   const handleLikePost = () => {
     is_liked ? unlikePost({ post_id }) : likePost({ post_id })
   }
 
+  const isTextLong = post_content && post_content.length > 200
+
   return (
-    <div className="bg-white rounded-2xl shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
+    <div className="bg-white lg:rounded-2xl md:rounded-2xl md:shadow lg:shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
           <Link to={`/${userType}/professionals/${provider_id}`}>
@@ -116,22 +147,49 @@ export default function PostCard({
             </div>
           </div>
         </div>
+        {isOwner && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                aria-label="Post options"
+                className="cursor-pointer p-1 rounded-full text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+              >
+                <MoreVertical className="w-5 h-5" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => navigate(`/${userType}/edit-post/${post_id}`)}
+              >
+                <Pencil className="w-4 h-4" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                variant="destructive"
+                onClick={() => setShowDeleteDialog(true)}
+              >
+                <Trash2 className="w-4 h-4" />
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
       <div>
         <p
-          className={`text-gray-600 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line ${!viewMore && 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4'}`}
+          className={`text-gray-900 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line ${isTextLong && !viewMore ? 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4' : ''}`}
         >
           {post_content}
         </p>
-        <button
-          onClick={() => {
-            setViewMore(true)
-            setClickOnce(true)
-          }}
-          className={`text-[14px] md:text-base text-primary underline cursor-pointer hover:no-underline ${clickOnce && 'hidden'}`}
-        >
-          more
-        </button>
+        {isTextLong && (
+          <button
+            onClick={() => setViewMore(!viewMore)}
+            className="text-[14px] md:text-base text-primary underline cursor-pointer hover:no-underline"
+          >
+            {viewMore ? 'less' : 'more'}
+          </button>
+        )}
       </div>
       {attachments?.length !== 0 && (
         <div className="my-8">
@@ -193,6 +251,29 @@ export default function PostCard({
           <Comment post_id={post_id} />
         </div>
       )}
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete post?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. The post will be permanently
+              removed.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              variant="destructive"
+              onClick={() => {
+                deletePost({ post_id })
+                setShowDeleteDialog(false)
+              }}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

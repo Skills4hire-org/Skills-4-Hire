@@ -37,7 +37,7 @@ export default function Services() {
   const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
 
   const services: Service[] =
-    data?.pages.flatMap((page) => page.data.results) ?? []
+    data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const professionals: Provider[] =
     providers?.pages.flatMap((page) => page.data.results) ?? []
 
@@ -50,7 +50,7 @@ export default function Services() {
   }
 
   return (
-    <div className="space-y-2 md:space-y-6">
+    <div className="space-y-2 md:space-y-6 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
       <Container className="bg-white">
         <MobileServicesOverviewHeader />
         <DesktopServicesOverviewHeader />
@@ -70,13 +70,14 @@ export default function Services() {
                 />
                 <button
                   type="submit"
-                  className="absolute top-1/2  -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
+                  className="absolute top-1/2 -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
                 >
                   <Search className="w-4.5 h-4.5" />
                 </button>
               </div>
             </Link>
           </div>
+
           <section className="space-y-3 pb-1.5 min-h-32">
             <div className="flex items-center justify-between gap-6">
               <SectionHeading heading="Available services" />
@@ -102,16 +103,30 @@ export default function Services() {
                     />
                   </div>
                 ) : (
-                  <div className="grid grid-cols-3 xl:grid-cols-6 gap-2 md:gap-4">
+                  /* 
+                    LAYOUT CHANGE: Swapped grid for a horizontally scrollable flex row.
+                    - flex: places items side-by-side
+                    - overflow-x-auto: enables horizontal swipe scroll
+                    - scrollbar-none: custom utility class to hide scrollbars if you have it configured
+                    - pb-4: adds padding at the bottom so box-shadows don't clip
+                  */
+                  <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory">
                     {services?.slice(0, 6)?.map((service) => (
-                      <ServicesCard key={service.service_id} {...service} />
+                      <div
+                        key={service.service_id}
+                        className="flex-none w-[240px] md:w-[280px] snap-start"
+                      >
+                        <ServicesCard {...service} />
+                      </div>
                     ))}
                   </div>
                 )}
               </>
             )}
           </section>
+
           <ReferAndEarnBanner />
+
           <section className="space-y-3">
             <div className="flex items-center justify-between gap-6">
               <SectionHeading heading="Professionals for you" />
@@ -137,7 +152,7 @@ export default function Services() {
                     />
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-1">
                     {professionals?.slice(0, 4).map((professional) => (
                       <ServiceProviderCard
                         key={professional.provider_id}

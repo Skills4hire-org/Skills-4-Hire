@@ -1,1 +1,8 @@
 add a notification dot for jobs tab   - done
+
+Backend (recommended, for clean pagination) — filtering client-side leaves smaller pages and can show "No posts yet" while more pages exist. The proper fix is at the source in RecommendationService._get_candidates (backend/apps/posts/services/recommendation_service.py):
+if include_offers:
+    candidates = candidates.filter(post_type=Post.PostType.JOB)
+else:
+    candidates = candidates.exclude(post_type=Post.PostType.JOB, user__is_provider=False)
+I've saved this as a ready-to-apply patch at C:\Users\isaac\AppData\Local\Temp\opencode\exclude-customer-jobs.patch in the skills-4-hire-backend repo. Once deployed, the frontend filter becomes a harmless safety net. Want me to apply it to a local checkout of the backend repo?

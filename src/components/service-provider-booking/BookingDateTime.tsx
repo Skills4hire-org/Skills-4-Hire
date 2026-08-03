@@ -60,6 +60,7 @@ export default function BookingDateTime({
               <ServiceProviderServicesCard
                 key={service.service_id}
                 {...service}
+                check
               />
             ))
           ) : (
@@ -70,6 +71,7 @@ export default function BookingDateTime({
         </div>
 
         {showAllServices && (
+<<<<<<< HEAD
           <>
             {isLoading ? (
               <div className="h-24">
@@ -135,6 +137,20 @@ export default function BookingDateTime({
               </>
             )}
           </>
+=======
+          <div className={`space-y-4 ${!serviceProvider && 'mb-4'}`}>
+            {!serviceProvider?.services ||
+              serviceProvider?.services
+                .filter((service) => !servicesIds.includes(service.service_id))
+                ?.map((service) => (
+                  <ServiceProviderServicesCard
+                    key={service.service_id}
+                    {...service}
+                    check
+                  />
+                ))}
+          </div>
+>>>>>>> 742d06b4538a2774e5bab469cd60a9341e843331
         )}
 
         <div className="text-center">

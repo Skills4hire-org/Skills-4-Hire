@@ -77,6 +77,8 @@ export type ProviderParams = {
   max_charge?: number | null
   ratings?: number | null
   pageParam?: string
+  service?: string;
+  location?: string;
 }
 
 export type Service = {

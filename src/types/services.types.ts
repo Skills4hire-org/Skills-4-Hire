@@ -7,9 +7,7 @@ export type AvailableServices = {
 export type Service = {
   service_id: string
   name: string
-  attachments: [
-    {
-      image_url: string
-    },
-  ]
+  attachments?: {
+    image_url: string
+  }[]
 }

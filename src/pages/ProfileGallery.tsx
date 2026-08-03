@@ -30,7 +30,7 @@ export default function ProfileGallery() {
   })
 
   const gallery: Gallery[] =
-    data?.pages.flatMap((page) => page.data.results) ?? []
+    data?.pages.flatMap((page) => page.results) ?? []
 
   const handleGalleryFetchingError = async () => {
     refetch()

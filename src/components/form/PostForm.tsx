@@ -5,32 +5,38 @@ import { Check, ImageIcon, Plus, VideoIcon } from 'lucide-react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import FormSubmitButton from '../buttons/FormSubmitButton'
-import type { CreatePost } from '@/types/post.types'
-import { useCreatePost } from '@/hooks/usePosts'
-import { useNavigate } from 'react-router-dom'
+import type { CreatePost, Post } from '@/types/post.types'
 import { uploadToCloudinary } from '@/utils/cloudinary'
+import ImageEditor from '../global/ImageEditor'
 
-export default function PostForm() {
-  /*   const [input, setInput] = useState('') */
-  /*  const [keywords, setKeywords] = useState<string[]>([]) */
+type PostFormProps = {
+  post?: Post
+  onSubmit: (data: CreatePost) => void
+  isSubmitting: boolean
+  setIsSubmitting: (value: boolean) => void
+}
+
+export default function PostForm({
+  post,
+  onSubmit,
+  isSubmitting,
+  setIsSubmitting,
+}: PostFormProps) {
+  const isEdit = !!post
   const [formData, setFormData] = useState<{
     post: string
     photos: File[]
     videos: File[]
   }>({
-    post: '',
+    post: post?.post_content ?? '',
     photos: [],
     videos: [],
   })
 
-  /*  const [showInput, setShowInput] = useState(false) */
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const navigate = useNavigate()
   const getMediaType = (url: string) => {
     if (/\.(mp4|webm|ogg)$/i.test(url)) return 'VIDEO'
     return 'PHOTO'
   }
-  const { mutate: createPost, isPending } = useCreatePost()
 
   const handleInputChange = (field: string, value: string) => {
     if (field === 'budget') {
@@ -43,25 +49,45 @@ export default function PostForm() {
 
   const imageRef = useRef<HTMLInputElement>(null)
   const videoRef = useRef<HTMLInputElement>(null)
+  const editQueueRef = useRef<File[]>([])
+  const [editingSrc, setEditingSrc] = useState<string | null>(null)
+  const [editingFile, setEditingFile] = useState<File | null>(null)
+
+  const openNextEditor = () => {
+    const next = editQueueRef.current.shift()
+    if (!next) {
+      setEditingSrc(null)
+      setEditingFile(null)
+      return
+    }
+    setEditingFile(next)
+    setEditingSrc(URL.createObjectURL(next))
+  }
+
+  const handleEditConfirm = (file: File) => {
+    setFormData((prev) => ({ ...prev, photos: [...prev.photos, file] }))
+    openNextEditor()
+  }
+
+  const handleEditCancel = () => {
+    openNextEditor()
+  }
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 10 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
-    let acceptedImageFiles: File[] = []
+    const acceptedImageFiles: File[] = []
     if (files.length === 0) return
     files.forEach((newFile) => {
       const fileType = newFile.type.startsWith('image/')
       if (!fileType && imageRef.current) {
-        imageRef.current.value = ''
         toast.warning(`${newFile.name} file type is not acceptable`)
-
         return
       }
       const isOverSize = newFile.size > MAX_SIZE_MB
 
       if (isOverSize && imageRef.current) {
-        imageRef.current.value = ''
         toast.warning(
           `${newFile.name}'s size exceeds maximum upload size (2MB)`,
         )
@@ -69,7 +95,14 @@ export default function PostForm() {
       }
       acceptedImageFiles.push(newFile)
     })
-    setFormData({ ...formData, photos: acceptedImageFiles })
+    if (imageRef.current) {
+      imageRef.current.value = ''
+    }
+    if (acceptedImageFiles.length === 0) return
+    editQueueRef.current.push(...acceptedImageFiles)
+    if (!editingSrc) {
+      openNextEditor()
+    }
   }
 
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -126,8 +159,16 @@ export default function PostForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const files = [...formData.videos, ...formData.photos]
     setIsSubmitting(true)
+    if (isEdit) {
+      const allData: CreatePost = {
+        post_content: formData.post,
+        post_type: 'GENERAL',
+      }
+      onSubmit(allData)
+      return
+    }
+    const files = [...formData.videos, ...formData.photos]
     try {
       const uploadedUrls = await uploadToCloudinary(files)
       const formatUrls = uploadedUrls?.map((url) => {
@@ -144,21 +185,10 @@ export default function PostForm() {
         attachments: formatUrls,
       }
 
-      createPost(allData, {
-        onSuccess: () => {
-          navigate('/professional/home/posts')
-          toast.success('Post created successfully')
-        },
-        onError: (error) => {
-          toast.error(error.message)
-          setIsSubmitting(false)
-        },
-      })
+      onSubmit(allData)
     } catch (error: any) {
       setIsSubmitting(false)
       toast.error('Uploading of media files failed. Please try again')
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -231,76 +261,88 @@ export default function PostForm() {
         </div>
       </div>  */}
 
-      <div className="flex items-center gap-3 mt-6 md:mt-8">
-        <Label
-          htmlFor="photo"
-          className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
-        >
-          <Input
-            id="photo"
-            name="photo"
-            type="file"
-            multiple
-            ref={imageRef}
-            accept="image/png, image/jpeg"
-            onChange={(e) => handleImageChange(e)}
-            className="hidden"
-          />
-          <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
-          <span className="text-xs md:text-sm">Photo</span>
-          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
-            {formData.photos.length !== 0 ? (
-              <>
-                <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-                <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
-                  {formData.photos.length}
-                </span>
-              </>
-            ) : (
-              <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-            )}
-          </span>
-        </Label>
-        <Label
-          htmlFor="video"
-          className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
-        >
-          <Input
-            id="video"
-            name="video"
-            type="file"
-            multiple
-            ref={videoRef}
-            accept="video/*"
-            onChange={(e) => handleVideoChange(e)}
-            className="hidden"
-          />
-          <VideoIcon className="w-4 h-4 md:w-5 md:h-5" />
-          <span className="text-xs md:text-sm">Video</span>
-          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
-            {formData.videos.length !== 0 ? (
-              <>
-                <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-                <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
-                  {formData.videos.length}
-                </span>
-              </>
-            ) : (
-              <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-            )}
-          </span>
-        </Label>
-      </div>
+      {!isEdit && (
+        <div className="flex items-center gap-3 mt-6 md:mt-8">
+          <Label
+            htmlFor="photo"
+            className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
+          >
+            <Input
+              id="photo"
+              name="photo"
+              type="file"
+              multiple
+              ref={imageRef}
+              accept="image/png, image/jpeg"
+              onChange={(e) => handleImageChange(e)}
+              className="hidden"
+            />
+            <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="text-xs md:text-sm">Photo</span>
+            <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
+              {formData.photos.length !== 0 ? (
+                <>
+                  <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                  <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
+                    {formData.photos.length}
+                  </span>
+                </>
+              ) : (
+                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              )}
+            </span>
+          </Label>
+          <Label
+            htmlFor="video"
+            className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
+          >
+            <Input
+              id="video"
+              name="video"
+              type="file"
+              multiple
+              ref={videoRef}
+              accept="video/*"
+              onChange={(e) => handleVideoChange(e)}
+              className="hidden"
+            />
+            <VideoIcon className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="text-xs md:text-sm">Video</span>
+            <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
+              {formData.videos.length !== 0 ? (
+                <>
+                  <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                  <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
+                    {formData.videos.length}
+                  </span>
+                </>
+              ) : (
+                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              )}
+            </span>
+          </Label>
+        </div>
+      )}
       <div className="border-t pt-2 md:pt-4 flex justify-end">
         <FormSubmitButton
           size="sm"
-          submitting={isPending || isSubmitting}
-          text="Post"
-          texting="Posting"
-          disabled={isPending || isSubmitting}
+          submitting={isSubmitting}
+          text={isEdit ? 'Update' : 'Post'}
+          texting={isEdit ? 'Updating' : 'Posting'}
+          disabled={isSubmitting}
           className="px-4 md:px-8 text-sm md:text-base"
         />
       </div>
+      <ImageEditor
+        open={!!editingSrc}
+        imageSrc={editingSrc ?? ''}
+        aspect={4 / 5}
+        outputWidth={1024}
+        outputHeight={1280}
+        fileName={editingFile?.name}
+        onCancel={handleEditCancel}
+        onConfirm={handleEditConfirm}
+      />
     </form>
   )
 }

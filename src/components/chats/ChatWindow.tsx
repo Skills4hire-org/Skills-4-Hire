@@ -21,7 +21,7 @@ import Loading from '../global/Loading'
 import Error from '../global/Error'
 
 export default function ChatWindow() {
-  const { conversation_id } = useParams()
+  const { conversationId: conversation_id } = useParams()
   const {
     data,
     isLoading,
@@ -32,7 +32,10 @@ export default function ChatWindow() {
     fetchNextPage,
     isFetchNextPageError,
   } = useMessages({ conversation_id })
-  const messages: Message[] = data?.pages.flatMap((page) => page.results) ?? []
+  const messages: Message[] =
+    data?.pages
+      .flatMap((page) => page?.results ?? [])
+      .filter((message): message is Message => !!message) ?? []
 
   useChatSocket(conversation_id!, (incomingMessage) => {
     updateMessage(incomingMessage, conversation_id!)
@@ -103,7 +106,7 @@ export default function ChatWindow() {
                 <ProfileImage size="size-10" noStatus />
                 <div>
                   <h2 className="font-semibold text-lg">
-                    {messages[0].sender.profile.display_name}
+                    {messages[0]?.sender?.profile?.display_name || 'Conversation'}
                   </h2>
                   <div className="text-xs md:text-sm flex items-center gap-1.5 font-medium -mt-0.5">
                     <span className="w-2 h-2 block bg-primary rounded-full"></span>

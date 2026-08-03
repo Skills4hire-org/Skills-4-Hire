@@ -11,14 +11,16 @@ export type Booking = {
   }
   provider: {
     provider_id: string
-    profile: {
-      display_name: string
-      avatar: {
-        avatar: string
-      }
-    }
     professional_title: string
     avg_rating: number
+    user: {
+      profile: {
+        display_name: string
+        avatar: {
+          avatar: string
+        }
+      }
+    }
   }
   price: number
   descriptions: string

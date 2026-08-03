@@ -11,17 +11,21 @@ import Container from "@/components/global/Container";
 import MobileServicesOverviewHeader from "@/components/header/MobileServicesOverviewHeader";
 import DesktopServicesOverviewHeader from "@/components/header/DesktopServicesOverviewHeader";
 import { Link } from "react-router-dom";
-import NoRequestCard from "@/components/overview/NoRequestCard";
-import RequestCard from "@/components/overview/RequestCard";
+import ServiceProviderBookingCard from "@/components/bookings/ServiceProviderBookingCard";
+import NoBookingCard from "@/components/bookings/NoBookingCard";
 import NoReviewCard from "@/components/reviews/NoReviewCard";
 import ReferAndEarnBanner from "@/components/services/ReferAndEarnBanner";
+import { useBookings } from "@/hooks/useBookings";
 
 export default function ProviderOverview() {
-  const { user, stats, chart, newBookingRequest, reviews } =
+  const { user, stats, chart, reviews } =
     providerOverviewData;
 
+  const { data: bookingsData } = useBookings({ booking_status: 'In_progress' })
+  const latestBookings = bookingsData?.pages.flatMap((page) => page?.results ?? []).filter(Boolean) ?? []
+
   return (
-    <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17">
+    <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17 lg:ml-17">
       <Container className="bg-white">
         <MobileServicesOverviewHeader />
         <DesktopServicesOverviewHeader />
@@ -64,19 +68,21 @@ export default function ProviderOverview() {
           <section className="bg-white rounded-lg px-2 py-4 md:px-3 md:py-6 space-y-4 md:space-y-6 shadow-md ">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-gray-900">
-                {newBookingRequest.title} (
-                {newBookingRequest && newBookingRequest.requests.length})
+                Bookings ({latestBookings.length})
               </h2>
               <Link
-                to="request"
+                to="/professional/bookings"
                 className="text-xs md:text-sm text-primary hover:underline"
               >
                 View all
               </Link>
             </div>
             <div>
-              <RequestCard {...newBookingRequest.requests[0]} />
-              {newBookingRequest.requests.length === 0 && <NoRequestCard />}
+              {latestBookings.length > 0 ? (
+                <ServiceProviderBookingCard {...latestBookings[0]} />
+              ) : (
+                <NoBookingCard label="Ongoing" />
+              )}
             </div>
           </section>
           <ReferAndEarnBanner />

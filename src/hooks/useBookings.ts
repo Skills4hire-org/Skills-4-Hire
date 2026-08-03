@@ -13,7 +13,7 @@ export const useBookings = ({ booking_status }: { booking_status: string }) => {
     queryFn: ({ pageParam }) => getBookings({ pageParam, booking_status }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
   })

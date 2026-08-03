@@ -1,27 +1,36 @@
-import { getNotificationDetails, timeFormatter } from '@/utils/format'
+import { Bell } from 'lucide-react'
+import { timeFormatter } from '@/utils/format'
 
 export default function NotificationCard({
-  type,
+  event,
+  content,
   createdAt,
+  isRead,
+  onRead,
 }: {
-  type: string
+  event?: string | null
+  content?: string | null
   createdAt: number | string
+  isRead: boolean
+  onRead?: () => void
 }) {
-  const notificationDetails = getNotificationDetails[type]
-  const { title, message, icon, className } = notificationDetails
-  const IconComponent = icon
+  const title = event?.replaceAll('_', ' ') || 'Notification'
   return (
-    <div className="bg-gray-300 rounded-lg py-1.5 px-3 md:px-6 md:py-3 flex gap-2 md:gap-4 items-center">
-      <IconComponent className={`w-5 h-5 md:w-6 md:h-6 ${className}`} />
+    <button
+      type="button"
+      onClick={onRead}
+      className={`w-full text-left rounded-lg py-1.5 px-3 md:px-6 md:py-3 flex gap-2 md:gap-4 items-center ${isRead ? 'bg-gray-100' : 'bg-gray-300'}`}
+    >
+      <Bell className="w-5 h-5 md:w-6 md:h-6 text-yellow-500" />
       <div className="flex-1 flex items-center justify-between gap-4">
         <div className="space-y-0.5 md:space-y-1">
-          <h3 className="font-medium text-sm md:text-base">{title}</h3>
-          <p className="text-xs md:text-sm pb-0.5 md:pb-0">{message}</p>
+          <h3 className="font-medium text-sm md:text-base capitalize">{title}</h3>
+          <p className="text-xs md:text-sm pb-0.5 md:pb-0">{content || 'You have a new update.'}</p>
         </div>
         <time className="text-xs md:text-sm shrink-0">
           {timeFormatter(createdAt)}
         </time>
       </div>
-    </div>
+    </button>
   )
 }

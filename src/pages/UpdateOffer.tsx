@@ -8,6 +8,7 @@ import { useEditPost, usePost } from '@/hooks/usePosts'
 import type { CreatePost } from '@/types/post.types'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export default function UpdateOffer() {
   const { id } = useParams()
@@ -20,10 +21,11 @@ export default function UpdateOffer() {
       { post_id: id, data: allData },
       {
         onSuccess: () => {
-          navigate('/customer/home/my-offer')
+          navigate('/customer/home/my-offers')
         },
-        onError: () => {
+        onError: (error) => {
           setIsSubmitting(false)
+          toast.error(error.message || 'Unable to update your offer.')
         },
       },
     )
@@ -47,7 +49,7 @@ export default function UpdateOffer() {
             </div>
           ) : (
             <>
-              {!isError ? (
+              {isError ? (
                 <div className="py-10">
                   <Error
                     text="Failed to load offer"

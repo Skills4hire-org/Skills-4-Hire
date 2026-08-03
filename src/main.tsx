@@ -6,12 +6,15 @@ import { store } from './store.ts'
 import { Toaster } from 'sonner'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from './utils/queryClientConfig.ts'
+import ErrorBoundary from './components/global/ErrorBoundary'
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <Toaster position="top-center" />
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </QueryClientProvider>
   </Provider>,
 )

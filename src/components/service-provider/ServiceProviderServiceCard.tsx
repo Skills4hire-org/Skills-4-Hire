@@ -4,6 +4,7 @@ import { MapPin, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import ProfileImage from '../global/ProfileImage'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
+import defaultImage from '../../assets/images/profile.jpg'
 
 export default function ServiceProviderServiceCard({
   user,
@@ -19,7 +20,7 @@ export default function ServiceProviderServiceCard({
     <div className="relative">
       <div className="relative w-full overflow-visible rounded-2xl">
         <img
-          src={user?.profile?.avatar?.avatar}
+          src={user?.profile?.avatar?.avatar ?? defaultImage}
           alt={user?.profile.display_name}
           className="w-[99%] md:w-[98.5%] mx-auto rounded-2xl object-cover h-40 sm:h-60 md:h-72 lg:h-80"
         />

@@ -41,10 +41,12 @@ export default function PostComposer() {
     <form
       className="
         bg-white
-        rounded-md
+        lg:rounded-md
+        md:rounded-md
         space-y-4
         px-2 py-4 md:py-6 md:px-3
-        shadow-md 
+        lg:shadow-md
+        md:shadow-md
         border
         border-gray-300
         

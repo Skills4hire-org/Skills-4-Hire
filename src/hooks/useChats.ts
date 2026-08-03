@@ -59,11 +59,7 @@ export const useConversations = () => {
     queryFn: ({ pageParam }) => getConversationList(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      if (lastPage.pagination.current_page < lastPage.pagination.total_pages) {
-        return lastPage.pagination.current_page + 1
-      }
-
-      return undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
   })
@@ -81,11 +77,7 @@ export const useMessages = ({
     queryFn: ({ pageParam }) => getMessages({ pageParam, conversation_id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      if (lastPage.pagination.current_page < lastPage.pagination.total_pages) {
-        return lastPage.pagination.current_page + 1
-      }
-
-      return undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
     enabled: !!conversation_id,
@@ -102,9 +94,9 @@ export const useChatSocket = (
   useEffect(() => {
     if (!conversationId) return
 
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL
-
-    const ws = new WebSocket(`${BASE_URL}/ws/chats/${conversationId}/`)
+    const baseUrl = new URL(import.meta.env.VITE_API_BASE_URL)
+    baseUrl.protocol = baseUrl.protocol === 'https:' ? 'wss:' : 'ws:'
+    const ws = new WebSocket(`${baseUrl.toString().replace(/\/$/, '')}/ws/chats/${conversationId}/`)
 
     socketRef.current = ws
 

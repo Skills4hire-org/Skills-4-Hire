@@ -6,8 +6,11 @@ import type { Post } from '@/types/post.types'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import NoJobsFound from '@/components/global/NoResultFound'
 import { Briefcase } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import type { UserData } from '@/types/user.types'
 
 export default function CustomerOffers() {
+  const user: UserData | null = useSelector((state: any) => state.userState.user_data)
   const {
     data,
     isLoading,
@@ -17,9 +20,9 @@ export default function CustomerOffers() {
     hasNextPage,
     isFetchingNextPage,
     isFetchNextPageError,
-  } = useMyPosts()
+  } = useMyPosts({ user_id: user?.user_id })
 
-  const offers: Post[] = data?.pages.flatMap((page) => page.data.results) ?? []
+  const offers: Post[] = data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

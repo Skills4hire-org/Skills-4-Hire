@@ -6,11 +6,12 @@ import FormSelect from '../form-fields/FormSelect'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Check, ImageIcon, Paperclip, Plus } from 'lucide-react'
-import { services, timeFrameOptions } from '@/assets/data'
+import { serviceTypes, timeFrameOptions } from '@/assets/data'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
 import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
+import ImageEditor from '../global/ImageEditor'
 
 export default function OfferForm({
   offer,
@@ -44,6 +45,33 @@ export default function OfferForm({
     }
   }
   const fileRef = useRef<HTMLInputElement>(null)
+  const editQueueRef = useRef<File[]>([])
+  const [editingSrc, setEditingSrc] = useState<string | null>(null)
+  const [editingFile, setEditingFile] = useState<File | null>(null)
+
+  const openNextEditor = () => {
+    const next = editQueueRef.current.shift()
+    if (!next) {
+      setEditingSrc(null)
+      setEditingFile(null)
+      return
+    }
+    setEditingFile(next)
+    setEditingSrc(URL.createObjectURL(next))
+  }
+
+  const handleEditConfirm = (file: File) => {
+    setFormData((prev) => ({
+      ...prev,
+      photo: [...prev.photo, file],
+    }))
+    openNextEditor()
+  }
+
+  const handleEditCancel = () => {
+    openNextEditor()
+  }
+
   const handleFileChange = (field: string, file: any) => {
     const selectedFiles = file || []
     const files: File[] = Array.from(selectedFiles)
@@ -65,7 +93,19 @@ export default function OfferForm({
       }
       acceptedImageFiles.push(newFile)
     })
-    setFormData({ ...formData, [field]: acceptedImageFiles })
+    if (fileRef.current) {
+      fileRef.current.value = ''
+    }
+    if (acceptedImageFiles.length === 0) return
+
+    if (field === 'photo') {
+      editQueueRef.current.push(...acceptedImageFiles)
+      if (!editingSrc) {
+        openNextEditor()
+      }
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: acceptedImageFiles }))
+    }
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -88,8 +128,9 @@ export default function OfferForm({
         post_content: validatedData.post,
         post_type: 'JOB',
         amount: validatedData.budget,
-        duration: validatedData.timeFrame,
-        tags: [validatedData.service],
+        duration: Number(validatedData.timeFrame),
+        // The API accepts category UUIDs only. The temporary UI list contains
+        // labels, so do not submit an invalid tag until those UUIDs are known.
         /* attachment: {
           attachment_type: 'VIDEO' | 'PHOTO' | 'FILE'
           attachmentURL: string
@@ -156,7 +197,7 @@ export default function OfferForm({
             label="Type of Service"
             value={formData.service}
             handleInputChange={handleInputChange}
-            selectItems={services}
+            selectItems={serviceTypes}
             placeholder="Select"
             className="border-0 border-b h-9 [&_svg]:block pl-3 text-sm md:text-base"
             labelSize="text-xs md:text-sm"
@@ -248,6 +289,16 @@ export default function OfferForm({
           className="px-4 md:px-8 text-sm md:text-base"
         />
       </div>
+      <ImageEditor
+        open={!!editingSrc}
+        imageSrc={editingSrc ?? ''}
+        aspect={4 / 5}
+        outputWidth={1024}
+        outputHeight={1280}
+        fileName={editingFile?.name}
+        onCancel={handleEditCancel}
+        onConfirm={handleEditConfirm}
+      />
     </form>
   )
 }
