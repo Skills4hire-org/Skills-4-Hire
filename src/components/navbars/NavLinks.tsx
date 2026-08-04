@@ -20,7 +20,7 @@ export default function NavLinks({
     <NavLink
       key={label}
       to={url}
-      className="text-white/60 capitalize flex flex-col items-center gap-0.5 relative pt-1"
+      className="text-white/60 capitalize flex flex-col items-center gap-0.5 relative pt-2"
     >
       {/* Active indicator line on top */}
       <span
