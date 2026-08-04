@@ -20,10 +20,15 @@ export default function NavLinks({
     <NavLink
       key={label}
       to={url}
-      className={` text-white/60 capitalize flex flex-col items-center gap-0.5
-              
-            `}
+      className="text-white/60 capitalize flex flex-col items-center gap-0.5 relative pt-1"
     >
+      {/* Active indicator line on top */}
+      <span
+        className={`absolute top-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-primary transition-all duration-150 ${
+          active ? 'w-15 opacity-100' : 'w-0 opacity-0'
+        }`}
+      />
+
       <div className="w-5 h-5">
         <Icon
           icon={active ? activeIcon : icon}
@@ -34,7 +39,7 @@ export default function NavLinks({
       </div>
 
       <span
-        className={` text-xs transition duration-150 font-medium ${
+        className={`text-xs transition duration-150 font-medium ${
           active ? 'text-primary' : 'text-gray-600'
         }`}
       >
