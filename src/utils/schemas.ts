@@ -57,9 +57,14 @@ export const withdrawSchema = z.object({
     .regex(/^[a-zA-Z\s]+$/, 'Full name can only contain letters and spaces'),
 
   amount: z
-    .coerce
-    .number({ invalid_type_error: 'Amount must be a valid number' })
-    .min(1000, 'Minimum withdrawal is ₦1000'),
+    .string()
+    .min(1, 'Amount is required')
+    .refine((val) => !isNaN(Number(val)), {
+      message: 'Amount must be a valid number',
+    })
+    .refine((val) => Number(val) >= 1000, {
+      message: 'Minimum withdrawal is ₦1000',
+    }),
 
   accountNumber: z
     .string()
