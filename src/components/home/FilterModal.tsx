@@ -7,6 +7,7 @@ interface FilterModalProps {
   filters: JobFilters
   setFilters: React.Dispatch<React.SetStateAction<JobFilters>>
   services: string[]
+  title?: string
 }
 
 export default function FilterModal({
@@ -15,6 +16,7 @@ export default function FilterModal({
   filters,
   setFilters,
   services,
+  title = 'Filter Jobs',
 }: FilterModalProps) {
   if (!open) return null
 
@@ -46,7 +48,7 @@ export default function FilterModal({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
       <div className="bg-white rounded-lg p-6 w-full max-w-md space-y-4">
-        <h2 className="font-semibold text-lg">Filter Jobs</h2>
+        <h2 className="font-semibold text-lg">{title}</h2>
 
         <select
           value={filters.serviceType}

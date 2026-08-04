@@ -37,12 +37,25 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query'
 
+type PostsPage = {
+  results: Post[]
+  next?: string | null
+}
+
+type PostsInfiniteData = {
+  pages: PostsPage[]
+  pageParams: unknown[]
+}
+
+const getErrorMessage = (error: unknown) =>
+  error instanceof Error ? error.message : String(error)
+
 export const useCreatePost = () => {
   const createPostAction = async (data: CreatePost) => {
     try {
       await createPost(data)
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -70,8 +83,8 @@ export const useEditPost = () => {
         post_id,
         data,
       })
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -91,8 +104,8 @@ export const useDeletePost = () => {
       await deletePost({
         post_id,
       })
-    } catch (error: any) {
-      toast.error(error?.message)
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -263,12 +276,12 @@ export const useLikePost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
+      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
         if (!oldData) return oldData
 
         return {
           ...oldData,
-          pages: oldData.pages.map((page: any) => ({
+          pages: oldData.pages.map((page: PostsPage) => ({
             ...page,
             results: page.results.map((post: Post) =>
               post.post_id === post_id
@@ -309,12 +322,12 @@ export const useUnlikePost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
+      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
         if (!oldData) return oldData
 
         return {
           ...oldData,
-          pages: oldData.pages.map((page: any) => ({
+          pages: oldData.pages.map((page: PostsPage) => ({
             ...page,
             results: page.results.map((post: Post) =>
               post.post_id === post_id
@@ -355,12 +368,12 @@ export const useRepost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
+      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
         if (!oldData) return oldData
 
         return {
           ...oldData,
-          pages: oldData.pages.map((page: any) => ({
+          pages: oldData.pages.map((page: PostsPage) => ({
             ...page,
             results: page.results.map((post: Post) =>
               post.post_id === post_id
@@ -401,12 +414,12 @@ export const useUnrepost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
+      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
         if (!oldData) return oldData
 
         return {
           ...oldData,
-          pages: oldData.pages.map((page: any) => ({
+          pages: oldData.pages.map((page: PostsPage) => ({
             ...page,
             results: page.results.map((post: Post) =>
               post.post_id === post_id
@@ -476,8 +489,8 @@ export const usePostComment = ({
   }) => {
     try {
       await postComment({ post_id, data })
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -527,8 +540,8 @@ export const usePostReplies = ({
   }) => {
     try {
       await postReplies({ post_id, comment_id, data })
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()

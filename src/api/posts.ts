@@ -53,6 +53,7 @@ export const getOffers = async ({
   city,
   state,
   min_amount,
+  max_amount,
   pageParam,
 }: PostParams) => {
   try {
@@ -64,7 +65,8 @@ export const getOffers = async ({
     if (tags_name) params.tags__name = tags_name;
     if (city) params.city = city;
     if (state) params.state = state;
-    if (min_amount) params.amount = min_amount;
+    if (min_amount) params.amount__gte = min_amount;
+    if (max_amount) params.amount__lte = max_amount;
     const response = await api.get("/api/v1/posts/feed/", { params });
     return response?.data;
   } catch (error) {

@@ -11,16 +11,23 @@ import {
 interface EndorseDialogProp {
   provider_pk: string | undefined
   name?: string
+  triggerClassName?: string
 }
 
 export default function EndorseDialog({
   provider_pk,
   name,
+  triggerClassName,
 }: EndorseDialogProp) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="capitalize font-semibold text-white text-sm md:text-base cursor-pointer">
+        <button
+          className={
+            triggerClassName ??
+            'capitalize font-semibold text-white text-sm md:text-base cursor-pointer'
+          }
+        >
           endorse
         </button>
       </DialogTrigger>

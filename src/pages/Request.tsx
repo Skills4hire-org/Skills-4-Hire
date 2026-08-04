@@ -141,6 +141,7 @@ export default function Request() {
             filters={filters}
             setFilters={setFilters}
             services={services}
+            title="Filter Requests"
           />
 
           {isLoading ? (

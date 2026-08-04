@@ -37,8 +37,6 @@ export default function JobOffers() {
     max_amount: filters.maxAmount,
   })
 
-  const offers: Post[] = data?.pages.flatMap((page) => page.results ?? []).filter(Boolean) ?? []
-
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
     isFetchingNextPage,
@@ -58,10 +56,31 @@ export default function JobOffers() {
 
   const services = carouselServices.map((service) => service.text)
 
+  const filteredOffers = useMemo(() => {
+    const offers: Post[] =
+      data?.pages.flatMap((page) => page.results ?? []).filter(Boolean) ?? []
+    const serviceType = filters.serviceType.trim().toLowerCase()
+    const minAmount = filters.minAmount ? Number(filters.minAmount) : null
+    const maxAmount = filters.maxAmount ? Number(filters.maxAmount) : null
+
+    return offers.filter((post) => {
+      if (serviceType) {
+        const tag = (post.tags?.[0]?.name ?? '').trim().toLowerCase()
+        if (tag !== serviceType) return false
+      }
+      if (filters.city && (post.city ?? '') !== filters.city) return false
+      if (filters.state && (post.state ?? '') !== filters.state) return false
+      const amount = Number(post.amount) || 0
+      if (minAmount !== null && amount < minAmount) return false
+      if (maxAmount !== null && amount > maxAmount) return false
+      return true
+    })
+  }, [data, filters])
+
   const sortedOffers = useMemo(() => {
     const sortOffers =
-      offers &&
-      offers.flat().sort((a, b) => {
+      filteredOffers &&
+      filteredOffers.flat().sort((a, b) => {
         const aAmount = Number(a.amount)
         const bAmount = Number(b.amount)
         const aDate = new Date(a.updated_at).getTime()
@@ -82,7 +101,7 @@ export default function JobOffers() {
       })
 
     return sortOffers
-  }, [offers, sortType])
+  }, [filteredOffers, sortType])
 
   return (
     <div className="lg:px-4">

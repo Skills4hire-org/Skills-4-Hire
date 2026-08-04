@@ -48,12 +48,12 @@ export default function PostComposer() {
         lg:shadow-md
         md:shadow-md
         border
-        border-gray-300
+        border-gray-100
         
       "
     >
       {userType == 'customer' && (
-        <p className="text-base md:text-lg font-medium text-gray-700">
+        <p className="text-base md:text-lg font-medium text-gray-900">
           Create an offer
         </p>
       )}
