@@ -114,10 +114,10 @@ function ImageCarousel({
 
   const gridClass =
     count === 1
-      ? 'grid-cols-1 aspect-[4/5]'
+      ? 'grid-cols-1 aspect-[4/5] md:aspect-[16/9]'
       : count === 2
-        ? 'grid-cols-2 aspect-[2/1] auto-rows-fr'
-        : 'grid-cols-2 grid-rows-2 aspect-square auto-rows-fr'
+        ? 'grid-cols-2 aspect-[2/1] md:aspect-[3/1] auto-rows-fr'
+        : 'grid-cols-2 grid-rows-2 aspect-square md:aspect-[5/4] auto-rows-fr'
 
   return (
     <>

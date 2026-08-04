@@ -13,7 +13,8 @@ export const useFavourites = () => {
     },
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.next ?? undefined
+      // Safely check if lastPage and lastPage.data exist before extracting next
+      return lastPage?.data?.next ?? undefined
     },
     retry: 1,
   })
@@ -41,6 +42,7 @@ export const useAddFavourite = () => {
 
   return addFavouriteFunction
 }
+
 export const useDeleteFavourite = () => {
   const deleteFavouriteAction = async ({
     provider_id,

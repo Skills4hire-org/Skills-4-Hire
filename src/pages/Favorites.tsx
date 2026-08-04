@@ -9,20 +9,22 @@ import type { Favorite } from '@/types/favourites.type'
 
 export default function Favorites() {
   const { data, isLoading, isError, refetch } = useFavourites()
+  
+  // Safely guard both 'page' and 'page.data' using fallback arrays
   const favourites: Favorite[] =
-    data?.pages.flatMap((page) => page.data.results) ?? []
-  console.log(data)
+    data?.pages?.flatMap((page) => page?.data?.results ?? page?.results ?? []) ?? []
 
-  const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
-  const providersID = allFavourites?.map(({ provider_id }) => provider_id)
-  const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
+  // Added optional chaining here to prevent nested property runtime crashes
+  const allFavourites = favourites?.flatMap((favourite) => favourite?.providers ?? []) ?? []
+  const providersID = allFavourites?.map((provider) => provider?.provider_id).filter(Boolean) ?? []
+  const favoriteID = favourites?.flatMap((favourite) => favourite?.favourite_id ?? []).filter(Boolean) ?? []
 
   const handleFavouritesFetchingError = () => {
     refetch()
   }
 
   return (
-    <div className="space-y-2 md:space-y-4">
+    <div className="space-y-2 md:space-y-4 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
       <Container className="bg-white">
         <MobileWithAvatarAndDesktopHeader title="Favorites" />
       </Container>
@@ -43,14 +45,19 @@ export default function Favorites() {
             ) : (
               <>
                 <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
-                  {allFavourites?.map((favourite) => (
-                    <ServiceProviderCard
-                      key={favourite.provider_id}
-                      {...favourite}
-                      providerIDs={providersID}
-                      favouriteID={favoriteID[0]}
-                    />
-                  ))}
+                  {allFavourites?.map((favourite) => {
+                    // Skip rendering this item if it lacks a valid provider_id
+                    if (!favourite?.provider_id) return null;
+                    
+                    return (
+                      <ServiceProviderCard
+                        key={favourite.provider_id}
+                        {...favourite}
+                        providerIDs={providersID}
+                        favouriteID={favoriteID[0]}
+                      />
+                    );
+                  })}
                 </div>
 
                 {allFavourites?.length === 0 && <NoFavoriteCard />}

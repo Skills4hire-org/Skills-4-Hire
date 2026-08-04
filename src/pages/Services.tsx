@@ -30,16 +30,22 @@ export default function Services() {
     isLoading: favoritesLoading,
     isError: favouritesError,
   } = useFavourites()
-  const favourites: Favorite[] =
-    favoritesData?.pages.flatMap((page) => page.data.results) ?? []
-  const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
-  const providersID = allFavourites?.map(({ provider_id }) => provider_id)
-  const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
 
+  // FIX: Guard the pages array and handle both flat and .data structures safely
+  const favourites: Favorite[] =
+    favoritesData?.pages?.flatMap((page) => page?.data?.results ?? page?.results ?? []) ?? []
+  
+  const allFavourites = favourites?.flatMap((favourite) => favourite?.providers ?? []) ?? []
+  const providersID = allFavourites?.map((fav) => fav?.provider_id).filter(Boolean) ?? []
+  const favoriteID = favourites?.flatMap((favourite) => favourite?.favourite_id ?? []).filter(Boolean) ?? []
+
+  // FIX: Safely extract services with fallback arrays
   const services: Service[] =
-    data?.pages.flatMap((page) => page?.results ?? []) ?? []
+    data?.pages?.flatMap((page) => page?.data?.results ?? page?.results ?? []) ?? []
+    
+  // FIX: Safely extract providers with fallback arrays to prevent line 38 crashes
   const professionals: Provider[] =
-    providers?.pages.flatMap((page) => page.data.results) ?? []
+    providers?.pages?.flatMap((page) => page?.data?.results ?? page?.results ?? []) ?? []
 
   const handleProviderFetchingError = () => {
     refetchProviders()
@@ -103,22 +109,18 @@ export default function Services() {
                     />
                   </div>
                 ) : (
-                  /* 
-                    LAYOUT CHANGE: Swapped grid for a horizontally scrollable flex row.
-                    - flex: places items side-by-side
-                    - overflow-x-auto: enables horizontal swipe scroll
-                    - scrollbar-none: custom utility class to hide scrollbars if you have it configured
-                    - pb-4: adds padding at the bottom so box-shadows don't clip
-                  */
                   <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory">
-                    {services?.slice(0, 6)?.map((service) => (
-                      <div
-                        key={service.service_id}
-                        className="flex-none w-[240px] md:w-[280px] snap-start"
-                      >
-                        <ServicesCard {...service} />
-                      </div>
-                    ))}
+                    {services?.slice(0, 6)?.map((service) => {
+                      if (!service?.service_id) return null;
+                      return (
+                        <div
+                          key={service.service_id}
+                          className="flex-none w-[240px] md:w-[280px] snap-start"
+                        >
+                          <ServicesCard {...service} />
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </>
@@ -153,14 +155,17 @@ export default function Services() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 gap-1">
-                    {professionals?.slice(0, 4).map((professional) => (
-                      <ServiceProviderCard
-                        key={professional.provider_id}
-                        {...professional}
-                        providerIDs={providersID}
-                        favouriteID={favoriteID[0]}
-                      />
-                    ))}
+                    {professionals?.slice(0, 4).map((professional) => {
+                      if (!professional?.provider_id) return null;
+                      return (
+                        <ServiceProviderCard
+                          key={professional.provider_id}
+                          {...professional}
+                          providerIDs={providersID}
+                          favouriteID={favoriteID[0]}
+                        />
+                      );
+                    })}
                   </div>
                 )}
               </>
