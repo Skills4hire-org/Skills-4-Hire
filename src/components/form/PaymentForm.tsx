@@ -1,4 +1,3 @@
-import type { BookingInfo } from '@/utils/types'
 import { useDispatch, useSelector } from 'react-redux'
 import FormInput from '../form-fields/FormInput'
 import { handleBookingInfo, handleSteps } from '@/features/booking/bookingSlice'
@@ -7,33 +6,33 @@ import { Button } from '../ui/button'
 import FormTextArea from '../form-fields/FormTextArea'
 import PaymentDrawer from '../service-provider-booking/PaymentDrawer'
 import type { FormEvent } from 'react'
-import type { Profile } from '@/types/user.types'
+import type { Profile, Service } from '@/types/user.types'
+import type { BookingInfo } from '@/types/bookings.type'
 
 export default function PaymentForm({
   serviceProvider,
 }: {
   serviceProvider: Profile | undefined
 }) {
-  const { info }: { info: BookingInfo } = useSelector(
-    (state: any) => state.bookingState,
-  )
-
+  const { info, services }: { info: BookingInfo; services: Service[] } =
+    useSelector((state: any) => state.bookingState)
+  const avatar = serviceProvider?.user?.profile?.avatar?.avatar
   const serviceProviderInfo = {
-    name: info.serviceProviderName,
-    occupation: info.serviceProviderOccupation,
-    paymentAmount: info.paymentAmount,
+    name: serviceProvider?.user?.profile?.display_name,
+    occupation: serviceProvider?.professional_title,
+    paymentAmount: info.price,
   }
 
   const dispatch = useDispatch()
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (info.paymentAmount === '' && e.key === '0') {
+    if (info.price === '' && e.key === '0') {
       e.preventDefault()
     }
   }
 
   const handleInputChange = (field: string, value: string) => {
-    if (field === 'paymentAmount') {
+    if (field === 'price') {
       const newValue = value.replace(/[^0-9]/g, '')
       dispatch(
         handleBookingInfo({
@@ -72,7 +71,7 @@ export default function PaymentForm({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="relative w-full">
         <Label
-          htmlFor="paymentAmount"
+          htmlFor="price"
           className=" absolute font-normal  left-3 top-2 text-sm md:text-base"
         >
           Input Concluded Amount
@@ -80,9 +79,9 @@ export default function PaymentForm({
         {/* input type */}
         <FormInput
           type="text"
-          name="paymentAmount"
+          name="price"
           required
-          value={info.paymentAmount}
+          value={info.price}
           handleInputChange={handleInputChange}
           placeholder="0000"
           className="rounded-md text-sm md:text-base pt-8 md:pt-10 bg-gray-200 min-h-18 md:h-20 pl-7"
@@ -94,14 +93,14 @@ export default function PaymentForm({
       </div>
       <div className="relative">
         <Label
-          htmlFor="paymentRemark"
+          htmlFor="notes"
           className=" absolute font-normal  left-3 top-2 text-sm md:text-base"
         >
           Remark
         </Label>
         <FormTextArea
-          name="paymentRemark"
-          value={info.paymentRemark}
+          name="notes"
+          value={info.notes}
           rows={4}
           handleInputChange={handleInputChange}
           placeholder="What's this for? (optional)"
@@ -117,7 +116,13 @@ export default function PaymentForm({
         >
           Previous
         </Button>
-        <PaymentDrawer {...serviceProviderInfo} />
+        <PaymentDrawer
+          {...serviceProviderInfo}
+          avatar={avatar}
+          info={info}
+          provider_id={serviceProvider?.provider_id}
+          services={services}
+        />
       </div>
     </form>
   )

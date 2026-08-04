@@ -36,10 +36,12 @@ export default function ServicesAroundYou() {
     isError: favouritesError,
   } = useFavourites()
 
-  const favourites: Favorite = favoritesData
-  const providersID = favourites?.providers?.map(
-    ({ provider_id }) => provider_id,
-  )
+  const favourites: Favorite[] =
+    favoritesData?.pages.flatMap((page) => page.data.results) ?? []
+  const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
+  const providersID = allFavourites?.map(({ provider_id }) => provider_id)
+  const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
+
   const professionals = data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
   const loadMoreRef = useInfiniteScroll({
@@ -121,7 +123,7 @@ export default function ServicesAroundYou() {
                         key={professional.provider_id}
                         {...professional}
                         providerIDs={providersID}
-                        favouriteID={favourites?.favourite_id}
+                        favouriteID={favoriteID[0]}
                       />
                     ))}
                   </div>

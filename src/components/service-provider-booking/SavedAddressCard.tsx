@@ -2,11 +2,12 @@ import { MapPin } from 'lucide-react'
 import { Checkbox } from '../ui/checkbox'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleBookingInfo } from '@/features/booking/bookingSlice'
-import type { BookingInfo } from '@/utils/types'
+import type { Address, BookingInfo } from '@/types/bookings.type'
+import DeleteAddressDialog from './DeleteAddressDialog'
 
-export default function SavedAddressCard({ address }: { address: string }) {
+export default function SavedAddressCard({ address }: { address: Address }) {
   const { info }: { info: BookingInfo } = useSelector(
-    (state: any) => state.bookingState
+    (state: any) => state.bookingState,
   )
   const dispatch = useDispatch()
   const selectSavedLocation = (checked: any) => {
@@ -14,35 +15,51 @@ export default function SavedAddressCard({ address }: { address: string }) {
       dispatch(
         handleBookingInfo({
           info: {
-            savedAddress: address,
+            address,
           },
-        })
+        }),
       )
     } else {
       dispatch(
         handleBookingInfo({
           info: {
-            savedAddress: '',
+            address: null,
           },
-        })
+        }),
       )
     }
   }
+
+  const checkedState = address.is_default == true && !info.address
+
   return (
-    <div className="space-y-2 border px-1 py-2">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1 text-sm md:text-base">
-          <MapPin className="w-5 h-5 md:w-6 md:h-6" />
-          <span>Home</span>
+    <div className="flex gap-2 w-full items-start">
+      <div className="space-y-2 border px-1 py-2 flex-1 rounded-sm">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1 text-sm md:text-base">
+            <MapPin className="w-4 h-4 md:w-5 md:h-5" />
+          </div>
+          <Checkbox
+            className="data-[state=checked]:bg-primary data-[state=checked]:text-white border border-gray-500"
+            disabled={info.is_remote}
+            checked={
+              info.address?.address_id == address.address_id || checkedState
+            }
+            onCheckedChange={(checked) => selectSavedLocation(checked)}
+          />
         </div>
-        <Checkbox
-          className="data-[state=checked]:bg-background data-[state=checked]:text-primary "
-          disabled={info.address !== '' || info.type === 'remote'}
-          checked={info.savedAddress !== ''}
-          onCheckedChange={(checked) => selectSavedLocation(checked)}
-        />
+        <div className="flex items-end justify-between gap-2 md:gap-4">
+          <div className="space-y-1">
+            <p className="text-sm md:text-base">{address.street_address},</p>
+            <span className="text-sm md:text-base">{address.city}</span>,
+            <span className="text-sm md:text-base ml-1">{address.state}</span>.
+          </div>
+          <span className="text-sm md:text-base text-gray-600">
+            {address.is_default && 'default'}
+          </span>
+        </div>
       </div>
-      <p className="text-sm md:text-base">{address}</p>
+      <DeleteAddressDialog address_id={address.address_id} />
     </div>
   )
 }

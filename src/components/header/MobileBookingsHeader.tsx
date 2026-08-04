@@ -3,14 +3,18 @@ import ProfileImage from '../global/ProfileImage'
 import { SidebarTrigger } from '../ui/sidebar'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useMyProfile } from '@/hooks/useUsers'
+import type { Profile } from '@/types/user.types'
 
 export default function MobileBookingsHeader() {
+  const { data } = useMyProfile()
+
+  const user: Profile | undefined = data
+  const avatar = user?.user?.profile?.avatar?.avatar
   const {
     userType,
-    avatar,
   }: {
     userType: UserType
-    avatar: string
   } = useSelector((state: any) => state.userState)
   const is_active = navigator.onLine
   return (

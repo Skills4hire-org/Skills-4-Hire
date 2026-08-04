@@ -221,3 +221,10 @@ export const getVideoMimeType = (url: string) => {
 
   return mimeTypes[extension ?? ''] ?? 'video/mp4'
 }
+
+export const formatSpaceToString = (text: string | undefined) => {
+  if (text) {
+    const formatString = text.replace(/([A-Z])/g, ' $1').trim()
+    return formatString
+  }
+}

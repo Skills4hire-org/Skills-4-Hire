@@ -1,5 +1,6 @@
 import { api } from '@/utils/axiosConfig'
 import { handleApiError } from './error'
+import type { BookingInfo } from '@/types/bookings.type'
 
 export const getBookings = async ({
   pageParam,
@@ -14,7 +15,7 @@ export const getBookings = async ({
       return response?.data
     }
     const response = await api.get(
-      `/api/v1/bookings/?booking_status=${booking_status}`,
+      `/api/v1/bookings/?booking_status_icontains=${booking_status}`,
     )
     return response?.data
   } catch (error) {
@@ -22,7 +23,7 @@ export const getBookings = async ({
   }
 }
 
-export const createBooking = async (data: Record<string, unknown>) => {
+export const addBooking = async (data: BookingInfo) => {
   try {
     const response = await api.post('/api/v1/bookings/', data)
     return response?.data

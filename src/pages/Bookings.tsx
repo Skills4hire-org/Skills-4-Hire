@@ -26,10 +26,7 @@ export default function Bookings() {
     isFetchingNextPage,
     isFetchNextPageError,
   } = useBookings({ booking_status: bookingStatus })
-  const bookings =
-    data?.pages
-      .flatMap((page) => page?.results ?? [])
-      .filter(Boolean) ?? []
+  const bookings = data?.pages.flatMap((page) => page.data.results) ?? []
 
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
@@ -45,11 +42,7 @@ export default function Bookings() {
     fetchNextPage,
   })
   const handleBookingsFetchingError = async () => {
-    if (!data) {
-      refetch()
-    } else {
-      fetchNextPage()
-    }
+    refetch()
   }
 
   return (

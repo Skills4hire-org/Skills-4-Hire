@@ -30,16 +30,16 @@ export default function Services() {
     isLoading: favoritesLoading,
     isError: favouritesError,
   } = useFavourites()
-
-  const favourites: Favorite = favoritesData
-  const providersID = favourites?.providers?.map(
-    ({ provider_id }) => provider_id,
-  )
+  const favourites: Favorite[] =
+    favoritesData?.pages.flatMap((page) => page.data.results) ?? []
+  const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
+  const providersID = allFavourites?.map(({ provider_id }) => provider_id)
+  const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
 
   const services: Service[] =
     data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const professionals: Provider[] =
-    providers?.pages.flatMap((page) => page?.results ?? []) ?? []
+    providers?.pages.flatMap((page) => page.data.results) ?? []
 
   const handleProviderFetchingError = () => {
     refetchProviders()
@@ -112,8 +112,8 @@ export default function Services() {
                   */
                   <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory">
                     {services?.slice(0, 6)?.map((service) => (
-                      <div 
-                        key={service.service_id} 
+                      <div
+                        key={service.service_id}
                         className="flex-none w-[240px] md:w-[280px] snap-start"
                       >
                         <ServicesCard {...service} />
@@ -158,7 +158,7 @@ export default function Services() {
                         key={professional.provider_id}
                         {...professional}
                         providerIDs={providersID}
-                        favouriteID={favourites?.favourite_id}
+                        favouriteID={favoriteID[0]}
                       />
                     ))}
                   </div>

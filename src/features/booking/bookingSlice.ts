@@ -1,9 +1,9 @@
 import type { BookingInfo } from '@/types/bookings.type'
-import type { ServiceProviderServiceCard } from '@/types/user.types'
+import type { Service } from '@/types/user.types'
 import { createSlice } from '@reduxjs/toolkit'
 
 interface Booking {
-  services: ServiceProviderServiceCard[]
+  services: Service[]
   step: number
   info: BookingInfo
 }
@@ -12,17 +12,16 @@ const defaultState: Booking = {
   services: [],
   step: 1,
   info: {
-    emergency: false,
     notes: '',
-    date: '',
+    start_date: '',
     time: '',
-    type: 'onsite',
-    address: '',
-    savedAddress: '',
-    paymentAmount: '',
-    paymentRemark: '',
-    serviceProviderName: '',
-    serviceProviderOccupation: '',
+    date: '',
+    is_remote: false,
+    address: null,
+    provider: '',
+    price: '',
+    descriptions: '',
+    is_urgent: false,
   },
 }
 
@@ -37,7 +36,7 @@ const bookingSlice = createSlice({
     removeService: (state, action) => {
       const { id } = action.payload
       state.services = state.services.filter(
-        (service: ServiceProviderServiceCard) => service.service_id !== id,
+        (service: Service) => service.service_id !== id,
       )
     },
     resetService: (state) => {

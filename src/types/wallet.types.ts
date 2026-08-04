@@ -1,4 +1,4 @@
-export type WallerBalance = {
+export type WalletBalance = {
   wallet_id: string
   user_email: string
   is_active: boolean

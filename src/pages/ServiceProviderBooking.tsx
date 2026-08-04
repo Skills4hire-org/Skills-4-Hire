@@ -1,6 +1,6 @@
 import Container from '@/components/global/Container'
-import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
+import Loading from '@/components/global/Loading'
 import MobileWithAvatarAndDesktopHeader from '@/components/header/MobileWithAvatarAndDesktopHeader'
 import BookingAddress from '@/components/service-provider-booking/BookingAddress'
 import BookingDateTime from '@/components/service-provider-booking/BookingDateTime'
@@ -14,8 +14,7 @@ import { useParams } from 'react-router-dom'
 export default function ServiceProviderBooking() {
   const { id } = useParams()
   const { data, isLoading, isError, refetch } = useProfileDetails({ id })
-  const serviceProvider: Profile | undefined = data
-
+  const serviceProvider: Profile | undefined = data?.data
   const { step }: { step: number } = useSelector(
     (state: any) => state.bookingState,
   )
@@ -30,6 +29,10 @@ export default function ServiceProviderBooking() {
   }
   const Component = bookingComponents[step]
 
+  const handleProfileFetchingError = () => {
+    refetch()
+  }
+
   return (
     <div>
       <Container className="bg-white">
@@ -39,23 +42,26 @@ export default function ServiceProviderBooking() {
         <div className="pt-2 md:pt-6">
           <ServiceProviderBookingProgressIndicator />
         </div>
-
-        <div className="pt-10 md:pt-14 space-y-4 md:space-y-6">
-          {isLoading ? (
-            <div className="h-24">
-              <Loading />
-            </div>
-          ) : isError && !data ? (
-            <div className="py-6">
-              <Error
-                text="Failed to load professional's profile"
-                buttonFunc={refetch}
-              />
-            </div>
-          ) : (
-            <Component serviceProvider={serviceProvider} />
-          )}
-        </div>
+        {isLoading ? (
+          <div className="h-54">
+            <Loading />
+          </div>
+        ) : (
+          <>
+            {isError && !data ? (
+              <div className="py-24">
+                <Error
+                  text="Failed to load professional's details"
+                  buttonFunc={handleProfileFetchingError}
+                />
+              </div>
+            ) : (
+              <div className="pt-10 md:pt-14 space-y-4 md:space-y-6">
+                <Component serviceProvider={serviceProvider} />
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   )

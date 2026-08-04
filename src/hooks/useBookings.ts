@@ -1,6 +1,11 @@
-import { createBooking, getBookings } from '@/api/bookings'
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
+import { addAddress, deleteAddress, getMyAddresses } from '@/api/address'
+import { addBooking, getBookings } from '@/api/bookings'
+import type { Address, BookingInfo } from '@/types/bookings.type'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 
 export const useBookings = ({ booking_status }: { booking_status: string }) => {
   const queryData = useInfiniteQuery({
@@ -15,28 +20,72 @@ export const useBookings = ({ booking_status }: { booking_status: string }) => {
   return queryData
 }
 
-export const useCreateBooking = () => {
-  const queryClient = useQueryClient()
+export const useMyAddress = () => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['address'],
+    queryFn: ({ pageParam }) => {
+      return getMyAddresses(pageParam)
+    },
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.data.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
+}
 
-  const createBookingAction = async (data: Record<string, unknown>) => {
+export const useAddAddress = () => {
+  const addAddressAction = async (data: Address) => {
     try {
-      const response = await createBooking(data)
-      return response
+      await addAddress(data)
     } catch (error: any) {
       throw new Error(error?.message)
     }
   }
-
-  const createBookingFunction = useMutation({
-    mutationFn: createBookingAction,
+  const queryClient = useQueryClient()
+  const addAddressFunction = useMutation({
+    mutationFn: addAddressAction,
     onSuccess: () => {
-      toast.success('Booking created successfully')
-      queryClient.invalidateQueries({ queryKey: ['bookings'] })
-    },
-    onError: (error: any) => {
-      toast.error(error?.message)
+      queryClient.invalidateQueries({ queryKey: ['address'] })
     },
   })
 
-  return createBookingFunction
+  return addAddressFunction
+}
+export const useDeleteAddress = () => {
+  const deleteAddressAction = async (id?: string) => {
+    try {
+      await deleteAddress(id)
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const deleteAddressFunction = useMutation({
+    mutationFn: deleteAddressAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['address'] })
+    },
+  })
+  return deleteAddressFunction
+}
+
+export const useAddBooking = () => {
+  const addAddressAction = async (data: BookingInfo) => {
+    try {
+      await addBooking(data)
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const addAddressFunction = useMutation({
+    mutationFn: addAddressAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] })
+    },
+  })
+
+  return addAddressFunction
 }

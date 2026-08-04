@@ -1,15 +1,21 @@
 import { addFavourite, deleteFavourite, getFavourites } from '@/api/favourites'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 
 export const useFavourites = () => {
-  const getAllFavourites = async () => {
-    const favourites = await getFavourites()
-    return favourites
-  }
-  const queryData = useQuery({
-    queryKey: ['favourites'],
-    queryFn: getAllFavourites,
+  const queryData = useInfiniteQuery({
+    queryKey: ['favorites'],
+    queryFn: ({ pageParam }) => {
+      return getFavourites(pageParam)
+    },
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.data.next ?? undefined
+    },
+    retry: 1,
   })
   return queryData
 }
@@ -19,14 +25,17 @@ export const useAddFavourite = () => {
     try {
       await addFavourite(provider_id)
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
   const addFavouriteFunction = useMutation({
     mutationFn: addFavouriteAction,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['favourites'] })
+      queryClient.invalidateQueries({ queryKey: ['favorites'] })
+      queryClient.invalidateQueries({
+        queryKey: ['providers'],
+      })
     },
   })
 
@@ -43,14 +52,17 @@ export const useDeleteFavourite = () => {
     try {
       await deleteFavourite({ provider_id, favourite_id })
     } catch (error: any) {
-      toast.error(error?.message)
+      throw new Error(error?.message)
     }
   }
   const queryClient = useQueryClient()
   const deleteFavouriteFunction = useMutation({
     mutationFn: deleteFavouriteAction,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['favourites'] })
+      queryClient.invalidateQueries({ queryKey: ['favorites'] })
+      queryClient.invalidateQueries({
+        queryKey: ['providers'],
+      })
     },
   })
 

@@ -19,7 +19,7 @@ export default function ServiceProviderCard({
 
   return (
     <div className="rounded-none flex flex-col lg:flex-row bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-md hover:border-slate-300 transition-all w-full relative">
-      
+
       {/* Absolute Favorite Button pinned at the top right corner */}
       <div className="absolute top-35 lg:top-3 md:top-3 right-4 lg:right-3 md:right-3 z-10 bg-white/80 backdrop-blur-sm p-1.5 border border-slate-100 shadow-sm">
         <AddToFavoriteButton
@@ -31,8 +31,8 @@ export default function ServiceProviderCard({
       </div>
 
       {/* Cover Photo Header: Top on mobile/tablet, Left side on laptop */}
-      <Link 
-        to={`/customer/professionals/${provider_id}`} 
+      <Link
+        to={`/customer/professionals/${provider_id}`}
         className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-100 bg-cover bg-center shrink-0"
         style={{
           backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : undefined,
@@ -41,14 +41,14 @@ export default function ServiceProviderCard({
 
       {/* Card Content Elements */}
       <div className="p-4 pt-0 lg:pt-4 flex flex-col lg:flex-row flex-1 relative lg:items-center lg:justify-between lg:gap-4">
-        
+
         {/* Profile Avatar and Left Content Wrapper */}
         <div className="flex flex-col lg:flex-row lg:items-center gap-3 flex-1 min-w-0">
-          
+
           {/* Rounded profile avatar image: Overlaps cover on mobile, stands clean on laptop */}
           <div className="-mt-10 lg:-mt-0 shrink-0 z-0">
-            <Link 
-              to={`/customer/professionals/${provider_id}`} 
+            <Link
+              to={`/customer/professionals/${provider_id}`}
               className="w-20 h-20 rounded-full border-4 border-white lg:border-2 lg:border-slate-100 bg-white shadow-sm overflow-hidden block"
             >
               <img
@@ -63,7 +63,10 @@ export default function ServiceProviderCard({
           {/* Informational Text Stack */}
           <div className="flex flex-col min-w-0 space-y-1">
             <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-              <Link to={`/customer/professionals/${provider_id}`} className="inline-block min-w-0">
+              <Link
+                to={`/customer/professionals/${provider_id}`}
+                className="inline-block min-w-0"
+              >
                 <h3 className="font-bold text-base text-slate-900 hover:text-primary transition-colors truncate">
                   {user?.profile?.display_name}
                 </h3>
@@ -91,7 +94,6 @@ export default function ServiceProviderCard({
             {currencyFormatter(min_charge)}
           </span>
         </div>
-
       </div>
     </div>
   )

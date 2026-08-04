@@ -1,56 +1,89 @@
-import type { BookingInfo } from '@/utils/types'
 import SectionHeading from './SectionHeading'
 import Container from '../global/Container'
 import { Button } from '../ui/button'
 import { useDispatch, useSelector } from 'react-redux'
 import { workTypes } from '@/assets/data'
 import { handleBookingInfo, handleSteps } from '@/features/booking/bookingSlice'
-import FormInput from '../form-fields/FormInput'
-import { user } from '@/utils/database'
 import SavedAddressCard from './SavedAddressCard'
+import type { Address, BookingInfo } from '@/types/bookings.type'
+import { useMyAddress } from '@/hooks/useBookings'
+import Loading from '../global/Loading'
+import Error from '../global/Error'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import EmptyTab from '../service-provider/EmptyTab'
+import AddressForm from '../form/AddressForm'
 
 export default function BookingAddress() {
   const { info }: { info: BookingInfo } = useSelector(
-    (state: any) => state.bookingState
+    (state: any) => state.bookingState,
   )
-  const workType = info.type
+  const workType = info.is_remote ? 'remote' : 'onsite'
   const dispatch = useDispatch()
   const selectWorkType = (type: string) => {
     dispatch(
       handleBookingInfo({
         info: {
-          type,
+          is_remote: type == 'remote',
         },
-      })
+      }),
     )
   }
   const handleStep = (step: number) => {
     dispatch(handleSteps({ step }))
   }
 
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetchNextPageError,
+  } = useMyAddress()
+
+  const savedAddresses: Address[] =
+    data?.pages.flatMap((page) => page.data.results) ?? []
+
+  const handleAddressFetchingError = () => {
+    refetch()
+  }
+
+  const loadMoreRef = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  })
+
+  const findDefaultAddress = savedAddresses?.find(
+    (address) => address.is_default,
+  )
+
   const handleNext = () => {
-    if (workType === 'remote') {
+    if (!info.address && savedAddresses.length !== 0) {
       dispatch(
         handleBookingInfo({
           info: {
-            address: '',
-            savedAddress: '',
+            address: findDefaultAddress,
           },
-        })
+        }),
       )
     }
+
+    if (!info.is_remote) {
+      dispatch(
+        handleBookingInfo({
+          info: {
+            address: null,
+          },
+        }),
+      )
+    }
+
     handleStep(3)
   }
 
-  const handleInputChange = (field: string, value: string) => {
-    dispatch(
-      handleBookingInfo({
-        info: {
-          [field]: value,
-        },
-      })
-    )
-  }
   return (
     <>
       <Container>
@@ -77,21 +110,66 @@ export default function BookingAddress() {
 
       <SectionHeading title="Enter Address" />
       <Container>
-        <FormInput
-          type="text"
-          name="address"
-          value={info.address}
-          placeholder="Enter your address"
-          handleInputChange={handleInputChange}
-          className="rounded-none h-14 p-4"
-          disabled={info.savedAddress !== '' || workType === 'remote'}
-        />
+        <AddressForm is_remote={info.is_remote} />
       </Container>
-      <SectionHeading title="Saved Locations" />
+      <SectionHeading title="Saved Address" />
       <Container>
-        {user?.savedAddresses?.map((address) => (
-          <SavedAddressCard key={address} address={address} />
-        ))}
+        <>
+          {isLoading ? (
+            <div className="h-24">
+              <Loading />
+            </div>
+          ) : (
+            <>
+              {isError && !data ? (
+                <div className="py-10">
+                  <Error
+                    text="Failed to load saved addresses"
+                    buttonFunc={handleAddressFetchingError}
+                  />
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 gap-4">
+                    {savedAddresses?.length == 0 ? (
+                      <EmptyTab label="saved addresses" />
+                    ) : (
+                      savedAddresses?.map((address) => (
+                        <SavedAddressCard
+                          key={address.address_id}
+                          address={address}
+                        />
+                      ))
+                    )}
+                  </div>
+
+                  <div ref={loadMoreRef} />
+
+                  {isFetchingNextPage && (
+                    <div className="py-4 text-center">
+                      <Loading />
+                    </div>
+                  )}
+                  {hasNextPage && (
+                    <button
+                      className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                      onClick={() => fetchNextPage()}
+                    >
+                      Load more addresses
+                    </button>
+                  )}
+                  {isFetchNextPageError && (
+                    <Error
+                      text="Failed to load more addresses"
+                      buttonFunc={fetchNextPage}
+                      buttonText="Retry"
+                    />
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </>
       </Container>
       <div className="text-center space-x-6 md:space-x-10 mt-8 md:mb-8">
         <Button
@@ -106,8 +184,7 @@ export default function BookingAddress() {
           size="lg"
           className="rounded-full px-8 text-base md:text-lg"
           disabled={
-            workType == null ||
-            (workType === 'onsite' && !info.address && !info.savedAddress)
+            (workType === 'onsite' && savedAddresses?.length !== 0) || isLoading
           }
           onClick={handleNext}
         >

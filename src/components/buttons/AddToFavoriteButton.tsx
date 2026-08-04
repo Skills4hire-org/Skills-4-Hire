@@ -28,6 +28,9 @@ export default function AddToFavoriteButton({
                 `You've removed ${name} from your favourite professionals`,
               )
             },
+            onError: (error) => {
+              toast.error(error.message)
+            },
           },
         )
       : addFavourite(id, {
@@ -35,6 +38,9 @@ export default function AddToFavoriteButton({
             toast.success(
               `You've added ${name} to your favourite professionals`,
             )
+          },
+          onError: (error) => {
+            toast.error(error.message)
           },
         })
   }
