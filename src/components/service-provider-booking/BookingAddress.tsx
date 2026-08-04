@@ -44,7 +44,8 @@ export default function BookingAddress() {
   } = useMyAddress()
 
   const savedAddresses: Address[] =
-    data?.pages.flatMap((page) => page.data.results) ?? []
+    data?.pages.flatMap((page) => page?.data?.results ?? page?.results ?? []) ??
+    []
 
   const handleAddressFetchingError = () => {
     refetch()

@@ -92,7 +92,7 @@ export default function PostCard({
           </Link>
 
           <div className="min-w-0">
-            <div className="flex items-start">
+            <div className="flex flex-wrap items-start">
               <Link
                 to={`/${userType}/professionals/${provider_id}`}
                 className="no-underline hover:no-underline"
@@ -101,11 +101,12 @@ export default function PostCard({
                   {user?.profile?.display_name}
                 </h3>
               </Link>
+              {userType == 'customer' && ( <Dot className="w-3 h-3 text-muted-foreground self-center ml-1" strokeWidth={6} /> )}
             {userType == 'customer' && (
               <EndorseDialog
               provider_pk={provider_id}
               name={user?.profile?.display_name as string}
-              triggerClassName="capitalize font-semibold text-primary text-xs md:text-sm cursor-pointer hover:underline bg-blue-300 p-1 rounded-[5px] ml-3"
+              triggerClassName="whitespace-nowrap shrink-0 capitalize font-semibold text-primary text-xs md:text-sm cursor-pointer hover:underline rounded-[5px] ml-1"
               />
             )}
             </div>

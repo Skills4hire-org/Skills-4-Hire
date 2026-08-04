@@ -79,7 +79,7 @@ export default function ImageEditor({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="relative h-70 md:h-90 w-full overflow-hidden rounded-lg bg-neutral-900">
+        <div className="relative h-80 md:h-[30rem] w-full overflow-hidden rounded-lg bg-neutral-900">
           <Cropper
             image={imageSrc}
             crop={crop}

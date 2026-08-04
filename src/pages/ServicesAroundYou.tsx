@@ -37,7 +37,9 @@ export default function ServicesAroundYou() {
   } = useFavourites()
 
   const favourites: Favorite[] =
-    favoritesData?.pages.flatMap((page) => page.data.results) ?? []
+    favoritesData?.pages.flatMap(
+      (page) => page?.data?.results ?? page?.results ?? [],
+    ) ?? []
   const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
   const providersID = allFavourites?.map(({ provider_id }) => provider_id)
   const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)

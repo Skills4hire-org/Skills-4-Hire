@@ -14,7 +14,7 @@ export const useFavourites = () => {
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       // Safely check if lastPage and lastPage.data exist before extracting next
-      return lastPage?.data?.next ?? undefined
+      return lastPage?.next ?? lastPage?.data?.next ?? undefined
     },
     retry: 1,
   })
