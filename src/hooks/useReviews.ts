@@ -7,7 +7,7 @@ export const useReviews = () => {
     queryFn: ({ pageParam }) => getReviews(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
   })

@@ -28,7 +28,7 @@ export const useMyAddress = () => {
     },
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.next ?? undefined
+      return lastPage?.next ?? lastPage?.data?.next ?? undefined
     },
     retry: 1,
   })
