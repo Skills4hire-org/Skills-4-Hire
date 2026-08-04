@@ -1,8 +1,8 @@
 import type { Conversation, Message, User } from '@/types/chat.types'
 import { createSlice } from '@reduxjs/toolkit'
+import { store } from '@/store'
 
 interface ChatState {
-  currentUserId: string
   users: Record<string, User>
   conversations: Record<string, Conversation>
   messages: Record<string, Message>
@@ -10,7 +10,6 @@ interface ChatState {
 }
 
 const initialState: ChatState = {
-  currentUserId: '1', // mock logged-in user
   users: {},
   conversations: {},
   messages: {},
@@ -47,10 +46,12 @@ const chatSlice = createSlice({
           message_id: msg.message_id,
           content: msg.content,
           created_at: msg.created_at,
-          is_read: msg.is_read
+          is_read: msg.is_read,
         }
 
-        if (msg.sender.user_id !== state.currentUserId) {
+        // Use the real logged-in user ID from the auth state
+        const currentUserId = store.getState().userState.user_data?.user_id
+        if (msg.sender.user_id !== currentUserId) {
           conversation.unread_count += 1
         }
       }

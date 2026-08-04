@@ -77,7 +77,7 @@ export const useUpdateMyProfile = () => {
 
 export const useMyServices = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['profile-services'],
+    queryKey: ['profile-services', 'me'],
     queryFn: ({ pageParam }) => {
       return getMyServices(pageParam)
     },
@@ -91,7 +91,7 @@ export const useMyServices = () => {
 }
 export const useUserServices = ({ id }: { id: string | undefined }) => {
   const queryData = useInfiniteQuery({
-    queryKey: ['profile-services'],
+    queryKey: ['profile-services', id],
     queryFn: ({ pageParam }) => getUserServices({ pageParam, id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -162,7 +162,7 @@ export const useAddToGallery = () => {
 
 export const useMyGallery = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['media'],
+    queryKey: ['media', 'me'],
     queryFn: ({ pageParam }) => getMyGallery(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -175,7 +175,7 @@ export const useMyGallery = () => {
 
 export const useUserGallery = ({ id }: { id?: string }) => {
   const queryData = useInfiniteQuery({
-    queryKey: ['media'],
+    queryKey: ['media', id],
     queryFn: ({ pageParam }) => getUserGallery({ pageParam, id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {

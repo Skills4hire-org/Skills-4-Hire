@@ -4,7 +4,7 @@ import { handleApiError } from './error'
 
 export const endorse = async (data: Endorse) => {
   try {
-    const response = await api.post('/api/v1/posts/', data)
+    const response = await api.post('/api/v1/endorse/', data)
     return response?.data
   } catch (error) {
     handleApiError(error)

@@ -3,16 +3,18 @@ import SectionHeading from '@/components/services/SectionHeading'
 import DesktopWalletHeader from '@/components/header/DesktopWalletHeader'
 import MobileWalletHeader from '@/components/header/MobileWalletHeader'
 import WalletBalance from '@/components/wallet/WalletBalance'
-import { transactionHistory } from '@/utils/database'
 import { groupTransactionsByDay } from '@/utils/format'
 import TransactionCard from '@/components/wallet/TransactionCard'
 import NoTransactionHistory from '@/components/wallet/NoTransactionHistory'
+import { useTransactions } from '@/hooks/useWallet'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function Wallet() {
-  const transactionStatus = transactionHistory?.filter(
-    (transaction) => transaction?.status?.toLowerCase() === 'pending',
-  )
-  const groupedTransactions = groupTransactionsByDay(transactionStatus)
+  const { data, isLoading, isError } = useTransactions({ status: 'pending' })
+
+  const allTransactions =
+    data?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const groupedTransactions = groupTransactionsByDay(allTransactions)
   const groupedTransactionsArray = Object.entries(groupedTransactions)
 
   return (
@@ -31,22 +33,38 @@ export default function Wallet() {
           <SectionHeading heading="Pending Payment" />
 
           <div className="space-y-2 md:space-y-4">
-            {groupedTransactionsArray?.map(([day, transaction]) => (
-              <div key={day} className="space-y-2 md:space-y-3 ">
-                <h3 className="text-sm md:text-base font-semibold capitalize text-muted-foreground">
-                  {day}
-                </h3>
-
-                <div className="grid grid-cols-1 gap-3 md:gap-4 max-w-xl mx-auto">
-                  {transaction.map((transaction, index) => (
-                    <TransactionCard key={index} {...transaction} />
-                  ))}
-                </div>
+            {isLoading && (
+              <div className="space-y-3">
+                {[...Array(3)].map((_, i) => (
+                  <Skeleton key={i} className="h-16 w-full rounded-md" />
+                ))}
               </div>
-            ))}
+            )}
 
-            {groupedTransactionsArray?.length == 0 && (
+            {!isLoading &&
+              !isError &&
+              groupedTransactionsArray.map(([day, transactions]) => (
+                <div key={day} className="space-y-2 md:space-y-3">
+                  <h3 className="text-sm md:text-base font-semibold capitalize text-muted-foreground">
+                    {day}
+                  </h3>
+
+                  <div className="grid grid-cols-1 gap-3 md:gap-4 max-w-xl mx-auto">
+                    {transactions.map((transaction, index) => (
+                      <TransactionCard key={index} {...transaction} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+            {!isLoading && !isError && groupedTransactionsArray.length === 0 && (
               <NoTransactionHistory label="pending" />
+            )}
+
+            {isError && (
+              <p className="text-center text-sm text-muted-foreground py-10">
+                Failed to load transactions. Please refresh.
+              </p>
             )}
           </div>
         </div>

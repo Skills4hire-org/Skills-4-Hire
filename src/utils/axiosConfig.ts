@@ -55,8 +55,8 @@ api.interceptors.request.use(async (config) => {
     if (isTokenExpired(token)) {
       try {
         token = await refreshAccessToken()
-      } catch {
-        return config // logout already handled
+      } catch (err) {
+        return Promise.reject(err) // logout already handled, abort the request
       }
     }
 
@@ -64,10 +64,6 @@ api.interceptors.request.use(async (config) => {
     config.headers.Authorization = `Bearer ${token}`
   }
 
-  console.log(store.getState().userState);
-    console.log("Authorization header:", config.headers.Authorization);
-    console.log("Access:", state.userState.access)
-console.log("Refresh:", state.userState.refresh)
   return config
 
 })

@@ -11,8 +11,6 @@ export default function WalletBalance() {
   const { data, isLoading, isError, refetch } = useWallet()
   const wallet: WalletBalance = data?.data
 
-  console.log(data)
-
   return (
     <div className="text-white  bg-primary rounded-md md:rounded-lg py-4 md:py-6 md:px-4 px-2 space-y-6">
       <div className="  flex items-start justify-between">
