@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ImageIcon } from 'lucide-react'
 
 export default function ServicesCard({ name, attachments }: Service) {
-  const formatServiceName = name.replaceAll(' ', '-')
+  const formatServiceName = name?.replaceAll(' ', '-') ?? 'service'
   const imageUrl = attachments?.[0]?.image_url
   const [imageError, setImageError] = useState(false)
 

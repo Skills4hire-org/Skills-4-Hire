@@ -48,7 +48,7 @@ export default function SingleService() {
   const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
 
   const professionals: Provider[] =
-    data?.pages.flatMap((page) => page.results) ?? []
+    data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
