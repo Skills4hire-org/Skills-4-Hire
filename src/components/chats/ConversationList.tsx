@@ -20,9 +20,23 @@ export default function ConversationList() {
     isFetchNextPageError,
   } = useConversations()
   const conversations: Conversation[] =
-    data?.pages.flatMap((page) => page.results) ?? []
+    data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const [searchQuery, setSearchQuery] = useState('')
-  const handleSearchQuery = () => {}
+
+  const filteredConversations = conversations.filter((conversation) => {
+    const query = searchQuery.trim().toLowerCase()
+    if (!query) return true
+    const other = conversation.participant_two
+    const name = [
+      other?.profile?.display_name,
+      other?.first_name,
+      other?.last_name,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase()
+    return name.includes(query)
+  })
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -57,16 +71,21 @@ export default function ConversationList() {
                 placeholder="Search"
                 maxWidth="max-w-md"
                 value={searchQuery}
-                onSubmit={handleSearchQuery}
+                onSubmit={() => {}}
                 setSearchQuery={setSearchQuery}
               />
               <div className="grid grid-cols-1 gap-2">
-                {conversations.map((conversation) => (
+                {filteredConversations.map((conversation) => (
                   <ConversationCard
                     key={conversation.conversation_id}
                     conversation={conversation}
                   />
                 ))}
+                {filteredConversations.length === 0 && searchQuery && (
+                  <p className="text-sm text-gray-500 text-center py-6">
+                    No conversations found
+                  </p>
+                )}
               </div>
               <div ref={loadMoreRef} />
 

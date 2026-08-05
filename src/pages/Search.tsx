@@ -20,8 +20,20 @@ import {
 import { Slider } from '@/components/ui/slider'
 import { currencyFormatter } from '@/utils/format'
 import { ChevronLeft, Search, Sliders, X } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import { useMemo, useState, type FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import Loading from '@/components/global/Loading'
+import Error from '@/components/global/Error'
+import NoResultFound from '@/components/global/NoResultFound'
+import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
+import PostCard from '@/components/home/PostCard'
+import { useAllProviders } from '@/hooks/useUsers'
+import { useFavourites } from '@/hooks/useFavourites'
+import { useOffers, usePosts } from '@/hooks/usePosts'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import type { Provider } from '@/types/user.types'
+import type { Favorite } from '@/types/favourites.type'
+import type { Post } from '@/types/post.types'
 
 export default function SearchPage() {
   const [open, setOpen] = useState(false)
@@ -38,15 +50,148 @@ export default function SearchPage() {
     price: [0, 1000000],
     rating: undefined,
   })
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState('providers')
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const search = queryParams.get('query')
   const [searchQuery, setSearchQuery] = useState(search || '')
   const navigate = useNavigate()
+
+  const {
+    data: providersData,
+    isLoading: providersLoading,
+    isError: providersError,
+    refetch: refetchProviders,
+    fetchNextPage: fetchProvidersNextPage,
+    hasNextPage: providersHasNextPage,
+    isFetchingNextPage: providersFetchingNextPage,
+    isFetchNextPageError: providersFetchNextPageError,
+  } = useAllProviders({ search: searchQuery })
+  const {
+    data: postsData,
+    isLoading: postsLoading,
+    isError: postsError,
+    refetch: refetchPosts,
+    fetchNextPage: fetchPostsNextPage,
+    hasNextPage: postsHasNextPage,
+    isFetchingNextPage: postsFetchingNextPage,
+    isFetchNextPageError: postsFetchNextPageError,
+  } = usePosts()
+  const {
+    data: offersData,
+    isLoading: offersLoading,
+    isError: offersError,
+    refetch: refetchOffers,
+    fetchNextPage: fetchOffersNextPage,
+    hasNextPage: offersHasNextPage,
+    isFetchingNextPage: offersFetchingNextPage,
+    isFetchNextPageError: offersFetchNextPageError,
+  } = useOffers({})
+  const {
+    data: favoritesData,
+    isLoading: favoritesLoading,
+  } = useFavourites()
+
+  const favourites: Favorite[] =
+    favoritesData?.pages?.flatMap(
+      (page) => page?.data?.results ?? page?.results ?? [],
+    ) ?? []
+  const allFavourites = favourites?.flatMap(
+    (favourite) => favourite?.providers ?? [],
+  )
+  const providersID = allFavourites
+    ?.map(({ provider_id }) => provider_id)
+    .filter(Boolean)
+  const favoriteID = favourites?.flatMap(
+    (favourite) => favourite?.favourite_id ?? [],
+  )
+
+  const providers: Provider[] =
+    providersData?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const allPosts: Post[] =
+    postsData?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const allOffers: Post[] =
+    offersData?.pages.flatMap((page) => page?.results ?? []) ?? []
+
+  const selectedServices = filters.service.filter((s) => s !== '')
+
+  const filteredProviders = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase()
+    return providers.filter((p) => {
+      const title = (p.professional_title || '').toLowerCase()
+      if (q && !title.includes(q)) return false
+      if (selectedServices.length > 0) {
+        const titleTokens = title.split(/\s+/).filter(Boolean)
+        const match = selectedServices.some((svc) => {
+          const label =
+            serviceTypes.find((t) => t.value === svc)?.label.toLowerCase() ??
+            ''
+          const labelTokens = label.split(/\s+/).filter(Boolean)
+          return labelTokens.some(
+            (lt) =>
+              lt.length > 2 &&
+              titleTokens.some((t) => t.includes(lt) || lt.includes(t)),
+          )
+        })
+        if (!match) return false
+      }
+      const [minPrice, maxPrice] = filters.price
+      const charge = Number(p.min_charge ?? 0)
+      if ((minPrice > 0 && charge < minPrice) || (maxPrice < 1000000 && charge > maxPrice))
+        return false
+      if (filters.rating !== undefined && Number(p.avg_rating ?? 0) < filters.rating)
+        return false
+      return true
+    })
+  }, [providers, searchQuery, filters, selectedServices])
+
+  const filteredPosts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase()
+    return allPosts.filter(
+      (p) => !q || (p.post_content ?? '').toLowerCase().includes(q),
+    )
+  }, [allPosts, searchQuery])
+
+  const filteredOffers = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase()
+    return allOffers.filter(
+      (p) => !q || (p.post_content ?? '').toLowerCase().includes(q),
+    )
+  }, [allOffers, searchQuery])
+
+  const isLoading =
+    category === 'providers'
+      ? providersLoading || favoritesLoading
+      : category === 'post'
+        ? postsLoading
+        : offersLoading
+  const isError =
+    category === 'providers'
+      ? providersError
+      : category === 'post'
+        ? postsError
+        : offersError
+  const resultCount =
+    category === 'providers'
+      ? filteredProviders.length
+      : category === 'post'
+        ? filteredPosts.length
+        : filteredOffers.length
+  const handleFetchError = () => {
+    if (category === 'providers') refetchProviders()
+    else if (category === 'post') refetchPosts()
+    else refetchOffers()
+  }
+
+  const loadMoreRef = useInfiniteScroll({
+    hasNextPage: providersHasNextPage,
+    isFetchingNextPage: providersFetchingNextPage,
+    fetchNextPage: fetchProvidersNextPage,
+  })
+
   const handleSelectCategory = (value: string) => {
     if (value === category) {
-      setCategory('')
+      setCategory('providers')
     } else {
       setCategory(value)
     }
@@ -154,6 +299,106 @@ export default function SearchPage() {
               </Carousel>
             </div>
             {/* search results */}
+            <div className="min-h-[50vh] bg-white border-t">
+              {isLoading ? (
+                <div className="h-24 py-10">
+                  <Loading />
+                </div>
+              ) : isError ? (
+                <div className="py-10">
+                  <Error
+                    text="Failed to load search results"
+                    buttonFunc={handleFetchError}
+                  />
+                </div>
+              ) : (
+                <div className="space-y-3 md:space-y-4 p-2 md:p-4">
+                  {category === 'providers' &&
+                    filteredProviders.map((professional) => (
+                      <ServiceProviderCard
+                        key={professional.provider_id}
+                        {...professional}
+                        providerIDs={providersID}
+                        favouriteID={favoriteID[0]}
+                      />
+                    ))}
+                  {category === 'post' &&
+                    filteredPosts.map((post) => (
+                      <PostCard
+                        key={post.post_id ?? post.updated_at}
+                        {...post}
+                        queryKey={['search-posts']}
+                      />
+                    ))}
+                  {category === 'offers' &&
+                    filteredOffers.map((offer) => (
+                      <PostCard
+                        key={offer.post_id ?? offer.updated_at}
+                        {...offer}
+                        queryKey={['search-offers']}
+                      />
+                    ))}
+
+                  {!isLoading && resultCount === 0 && (
+                    <NoResultFound
+                      text="No results found"
+                      subtitle="Try a different search or adjust your filters"
+                      icon={Search}
+                    />
+                  )}
+
+                  <div
+                    ref={
+                      category === 'providers' ? loadMoreRef : undefined
+                    }
+                  />
+                  {category === 'providers' && providersHasNextPage && (
+                    <button
+                      className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                      onClick={() => fetchProvidersNextPage()}
+                    >
+                      Load more
+                    </button>
+                  )}
+                  {category === 'post' && postsHasNextPage && (
+                    <button
+                      className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                      onClick={() => fetchPostsNextPage()}
+                    >
+                      Load more
+                    </button>
+                  )}
+                  {category === 'offers' && offersHasNextPage && (
+                    <button
+                      className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                      onClick={() => fetchOffersNextPage()}
+                    >
+                      Load more
+                    </button>
+                  )}
+                  {(category === 'providers'
+                    ? providersFetchingNextPage
+                    : category === 'post'
+                      ? postsFetchingNextPage
+                      : offersFetchingNextPage) && (
+                    <div className="py-4 text-center">
+                      <Loading />
+                    </div>
+                  )}
+                  {(category === 'providers'
+                    ? providersFetchNextPageError
+                    : category === 'post'
+                      ? postsFetchNextPageError
+                      : offersFetchNextPageError) && (
+                    <Error
+                      text="Failed to load more results"
+                      buttonFunc={handleFetchError}
+                      buttonText="Retry"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="bg-gray-200 gap-0 lg:block lg:col-span-2 hidden  grid">
