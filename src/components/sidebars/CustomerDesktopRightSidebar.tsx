@@ -1,35 +1,79 @@
-import SmallDP from '../../assets/Small-DP.png'
+import { Link } from 'react-router-dom'
+import defaultImage from '../../assets/images/profile.jpg'
+import Error from '../global/Error'
+import Loading from '../global/Loading'
+import { useAllProviders } from '@/hooks/useUsers'
+import type { Provider } from '@/types/user.types'
 
 export default function CustomerDesktopRightSidebar() {
+  const {
+    data: providersData,
+    isLoading,
+    isError,
+    refetch,
+  } = useAllProviders({})
+
+  const providers: Provider[] =
+    providersData?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const suggestedProfessionals = providers.slice(0, 3)
+
   return (
     <div className="p-4 space-y-6 flex flex-col border-l-1">
       <section>
         <h3 className="font-semibold text-gray-700 mb-3">
-          Top-rated providers
+          Suggested professionals
         </h3>
-        <div className="space-y-3">
-          {[1, 2, 3].map((_, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <img
-                src={SmallDP}
-                alt="provider"
-                className="h-8 w-8 rounded-full object-cover"
-              />
-              <div>
-                <div className="text-sm font-medium text-gray-800">
-                  James Carpentry
+        {isLoading ? (
+          <div className="py-4">
+            <Loading />
+          </div>
+        ) : isError ? (
+          <Error
+            text="Failed to load professionals"
+            buttonFunc={refetch}
+          />
+        ) : suggestedProfessionals.length === 0 ? (
+          <p className="text-sm text-gray-500">
+            No suggested professionals available right now.
+          </p>
+        ) : (
+          <div className="space-y-3">
+            {suggestedProfessionals.map((provider) => (
+              <Link
+                key={provider.provider_id}
+                to={`/customer/professionals/${provider.provider_id}`}
+                className="flex items-center gap-3"
+              >
+                <img
+                  src={
+                    provider?.user?.profile?.avatar?.avatar ?? defaultImage
+                  }
+                  alt={
+                    provider?.user?.profile?.display_name || 'professional'
+                  }
+                  className="h-8 w-8 rounded-full object-cover"
+                />
+                <div>
+                  <div className="text-sm font-medium text-gray-800">
+                    {provider?.user?.profile?.display_name}
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <span className="text-yellow-500">★</span>{' '}
+                    {Number(provider.avg_rating ?? 0).toFixed(1)} ·{' '}
+                    {provider.professional_title}
+                  </div>
                 </div>
-                <div className="flex items-center gap-1 text-xs text-gray-500">
-                  <span className="text-yellow-500">★</span> 4.9 · Carpentry
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        )}
 
-        <button className="mt-3 text-sm text-[#222BDE] font-medium hover:underline">
+        <Link
+          to="/customer/services/search"
+          className="mt-3 inline-block text-sm text-[#222BDE] font-medium hover:underline"
+        >
           See all
-        </button>
+        </Link>
       </section>
 
       <section>

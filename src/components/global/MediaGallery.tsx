@@ -2,13 +2,13 @@ import type { Gallery } from '@/types/user.types'
 import { useMemo, useState } from 'react'
 import Lightbox from 'yet-another-react-lightbox'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
-import Video from 'yet-another-react-lightbox/plugins/video'
 
 import 'yet-another-react-lightbox/styles.css'
-import { getVideoMimeType } from '@/utils/format'
 import { useDeleteFromGallery } from '@/hooks/useUsers'
 import { toast } from 'sonner'
 import { Loader2, PlayIcon, Trash2 } from 'lucide-react'
+import VideoPlayer from './VideoPlayer'
+import VideoViewer from './VideoViewer'
 
 export default function MediaGallery({
   media,
@@ -19,29 +19,21 @@ export default function MediaGallery({
 }) {
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
+  const [videoOpen, setVideoOpen] = useState(false)
+  const [activeVideo, setActiveVideo] = useState<Gallery | null>(null)
+
+  const imageItems = useMemo(
+    () => media?.filter((item) => item.type !== 'video'),
+    [media],
+  )
 
   const slides = useMemo(
     () =>
-      media?.map((item) =>
-        item.type === 'video'
-          ? {
-              type: 'video' as const,
-              width: 1920,
-              height: 1080,
-              poster: item.thumbnail_url,
-              sources: [
-                {
-                  src: item.image_url,
-                  type: getVideoMimeType(item.image_url),
-                },
-              ],
-            }
-          : {
-              src: item.image_url,
-              alt: item.description,
-            },
-      ),
-    [media],
+      imageItems?.map((item) => ({
+        src: item.image_url,
+        alt: item.description,
+      })),
+    [imageItems],
   )
 
   const { mutate: deleteMedia, isPending: deleting } = useDeleteFromGallery()
@@ -55,16 +47,29 @@ export default function MediaGallery({
       },
     })
   }
+
+  const openMedia = (i: number) => {
+    const item = media?.[i]
+    if (!item) return
+    if (item.type === 'video') {
+      setActiveVideo(item)
+      setVideoOpen(true)
+      return
+    }
+    const imageIndex = imageItems?.findIndex(
+      (img) => img.work_image_id === item.work_image_id,
+    )
+    setIndex(imageIndex ?? 0)
+    setOpen(true)
+  }
+
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
         {media?.map((item, index) => (
           <div key={item.work_image_id} className="relative">
             <button
-              onClick={() => {
-                setIndex(index)
-                setOpen(true)
-              }}
+              onClick={() => openMedia(index)}
               className="relative overflow-hidden rounded-lg"
             >
               {item.type === 'video' ? (
@@ -75,7 +80,7 @@ export default function MediaGallery({
                     className="aspect-square object-cover rounded-lg w-full"
                   />
 
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
                     <div className="rounded-full bg-white/90 p-1">
                       <PlayIcon className="w-4 h-4 md:w-5 md:h-5" />
                     </div>
@@ -113,8 +118,18 @@ export default function MediaGallery({
         close={() => setOpen(false)}
         index={index}
         slides={slides}
-        plugins={[Zoom, Video]}
+        plugins={[Zoom]}
       />
+      <VideoViewer open={videoOpen} onClose={setVideoOpen}>
+        {activeVideo && (
+          <VideoPlayer
+            src={activeVideo.image_url}
+            poster={activeVideo.thumbnail_url}
+            fit="contain"
+            className="h-full"
+          />
+        )}
+      </VideoViewer>
     </>
   )
 }
