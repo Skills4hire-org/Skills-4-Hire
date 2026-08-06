@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Briefcase, Sliders } from 'lucide-react'
 import Container from '@/components/global/Container'
 import RequestCard from '@/components/overview/RequestCard'
 import { useHireRequests } from '@/hooks/usePosts'
+import { markHireRequestsSeen } from '@/hooks/useNewHireRequests'
 import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
 import NoJobsFound from '@/components/global/NoResultFound'
@@ -91,6 +92,15 @@ export default function Request() {
     isFetchingNextPage,
     fetchNextPage,
   })
+
+  useEffect(() => {
+    const postIds =
+      data?.pages
+        ?.flatMap((page) => page?.results ?? [])
+        .map((post) => post.post_id)
+        .filter((id): id is string => Boolean(id)) ?? []
+    markHireRequestsSeen(postIds)
+  }, [data])
 
   const hasActiveFilters = Object.values(filters).some(Boolean)
 

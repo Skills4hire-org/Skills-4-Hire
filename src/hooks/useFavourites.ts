@@ -5,7 +5,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
-export const useFavourites = () => {
+export const useFavourites = ({ enabled = true }: { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['favorites'],
     queryFn: ({ pageParam }) => {
@@ -17,6 +17,7 @@ export const useFavourites = () => {
       return lastPage?.next ?? lastPage?.data?.next ?? undefined
     },
     retry: 1,
+    enabled,
   })
   return queryData
 }

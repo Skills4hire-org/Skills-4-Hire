@@ -30,16 +30,18 @@ export const useAllProviders = ({
   profession,
   min_charge,
   ratings,
-}: ProviderParams) => {
+  enabled = true,
+}: ProviderParams & { enabled?: boolean }) => {
   const queryData = useInfiniteQuery({
     queryKey: ['providers', search, profession, min_charge, ratings],
     queryFn: ({ pageParam }) =>
       getProviders({ pageParam, search, profession, min_charge, ratings }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
+    enabled,
   })
   return queryData
 }

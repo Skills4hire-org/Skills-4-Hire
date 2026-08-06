@@ -120,15 +120,16 @@ export const useDeletePost = () => {
   return deletePostFunction
 }
 
-export const usePosts = () => {
+export const usePosts = ({ enabled = true }: { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['posts'],
     queryFn: ({ pageParam }) => getPosts(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
+    enabled,
   })
   return queryData
 }
@@ -139,16 +140,18 @@ export const useOffers = ({
   state,
   min_amount,
   max_amount,
-}: PostParams) => {
+  enabled = true,
+}: PostParams & { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['posts', tags_name, city, state, min_amount, max_amount],
     queryFn: ({ pageParam }) =>
       getOffers({ tags_name, city, state, min_amount, max_amount, pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
+    enabled,
   })
   return queryData
 }
@@ -159,7 +162,8 @@ export const useHireRequests = ({
   state,
   min_amount,
   max_amount,
-}: PostParams = {}) => {
+  enabled = true,
+}: PostParams & { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: [
       'hire-requests',
@@ -179,8 +183,9 @@ export const useHireRequests = ({
         max_amount,
       }),
     initialPageParam: undefined,
-    getNextPageParam: (lastPage) => lastPage.next ?? undefined,
+    getNextPageParam: (lastPage) => lastPage?.next ?? undefined,
     retry: 1,
+    enabled,
   });
 
   return queryData;

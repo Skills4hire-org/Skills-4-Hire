@@ -291,37 +291,56 @@ export default function SearchPage() {
     return () => clearTimeout(timer)
   }, [searchQuery])
 
+  const activeFilterCount =
+    filters.service.length +
+    (filters.price[0] !== 0 ? 1 : 0) +
+    (filters.price[1] !== MAX_PRICE ? 1 : 0) +
+    (filters.rating !== undefined ? 1 : 0)
+
+  const hasActiveFilters = activeFilterCount > 0
+  const canSearch = !!debouncedQuery || hasActiveFilters
+
+  const providersEnabled = category === 'providers' && canSearch
+  const postsEnabled = category === 'post' && canSearch
+  const offersEnabled = category === 'offers' && canSearch
+  const favouritesEnabled = providersEnabled
+
   const {
     data: providersData,
     isLoading: providersLoading,
-    isError: providersError,
+    isError: providersIsError,
+    error: providersError,
     refetch: refetchProviders,
     fetchNextPage: fetchProvidersNextPage,
     hasNextPage: providersHasNextPage,
     isFetchingNextPage: providersFetchingNextPage,
     isFetchNextPageError: providersFetchNextPageError,
-  } = useAllProviders({ search: debouncedQuery })
+  } = useAllProviders({ search: debouncedQuery, enabled: providersEnabled })
   const {
     data: postsData,
     isLoading: postsLoading,
-    isError: postsError,
+    isError: postsIsError,
+    error: postsError,
     refetch: refetchPosts,
     fetchNextPage: fetchPostsNextPage,
     hasNextPage: postsHasNextPage,
     isFetchingNextPage: postsFetchingNextPage,
     isFetchNextPageError: postsFetchNextPageError,
-  } = usePosts()
+  } = usePosts({ enabled: postsEnabled })
   const {
     data: offersData,
     isLoading: offersLoading,
-    isError: offersError,
+    isError: offersIsError,
+    error: offersError,
     refetch: refetchOffers,
     fetchNextPage: fetchOffersNextPage,
     hasNextPage: offersHasNextPage,
     isFetchingNextPage: offersFetchingNextPage,
     isFetchNextPageError: offersFetchNextPageError,
-  } = useOffers({})
-  const { data: favoritesData, isLoading: favoritesLoading } = useFavourites()
+  } = useOffers({ enabled: offersEnabled })
+  const { data: favoritesData, isLoading: favoritesLoading } = useFavourites({
+    enabled: favouritesEnabled,
+  })
 
   const favourites: Favorite[] =
     favoritesData?.pages?.flatMap(
@@ -379,10 +398,16 @@ export default function SearchPage() {
         : offersLoading
   const isError =
     category === 'providers'
-      ? providersError
+      ? providersIsError
       : category === 'post'
-        ? postsError
-        : offersError
+        ? postsIsError
+        : offersIsError
+  const errorMessage =
+    category === 'providers'
+      ? (providersError as Error | null)?.message
+      : category === 'post'
+        ? (postsError as Error | null)?.message
+        : (offersError as Error | null)?.message
   const results =
     category === 'providers'
       ? filteredProviders
@@ -417,12 +442,6 @@ export default function SearchPage() {
           : fetchOffersNextPage,
   })
 
-  const activeFilterCount =
-    filters.service.length +
-    (filters.price[0] !== 0 ? 1 : 0) +
-    (filters.price[1] !== MAX_PRICE ? 1 : 0) +
-    (filters.rating !== undefined ? 1 : 0)
-
   const handleSelectCategory = (value: string) => {
     setCategory((prev) => (prev === value ? 'providers' : value))
   }
@@ -445,7 +464,7 @@ export default function SearchPage() {
     })
   }
 
-  const showNoResults = !isLoading && !isError && resultCount === 0
+  const showNoResults = canSearch && !isLoading && !isError && resultCount === 0
 
   return (
     <>
@@ -529,27 +548,37 @@ export default function SearchPage() {
           <div className="min-h-[50vh] bg-white border-t">
             <div className="flex items-center justify-between px-2 md:px-4 py-3">
               <h2 className="font-semibold text-sm md:text-base text-gray-900">
-                {debouncedQuery
-                  ? `Results for "${debouncedQuery}"`
-                  : activeFilterCount > 0
-                    ? 'Filtered results'
-                    : 'All results'}
+                {!canSearch
+                  ? 'Search'
+                  : debouncedQuery
+                    ? `Results for "${debouncedQuery}"`
+                    : 'Filtered results'}
               </h2>
-              {!isLoading && !isError && (
+              {canSearch && !isLoading && !isError && (
                 <span className="text-xs text-gray-500">
                   {resultCount} result{resultCount === 1 ? '' : 's'}
                 </span>
               )}
             </div>
 
-            {isLoading ? (
+            {!canSearch ? (
+              <NoResultFound
+                text="Search to get started"
+                subtitle="Search for people, posts, and offers"
+                icon={Search}
+              />
+            ) : isLoading ? (
               <div className="h-24 py-10">
                 <Loading />
               </div>
             ) : isError ? (
               <div className="py-10">
                 <Error
-                  text="Failed to load search results"
+                  text={
+                    errorMessage
+                      ? `Failed to load results: ${errorMessage}`
+                      : 'Failed to load search results'
+                  }
                   buttonFunc={handleFetchError}
                 />
               </div>

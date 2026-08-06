@@ -60,7 +60,7 @@ export default function CustomerOffers() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-1">
                 {offers?.length === 0 ? (
                   <NoJobsFound icon={Briefcase} text="No job offers found" />
                 ) : (
