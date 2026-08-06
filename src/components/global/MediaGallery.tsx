@@ -125,6 +125,8 @@ export default function MediaGallery({
           <VideoPlayer
             src={activeVideo.image_url}
             poster={activeVideo.thumbnail_url}
+            autoPlay
+            muted
             fit="contain"
             className="h-full"
           />

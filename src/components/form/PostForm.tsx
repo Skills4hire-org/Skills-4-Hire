@@ -376,6 +376,7 @@ export default function PostForm({
       <ImageEditor
         open={!!editingSrc}
         imageSrc={editingSrc ?? ''}
+        originalFile={editingFile}
         aspect={4 / 5}
         outputWidth={1024}
         outputHeight={1280}

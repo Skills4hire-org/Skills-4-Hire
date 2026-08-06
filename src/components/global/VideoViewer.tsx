@@ -15,7 +15,7 @@ export default function VideoViewer({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         showCloseButton={false}
-        className="inset-0! top-0! left-0! translate-x-0! translate-y-0! w-screen! h-screen! max-w-none! sm:max-w-none! rounded-none! border-0! bg-black p-0! overflow-hidden"
+        className="inset-0! top-0! left-0! translate-x-0! translate-y-0! w-screen! h-screen! max-w-none! sm:max-w-none! rounded-none! border-0! bg-black p-0! gap-0! overflow-hidden"
       >
         <button
           type="button"
@@ -25,7 +25,7 @@ export default function VideoViewer({
         >
           <X className="w-5 h-5" />
         </button>
-        <div className="w-full h-full">{children}</div>
+        <div className="absolute inset-0">{children}</div>
       </DialogContent>
     </Dialog>
   )

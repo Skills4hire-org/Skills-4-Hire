@@ -240,7 +240,7 @@ export default function VideoPlayer({
             </div>
           )}
 
-          {!isPlaying && !isBuffering && (
+          {!autoPlay && !isPlaying && !isBuffering && (
             <button
               type="button"
               aria-label="Play"

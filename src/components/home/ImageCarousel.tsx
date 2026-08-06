@@ -2,7 +2,6 @@ import type { PostAttachment } from '@/types/post.types'
 import { useMemo, useState } from 'react'
 import Lightbox from 'yet-another-react-lightbox'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
-import { PlayIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import VideoPlayer from '../global/VideoPlayer'
 import VideoViewer from '../global/VideoViewer'
@@ -31,23 +30,16 @@ function AttachmentCell({
       )}
     >
       {attachment.attachment_type === 'VIDEO' ? (
-        <>
-          <VideoPlayer
-            src={attachment.attachmentURL}
-            poster={attachment.thumbnail_url}
-            autoPlay
-            muted
-            loop
-            controls={false}
-            fit="cover"
-            className="h-full"
-          />
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30 pointer-events-none">
-            <div className="rounded-full bg-white/90 p-1.5">
-              <PlayIcon className="w-4 h-4 md:w-5 md:h-5" />
-            </div>
-          </div>
-        </>
+        <VideoPlayer
+          src={attachment.attachmentURL}
+          poster={attachment.thumbnail_url}
+          autoPlay
+          muted
+          loop
+          controls={false}
+          fit="cover"
+          className="h-full"
+        />
       ) : (
         <img
           src={attachment.attachmentURL}
@@ -147,6 +139,8 @@ function ImageCarousel({
           <VideoPlayer
             src={activeVideo.attachmentURL}
             poster={activeVideo.thumbnail_url}
+            autoPlay
+            muted
             fit="contain"
             className="h-full"
           />
