@@ -32,6 +32,7 @@ const userSlice = createSlice({
     },
     logoutUser: () => {
       sessionStorage.setItem('user', JSON.stringify(defaultState))
+      return defaultState
     },
   },
 })

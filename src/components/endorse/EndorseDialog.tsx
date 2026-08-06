@@ -12,19 +12,23 @@ import {
 interface EndorseDialogProp {
   provider_pk: string | undefined
   name?: string
+  triggerClassName?: string
 }
 
 export default function EndorseDialog({
   provider_pk,
   name,
+  triggerClassName,
 }: EndorseDialogProp) {
   const [open, setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button
-          className="capitalize font-semibold text-white text-sm md:text-base cursor-pointer"
-          onClick={() => setOpen(true)}
+          className={
+            triggerClassName ??
+            'capitalize font-semibold text-white text-sm md:text-base cursor-pointer'
+          }
         >
           endorse
         </button>

@@ -157,7 +157,7 @@ export default function CustomerProfileForm() {
               onSubmit={handleSubmit}
               className="w-full max-w-xl mx-auto space-y-6"
             >
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-2 flex flex-col items-center">
                 <ProfileImageDialog professional={user} />
                 <div>
                   <h2 className="text-base md:text-lg font-medium -mb-0.5 md:mb-0">

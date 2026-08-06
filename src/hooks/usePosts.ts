@@ -37,12 +37,25 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query'
 
+type PostsPage = {
+  results: Post[]
+  next?: string | null
+}
+
+type PostsInfiniteData = {
+  pages: PostsPage[]
+  pageParams: unknown[]
+}
+
+const getErrorMessage = (error: unknown) =>
+  error instanceof Error ? error.message : String(error)
+
 export const useCreatePost = () => {
   const createPostAction = async (data: CreatePost) => {
     try {
       await createPost(data)
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -70,8 +83,8 @@ export const useEditPost = () => {
         post_id,
         data,
       })
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -91,8 +104,8 @@ export const useDeletePost = () => {
       await deletePost({
         post_id,
       })
-    } catch (error: any) {
-      toast.error(error?.message)
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -107,15 +120,16 @@ export const useDeletePost = () => {
   return deletePostFunction
 }
 
-export const usePosts = () => {
+export const usePosts = ({ enabled = true }: { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['posts'],
     queryFn: ({ pageParam }) => getPosts(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
+    enabled,
   })
   return queryData
 }
@@ -126,16 +140,18 @@ export const useOffers = ({
   state,
   min_amount,
   max_amount,
-}: PostParams) => {
+  enabled = true,
+}: PostParams & { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['posts', tags_name, city, state, min_amount, max_amount],
     queryFn: ({ pageParam }) =>
       getOffers({ tags_name, city, state, min_amount, max_amount, pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      return lastPage?.next ?? undefined
     },
     retry: 1,
+    enabled,
   })
   return queryData
 }
@@ -146,7 +162,8 @@ export const useHireRequests = ({
   state,
   min_amount,
   max_amount,
-}: PostParams = {}) => {
+  enabled = true,
+}: PostParams & { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['hire-requests', tags_name, city, state, min_amount, max_amount],
     queryFn: ({ pageParam }) =>
@@ -159,8 +176,9 @@ export const useHireRequests = ({
         max_amount,
       }),
     initialPageParam: undefined,
-    getNextPageParam: (lastPage) => lastPage.next ?? undefined,
+    getNextPageParam: (lastPage) => lastPage?.next ?? undefined,
     retry: 1,
+    enabled,
   })
 
   return queryData
@@ -256,25 +274,28 @@ export const useLikePost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: any) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    likes_count: (post.likes_count ?? 0) + 1,
-                    is_liked: true,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      likes_count: (post.likes_count ?? 0) + 1,
+                      is_liked: true,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },
@@ -302,25 +323,28 @@ export const useUnlikePost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: any) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    likes_count: Math.max((post.likes_count ?? 0) - 1, 0),
-                    is_liked: false,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      likes_count: Math.max((post.likes_count ?? 0) - 1, 0),
+                      is_liked: false,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },
@@ -348,25 +372,28 @@ export const useRepost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: any) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    reposts_count: (post.reposts_count ?? 0) + 1,
-                    is_reposted: true,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      reposts_count: (post.reposts_count ?? 0) + 1,
+                      is_reposted: true,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },
@@ -392,25 +419,28 @@ export const useUnrepost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: any) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: any) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    reposts_count: Math.max((post.reposts_count ?? 0) - 1, 0),
-                    is_reposted: false,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      reposts_count: Math.max((post.reposts_count ?? 0) - 1, 0),
+                      is_reposted: false,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },
@@ -467,8 +497,8 @@ export const usePostComment = ({
   }) => {
     try {
       await postComment({ post_id, data })
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()
@@ -518,8 +548,8 @@ export const usePostReplies = ({
   }) => {
     try {
       await postReplies({ post_id, comment_id, data })
-    } catch (error: any) {
-      throw new Error(error?.message)
+    } catch (error) {
+      throw new Error(getErrorMessage(error))
     }
   }
   const queryClient = useQueryClient()

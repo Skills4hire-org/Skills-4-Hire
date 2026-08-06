@@ -84,13 +84,22 @@ export const withdrawPinSchema = z.object({
 })
 
 export const createOfferSchema = z.object({
-  title: z.string().max(500, 'Title must not exceed 500 characters.'),
-  post: z.string(),
-  budget: z.string(),
-  timeFrame: z.string(),
-  service: z.string(),
-  city: z.string().max(100, 'City must not exceed 100 characters.'),
-  state: z.string().max(100, 'State must not exceed 100 characters.'),
+  title: z
+    .string()
+    .min(1, 'Title is required.')
+    .max(500, 'Title must not exceed 500 characters.'),
+  post: z.string().min(1, 'Description is required.'),
+  budget: z.string().min(1, 'Budget is required.'),
+  timeFrame: z.string().min(1, 'Time frame is required.'),
+  service: z.string().min(1, 'Service is required.'),
+  city: z
+    .string()
+    .min(1, 'City is required.')
+    .max(100, 'City must not exceed 100 characters.'),
+  state: z
+    .string()
+    .min(1, 'State is required.')
+    .max(100, 'State must not exceed 100 characters.'),
 })
 
 export const commentFormSchema = z.object({

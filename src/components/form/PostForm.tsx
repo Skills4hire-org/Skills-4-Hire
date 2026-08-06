@@ -1,13 +1,21 @@
-import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from 'react'
 import FormTextArea from '../form-fields/FormTextArea'
 import { toast } from 'sonner'
-import { Check, ImageIcon, Plus, VideoIcon } from 'lucide-react'
+import { Check, ImageIcon, Plus, VideoIcon, X } from 'lucide-react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import type { CreatePost, Post } from '@/types/post.types'
 import { uploadToCloudinary } from '@/utils/cloudinary'
 import ImageEditor from '../global/ImageEditor'
+import VideoPlayer from '../global/VideoPlayer'
 
 type PostFormProps = {
   post?: Post
@@ -52,6 +60,17 @@ export default function PostForm({
   const editQueueRef = useRef<File[]>([])
   const [editingSrc, setEditingSrc] = useState<string | null>(null)
   const [editingFile, setEditingFile] = useState<File | null>(null)
+
+  const videoFile = formData.videos[0]
+  const videoPreviewUrl = useMemo(() => {
+    return videoFile ? URL.createObjectURL(videoFile) : null
+  }, [videoFile])
+
+  useEffect(() => {
+    return () => {
+      if (videoPreviewUrl) URL.revokeObjectURL(videoPreviewUrl)
+    }
+  }, [videoPreviewUrl])
 
   const openNextEditor = () => {
     const next = editQueueRef.current.shift()
@@ -262,66 +281,87 @@ export default function PostForm({
       </div>  */}
 
       {!isEdit && (
-        <div className="flex items-center gap-3 mt-6 md:mt-8">
-          <Label
-            htmlFor="photo"
-            className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
-          >
-            <Input
-              id="photo"
-              name="photo"
-              type="file"
-              multiple
-              ref={imageRef}
-              accept="image/png, image/jpeg"
-              onChange={(e) => handleImageChange(e)}
-              className="hidden"
-            />
-            <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
-            <span className="text-xs md:text-sm">Photo</span>
-            <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
-              {formData.photos.length !== 0 ? (
-                <>
-                  <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-                  <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
-                    {formData.photos.length}
-                  </span>
-                </>
-              ) : (
-                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-              )}
-            </span>
-          </Label>
-          <Label
-            htmlFor="video"
-            className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
-          >
-            <Input
-              id="video"
-              name="video"
-              type="file"
-              multiple
-              ref={videoRef}
-              accept="video/*"
-              onChange={(e) => handleVideoChange(e)}
-              className="hidden"
-            />
-            <VideoIcon className="w-4 h-4 md:w-5 md:h-5" />
-            <span className="text-xs md:text-sm">Video</span>
-            <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 relative">
-              {formData.videos.length !== 0 ? (
-                <>
-                  <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-                  <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
-                    {formData.videos.length}
-                  </span>
-                </>
-              ) : (
-                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-              )}
-            </span>
-          </Label>
-        </div>
+        <>
+          {formData.videos.length > 0 && videoPreviewUrl && (
+            <div className="relative overflow-hidden rounded-lg bg-black">
+              <VideoPlayer
+                src={videoPreviewUrl}
+                className="aspect-video"
+              />
+              <button
+                type="button"
+                aria-label="Remove video"
+                onClick={() =>
+                  setFormData((prev) => ({ ...prev, videos: [] }))
+                }
+                className="absolute top-2 right-2 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-1.5 cursor-pointer transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 gap-2 rounded-lg border border-gray-200 p-2 mt-2">
+            <Label
+              htmlFor="photo"
+              className="flex items-center justify-center gap-2 py-2 rounded-md hover:bg-gray-100 cursor-pointer text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <Input
+                id="photo"
+                name="photo"
+                type="file"
+                multiple
+                ref={imageRef}
+                accept="image/png, image/jpeg"
+                onChange={(e) => handleImageChange(e)}
+                className="hidden"
+              />
+              <ImageIcon className="w-5 h-5 text-green-600" />
+              <span className="text-xs md:text-sm font-medium">Photo</span>
+              <span className="text-white font-medium p-0.5 bg-green-600 rounded-full relative">
+                {formData.photos.length !== 0 ? (
+                  <>
+                    <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="absolute text-[10px] -top-2 -right-2 bg-green-600 w-4 h-4 rounded-full flex items-center justify-center">
+                      {formData.photos.length}
+                    </span>
+                  </>
+                ) : (
+                  <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                )}
+              </span>
+            </Label>
+            <Label
+              htmlFor="video"
+              className="flex items-center justify-center gap-2 py-2 rounded-md hover:bg-gray-100 cursor-pointer text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <Input
+                id="video"
+                name="video"
+                type="file"
+                multiple
+                ref={videoRef}
+                accept="video/*"
+                onChange={(e) => handleVideoChange(e)}
+                className="hidden"
+              />
+              <VideoIcon className="w-5 h-5 text-[#2E5BEA]" />
+              <span className="text-xs md:text-sm font-medium">Video</span>
+              <span className="text-white font-medium p-0.5 bg-[#2E5BEA] rounded-full relative">
+                {formData.videos.length !== 0 ? (
+                  <>
+                    <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="absolute text-[10px] -top-2 -right-2 bg-[#2E5BEA] w-4 h-4 rounded-full flex items-center justify-center">
+                      {formData.videos.length}
+                    </span>
+                  </>
+                ) : (
+                  <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+                )}
+              </span>
+            </Label>
+          </div>
+        </>
       )}
       <div className="border-t pt-2 md:pt-4 flex justify-end">
         <FormSubmitButton
@@ -336,6 +376,7 @@ export default function PostForm({
       <ImageEditor
         open={!!editingSrc}
         imageSrc={editingSrc ?? ''}
+        originalFile={editingFile}
         aspect={4 / 5}
         outputWidth={1024}
         outputHeight={1280}

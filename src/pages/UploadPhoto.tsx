@@ -24,6 +24,7 @@ export default function UploadPhoto() {
   const fileRef = useRef<HTMLInputElement | null>(null)
   const [loading, setLoading] = useState(false)
   const [editingSrc, setEditingSrc] = useState<string | null>(null)
+  const [editingFile, setEditingFile] = useState<File | null>(null)
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 2 * 1024 * 1024
@@ -44,6 +45,7 @@ export default function UploadPhoto() {
       e.target.value = ''
     }
     setEditingSrc(URL.createObjectURL(files[0]))
+    setEditingFile(files[0])
   }
 
   const handleEditConfirm = (file: File) => {
@@ -52,6 +54,7 @@ export default function UploadPhoto() {
       image_file: [file],
     })
     setEditingSrc(null)
+    setEditingFile(null)
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -177,6 +180,7 @@ export default function UploadPhoto() {
       <ImageEditor
         open={!!editingSrc}
         imageSrc={editingSrc ?? ''}
+        originalFile={editingFile}
         aspect={1}
         outputWidth={1024}
         outputHeight={1024}

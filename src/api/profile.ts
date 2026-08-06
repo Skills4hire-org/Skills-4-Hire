@@ -40,8 +40,14 @@ export const getProviders = async ({
       const response = await api.get(pageParam)
       return response?.data
     }
+    const params = new URLSearchParams()
+    if (search) params.set('q', search)
+    if (profession) params.set('professional_title_icontains', profession)
+    if (min_charge) params.set('min_charge_gte', String(min_charge))
+    if (ratings) params.set('reviews_ratings_gte', String(ratings))
+    const query = params.toString()
     const response = await api.get(
-      `/api/v1/profile_search/?q=${search ? search : ''}&professional_title_icontains=${profession ? profession : ''}&min_charge_gte=${min_charge ? min_charge : ''}&reviews_ratings_gte=${ratings ? ratings : ''}`,
+      `/api/v1/profile_search/${query ? `?${query}` : ''}`,
     )
     return response?.data
   } catch (error) {

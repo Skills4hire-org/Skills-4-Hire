@@ -9,3 +9,24 @@ export const getWalletBalance = async () => {
     handleApiError(error)
   }
 }
+
+export const getTransactions = async ({
+  pageParam,
+  status,
+}: {
+  pageParam?: string
+  status?: string
+}) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const params: Record<string, string> = {}
+    if (status) params.status = status
+    const response = await api.get(`/api/v1/wallet/transactions/`, { params })
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}

@@ -1,4 +1,3 @@
-import type { UserType } from '@/utils/types'
 import {
   Heart,
   MessageCircle,
@@ -16,7 +15,8 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDeletePost, useLikePost, useUnlikePost } from '@/hooks/usePosts'
 import type { Post } from '@/types/post.types'
-import type { UserData } from '@/types/user.types'
+import type { UserData, UserType } from '@/types/user.types'
+import type { RootState } from '@/store'
 import EndorseDialog from '../endorse/EndorseDialog'
 import ImageCarousel from './ImageCarousel'
 import Comment from './Comment'
@@ -60,8 +60,10 @@ export default function PostCard({
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
   const navigate = useNavigate()
 
-  const { userType, user_data }: { userType: UserType; user_data: UserData } =
-    useSelector((state: any) => state.userState)
+  const { userType, user_data }: {
+    userType: UserType
+    user_data: UserData | null
+  } = useSelector((state: RootState) => state.userState)
   const provider_id = user?.profile?.provider_id
   const provider_service = user?.profile?.professional_title
   const impression_count = 0
@@ -72,7 +74,11 @@ export default function PostCard({
   const { mutate: deletePost } = useDeletePost()
 
   const handleLikePost = () => {
-    is_liked ? unlikePost({ post_id }) : likePost({ post_id })
+    if (is_liked) {
+      unlikePost({ post_id })
+    } else {
+      likePost({ post_id })
+    }
   }
 
   const isTextLong = post_content && post_content.length > 200
@@ -86,7 +92,7 @@ export default function PostCard({
           </Link>
 
           <div className="min-w-0">
-            <div className="flex items-start">
+            <div className="flex flex-wrap items-center">
               <Link
                 to={`/${userType}/professionals/${provider_id}`}
                 className="no-underline hover:no-underline"
@@ -95,16 +101,14 @@ export default function PostCard({
                   {user?.profile?.display_name}
                 </h3>
               </Link>
-              {userType == 'customer' && (
-                <>
-                  <Dot className="w-8.5 h-8.5 -m-1.5" />
-
-                  <EndorseDialog
-                    provider_pk={provider_id}
-                    name={user?.profile?.display_name as string}
-                  />
-                </>
-              )}
+              {userType == 'customer' && ( <Dot className="w-4 h-4 text-black self-center ml-1" strokeWidth={6} /> )}
+            {userType == 'customer' && (
+              <EndorseDialog
+              provider_pk={provider_id}
+              name={user?.profile?.display_name as string}
+              triggerClassName="whitespace-nowrap shrink-0 capitalize font-semibold text-primary text-md md:text-sm cursor-pointer hover:underline rounded-[5px] ml-1"
+              />
+            )}
             </div>
             <div className="flex items-center gap-0.5 text-[12px] md:text-sm font-medium ">
               {provider_service && (

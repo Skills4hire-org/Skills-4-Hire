@@ -8,12 +8,12 @@ import CustomerDesktopRightSidebar from '../sidebars/CustomerDesktopRightSidebar
 export default function HomeLayout() {
   return (
     <>
-      <Container className="bg-white border-b shadow-sm max-[1023px]:min-[768px]:ml-17">
+      <Container className="bg-white shadow-sm max-[1023px]:min-[768px]:ml-17">
         <DesktopHomeHeader />
         <MobileHomeHeader />
       </Container>
-      <div className="flex max-w-6xl max-[1023px]:min-[768px]:w-135 max-[1023px]:min-[768px]:ml-17 xl:max-w-7xl mx-auto sm:px-4 lg:px-0 lg:mt-0 md:mt-3 bg-gray-100">
-        <main className="lg:w-[70%] lg:ml-20 w-full space-y-2.5 md:space-y-4 lg:mt-2">
+      <div className="flex max-w-6xl max-[1023px]:min-[768px]:w-135 max-[1023px]:min-[768px]:ml-17 xl:max-w-7xl mx-auto sm:px-4 lg:px-0 lg:mt-0 md:mt-3">
+        <main className="lg:w-[70%] lg:ml-17 w-full space-y-1 md:space-y-4 lg:mt-2">
           <HomeNavbar />
           <Outlet />
         </main>

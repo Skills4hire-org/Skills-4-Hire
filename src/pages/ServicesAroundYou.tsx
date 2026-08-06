@@ -26,8 +26,7 @@ export default function ServicesAroundYou() {
     isFetchingNextPage,
     isFetchNextPageError,
   } = useAllProviders({
-    service: serviceFilter,
-    location: locationFilter,
+    profession: serviceFilter,
   })
 
   const {
@@ -42,7 +41,16 @@ export default function ServicesAroundYou() {
   const providersID = allFavourites?.map(({ provider_id }) => provider_id)
   const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
 
-  const professionals = data?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const professionals = (
+    data?.pages.flatMap((page) => page?.results ?? []) ?? []
+  ).filter((professional) => {
+    const query = locationFilter.trim().toLowerCase()
+    if (!query) return true
+    const profile = professional?.user?.profile
+    return [profile?.city, profile?.state, profile?.location]
+      .filter(Boolean)
+      .some((value) => value.toLowerCase().includes(query))
+  })
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

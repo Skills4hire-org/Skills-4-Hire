@@ -5,12 +5,18 @@ import defaultImage from '../../assets/images/profile.jpg'
 import { Link } from 'react-router-dom'
 import EndorseDialog from '../endorse/EndorseDialog'
 import type { Profile } from '@/types/user.types'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/store'
+import type { UserType } from '@/types/user.types'
 
 export default function ServiceProviderOverview({
   profile,
 }: {
   profile: Profile | undefined
 }) {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: RootState) => state.userState,
+  )
   return (
     <div>
       <div
@@ -28,12 +34,14 @@ export default function ServiceProviderOverview({
           />
         </figure>
 
-        <div className="flex justify-end md:justify-start bg-blue-400 absolute top-10 md:top-14 right-2 md:right-4 rounded-md p-2">
-          <EndorseDialog
-            provider_pk={profile?.provider_id}
-            name={profile?.user?.profile?.display_name}
-          />
-        </div>
+        {userType == 'customer' && (
+          <div className="flex justify-end md:justify-start bg-blue-400 absolute top-10 md:top-14 right-2 md:right-4 rounded-md p-2">
+            <EndorseDialog
+              provider_pk={profile?.provider_id}
+              name={profile?.user?.profile?.display_name}
+            />
+          </div>
+        )}
 
         <div className=" pb-3 md:pb-4 text-start">
           <div className="space-y-0.5">

@@ -38,7 +38,7 @@ export default function Posts() {
   }
 
   return (
-    <div className="lg:px-4 space-y-2 md:space-y-4">
+    <div className="lg:px-4 space-y-1 md:space-y-4">
       <PostComposer />
       <div>
         {isLoading ? (

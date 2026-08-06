@@ -28,6 +28,7 @@ function Reviews() {
     isFetchingNextPage,
     fetchNextPage,
   })
+
   const handleReviewsFetchingError = async () => {
     if (!data) {
       refetch()
@@ -35,8 +36,9 @@ function Reviews() {
       fetchNextPage()
     }
   }
+
   return (
-    <div className="space-y-2 md:space-y-4">
+    <div className="space-y-2 md:space-y-4 max-[1023px]:min-[768px]:ml-17 lg:ml-17">
       <Container className="bg-white">
         <MobileWithAvatarAndDesktopHeader title="Reviews" />
       </Container>
@@ -57,9 +59,11 @@ function Reviews() {
             ) : (
               <>
                 <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
-                  {reviews?.map((review: Review) => (
-                    <ReviewCard key={review.review_id} {...review} />
-                  ))}
+                  {reviews?.map((review: Review) => {
+                    // Added a defensive guard checking if review or review_id is missing
+                    if (!review || !review.review_id) return null
+                    return <ReviewCard key={review.review_id} {...review} />
+                  })}
                 </div>
                 {reviews?.length === 0 && (
                   <NoResultFound text="No reviews" icon={Star} />

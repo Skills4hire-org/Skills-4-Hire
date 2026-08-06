@@ -1,4 +1,3 @@
-import { Star } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import defaultImage from '../../assets/images/profile.jpg'
@@ -10,120 +9,92 @@ export default function ServiceProviderCard({
   provider_id,
   user,
   professional_title,
-  avg_rating,
-  total_reviews,
   providerIDs,
   favouriteID,
   min_charge,
   headline,
 }: Provider) {
   const isFavourite = providerIDs?.includes(provider_id)
+  const coverImageUrl = user?.profile?.cover_photo?.image_url
 
   return (
-    <div className="rounded-none flex flex-col sm:flex-row bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-md hover:border-slate-300 transition-all w-full">
-      {/* Top section on mobile, Left section on desktop */}
-      <div className="relative flex shrink-0 w-full sm:w-28 md:w-36 h-48 sm:h-auto bg-slate-100">
-        <Link
-          to={`/customer/professionals/${provider_id}`}
-          className="w-full h-full block"
-        >
-          <figure className="h-full w-full m-0">
-            <img
-              src={user?.profile?.avatar?.avatar ?? defaultImage}
-              alt={user?.profile?.display_name || 'Service Provider'}
-              className="w-full h-full object-cover rounded-none"
-              loading="lazy"
-            />
-          </figure>
-        </Link>
-
-        {/* Floating Favorite Button on Mobile View Only */}
-        <div className="absolute top-3 right-3 sm:hidden bg-white/90 backdrop-blur-sm p-1.5 shadow-sm border border-slate-100">
-          <AddToFavoriteButton
-            id={provider_id}
-            isFavourite={isFavourite}
-            name={user?.profile?.display_name}
-            favouriteID={favouriteID}
-          />
-        </div>
+    <div className="rounded-none flex flex-col lg:flex-row bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-md hover:border-slate-300 transition-all w-full relative">
+      {/* Absolute Favorite Button pinned at the top right corner */}
+      <div className="absolute top-35 lg:top-3 md:top-3 right-4 lg:right-3 md:right-3 z-10 bg-white/80 backdrop-blur-sm p-1.5 border border-slate-100 shadow-sm">
+        <AddToFavoriteButton
+          id={provider_id}
+          isFavourite={isFavourite}
+          name={user?.profile?.display_name}
+          favouriteID={favouriteID}
+        />
       </div>
 
-      {/* Main content area */}
-      <div className="flex flex-1 flex-col sm:flex-row items-stretch justify-between p-4 md:p-5 gap-4">
-        {/* Info Area */}
-        <div className="flex flex-col justify-between flex-1 min-w-0">
-          <div className="space-y-2">
-            <div className="flex items-start justify-between gap-2">
+      {/* Cover Photo Header: Top on mobile/tablet, Left side on laptop */}
+      <Link
+        to={`/customer/professionals/${provider_id}`}
+        className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-100 bg-cover bg-center shrink-0"
+        style={{
+          backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : undefined,
+        }}
+      />
+
+      {/* Card Content Elements */}
+      <div className="p-4 pt-0 lg:pt-4 flex flex-col lg:flex-row flex-1 relative lg:items-center lg:justify-between lg:gap-4">
+        {/* Profile Avatar and Left Content Wrapper */}
+        <div className="flex flex-col lg:flex-row lg:items-center gap-3 flex-1 min-w-0">
+          {/* Rounded profile avatar image: Overlaps cover on mobile, stands clean on laptop */}
+          <div className="-mt-10 lg:-mt-0 shrink-0 z-0">
+            <Link
+              to={`/customer/professionals/${provider_id}`}
+              className="w-20 h-20 rounded-full border-4 border-white lg:border-2 lg:border-slate-100 bg-white shadow-sm overflow-hidden block"
+            >
+              <img
+                src={user?.profile?.avatar?.avatar ?? defaultImage}
+                alt={user?.profile?.display_name || 'Service Provider'}
+                className="w-full h-full object-cover rounded-full"
+                loading="lazy"
+              />
+            </Link>
+          </div>
+
+          {/* Informational Text Stack */}
+          <div className="flex flex-col min-w-0 space-y-1">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
               <Link
                 to={`/customer/professionals/${provider_id}`}
-                className="block min-w-0"
+                className="inline-block min-w-0"
               >
-                <h3 className="font-bold text-base md:text-lg text-slate-900 hover:text-primary transition-colors truncate">
+                <h3 className="font-bold text-base text-slate-900 hover:text-primary transition-colors truncate">
                   {user?.profile?.display_name}
                 </h3>
               </Link>
 
-              {/* Star Rating on Mobile sits next to Name */}
-              <div className="flex sm:hidden items-center gap-1 bg-amber-50 py-0.5 px-2 border border-amber-200/60 rounded-none shrink-0">
-                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                <span className="text-xs font-bold text-slate-800">
-                  {avg_rating}
-                </span>
-                <span className="text-[10px] text-slate-400">
-                  ({total_reviews})
-                </span>
+              <div>
+                <Badge className="capitalize rounded-none font-medium py-0.5 px-2 text-[10px] bg-slate-100 text-slate-700 border-0 inline-block">
+                  {professional_title}
+                </Badge>
               </div>
             </div>
 
-            <div>
-              <Badge className="capitalize rounded-none font-medium py-0.5 px-2 text-[10px] md:text-[11px] bg-slate-100 text-slate-700 border-0 inline-block">
-                {formatSpaceToString(professional_title)}
-              </Badge>
-            </div>
+            <Link
+              to={`/customer/professionals/${provider_id}`}
+              className="block"
+            >
+              <p className="font-normal text-xs md:text-sm text-slate-500 line-clamp-2 lg:line-clamp-1 leading-relaxed">
+                {headline}
+              </p>
+            </Link>
           </div>
-
-          <Link
-            to={`/customer/professionals/${provider_id}`}
-            className="block my-3 sm:my-2"
-          >
-            <p className="font-normal text-xs md:text-sm text-slate-500 line-clamp-2 leading-relaxed">
-              {headline}
-            </p>
-          </Link>
         </div>
 
-        {/* Right side actions panel (Desktop exclusive layout) */}
-        <div className="flex flex-row sm:flex-col justify-between items-center sm:items-end shrink-0 pt-3 sm:pt-0 sm:pl-4 sm:border-l border-t sm:border-t-0 border-slate-100 gap-2">
-          {/* Star Rating (Hidden on mobile, visible on desktop) */}
-          <div className="hidden sm:flex items-center gap-1 bg-amber-50 py-0.5 px-1.5 border border-amber-200/60 rounded-none">
-            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-            <span className="text-xs md:text-sm font-bold text-slate-800">
-              {avg_rating}
-            </span>
-            <span className="text-[10px] text-slate-400">
-              ({total_reviews})
-            </span>
-          </div>
-
-          {/* Favorite Button (Hidden on mobile, visible on desktop) */}
-          <div className="hidden sm:block my-auto py-1">
-            <AddToFavoriteButton
-              id={provider_id}
-              isFavourite={isFavourite}
-              name={user?.profile?.display_name}
-              favouriteID={favouriteID}
-            />
-          </div>
-
-          {/* Pricing Box - Stays clean on all screen layouts */}
-          <div className="text-left sm:text-right flex sm:flex-col items-baseline sm:items-end gap-1 sm:gap-0 w-full sm:w-auto justify-between sm:justify-start">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">
-              From
-            </span>
-            <span className="font-extrabold text-sm md:text-base text-slate-900">
-              {currencyFormatter(min_charge)}
-            </span>
-          </div>
+        {/* Pricing Area: Bottom-right corner layout on laptop */}
+        <div className="text-right border-slate-100 lg:border-0 lg:mt-12 shrink-0 flex items-center justify-between lg:block">
+          <span className="text-[10px] text-slate-700 uppercase tracking-wider block font-medium lg:mb-0.5 max-[768px]:min-[0px]:absolute max-[768px]:min-[0px]:right-15 max-[768px]:min-[0px]:-top-8">
+            From
+          </span>
+          <span className="font-extrabold text-sm md:text-base text-slate-900 bg-slate-50 lg:bg-transparent px-3 lg:px-0 py-1.5 lg:py-0 border border-slate-200 lg:border-0 block min-w-[80px] text-center lg:text-right max-[768px]:min-[0px]:absolute max-[768px]:min-[0px]:right-3 max-[768px]:min-[0px]:-top-4">
+            {currencyFormatter(min_charge)}
+          </span>
         </div>
       </div>
     </div>

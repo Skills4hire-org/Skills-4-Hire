@@ -117,7 +117,8 @@ export const useChatSocket = (
     return () => {
       ws.close()
     }
-  }, [conversationId])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId, onMessage])
 
   return socketRef
 }
@@ -125,42 +126,37 @@ export const useChatSocket = (
 export const updateConversationList = (incomingMessage: any) => {
   queryClient.setQueryData(
     ['conversations'],
-    (old: { results: Conversation[] }) => {
+    (old: { pages: Array<{ results: Conversation[]; next?: string | null }>; pageParams: unknown[] }) => {
       if (!old) return old
 
-      const updated = old.results.map((conv) => {
-        if (conv.conversation_id !== incomingMessage.conversation) {
-          return conv
-        }
+      const updatedPages = old.pages.map((page) => {
+        const updated = page.results.map((conv) => {
+          if (conv.conversation_id !== incomingMessage.conversation) {
+            return conv
+          }
 
-        return {
-          ...conv,
+          return {
+            ...conv,
+            last_message: {
+              message_id: incomingMessage.message_id,
+              content: incomingMessage.content,
+              created_at: incomingMessage.created_at,
+              is_read: incomingMessage.is_read,
+            },
+            updated_at: incomingMessage.created_at,
+            message_count: conv.message_count + 1,
+          }
+        })
 
-          last_message: {
-            message_id: incomingMessage.message_id,
+        const sortUpdated = updated.sort(
+          (a, b) =>
+            new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+        )
 
-            content: incomingMessage.content,
-
-            created_at: incomingMessage.created_at,
-
-            is_read: incomingMessage.is_read,
-          },
-
-          updated_at: incomingMessage.created_at,
-
-          message_count: conv.message_count + 1,
-        }
+        return { ...page, results: sortUpdated }
       })
 
-      const sortUpdated = updated.sort(
-        (a, b) =>
-          new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
-      )
-
-      return {
-        ...old,
-        results: sortUpdated,
-      }
+      return { ...old, pages: updatedPages }
     },
   )
 }

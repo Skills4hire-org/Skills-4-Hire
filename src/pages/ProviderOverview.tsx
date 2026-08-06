@@ -25,12 +25,12 @@ export default function ProviderOverview() {
   const latestBookings = bookingsData?.pages.flatMap((page) => page?.results ?? []).filter(Boolean) ?? []
 
   return (
-    <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17 lg:ml-17">
+    <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17 lg:ml-[4.2rem]">
       <Container className="bg-white">
         <MobileServicesOverviewHeader />
         <DesktopServicesOverviewHeader />
       </Container>
-      <Container className="lg:w-[62.9rem] lg:ml-[4.2rem]">
+      <Container>
         <div className="space-y-8">
           <div className="bg-gray-100 rounded-md p-3 text-sm md:text-base text-gray-700 w-full space-y-1 md:max-w-xs ">
             <p>

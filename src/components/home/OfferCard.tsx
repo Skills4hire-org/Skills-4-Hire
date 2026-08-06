@@ -40,7 +40,7 @@ export default function OfferCard({
           post_id={post_id}
         />
       )}
-      <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 w-full">
+      <div className="bg-white shadow p-2.5 md:p-4 space-y-2 w-full">
         <div className="flex items-start justify-between gap-2 md:gap-4 mb-1">
           <span className="text-xs md:text-sm bg-primary/10 text-primary rounded-sm px-4 md:px-6 py-1 w-max mb-1 font-medium">
             {tags && tags[0]?.name}

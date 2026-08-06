@@ -1,11 +1,10 @@
 import type { PostAttachment } from '@/types/post.types'
 import { useMemo, useState } from 'react'
-import { getVideoMimeType } from '@/utils/format'
 import Lightbox from 'yet-another-react-lightbox'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
-import Video from 'yet-another-react-lightbox/plugins/video'
-import { PlayIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import VideoPlayer from '../global/VideoPlayer'
+import VideoViewer from '../global/VideoViewer'
 
 const MAX_VISIBLE = 4
 
@@ -31,22 +30,16 @@ function AttachmentCell({
       )}
     >
       {attachment.attachment_type === 'VIDEO' ? (
-        <>
-          <video
-            src={attachment.thumbnail_url || attachment.attachmentURL}
-            poster={attachment.thumbnail_url}
-            autoPlay
-            muted
-            playsInline
-            preload="metadata"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
-            <div className="rounded-full bg-white/90 p-1.5">
-              <PlayIcon className="w-4 h-4 md:w-5 md:h-5" />
-            </div>
-          </div>
-        </>
+        <VideoPlayer
+          src={attachment.attachmentURL}
+          poster={attachment.thumbnail_url}
+          autoPlay
+          muted
+          loop
+          controls={false}
+          fit="cover"
+          className="h-full"
+        />
       ) : (
         <img
           src={attachment.attachmentURL}
@@ -76,29 +69,21 @@ function ImageCarousel({
 }) {
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
+  const [videoOpen, setVideoOpen] = useState(false)
+  const [activeVideo, setActiveVideo] = useState<PostAttachment | null>(null)
+
+  const imageAttachments = useMemo(
+    () => attachments?.filter((item) => item.attachment_type !== 'VIDEO'),
+    [attachments],
+  )
 
   const slides = useMemo(
     () =>
-      attachments?.map((item) =>
-        item.attachment_type === 'VIDEO'
-          ? {
-              type: 'video' as const,
-              width: 1920,
-              height: 1080,
-              poster: item.thumbnail_url,
-              sources: [
-                {
-                  src: item.attachmentURL,
-                  type: getVideoMimeType(item.attachmentURL),
-                },
-              ],
-            }
-          : {
-              src: item.attachmentURL,
-              alt: item.post_attachment_id,
-            },
-      ),
-    [attachments],
+      imageAttachments?.map((item) => ({
+        src: item.attachmentURL,
+        alt: item.post_attachment_id,
+      })),
+    [imageAttachments],
   )
 
   if (!attachments || attachments.length === 0) return null
@@ -108,16 +93,26 @@ function ImageCarousel({
   const overflow = count > MAX_VISIBLE ? count - (MAX_VISIBLE - 1) : undefined
 
   const openAt = (i: number) => {
-    setIndex(i)
+    const attachment = attachments[i]
+    if (!attachment) return
+    if (attachment.attachment_type === 'VIDEO') {
+      setActiveVideo(attachment)
+      setVideoOpen(true)
+      return
+    }
+    const imageIndex = imageAttachments?.findIndex(
+      (item) => item.post_attachment_id === attachment.post_attachment_id,
+    )
+    setIndex(imageIndex ?? 0)
     setOpen(true)
   }
 
   const gridClass =
     count === 1
-      ? 'grid-cols-1 aspect-[4/5]'
+      ? 'grid-cols-1 aspect-[4/5] md:aspect-[16/9]'
       : count === 2
-        ? 'grid-cols-2 aspect-[2/1] auto-rows-fr'
-        : 'grid-cols-2 grid-rows-2 aspect-square auto-rows-fr'
+        ? 'grid-cols-2 aspect-[2/1] md:aspect-[3/1] auto-rows-fr'
+        : 'grid-cols-2 grid-rows-2 aspect-square md:aspect-[5/4] auto-rows-fr'
 
   return (
     <>
@@ -137,8 +132,20 @@ function ImageCarousel({
         close={() => setOpen(false)}
         index={index}
         slides={slides}
-        plugins={[Zoom, Video]}
+        plugins={[Zoom]}
       />
+      <VideoViewer open={videoOpen} onClose={setVideoOpen}>
+        {activeVideo && (
+          <VideoPlayer
+            src={activeVideo.attachmentURL}
+            poster={activeVideo.thumbnail_url}
+            autoPlay
+            muted
+            fit="contain"
+            className="h-full"
+          />
+        )}
+      </VideoViewer>
     </>
   )
 }

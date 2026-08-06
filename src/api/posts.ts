@@ -53,6 +53,7 @@ export const getOffers = async ({
   city,
   state,
   min_amount,
+  max_amount,
   pageParam,
 }: PostParams) => {
   try {
@@ -64,50 +65,16 @@ export const getOffers = async ({
     if (tags_name) params.tags__name = tags_name;
     if (city) params.city = city;
     if (state) params.state = state;
-    if (min_amount) params.amount = min_amount;
-    const response = await api.get("/api/v1/posts/feed/", { params });
-    return response?.data;
-  } catch (error) {
-    handleApiError(error);
-  }
-};
-
-export const getHireRequests = async ({
-  pageParam,
-  tags_name,
-  city,
-  state,
-  min_amount,
-  max_amount,
-}: {
-  pageParam?: string;
-  tags_name?: string;
-  city?: string;
-  state?: string;
-  min_amount?: string;
-  max_amount?: string;
-}) => {
-  try {
-    if (pageParam) {
-      const response = await api.get(pageParam);
-      return response?.data;
-    }
-
-    const params: Record<string, string> = { post_type: "JOB" };
-    if (tags_name) params.tags__name = tags_name;
-    if (city) params.city = city;
-    if (state) params.state = state;
     if (min_amount) params.amount__gte = min_amount;
     if (max_amount) params.amount__lte = max_amount;
-
     const response = await api.get("/api/v1/posts/feed/", { params });
-
     return response?.data;
   } catch (error) {
-    console.error("[getHireRequests] error:", error);
     handleApiError(error);
   }
 };
+
+export const getHireRequests = getOffers
 
 export const getMyPosts = async ({
   pageParam,

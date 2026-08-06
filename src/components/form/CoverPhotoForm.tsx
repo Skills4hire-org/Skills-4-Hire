@@ -22,6 +22,7 @@ export default function CoverPhotoForm({
     image_file: null,
   })
   const [editingSrc, setEditingSrc] = useState<string | null>(null)
+  const [editingFile, setEditingFile] = useState<File | null>(null)
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_SIZE_MB = 2 * 1024 * 1024
@@ -42,6 +43,7 @@ export default function CoverPhotoForm({
       e.target.value = ''
     }
     setEditingSrc(URL.createObjectURL(files[0]))
+    setEditingFile(files[0])
   }
 
   const handleEditConfirm = (file: File) => {
@@ -50,6 +52,7 @@ export default function CoverPhotoForm({
       image_file: [file],
     })
     setEditingSrc(null)
+    setEditingFile(null)
   }
   const { mutate: updateCoverPhoto, isPending } = useUpdateCoverPhoto()
   const { mutate: deleteCoverPhoto, isPending: deleting } =
@@ -149,6 +152,7 @@ export default function CoverPhotoForm({
       <ImageEditor
         open={!!editingSrc}
         imageSrc={editingSrc ?? ''}
+        originalFile={editingFile}
         aspect={3 / 1}
         outputWidth={1200}
         outputHeight={400}
