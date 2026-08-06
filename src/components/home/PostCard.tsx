@@ -47,7 +47,7 @@ export default function PostCard({
   created_at,
   tags,
   attachments,
-  comments_counts,
+  comments_count,
   likes_count,
   reposts_count,
   is_commented,
@@ -121,12 +121,14 @@ export default function PostCard({
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-gray-500 my-0.5">
-              {user?.profile?.city && (
-                <span className="inline-flex items-center gap-1 capitalize">
-                  <MapPin size={13.5} className="md:w-[14px]" />{' '}
-                  {user?.profile?.city}
+              <span className="inline-flex items-center gap-1 capitalize">
+                <MapPin size={13.5} className="md:w-[14px]" />{' '}
+                <span className="flex items-center gap-1">
+                  <span>{user?.profile?.city},</span>
+                  <span>{user?.profile?.state}</span>
                 </span>
-              )}
+              </span>
+
               {/* {user?.avg_rating && (
                 <span className="inline-flex items-center gap-1">
                   <Star
@@ -228,7 +230,7 @@ export default function PostCard({
           onClick={() => setShowComment(true)}
         >
           <MessageCircle className="w-5 h-5 md:h-6 md:w-6" />
-          <span>{comments_counts}</span>
+          <span>{comments_count}</span>
         </button>
 
         {/* repost */}

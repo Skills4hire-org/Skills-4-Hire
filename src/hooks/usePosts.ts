@@ -148,14 +148,7 @@ export const useHireRequests = ({
   max_amount,
 }: PostParams = {}) => {
   const queryData = useInfiniteQuery({
-    queryKey: [
-      'hire-requests',
-      tags_name,
-      city,
-      state,
-      min_amount,
-      max_amount,
-    ],
+    queryKey: ['hire-requests', tags_name, city, state, min_amount, max_amount],
     queryFn: ({ pageParam }) =>
       getHireRequests({
         pageParam,
@@ -168,10 +161,10 @@ export const useHireRequests = ({
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.next ?? undefined,
     retry: 1,
-  });
+  })
 
-  return queryData;
-};
+  return queryData
+}
 
 export const useMyPosts = ({ user_id }: { user_id?: string } = {}) => {
   const queryData = useInfiniteQuery({
@@ -377,11 +370,9 @@ export const useRepost = (queryKey: string[]) => {
 
       return { previousPosts }
     },
-
     onError: (_, __, context) => {
       queryClient.setQueryData(queryKey, context?.previousPosts)
     },
-
     onSettled: (_, __, post) => {
       queryClient.invalidateQueries({ queryKey })
       queryClient.invalidateQueries({ queryKey: ['repost', post.post_id] })

@@ -31,7 +31,7 @@ export default function Services() {
     isError: favouritesError,
   } = useFavourites()
   const favourites: Favorite[] =
-    favoritesData?.pages.flatMap((page) => page.data.results) ?? []
+    favoritesData?.pages.flatMap((page) => page.results) ?? []
   const allFavourites = favourites?.flatMap((favourite) => favourite.providers)
   const providersID = allFavourites?.map(({ provider_id }) => provider_id)
   const favoriteID = favourites?.flatMap((favourite) => favourite.favourite_id)
@@ -39,7 +39,7 @@ export default function Services() {
   const services: Service[] =
     data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const professionals: Provider[] =
-    providers?.pages.flatMap((page) => page.data.results) ?? []
+    providers?.pages.flatMap((page) => page.results) ?? []
 
   const handleProviderFetchingError = () => {
     refetchProviders()

@@ -1,6 +1,6 @@
 import { Star } from 'lucide-react'
 import { Badge } from '../ui/badge'
-import { currencyFormatter } from '@/utils/format'
+import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import defaultImage from '../../assets/images/profile.jpg'
 import { Link } from 'react-router-dom'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
@@ -77,7 +77,7 @@ export default function ServiceProviderCard({
 
             <div>
               <Badge className="capitalize rounded-none font-medium py-0.5 px-2 text-[10px] md:text-[11px] bg-slate-100 text-slate-700 border-0 inline-block">
-                {professional_title}
+                {formatSpaceToString(professional_title)}
               </Badge>
             </div>
           </div>

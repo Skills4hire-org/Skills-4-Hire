@@ -13,7 +13,7 @@ export const useFavourites = () => {
     },
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.next ?? undefined
+      return lastPage.next ?? undefined
     },
     retry: 1,
   })

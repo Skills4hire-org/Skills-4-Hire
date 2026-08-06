@@ -28,7 +28,7 @@ export const useMyAddress = () => {
     },
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.next ?? undefined
+      return lastPage?.pagination?.next ?? undefined
     },
     retry: 1,
   })
@@ -72,7 +72,7 @@ export const useDeleteAddress = () => {
 }
 
 export const useAddBooking = () => {
-  const addAddressAction = async (data: BookingInfo) => {
+  const addBookingAction = async (data: BookingInfo) => {
     try {
       await addBooking(data)
     } catch (error: any) {
@@ -80,12 +80,12 @@ export const useAddBooking = () => {
     }
   }
   const queryClient = useQueryClient()
-  const addAddressFunction = useMutation({
-    mutationFn: addAddressAction,
+  const addBookingFunction = useMutation({
+    mutationFn: addBookingAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] })
     },
   })
 
-  return addAddressFunction
+  return addBookingFunction
 }

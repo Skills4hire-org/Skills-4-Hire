@@ -20,8 +20,7 @@ export default function Posts() {
 
   const posts: Post[] =
     (data?.pages.flatMap((page) => page.results) ?? []).filter(
-      (post) =>
-        !(post.post_type === 'JOB' && post.user?.is_provider === false),
+      (post) => !(post.post_type === 'JOB' && post.user?.is_provider === false),
     ) ?? []
 
   const loadMoreRef = useInfiniteScroll({

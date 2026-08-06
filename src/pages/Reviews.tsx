@@ -20,7 +20,8 @@ function Reviews() {
     isFetchingNextPage,
     isFetchNextPageError,
   } = useReviews()
-  const reviews = data?.pages.flatMap((page) => page.results) ?? []
+
+  const reviews = data?.pages.flatMap((page) => page.result) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

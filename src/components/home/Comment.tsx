@@ -4,8 +4,11 @@ import Loading from '../global/Loading'
 import Error from '../global/Error'
 import CommentCard from './CommentCard'
 import { MoreHorizontal } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Comment({ post_id }: { post_id: string | undefined }) {
+  const [visible, setVisible] = useState(false)
+
   const {
     data,
     isError,
@@ -41,13 +44,34 @@ export default function Comment({ post_id }: { post_id: string | undefined }) {
             <>
               <div className="grid gap-6">
                 {/* Content Comment */}
-                {comments?.map((singleComment) => (
-                  <CommentCard
-                    key={singleComment.comment_id}
-                    {...singleComment}
-                    post_id={post_id}
-                  />
-                ))}
+                {visible ? (
+                  comments?.map((singleComment) => (
+                    <CommentCard
+                      key={singleComment.comment_id}
+                      {...singleComment}
+                      post_id={post_id}
+                    />
+                  ))
+                ) : (
+                  <>
+                    {comments?.slice(0, 2)?.map((singleComment) => (
+                      <CommentCard
+                        key={singleComment.comment_id}
+                        {...singleComment}
+                        post_id={post_id}
+                      />
+                    ))}
+                    {visible || (
+                      <button
+                        className="text-xs md:text-sm text-gray-500 hover:text-gray-700 cursor-pointer"
+                        onClick={() => setVisible(true)}
+                      >
+                        {' '}
+                        View more comment{' '}
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
               {hasNextPage && (
                 <div className="flex items-center gap-1">

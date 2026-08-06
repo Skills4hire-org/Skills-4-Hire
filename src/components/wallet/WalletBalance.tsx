@@ -9,9 +9,7 @@ import type { WalletBalance } from '@/types/wallet.types'
 
 export default function WalletBalance() {
   const { data, isLoading, isError, refetch } = useWallet()
-  const wallet: WalletBalance = data?.data
-
-  console.log(data)
+  const wallet: WalletBalance = data
 
   return (
     <div className="text-white  bg-primary rounded-md md:rounded-lg py-4 md:py-6 md:px-4 px-2 space-y-6">

@@ -1,4 +1,4 @@
-import type { PostAttachment } from './post.types'
+import type { Post } from './post.types'
 
 export type UserType = 'customer' | 'professional' | null
 export type UserData = {
@@ -23,7 +23,7 @@ export type UserData = {
   }
   avg_rating: number
 }
-type User = {
+export type User = {
   user_id: string
   phone: string
   email: string
@@ -77,8 +77,8 @@ export type ProviderParams = {
   max_charge?: number | null
   ratings?: number | null
   pageParam?: string
-  service?: string;
-  location?: string;
+  service?: string
+  location?: string
 }
 
 export type Service = {
@@ -121,51 +121,7 @@ export type Profile = {
   overview: string
   endorsement_count: number
   user: User
-  posts: {
-    post_id: string
-    post_title: string
-    user: {
-      user_id: string
-      email: string
-      first_name: string
-      total_reviews: number
-      last_name: string
-      is_provider: boolean
-      is_customer: boolean
-      is_verified: boolean
-      profile: {
-        display_name: string
-        professional_title: string
-        country: string
-        city: string
-        created_at: string
-        avatar: {
-          avatar: string
-        }
-        user: string
-        customer_id: string
-        provider_id: string
-      }
-      avg_rating: number | null
-    }
-    post_content: string
-    post_type: string
-    created_at: string
-    updated_at: string
-    tags: {
-      name: string
-      service_category_id: string
-    }[]
-    attachments: PostAttachment[]
-    comments_count: number
-    likes_count: number
-    reposts_count: number
-    is_liked: boolean
-    is_commented: boolean
-    is_reposted: boolean
-    duration: number
-    post_status: string
-  }[]
+  posts: Post[]
   comments: {
     comment_id: string
     user: {

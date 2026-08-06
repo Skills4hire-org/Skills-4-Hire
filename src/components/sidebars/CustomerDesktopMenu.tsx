@@ -64,12 +64,9 @@ export default function CustomerDesktopMenu() {
           {sidebarAboutUs.map(({ icon, label, url }) => {
             const IconComponent = icon
             return (
-              <>
+              <div key={label}>
                 {label == 'helpline number' ? (
-                  <div
-                    key={label}
-                    className="px-1 group cursor-pointer hover:bg-white rounded-sm"
-                  >
+                  <div className="px-1 group cursor-pointer hover:bg-white rounded-sm">
                     <a
                       href={url}
                       className="py-2 flex items-center gap-2 w-full "
@@ -82,7 +79,6 @@ export default function CustomerDesktopMenu() {
                   </div>
                 ) : (
                   <DropdownMenuItem
-                    key={label}
                     className="px-1 group cursor-pointer hover:bg-white"
                     asChild
                     onClick={(event) => {
@@ -98,7 +94,7 @@ export default function CustomerDesktopMenu() {
                     </div>
                   </DropdownMenuItem>
                 )}
-              </>
+              </div>
             )
           })}
         </DropdownMenuGroup>

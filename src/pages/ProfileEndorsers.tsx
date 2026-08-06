@@ -3,14 +3,11 @@ import Container from '@/components/global/Container'
 import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
-import { useProviderEndorsers } from '@/hooks/useEndorse'
+import { useMyEndorsers } from '@/hooks/useEndorse'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import type { Endorser } from '@/types/endorse.types'
-import { useParams } from 'react-router-dom'
 
-export default function Endorsers() {
-  const { id } = useParams()
-
+export default function ProfileEndorsers() {
   const {
     data,
     isLoading,
@@ -20,7 +17,7 @@ export default function Endorsers() {
     hasNextPage,
     isFetchingNextPage,
     isFetchNextPageError,
-  } = useProviderEndorsers({ provider_id: id })
+  } = useMyEndorsers()
   const endorsers: Endorser[] =
     data?.pages.flatMap((page) => page.results) ?? []
 

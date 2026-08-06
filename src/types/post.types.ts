@@ -60,6 +60,7 @@ export type Post = {
       display_name: string
 
       city: string | null
+      state: string | null
       avatar: {
         avatar: string
       }
@@ -76,7 +77,7 @@ export type Post = {
     service_category_id: string
   }[]
   attachments?: PostAttachment[]
-  comments_counts?: number
+  comments_count?: number
   likes_count?: number
   reposts_count?: number
   is_liked?: boolean

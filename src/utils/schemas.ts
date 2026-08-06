@@ -98,7 +98,7 @@ export const commentFormSchema = z.object({
 })
 
 export const endorseFormSchema = z.object({
-  reason: z
+  message: z
     .string()
     .max(5000, 'Recommendation must not exceed 500 characters.'),
 })
