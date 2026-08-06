@@ -68,10 +68,9 @@ export default function ServiceProviderCard({
                   {user?.profile?.display_name}
                 </h3>
               </Link>
-
               <div>
                 <Badge className="capitalize rounded-none font-medium py-0.5 px-2 text-[10px] bg-slate-100 text-slate-700 border-0 inline-block">
-                  {professional_title}
+                  {formatSpaceToString(professional_title)}
                 </Badge>
               </div>
             </div>
