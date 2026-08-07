@@ -5,8 +5,6 @@ import {
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { useHireRequestNotificationCount } from '@/hooks/useNotifications'
-import { useNewHireRequestsCount } from '@/hooks/useNewHireRequests'
 
 export default function HomeNavbar() {
   const { userType }: { userType: UserType } = useSelector(
@@ -14,16 +12,10 @@ export default function HomeNavbar() {
   )
   const navLinks =
     userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
-  const { count: hireRequestCount } = useHireRequestNotificationCount()
-  const { count: newHireRequestsCount } = useNewHireRequestsCount({
-    enabled: userType === 'service_provider',
-  })
-  const showHireNotificationDot =
-    hireRequestCount > 0 || newHireRequestsCount > 0
   return (
     <nav className="border-b h-11 pt-2 bg-white lg:bg-accent md:rounded-2xl">
       <div className="flex gap-8 justify-evenly">
-        {navLinks.map(({ label, url, hasNotification }) => (
+        {navLinks.map(({ label, url }) => (
           <NavLink
             key={label}
             to={url}
@@ -36,9 +28,6 @@ export default function HomeNavbar() {
             }
           >
             {label}
-            {hasNotification && showHireNotificationDot && (
-              <span className="absolute -top-0.5 lg:top-0.5 -right-3 min-w-2.5 h-2.5 rounded-full bg-red-600" />
-            )}
           </NavLink>
         ))}
       </div>
