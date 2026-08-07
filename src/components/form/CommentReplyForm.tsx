@@ -38,6 +38,12 @@ export default function CommentReplyForm({
     postReplies(
       { post_id, data: validatedData, comment_id },
       {
+        onSuccess: () => {
+          setFormData({
+            message: '',
+          })
+          toast.success('You replied to a comment.')
+        },
         onError: (error) => {
           toast.error(error.message)
         },

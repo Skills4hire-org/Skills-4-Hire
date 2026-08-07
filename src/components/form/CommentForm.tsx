@@ -34,6 +34,13 @@ export default function CommentForm({
     postComment(
       { post_id, data: validatedData },
       {
+        onSuccess: () => {
+          setFormData({
+            message: '',
+          })
+          toast.success('You commented on a post.')
+        },
+
         onError: (error) => {
           toast.error(error.message)
         },
