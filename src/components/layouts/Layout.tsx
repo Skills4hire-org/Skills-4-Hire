@@ -5,7 +5,7 @@ import Sidebars from '../sidebars/Sidebars'
 
 export default function Layout() {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-background">
       <SidebarProvider defaultOpen={true}>
         <Sidebars />
         <div className="flex-1 overflow-hidden">

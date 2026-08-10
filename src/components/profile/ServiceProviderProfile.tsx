@@ -34,7 +34,7 @@ export default function ServiceProviderProfile() {
               />
             </div>
           ) : (
-            <div className="-mt-2 md:-mt-6">
+            <div className="-mt-17 lg:-mt-21 md:-mt-21">
               <div>
                 <CoverPhoto
                   cover_photo={

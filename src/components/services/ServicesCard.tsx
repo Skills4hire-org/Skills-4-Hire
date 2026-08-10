@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { ImageIcon } from 'lucide-react'
 
-export default function ServicesCard({ name, attachments }: Service) {
+export default function ServicesCard({ name, attachments, localImage }: Service) {
   const formatServiceName = name?.replaceAll(' ', '-') ?? 'service'
-  const imageUrl = attachments?.[0]?.image_url
+  // Prefer API-supplied image, fall back to bundled local image
+  const imageUrl = attachments?.[0]?.image_url ?? localImage
   const [imageError, setImageError] = useState(false)
 
   return (

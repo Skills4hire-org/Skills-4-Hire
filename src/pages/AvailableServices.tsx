@@ -1,164 +1,83 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Container from '@/components/global/Container'
-import ServicesCard from '@/components/services/ServicesCard'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import { Input } from '@/components/ui/input'
-import { Search } from 'lucide-react'
-import { useAllServices } from '@/hooks/useServices'
-import type { Service } from '@/types/services.types'
-import Loading from '@/components/global/Loading'
-import Error from '@/components/global/Error'
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import { Search, ImageIcon } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { staticVocationalServices, staticDigitalServices } from '@/data/staticServices'
+import type { Service } from '@/types/services.types'
 
-function ServicesTabGrid({
-  services,
-  isLoading,
-  isError,
-  handleFetchingError,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  isFetchNextPageError,
-}: {
-  services: Service[]
-  isLoading: boolean
-  isError: boolean
-  handleFetchingError: () => void
-  fetchNextPage: () => void
-  hasNextPage?: boolean
-  isFetchingNextPage: boolean
-  isFetchNextPageError: boolean
-}) {
-  const loadMoreRef = useInfiniteScroll({
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  })
+// ─── Card ─────────────────────────────────────────────────────────────────────
+
+function ServiceCard({ name, localImage, attachments }: Service) {
+  const [imgError, setImgError] = useState(false)
+  const imageUrl = attachments?.[0]?.image_url ?? localImage
+  const slug = name?.replaceAll(' ', '-') ?? 'service'
 
   return (
-    <div className="space-y-2 md:space-y-4">
-      {isLoading ? (
-        <div className="h-24">
-          <Loading />
-        </div>
-      ) : (
-        <>
-          {isError && services.length === 0 ? (
-            <div className="h-24">
-              <Error
-                text="Failed to load services"
-                buttonFunc={handleFetchingError}
-                buttonText="Retry"
-              />
-            </div>
+    <Link to={`/customer/services/available-services/${slug}`} className="block h-full">
+      <div className="bg-white border border-neutral-100 rounded-2xl p-3 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full min-h-[180px]">
+        <h3 className="text-neutral-900 font-bold text-sm sm:text-base capitalize line-clamp-2 mb-3 leading-snug">
+          {name}
+        </h3>
+        <figure className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-100 flex items-center justify-center">
+          {imageUrl && !imgError ? (
+            <img
+              src={imageUrl}
+              alt={name}
+              className="rounded-xl object-cover w-full h-full"
+              loading="lazy"
+              onError={() => setImgError(true)}
+            />
           ) : (
-            <>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-                {services?.map((service) => (
-                  <ServicesCard key={service.service_id} {...service} />
-                ))}
-              </div>
-
-              <div ref={loadMoreRef} />
-
-              {isFetchingNextPage && (
-                <div className="py-4 text-center">
-                  <Loading />
-                </div>
-              )}
-              {hasNextPage && (
-                <button
-                  className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
-                  onClick={() => fetchNextPage()}
-                >
-                  Load more
-                </button>
-              )}
-              {isFetchNextPageError && (
-                <Error
-                  text="Failed to load more services"
-                  buttonFunc={fetchNextPage}
-                  buttonText="Retry"
-                />
-              )}
-            </>
+            <div className="flex flex-col items-center justify-center gap-1.5 w-full h-full p-2">
+              <ImageIcon className="w-8 h-8 text-neutral-300" />
+              <span className="text-xs text-neutral-400 capitalize text-center">{name}</span>
+            </div>
           )}
-        </>
-      )}
+        </figure>
+      </div>
+    </Link>
+  )
+}
+
+// ─── Grid ─────────────────────────────────────────────────────────────────────
+
+function ServiceGrid({ items }: { items: Service[] }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
+      {items.map((item) => (
+        <ServiceCard key={item.service_id} {...item} />
+      ))}
     </div>
   )
 }
 
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default function AvailableServices() {
-  const {
-    data: vocationalServices,
-    isLoading: vocationalServicesLoading,
-    isError: vocationalServicesError,
-    refetch: vocationalServicesRefetch,
-    fetchNextPage: vocationalServicesFetchNextPage,
-    hasNextPage: vocationalServicesHasNextPage,
-    isFetchingNextPage: vocationalServicesIsFetchingNextPage,
-    isFetchNextPageError: vocationalServicesIsFetchingNextPageError,
-  } = useAllServices({ category: 'vocational' })
-
-  const {
-    data: digitalServices,
-    isLoading: digitalServicesLoading,
-    isError: digitalServicesError,
-    refetch: digitalServicesRefetch,
-    fetchNextPage: digitalServicesFetchNextPage,
-    hasNextPage: digitalServicesHasNextPage,
-    isFetchingNextPage: digitalServicesIsFetchingNextPage,
-    isFetchNextPageError: digitalServicesIsFetchingNextPageError,
-  } = useAllServices({ category: 'digital' })
-
-  const vocationalServicesList: Service[] =
-    vocationalServices?.pages.flatMap((page) => page?.results ?? []) ?? []
-
-  const handleVocationalServiceFetchingError = async () => {
-    if (!vocationalServices) {
-      vocationalServicesRefetch()
-    } else {
-      vocationalServicesFetchNextPage()
-    }
-  }
-
-  const digitalServicesList: Service[] =
-    digitalServices?.pages.flatMap((page) => page?.results ?? []) ?? []
-
-  const handleDigitalServiceFetchingError = async () => {
-    if (!digitalServices) {
-      digitalServicesRefetch()
-    } else {
-      digitalServicesFetchNextPage()
-    }
-  }
-
   return (
     <div className="space-y-2 md:space-y-6 lg:ml-17">
       <HeaderWithBackNavigation title="Available services" />
       <Container>
         <div className="space-y-4 md:space-y-6">
-          <div>
-            <Link to="/customer/services/search">
-              <div className={`relative w-full mx-auto`}>
-                <Input
-                  type="text"
-                  className={`pl-3 pr-10 rounded-md border h-8 md:h-9 text-sm md:text-base`}
-                  placeholder="Search for services"
-                  name="searchQuery"
-                  id="searchQuery"
-                />
-                <button
-                  type="submit"
-                  className="absolute top-1/2  -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
-                >
-                  <Search className="w-4.5 h-4.5" />
-                </button>
-              </div>
-            </Link>
-          </div>
+          <Link to="/customer/services/search">
+            <div className="relative w-full mx-auto">
+              <Input
+                type="text"
+                className="pl-3 pr-10 rounded-md border h-8 md:h-9 text-sm md:text-base"
+                placeholder="Search for services"
+                readOnly
+              />
+              <button
+                type="button"
+                className="absolute top-1/2 -translate-y-1/2 h-full right-0 w-8 bg-primary text-white rounded-r-md flex items-center justify-center"
+              >
+                <Search className="w-4.5 h-4.5" />
+              </button>
+            </div>
+          </Link>
 
           <Tabs defaultValue="vocational">
             <div className="flex justify-center md:justify-start">
@@ -173,29 +92,11 @@ export default function AvailableServices() {
             </div>
 
             <TabsContent value="vocational" className="mt-4 md:mt-6">
-              <ServicesTabGrid
-                services={vocationalServicesList}
-                isLoading={vocationalServicesLoading}
-                isError={vocationalServicesError}
-                handleFetchingError={handleVocationalServiceFetchingError}
-                fetchNextPage={vocationalServicesFetchNextPage}
-                hasNextPage={vocationalServicesHasNextPage}
-                isFetchingNextPage={vocationalServicesIsFetchingNextPage}
-                isFetchNextPageError={vocationalServicesIsFetchingNextPageError}
-              />
+              <ServiceGrid items={staticVocationalServices} />
             </TabsContent>
 
             <TabsContent value="digital" className="mt-4 md:mt-6">
-              <ServicesTabGrid
-                services={digitalServicesList}
-                isLoading={digitalServicesLoading}
-                isError={digitalServicesError}
-                handleFetchingError={handleDigitalServiceFetchingError}
-                fetchNextPage={digitalServicesFetchNextPage}
-                hasNextPage={digitalServicesHasNextPage}
-                isFetchingNextPage={digitalServicesIsFetchingNextPage}
-                isFetchNextPageError={digitalServicesIsFetchingNextPageError}
-              />
+              <ServiceGrid items={staticDigitalServices} />
             </TabsContent>
           </Tabs>
         </div>
@@ -203,3 +104,6 @@ export default function AvailableServices() {
     </div>
   )
 }
+
+
+// The AvailableServices.tsx no longer calls the /api/v1/services-categories/ endpoint at all. If the CEO later wants real backend data to show here, that'll need to be wired back in.
