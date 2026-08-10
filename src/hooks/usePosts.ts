@@ -177,7 +177,6 @@ export const useHireRequests = ({
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.next ?? undefined,
     retry: 1,
-    enabled,
   })
 
   return queryData
