@@ -88,7 +88,7 @@ export const getUserServices = async ({
       const response = await api.get(pageParam)
       return response?.data
     }
-    const response = await api.get(`/api/v1/services/${id}/`)
+    const response = await api.get(`/api/v1/services/?other=${id}/`)
     return response?.data
   } catch (error) {
     handleApiError(error)
