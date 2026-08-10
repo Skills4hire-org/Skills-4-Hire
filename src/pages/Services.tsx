@@ -29,6 +29,7 @@ export default function Services() {
     isError: providersError,
     refetch: refetchProviders,
   } = useAllProviders({})
+
   const {
     data: favoritesData,
     isLoading: favoritesLoading,
@@ -37,7 +38,7 @@ export default function Services() {
 
   const favourites: Favorite[] =
     favoritesData?.pages?.flatMap(
-      (page) => page?.results ?? page?.results ?? [],
+      (page) => page?.data?.results ?? page?.results ?? [],
     ) ?? []
 
   const allFavourites =
@@ -49,15 +50,10 @@ export default function Services() {
       ?.flatMap((favourite) => favourite?.favourite_id ?? [])
       .filter(Boolean) ?? []
 
-  // FIX: Safely extract services with fallback arrays
-  const services: Service[] =
-    data?.pages?.flatMap(
+  const professionals: Provider[] =
+    providers?.pages?.flatMap(
       (page) => page?.data?.results ?? page?.results ?? [],
     ) ?? []
-
-  // FIX: Safely extract providers with fallback arrays to prevent line 38 crashes
-  const professionals: Provider[] =
-    providers?.pages.flatMap((page) => page.results) ?? []
 
   const handleProviderFetchingError = () => {
     refetchProviders()
@@ -102,37 +98,16 @@ export default function Services() {
                 View all
               </Link>
             </div>
-            {isLoading ? (
-              <div className="h-24">
-                <Loading />
-              </div>
-            ) : (
-              <>
-                {isError ? (
-                  <div className="h-24">
-                    <Error
-                      text="Failed to load available services"
-                      buttonFunc={handleServicesFetchingError}
-                      buttonText="Retry"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory">
-                    {services?.slice(0, 6)?.map((service) => {
-                      if (!service?.service_id) return null
-                      return (
-                        <div
-                          key={service.service_id}
-                          className="flex-none w-[240px] md:w-[280px] snap-start"
-                        >
-                          <ServicesCard {...service} />
-                        </div>
-                      )
-                    })}
-                  </div>
-                )}
-              </>
-            )}
+            <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory">
+              {previewServices.map((service) => (
+                <div
+                  key={service.service_id}
+                  className="flex-none w-[160px] md:w-[200px] snap-start"
+                >
+                  <ServicesCard {...service} />
+                </div>
+              ))}
+            </div>
           </section>
 
           <ReferAndEarnBanner />
