@@ -27,7 +27,8 @@ import ReferralCard from '@/components/referrals/ReferralCard'
 
 export default function Referral() {
   const { data, isLoading, isError, refetch } = useReferrals()
-  const referralsDetails: ReferralDetails = data?.details
+
+  const referralsDetails: ReferralDetails = data?.referrals
   const [searchQuery, setSearchQuery] = useState('')
   const [search, setSearch] = useState('')
   const referralLink = referralsDetails?.referral_link
@@ -44,9 +45,6 @@ export default function Referral() {
     navigator.clipboard.writeText(value)
     toast.success(text)
   }
-  const checkReferralStatus = referralsDetails?.referrals?.filter(
-    (referral) => referral.status === 'converted',
-  )
 
   const handleReferralsFetchingError = () => {
     refetch()
@@ -95,7 +93,7 @@ export default function Referral() {
                   <div>
                     <Button
                       className="bg-gray-400 text-black font-medium hover:bg-gray-500 px-5 py-1 rounded-lg"
-                      disabled={checkReferralStatus?.length < 3 || isPending}
+                      disabled={referralsDetails?.balance > 0 || isPending}
                       onClick={handleReferralEarning}
                     >
                       Withdraw
@@ -194,6 +192,14 @@ export default function Referral() {
                             {...referral}
                           />
                         ))}
+
+                        {filteredReferrals?.length === 0 && (
+                          <p className="text-base md:text-lg font-medium text-center h-24 flex items-center justify-center">
+                            {referralsDetails?.referrals?.length === 0
+                              ? 'No referrals yet.'
+                              : 'No results'}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -21,7 +21,7 @@ export default function BookingPayment({
               noStatus
               avatar={serviceProvider?.user?.profile?.avatar?.avatar}
             />
-            <div className="flex flex-col items-center justify-center gap-0.5">
+            <div className="flex flex-col justify-center gap-0.5">
               <h3 className="text-sm">
                 {serviceProvider?.user?.profile?.display_name}
               </h3>

@@ -4,6 +4,7 @@ import { AlertCircle, FileText, MapPin, Minus, Star } from 'lucide-react'
 import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import OverviewDialog from './OverviewDialog'
 import ProfileImageDialog from './ProfileImageDialog'
+import { Link } from 'react-router-dom'
 
 export default function Overview({
   professional,
@@ -30,10 +31,13 @@ export default function Overview({
             </div>
           </div>
           <p className=" text-base md:text-lg">{professional?.headline}</p>
-          <span className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize">
+          <Link
+            to={`/professional/profile/endorsers`}
+            className="text-primary font-semibold text-sm md:text-base -mt-0.5 block capitalize"
+          >
             {professional?.endorsement_count} endoser
             {professional && professional?.endorsement_count > 1 && 's'}
-          </span>
+          </Link>
           {professional?.max_charge == '0.00' ? (
             <p className="text-sm md:text-base text-destructive flex items-center gap-1">
               <AlertCircle className="w-3 h-3 md:w-4 md:h-4" />

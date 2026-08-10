@@ -16,6 +16,7 @@ export default function ServiceProviderServiceCard({
   favouriteID,
 }: Provider) {
   const isFavourite = providerIDs?.includes(provider_id)
+
   return (
     <div className="relative">
       <div className="relative w-full overflow-visible rounded-2xl">

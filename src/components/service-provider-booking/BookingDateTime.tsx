@@ -27,7 +27,8 @@ export default function BookingDateTime({
     hasNextPage,
     isFetchingNextPage,
     isFetchNextPageError,
-  } = useUserServices({ id: serviceProvider?.user?.user_id })
+  } = useUserServices({ id: serviceProvider?.provider_id })
+
   const allServices: Service[] =
     data?.pages.flatMap((page) => page.results) ?? []
 

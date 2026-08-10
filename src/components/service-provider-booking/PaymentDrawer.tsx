@@ -37,7 +37,8 @@ export default function PaymentDrawer({
   services: Service[]
 }) {
   const { data, isLoading, isError, refetch } = useWallet()
-  const wallet: WalletBalance = data?.data
+
+  const wallet: WalletBalance = data
   const content = [
     {
       title: 'Skilled Professional',
@@ -140,7 +141,7 @@ export default function PaymentDrawer({
           className="text-xl font-normal h-12 w-full max-w-xs mx-auto mb-6"
           onClick={handlePayment}
           disabled={
-            isPending || isLoading || info.price < wallet?.available_balance
+            isPending || isLoading || info.price > wallet?.available_balance
           }
         >
           {isPending && <Loader2 className="w-5 h-5 animate-spin" />}

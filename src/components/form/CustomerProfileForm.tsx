@@ -18,23 +18,23 @@ export default function CustomerProfileForm() {
   const user: Profile | undefined = data
   const { mutate: updateProfile, isPending } = useUpdateMyProfile()
 
-const [formData, setFormData] = useState<ProfileFormData>({
-  firstName: undefined,
-  lastName: undefined,
-  phone: undefined,
-  gender: undefined,
-  countryCode: '+234',
-  profileFile: null,
-})
+  const [formData, setFormData] = useState<ProfileFormData>({
+    firstName: undefined,
+    lastName: undefined,
+    phone: undefined,
+    gender: undefined,
+    countryCode: '+234',
+    profileFile: null,
+  })
   const resetForm = () => {
     setFormData({
-  firstName: undefined,
-  lastName: undefined,
-  phone: undefined,
-  gender: undefined,
-  countryCode: '+234',
-  profileFile: null,
-})
+      firstName: undefined,
+      lastName: undefined,
+      phone: undefined,
+      gender: undefined,
+      countryCode: '+234',
+      profileFile: null,
+    })
   }
   const [activeEdit, setActiveEdit] = useState({
     firstName: true,
@@ -168,7 +168,7 @@ const [formData, setFormData] = useState<ProfileFormData>({
                     to="endorsed"
                     className=" font-semibold text-sm md:text-base -mt-0.5 text-primary block w-max mx-auto capitalize hover:opacity-90"
                   >
-                    {user?.endorsement_count} endorsed
+                    {user?.endorsement_count ?? 0} endorsed
                   </Link>
                 </div>
               </div>

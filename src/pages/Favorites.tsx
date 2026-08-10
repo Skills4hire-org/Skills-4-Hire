@@ -9,15 +9,21 @@ import type { Favorite } from '@/types/favourites.type'
 
 export default function Favorites() {
   const { data, isLoading, isError, refetch } = useFavourites()
-  
+
   // Safely guard both 'page' and 'page.data' using fallback arrays
   const favourites: Favorite[] =
-    data?.pages?.flatMap((page) => page?.data?.results ?? page?.results ?? []) ?? []
+    data?.pages.flatMap((page) => page.results) ?? []
 
   // Added optional chaining here to prevent nested property runtime crashes
-  const allFavourites = favourites?.flatMap((favourite) => favourite?.providers ?? []) ?? []
-  const providersID = allFavourites?.map((provider) => provider?.provider_id).filter(Boolean) ?? []
-  const favoriteID = favourites?.flatMap((favourite) => favourite?.favourite_id ?? []).filter(Boolean) ?? []
+  const allFavourites =
+    favourites?.flatMap((favourite) => favourite?.providers ?? []) ?? []
+  const providersID =
+    allFavourites?.map((provider) => provider?.provider_id).filter(Boolean) ??
+    []
+  const favoriteID =
+    favourites
+      ?.flatMap((favourite) => favourite?.favourite_id ?? [])
+      .filter(Boolean) ?? []
 
   const handleFavouritesFetchingError = () => {
     refetch()
@@ -47,8 +53,8 @@ export default function Favorites() {
                 <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
                   {allFavourites?.map((favourite) => {
                     // Skip rendering this item if it lacks a valid provider_id
-                    if (!favourite?.provider_id) return null;
-                    
+                    if (!favourite?.provider_id) return null
+
                     return (
                       <ServiceProviderCard
                         key={favourite.provider_id}
@@ -56,7 +62,7 @@ export default function Favorites() {
                         providerIDs={providersID}
                         favouriteID={favoriteID[0]}
                       />
-                    );
+                    )
                   })}
                 </div>
 

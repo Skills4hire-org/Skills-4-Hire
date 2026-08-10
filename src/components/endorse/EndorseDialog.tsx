@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import EndorseForm from '../form/EndorseForm'
 import {
   Dialog,
@@ -19,8 +20,9 @@ export default function EndorseDialog({
   name,
   triggerClassName,
 }: EndorseDialogProp) {
+  const [open, setOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button
           className={
@@ -38,7 +40,7 @@ export default function EndorseDialog({
             Write a recommendation to endorse {name}
           </DialogDescription>
         </DialogHeader>
-        <EndorseForm provider_pk={provider_pk} />
+        <EndorseForm provider_pk={provider_pk} setOpen={setOpen} />
       </DialogContent>
     </Dialog>
   )

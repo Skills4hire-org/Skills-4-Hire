@@ -44,8 +44,7 @@ export default function BookingAddress() {
   } = useMyAddress()
 
   const savedAddresses: Address[] =
-    data?.pages.flatMap((page) => page?.data?.results ?? page?.results ?? []) ??
-    []
+    data?.pages.flatMap((page) => page.results) ?? []
 
   const handleAddressFetchingError = () => {
     refetch()
@@ -57,21 +56,7 @@ export default function BookingAddress() {
     fetchNextPage,
   })
 
-  const findDefaultAddress = savedAddresses?.find(
-    (address) => address.is_default,
-  )
-
   const handleNext = () => {
-    if (!info.address && savedAddresses.length !== 0) {
-      dispatch(
-        handleBookingInfo({
-          info: {
-            address: findDefaultAddress,
-          },
-        }),
-      )
-    }
-
     if (!info.is_remote) {
       dispatch(
         handleBookingInfo({
@@ -184,9 +169,7 @@ export default function BookingAddress() {
           type="submit"
           size="lg"
           className="rounded-full px-8 text-base md:text-lg"
-          disabled={
-            (workType === 'onsite' && savedAddresses?.length !== 0) || isLoading
-          }
+          disabled={(workType === 'onsite' && !info.address) || isLoading}
           onClick={handleNext}
         >
           Next

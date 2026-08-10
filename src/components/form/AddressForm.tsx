@@ -24,6 +24,13 @@ export default function AddressForm({ is_remote }: { is_remote: boolean }) {
     addAddress(formData, {
       onSuccess: () => {
         toast.success('Address added successfully')
+        setFormData({
+          street_address: '',
+          city: '',
+          state: '',
+          country: 'Nigeria',
+          is_default: true,
+        })
       },
       onError: (error) => {
         toast.error(error.message)

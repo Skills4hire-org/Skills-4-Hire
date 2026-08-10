@@ -62,6 +62,7 @@ import ProfileActivity from './pages/ProfileActivity'
 import ProfileServices from './pages/ProfileServices'
 import ProfileGallery from './pages/ProfileGallery'
 import AuthProtectedRoute from './components/global/AuthProtectedRoute'
+import ProfileEndorsers from './pages/ProfileEndorsers'
 
 const router = createBrowserRouter([
   {
@@ -295,6 +296,10 @@ const router = createBrowserRouter([
       {
         path: 'profile/endorsed',
         element: <Endorsed />,
+      },
+      {
+        path: 'profile/endorsers',
+        element: <ProfileEndorsers />,
       },
 
       {

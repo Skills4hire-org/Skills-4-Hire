@@ -1,5 +1,5 @@
 import Container from '../global/Container'
-import { currencyFormatter } from '@/utils/format'
+import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import { FileText, MapPin, Minus, Star } from 'lucide-react'
 import defaultImage from '../../assets/images/profile.jpg'
 import { Link } from 'react-router-dom'
@@ -37,7 +37,7 @@ export default function ServiceProviderOverview({
         {userType == 'customer' && (
           <div className="flex justify-end md:justify-start bg-blue-400 absolute top-10 md:top-14 right-2 md:right-4 rounded-md p-2">
             <EndorseDialog
-              provider_pk={profile?.user?.user_id}
+              provider_pk={profile?.provider_id}
               name={profile?.user?.profile?.display_name}
             />
           </div>
@@ -50,7 +50,7 @@ export default function ServiceProviderOverview({
                 {profile?.user?.profile?.display_name}
               </h1>
               <span className="text-base md:text-lg capitalize text-primary font-medium block">
-                {profile?.professional_title}
+                {formatSpaceToString(profile?.professional_title)}
               </span>
             </div>
             <p className=" text-base md:text-lg">{profile?.headline}</p>

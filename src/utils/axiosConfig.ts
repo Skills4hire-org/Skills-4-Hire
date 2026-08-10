@@ -65,7 +65,6 @@ api.interceptors.request.use(async (config) => {
   }
 
   return config
-
 })
 
 /* RESPONSE INTERCEPTOR */

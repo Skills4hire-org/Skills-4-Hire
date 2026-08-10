@@ -30,8 +30,6 @@ export default function SavedAddressCard({ address }: { address: Address }) {
     }
   }
 
-  const checkedState = address.is_default == true && !info.address
-
   return (
     <div className="flex gap-2 w-full items-start">
       <div className="space-y-2 border px-1 py-2 flex-1 rounded-sm">
@@ -42,9 +40,7 @@ export default function SavedAddressCard({ address }: { address: Address }) {
           <Checkbox
             className="data-[state=checked]:bg-primary data-[state=checked]:text-white border border-gray-500"
             disabled={info.is_remote}
-            checked={
-              info.address?.address_id == address.address_id || checkedState
-            }
+            checked={info.address?.address_id == address.address_id}
             onCheckedChange={(checked) => selectSavedLocation(checked)}
           />
         </div>
@@ -54,9 +50,6 @@ export default function SavedAddressCard({ address }: { address: Address }) {
             <span className="text-sm md:text-base">{address.city}</span>,
             <span className="text-sm md:text-base ml-1">{address.state}</span>.
           </div>
-          <span className="text-sm md:text-base text-gray-600">
-            {address.is_default && 'default'}
-          </span>
         </div>
       </div>
       <DeleteAddressDialog address_id={address.address_id} />

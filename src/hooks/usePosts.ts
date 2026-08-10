@@ -164,14 +164,7 @@ export const useHireRequests = ({
   max_amount,
 }: PostParams = {}) => {
   const queryData = useInfiniteQuery({
-    queryKey: [
-      'hire-requests',
-      tags_name,
-      city,
-      state,
-      min_amount,
-      max_amount,
-    ],
+    queryKey: ['hire-requests', tags_name, city, state, min_amount, max_amount],
     queryFn: ({ pageParam }) =>
       getHireRequests({
         pageParam,
@@ -184,10 +177,11 @@ export const useHireRequests = ({
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.next ?? undefined,
     retry: 1,
-  });
+    enabled,
+  })
 
-  return queryData;
-};
+  return queryData
+}
 
 export const useMyPosts = ({ user_id }: { user_id?: string } = {}) => {
   const queryData = useInfiniteQuery({
@@ -279,25 +273,28 @@ export const useLikePost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: PostsPage) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    likes_count: (post.likes_count ?? 0) + 1,
-                    is_liked: true,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      likes_count: (post.likes_count ?? 0) + 1,
+                      is_liked: true,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },
@@ -325,25 +322,28 @@ export const useUnlikePost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: PostsPage) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    likes_count: Math.max((post.likes_count ?? 0) - 1, 0),
-                    is_liked: false,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      likes_count: Math.max((post.likes_count ?? 0) - 1, 0),
+                      is_liked: false,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },
@@ -371,33 +371,34 @@ export const useRepost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: PostsPage) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    reposts_count: (post.reposts_count ?? 0) + 1,
-                    is_reposted: true,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      reposts_count: (post.reposts_count ?? 0) + 1,
+                      is_reposted: true,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },
-
     onError: (_, __, context) => {
       queryClient.setQueryData(queryKey, context?.previousPosts)
     },
-
     onSettled: (_, __, post) => {
       queryClient.invalidateQueries({ queryKey })
       queryClient.invalidateQueries({ queryKey: ['repost', post.post_id] })
@@ -417,25 +418,28 @@ export const useUnrepost = (queryKey: string[]) => {
 
       const previousPosts = queryClient.getQueryData(queryKey)
 
-      queryClient.setQueryData(queryKey, (oldData: PostsInfiniteData | undefined) => {
-        if (!oldData) return oldData
+      queryClient.setQueryData(
+        queryKey,
+        (oldData: PostsInfiniteData | undefined) => {
+          if (!oldData) return oldData
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: PostsPage) => ({
-            ...page,
-            results: page.results.map((post: Post) =>
-              post.post_id === post_id
-                ? {
-                    ...post,
-                    reposts_count: Math.max((post.reposts_count ?? 0) - 1, 0),
-                    is_reposted: false,
-                  }
-                : post,
-            ),
-          })),
-        }
-      })
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: PostsPage) => ({
+              ...page,
+              results: page.results.map((post: Post) =>
+                post.post_id === post_id
+                  ? {
+                      ...post,
+                      reposts_count: Math.max((post.reposts_count ?? 0) - 1, 0),
+                      is_reposted: false,
+                    }
+                  : post,
+              ),
+            })),
+          }
+        },
+      )
 
       return { previousPosts }
     },

@@ -14,7 +14,8 @@ import { useParams } from 'react-router-dom'
 export default function ServiceProviderBooking() {
   const { id } = useParams()
   const { data, isLoading, isError, refetch } = useProfileDetails({ id })
-  const serviceProvider: Profile | undefined = data?.data
+
+  const serviceProvider: Profile | undefined = data
   const { step }: { step: number } = useSelector(
     (state: any) => state.bookingState,
   )
