@@ -61,7 +61,7 @@ export default function CommentReplyForm({
       </div>
       <div className="flex-1">
         <FormTextArea
-          name="reply"
+          name="message"
           value={formData?.message}
           placeholder="Write a thoughtful reply..."
           rows={3}
