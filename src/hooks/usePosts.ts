@@ -162,7 +162,8 @@ export const useHireRequests = ({
   state,
   min_amount,
   max_amount,
-}: PostParams = {}) => {
+  enabled = true,
+}: PostParams & { enabled?: boolean } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['hire-requests', tags_name, city, state, min_amount, max_amount],
     queryFn: ({ pageParam }) =>

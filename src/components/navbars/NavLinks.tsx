@@ -24,7 +24,7 @@ export default function NavLinks({
     >
       {/* Active indicator line on top */}
       <span
-        className={`absolute top-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-red transition-all duration-150 ${
+        className={`absolute top-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-primary transition-all duration-150 ${
           active ? 'w-15 opacity-100' : 'w-0 opacity-0'
         }`}
       />

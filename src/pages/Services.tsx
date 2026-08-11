@@ -3,7 +3,6 @@ import SectionHeading from '@/components/services/SectionHeading'
 import { Link } from 'react-router-dom'
 import Container from '@/components/global/Container'
 import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
-import ServicesCard from '@/components/services/ServicesCard'
 import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
 import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
 import { Input } from '@/components/ui/input'
@@ -14,13 +13,41 @@ import { useAllProviders } from '@/hooks/useUsers'
 import type { Provider } from '@/types/user.types'
 import { useFavourites } from '@/hooks/useFavourites'
 import type { Favorite } from '@/types/favourites.type'
-import { staticVocationalServices, staticDigitalServices } from '@/data/staticServices'
+import { vocationalCategories, digitalCategories } from '@/data/staticServices'
+import type { ServiceCategory } from '@/data/staticServices'
+import { ImageIcon } from 'lucide-react'
+import { useState } from 'react'
 
 // Show a mixed preview: first 3 vocational + first 3 digital
-const previewServices = [
-  ...staticVocationalServices.slice(0, 3),
-  ...staticDigitalServices.slice(0, 3),
+const previewCategories = [
+  ...vocationalCategories.slice(0, 3),
+  ...digitalCategories.slice(0, 3),
 ]
+
+function PreviewCard({ id, name, image, roles }: ServiceCategory) {
+  const [imgError, setImgError] = useState(false)
+  return (
+    <Link to={`/customer/services/available-services/${id}`} className="block h-full">
+      <div className="bg-white border border-neutral-100 rounded-2xl p-3 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full min-h-[160px]">
+        <div>
+          <h3 className="text-neutral-900 font-bold text-xs sm:text-sm capitalize line-clamp-2 mb-1 leading-snug">
+            {name}
+          </h3>
+          <p className="text-xs text-neutral-400 mb-2">{roles.length} specialist{roles.length !== 1 ? 's' : ''}</p>
+        </div>
+        <figure className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-100 flex items-center justify-center">
+          {image && !imgError ? (
+            <img src={image} alt={name} className="rounded-xl object-cover w-full h-full" loading="lazy" onError={() => setImgError(true)} />
+          ) : (
+            <div className="flex items-center justify-center w-full h-full">
+              <ImageIcon className="w-7 h-7 text-neutral-300" />
+            </div>
+          )}
+        </figure>
+      </div>
+    </Link>
+  )
+}
 
 export default function Services() {
   const {
@@ -99,12 +126,12 @@ export default function Services() {
               </Link>
             </div>
             <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory">
-              {previewServices.map((service) => (
+              {previewCategories.map((cat) => (
                 <div
-                  key={service.service_id}
+                  key={cat.id}
                   className="flex-none w-[160px] md:w-[200px] snap-start"
                 >
-                  <ServicesCard {...service} />
+                  <PreviewCard {...cat} />
                 </div>
               ))}
             </div>
