@@ -40,7 +40,7 @@ export type Address = {
 }
 
 export type BookingInfo = {
-  address: Address | null | undefined
+  address?: Address | null
   provider: string | undefined
   price: string
   notes: string

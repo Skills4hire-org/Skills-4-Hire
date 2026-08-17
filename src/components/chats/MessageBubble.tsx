@@ -1,17 +1,11 @@
 import type { Message } from '@/types/chat.types'
-import type { UserData } from '@/types/user.types'
-import { useSelector } from 'react-redux'
 
 interface MessageProps {
   message: Message
 }
 
 export default function MessageBubble({ message }: MessageProps) {
-  const { user_data }: { user_data: UserData } = useSelector(
-    (state: any) => state.userState,
-  )
-
-  const isSent = message.sender.user_id === user_data.user_id
+  const isSent = message.is_participant_one
 
   const formattedTime = new Date(message.created_at).toLocaleTimeString([], {
     hour: '2-digit',
@@ -29,7 +23,7 @@ export default function MessageBubble({ message }: MessageProps) {
         }`}
       >
         {/* Message text */}
-        <div className="break-words pb-2.5">{message.content}</div>
+        <div className="break-words pb-2.5 min-w-6">{message.content}</div>
 
         {/* Timestamp */}
         <span

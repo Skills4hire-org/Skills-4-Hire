@@ -32,7 +32,7 @@ export default function ServiceProviderProfile() {
   const handleMessageMe = () => {
     createConversation(
       {
-        participant_two_id: id!,
+        participant_two_id: profile?.user?.user_id!,
       },
       {
         onSuccess: (conversation) => {

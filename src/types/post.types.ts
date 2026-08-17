@@ -80,6 +80,7 @@ export type Post = {
   comments_count?: number
   likes_count?: number
   reposts_count?: number
+  impression_count?: number
   is_liked?: boolean
   is_commented?: boolean
   is_reposted?: boolean

@@ -63,6 +63,7 @@ export default function MessageInput({ conversationId }: MessageInputProps) {
 
       <button
         onClick={handleSend}
+        disabled={text.trim().length == 0}
         className="bg-primary text-white p-2 rounded-full cursor-pointer mb-0.5"
       >
         <SendHorizontal className="w-5 h-5" />

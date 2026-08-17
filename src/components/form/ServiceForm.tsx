@@ -37,7 +37,7 @@ export default function ServiceForm({
     }
   }
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 2 * 1024 * 1024
+    const MAX_SIZE_MB = 10 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
     let acceptedImageFiles: File[] = []
@@ -64,7 +64,6 @@ export default function ServiceForm({
     setIsLoading(true)
     try {
       const uploadedUrls = await uploadToCloudinary(formData.photo)
-      console.log(uploadedUrls)
 
       if (uploadedUrls) {
         const data = {

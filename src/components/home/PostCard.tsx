@@ -13,7 +13,12 @@ import ProfileImage from '@/components/global/ProfileImage'
 import CommentForm from '../form/CommentForm'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useDeletePost, useLikePost, useUnlikePost } from '@/hooks/usePosts'
+import {
+  useDeletePost,
+  useLikePost,
+  usePostImpression,
+  useUnlikePost,
+} from '@/hooks/usePosts'
 import type { Post } from '@/types/post.types'
 import type { UserData, UserType } from '@/types/user.types'
 import type { RootState } from '@/store'
@@ -39,6 +44,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import { useEffect, useRef } from 'react'
 
 export default function PostCard({
   post_id,
@@ -53,6 +59,7 @@ export default function PostCard({
   is_commented,
   is_liked,
   is_reposted,
+  impression_count,
   queryKey,
 }: Post & { queryKey: string[] }) {
   const [showComment, setShowComment] = useState(false)
@@ -60,18 +67,22 @@ export default function PostCard({
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
   const navigate = useNavigate()
 
-  const { userType, user_data }: {
+  const {
+    userType,
+    user_data,
+  }: {
     userType: UserType
     user_data: UserData | null
   } = useSelector((state: RootState) => state.userState)
   const provider_id = user?.profile?.provider_id
   const provider_service = user?.profile?.professional_title
-  const impression_count = 0
+
   const isOwner = user_data?.user_id === user?.user_id
 
   const { mutate: likePost, isPending: liking } = useLikePost(queryKey)
   const { mutate: unlikePost, isPending: unliking } = useUnlikePost(queryKey)
   const { mutate: deletePost } = useDeletePost()
+  const { mutate: sendImpression } = usePostImpression()
 
   const handleLikePost = () => {
     if (is_liked) {
@@ -81,10 +92,58 @@ export default function PostCard({
     }
   }
 
+  const postRef = useRef<HTMLDivElement | null>(null)
+  const hasViewed = useRef(false)
+
+  useEffect(() => {
+    const element = postRef.current
+
+    if (!element || !post_id) return
+
+    let timeout: ReturnType<typeof setTimeout> | null = null
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasViewed.current) {
+          timeout = setTimeout(() => {
+            if (!hasViewed.current) {
+              hasViewed.current = true
+
+              sendImpression({
+                post_id,
+              })
+            }
+          }, 1000)
+        } else {
+          if (timeout) {
+            clearTimeout(timeout)
+            timeout = null
+          }
+        }
+      },
+      {
+        threshold: 0.5,
+      },
+    )
+
+    observer.observe(element)
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout)
+      }
+
+      observer.disconnect()
+    }
+  }, [post_id, sendImpression])
+
   const isTextLong = post_content && post_content.length > 200
 
   return (
-    <div className="bg-white lg:rounded-2xl md:rounded-2xl md:shadow lg:shadow p-3 md:p-4 space-y-2.5 md:space-y-3">
+    <div
+      ref={postRef}
+      className="bg-white lg:rounded-2xl md:rounded-2xl md:shadow lg:shadow p-3 md:p-4 space-y-2.5 md:space-y-3"
+    >
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
           <Link to={`/${userType}/professionals/${provider_id}`}>
@@ -101,14 +160,19 @@ export default function PostCard({
                   {user?.profile?.display_name}
                 </h3>
               </Link>
-              {userType == 'customer' && ( <Dot className="w-4 h-4 text-black self-center ml-1" strokeWidth={6} /> )}
-            {userType == 'customer' && (
-              <EndorseDialog
-              provider_pk={provider_id}
-              name={user?.profile?.display_name as string}
-              triggerClassName="whitespace-nowrap shrink-0 capitalize font-semibold text-primary text-md md:text-sm cursor-pointer hover:underline rounded-[5px] ml-1"
-              />
-            )}
+              {userType == 'customer' && (
+                <Dot
+                  className="w-4 h-4 text-black self-center ml-1"
+                  strokeWidth={6}
+                />
+              )}
+              {userType == 'customer' && (
+                <EndorseDialog
+                  provider_pk={provider_id}
+                  name={user?.profile?.display_name as string}
+                  triggerClassName="whitespace-nowrap shrink-0 capitalize font-semibold text-primary text-md md:text-sm cursor-pointer hover:underline rounded-[5px] ml-1"
+                />
+              )}
             </div>
             <div className="flex items-center gap-0.5 text-[12px] md:text-sm font-medium ">
               {provider_service && (
@@ -248,7 +312,7 @@ export default function PostCard({
         </div>
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
           <BarChart2 className="w-5 h-5 md:h-6 md:w-6" />
-          <span>{impression_count}</span>
+          <span>{impression_count ?? 0}</span>
         </button>
       </div>
       {showComment && (

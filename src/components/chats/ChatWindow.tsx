@@ -13,7 +13,7 @@ import {
   useChatSocket,
   useMessages,
 } from '@/hooks/useChats'
-import type { Message } from '@/types/chat.types'
+import type { MessagesData } from '@/types/chat.types'
 import ProposePriceDialog from './ProposePriceDialog'
 import NegotiatePriceDialog from './NegotiatePriceDialog'
 import AgreementDialog from './AgreementDialog'
@@ -32,10 +32,12 @@ export default function ChatWindow() {
     fetchNextPage,
     isFetchNextPageError,
   } = useMessages({ conversation_id })
-  const messages: Message[] =
-    data?.pages
-      .flatMap((page) => page?.results ?? [])
-      .filter((message): message is Message => !!message) ?? []
+  const messages =
+    data?.pages.flatMap((page: MessagesData) => page.messages) ?? []
+  const sortMessages = messages.sort(
+    (a, b) =>
+      new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+  )
 
   useChatSocket(conversation_id!, (incomingMessage) => {
     updateMessage(incomingMessage, conversation_id!)
@@ -105,9 +107,7 @@ export default function ChatWindow() {
               <div className="flex items-center gap-2">
                 <ProfileImage size="size-10" noStatus />
                 <div>
-                  <h2 className="font-semibold text-lg">
-                    {messages[0]?.sender?.profile?.display_name || 'Conversation'}
-                  </h2>
+                  <h2 className="font-semibold text-lg">{'Conversation'}</h2>
                   <div className="text-xs md:text-sm flex items-center gap-1.5 font-medium -mt-0.5">
                     <span className="w-2 h-2 block bg-primary rounded-full"></span>
                     {/*  <span>Online</span> */}
@@ -140,7 +140,7 @@ export default function ChatWindow() {
                 buttonText="Retry"
               />
             )}
-            {messages?.map((message) => {
+            {sortMessages?.map((message) => {
               return (
                 <MessageBubble key={message.message_id} message={message} />
               )

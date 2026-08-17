@@ -22,7 +22,7 @@ export default function Chat() {
           </div>
         ) : (
           <div className="flex h-[calc(100vh-100px)] -mb-6">
-            <div className="w-1/2 lg:w-2/5 border-r pr-4">
+            <div className="w-1/2 lg:w-2/5 border-r pr-2">
               <ConversationList />
             </div>
             <div className="flex-1 pl-4">

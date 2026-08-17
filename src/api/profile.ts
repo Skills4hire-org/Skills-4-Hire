@@ -88,10 +88,11 @@ export const getUserServices = async ({
       const response = await api.get(pageParam)
       return response?.data
     }
-    const response = await api.get(`/api/v1/services/?other=${id}/`)
+    const response = await api.get(`/api/v1/services/?other=${id}`)
     return response?.data
   } catch (error) {
     handleApiError(error)
+    console.log(error)
   }
 }
 export const addServices = async (data: Service) => {

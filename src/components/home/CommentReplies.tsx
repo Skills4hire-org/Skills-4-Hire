@@ -60,6 +60,7 @@ export default function CommentReplies({
                     {...singleComment}
                     post_id={post_id}
                     depth={depth}
+                    queryKey={['replies', singleComment.comment_id]}
                   />
                 ))}
               </div>
