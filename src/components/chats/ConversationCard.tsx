@@ -6,7 +6,6 @@ import ProfileImage from '../global/ProfileImage'
 import {
   formatMessageRelativeTime,
   formatSpaceToString,
-  timeFormatter,
 } from '@/utils/format'
 
 interface ConversationProps {

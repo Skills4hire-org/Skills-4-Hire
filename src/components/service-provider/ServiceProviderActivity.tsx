@@ -100,6 +100,7 @@ export default function ServiceProviderActivity({
                     <CommentCard
                       key={singleComment.comment_id}
                       {...singleComment}
+                      queryKey={['comments']}
                     />
                   ))}
                   {comments?.length == 0 || !comments ? (

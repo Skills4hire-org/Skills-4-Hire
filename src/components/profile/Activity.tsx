@@ -118,6 +118,7 @@ export default function Activity({ posts, comments, media }: ActivityProp) {
                               <CommentCard
                                 key={comment.comment_id}
                                 {...comment}
+                                queryKey={['comments']}
                               />
                             ))}
                           </div>
