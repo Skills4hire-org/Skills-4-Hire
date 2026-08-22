@@ -5,7 +5,7 @@ interface MessageProps {
 }
 
 export default function MessageBubble({ message }: MessageProps) {
-  const isSent = message.is_participant_one
+  const isSent = message.is_sender
 
   const formattedTime = new Date(message.created_at).toLocaleTimeString([], {
     hour: '2-digit',

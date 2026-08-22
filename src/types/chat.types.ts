@@ -41,11 +41,36 @@ export type Message = {
   content: string
   is_read: boolean
   is_edited: boolean
+  is_sender: boolean
   created_at: string
-  is_participant_one: true
-  is_participant_two: false
+  conversation: string
+  receiver: {
+    email: string
+    first_name: string
+    is_customer: boolean
+    is_provider: boolean
+    last_name: string
+    phone: string
+    profile: {
+      avatar: {
+        avatar: string
+      }
+      city: string
+      country: string
+      cover_photo: {
+        image_url: string
+      }
+      created_at: string
+      display_name: string
+      location: string
+      professional_title: string
+      customer_id: string
+      provider_id: string
+      state: string
+    }
+    user_id: string
+  }
 }
-
 export type Conversation = {
   conversation_id: string
   participant_one: string

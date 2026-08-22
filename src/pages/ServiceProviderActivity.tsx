@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom'
 export default function ServiceProviderActivity() {
   const { id } = useParams()
   const {
-    data: post,
+    data: posts,
     isLoading: postLoading,
     isError: postError,
     refetch: postRefetch,
@@ -64,9 +64,8 @@ export default function ServiceProviderActivity() {
     fetchNextPage: mediaFetchNextPage,
   })
 
-  const postActivity = post?.pages.flatMap((page) => page.results) ?? []
-  const commentActivity =
-    comment?.pages.flatMap((page) => page.results) ?? []
+  const postActivity = posts?.pages.flatMap((page) => page.results) ?? []
+  const commentActivity = comment?.pages.flatMap((page) => page.results) ?? []
   const mediaActivity = media?.pages.flatMap((page) => page.results) ?? []
 
   const handlePostFetchingError = async () => {
@@ -110,7 +109,7 @@ export default function ServiceProviderActivity() {
                     </div>
                   ) : (
                     <>
-                      {postError && !post ? (
+                      {postError && !posts ? (
                         <div className="py-10">
                           <Error
                             text="Failed to load posts"

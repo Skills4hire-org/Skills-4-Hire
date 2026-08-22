@@ -41,7 +41,7 @@ export const getProviders = async ({
       return response?.data
     }
     const params = new URLSearchParams()
-    if (search) params.set('q', search)
+    if (search) params.set('search', search)
     if (profession) params.set('professional_title_icontains', profession)
     if (min_charge) params.set('min_charge_gte', String(min_charge))
     if (ratings) params.set('reviews_ratings_gte', String(ratings))

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import MessageBubble from './MessageBubble'
 import MessageInput from './MessageInput'
@@ -13,7 +13,7 @@ import {
   useChatSocket,
   useMessages,
 } from '@/hooks/useChats'
-import type { MessagesData } from '@/types/chat.types'
+import type { Message } from '@/types/chat.types'
 import ProposePriceDialog from './ProposePriceDialog'
 import NegotiatePriceDialog from './NegotiatePriceDialog'
 import AgreementDialog from './AgreementDialog'
@@ -32,17 +32,22 @@ export default function ChatWindow() {
     fetchNextPage,
     isFetchNextPageError,
   } = useMessages({ conversation_id })
-  const messages =
-    data?.pages.flatMap((page: MessagesData) => page.messages) ?? []
+
+  const messages: Message[] = data?.pages.flatMap((page) => page.results) ?? []
   const sortMessages = messages.sort(
     (a, b) =>
       new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
   )
 
-  useChatSocket(conversation_id!, (incomingMessage) => {
-    updateMessage(incomingMessage, conversation_id!)
-    updateConversationList(incomingMessage)
-  })
+  const handleSocketMessage = useCallback(
+    (incomingMessage: Message) => {
+      updateMessage(incomingMessage, conversation_id!)
+      updateConversationList(incomingMessage)
+    },
+    [conversation_id],
+  )
+
+  useChatSocket(conversation_id!, handleSocketMessage)
 
   const isMobile = useIsMobile()
 
@@ -105,12 +110,17 @@ export default function ChatWindow() {
                 </Link>
               )}
               <div className="flex items-center gap-2">
-                <ProfileImage size="size-10" noStatus />
+                <ProfileImage
+                  size="size-10"
+                  noStatus
+                  avatar={messages[0]?.receiver?.profile?.avatar?.avatar}
+                />
                 <div>
-                  <h2 className="font-semibold text-lg">{'Conversation'}</h2>
+                  <h2 className="font-semibold text-lg">
+                    {messages[0]?.receiver?.profile?.display_name}
+                  </h2>
                   <div className="text-xs md:text-sm flex items-center gap-1.5 font-medium -mt-0.5">
-                    <span className="w-2 h-2 block bg-primary rounded-full"></span>
-                    {/*  <span>Online</span> */}
+                    {/*   <span className="w-2 h-2 block bg-primary rounded-full" /> */}
                   </div>
                 </div>
               </div>

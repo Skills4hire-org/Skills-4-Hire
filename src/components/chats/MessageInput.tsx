@@ -1,5 +1,5 @@
 import { useCreateMessage } from '@/hooks/useChats'
-import { SendHorizontal } from 'lucide-react'
+import { Loader, SendHorizontal } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 interface MessageInputProps {
@@ -9,7 +9,9 @@ interface MessageInputProps {
 export default function MessageInput({ conversationId }: MessageInputProps) {
   const [text, setText] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
-  const { mutate: sendMessage } = useCreateMessage()
+  const { mutate: sendMessage, isPending } = useCreateMessage({
+    conversation_id: conversationId,
+  })
 
   const MIN_HEIGHT = 40
   const MAX_HEIGHT = 120
@@ -63,10 +65,14 @@ export default function MessageInput({ conversationId }: MessageInputProps) {
 
       <button
         onClick={handleSend}
-        disabled={text.trim().length == 0}
+        disabled={text.trim().length == 0 || isPending}
         className="bg-primary text-white p-2 rounded-full cursor-pointer mb-0.5"
       >
-        <SendHorizontal className="w-5 h-5" />
+        {isPending ? (
+          <Loader className="w-5 h-5 animate-spin" />
+        ) : (
+          <SendHorizontal className="w-5 h-5" />
+        )}
       </button>
     </div>
   )

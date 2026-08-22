@@ -53,13 +53,12 @@ export default function PaymentDrawer({
   const servicesIds = services.map((service) => service.service_id)
   const { mutate: bookProvider, isPending } = useAddBooking()
   const navigate = useNavigate()
+
   const address = {
     street_address: info.address?.street_address,
-    apartment: info.address?.apartment,
     city: info.address?.city,
     state: info.address?.state,
     country: info.address?.country,
-    postal_code: info.address?.postal_code,
     is_default: false,
   }
 

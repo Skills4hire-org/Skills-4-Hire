@@ -13,6 +13,7 @@ import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useEffect, useRef } from 'react'
 import { queryClient } from '@/utils/queryClientConfig'
+import { store } from '@/store'
 
 export const useCreateConversation = () => {
   const createConversationAction = async (data: CreateConversation) => {
@@ -26,31 +27,43 @@ export const useCreateConversation = () => {
 
   const createConversationFunction = useMutation({
     mutationFn: createConversationAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['conversations'] })
+    },
   })
 
   return createConversationFunction
 }
-export const useCreateMessage = () => {
-  const createMessageAction = async ({
-    conversation_id,
-    data,
-  }: {
-    conversation_id: string
-    data: {
-      content: string
-    }
-  }) => {
-    try {
-      await createMessage({ conversation_id, data })
-    } catch (error: any) {
-      toast.error(error?.message)
-    }
-  }
-  const createMessageFunction = useMutation({
-    mutationFn: createMessageAction,
-  })
+export const useCreateMessage = ({
+  conversation_id,
+}: {
+  conversation_id?: string
+}) => {
+  return useMutation({
+    mutationFn: async ({
+      conversation_id,
+      data,
+    }: {
+      conversation_id: string
+      data: {
+        content: string
+      }
+    }) => {
+      try {
+        const response = await createMessage({
+          conversation_id,
+          data,
+        })
 
-  return createMessageFunction
+        return response
+      } catch (error: any) {
+        throw new Error(error?.message)
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['messages', conversation_id] })
+    },
+  })
 }
 
 export const useConversations = () => {
@@ -85,7 +98,7 @@ export const useMessages = ({
   return queryData
 }
 
-export const useChatSocket = (
+/* export const useChatSocket = (
   conversationId: string,
   onMessage: (data: any) => void,
 ) => {
@@ -96,7 +109,9 @@ export const useChatSocket = (
 
     const baseUrl = new URL(import.meta.env.VITE_API_BASE_URL)
     baseUrl.protocol = baseUrl.protocol === 'https:' ? 'wss:' : 'ws:'
-    const ws = new WebSocket(`${baseUrl.toString().replace(/\/$/, '')}/ws/chats/${conversationId}/`)
+    const ws = new WebSocket(
+      `${baseUrl.toString().replace(/\/$/, '')}/ws/chats/${conversationId}/`,
+    )
 
     socketRef.current = ws
 
@@ -106,6 +121,7 @@ export const useChatSocket = (
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data)
+      console.log(data)
 
       onMessage(data)
     }
@@ -117,16 +133,81 @@ export const useChatSocket = (
     return () => {
       ws.close()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId, onMessage])
+
+  return socketRef
+} */
+
+export const useChatSocket = (
+  conversationId: string,
+  onMessage: (data: any) => void,
+) => {
+  const socketRef = useRef<WebSocket | null>(null)
+  const state = store.getState()
+  const accessToken = state.userState.access
+
+  useEffect(() => {
+    if (!conversationId || !accessToken) return
+
+    const baseUrl = new URL(import.meta.env.VITE_API_BASE_URL)
+
+    baseUrl.protocol = baseUrl.protocol === 'https:' ? 'wss:' : 'ws:'
+
+    const wsUrl = `${baseUrl.toString().replace(/\/$/, '')}/ws/chats/${conversationId}/?token=${encodeURIComponent(accessToken)}`
+
+    const ws = new WebSocket(wsUrl)
+
+    socketRef.current = ws
+
+    ws.onopen = () => {
+      console.log('WebSocket connected')
+    }
+
+    ws.onmessage = (event) => {
+      console.log(event)
+
+      try {
+        const data = JSON.parse(event.data)
+
+        console.log('Parsed data:', data)
+
+        onMessage(data.message)
+      } catch (error) {
+        console.error('Failed to parse WebSocket message:', error)
+      }
+    }
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error)
+    }
+
+    ws.onclose = () => {
+      console.log('WebSocket closed')
+    }
+
+    return () => {
+      ws.close()
+    }
   }, [conversationId, onMessage])
 
   return socketRef
 }
 
-export const updateConversationList = (incomingMessage: any) => {
+export const updateConversationList = (incomingMessage: Message) => {
   queryClient.setQueryData(
     ['conversations'],
-    (old: { pages: Array<{ results: Conversation[]; next?: string | null }>; pageParams: unknown[] }) => {
+    (
+      old:
+        | {
+            pages: Array<{
+              results: Conversation[]
+              next?: string | null
+            }>
+            pageParams: unknown[]
+          }
+        | undefined,
+    ) => {
       if (!old) return old
 
       const updatedPages = old.pages.map((page) => {
@@ -135,53 +216,87 @@ export const updateConversationList = (incomingMessage: any) => {
             return conv
           }
 
+          const isNewMessage =
+            conv.last_message?.message_id !== incomingMessage.message_id
+
           return {
             ...conv,
+
             last_message: {
               message_id: incomingMessage.message_id,
               content: incomingMessage.content,
               created_at: incomingMessage.created_at,
               is_read: incomingMessage.is_read,
             },
+
             updated_at: incomingMessage.created_at,
-            message_count: conv.message_count + 1,
+
+            message_count: isNewMessage
+              ? (conv.message_count ?? 0) + 1
+              : conv.message_count,
           }
         })
 
-        const sortUpdated = updated.sort(
+        const sortUpdated = [...updated].sort(
           (a, b) =>
             new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
         )
 
-        return { ...page, results: sortUpdated }
+        return {
+          ...page,
+          results: sortUpdated,
+        }
       })
 
-      return { ...old, pages: updatedPages }
+      return {
+        ...old,
+        pages: updatedPages,
+      }
     },
   )
 }
 
 export const updateMessage = (
-  incomingMessage: any,
+  incomingMessage: Message,
   conversation_id: string,
 ) => {
   queryClient.setQueryData(
     ['messages', conversation_id],
-    (old: { pages: [{ results: Message[] }] }) => {
+    (
+      old:
+        | {
+            pages: Array<{
+              results: Message[]
+              next?: string | null
+            }>
+            pageParams: unknown[]
+          }
+        | undefined,
+    ) => {
       if (!old) return old
 
       const firstPage = old.pages[0]
 
+      if (!firstPage) return old
+
+      const messageExists = firstPage.results.some(
+        (message) => message.message_id === incomingMessage.message_id,
+      )
+
+      if (messageExists) {
+        return old
+      }
+
       return {
         ...old,
-
         pages: [
           {
             ...firstPage,
-
-            results: [...firstPage.results, incomingMessage],
+            results: [
+              ...firstPage.results,
+              { ...incomingMessage, is_sender: true },
+            ],
           },
-
           ...old.pages.slice(1),
         ],
       }

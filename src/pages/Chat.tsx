@@ -13,7 +13,7 @@ export default function Chat() {
     <div className="space-y-4 md:space-y-6 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
       <Container className="bg-white">
         {!conversationId && <MobileWalletHeader title="Chats" />}
-        <DesktopWalletHeader title="Chats" />
+        <DesktopWalletHeader title="Messages" />
       </Container>
       <Container>
         {isMobile ? (

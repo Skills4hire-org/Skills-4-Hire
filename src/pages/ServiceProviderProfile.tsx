@@ -72,7 +72,7 @@ export default function ServiceProviderProfile() {
                     <ServiceProviderTab
                       about={profile?.overview}
                       gallery={profile?.gallary}
-                      user_id={id}
+                      user_id={profile?.user?.user_id}
                     />
                   </Container>
                   <Container className="border-b-8 py-2 md:py-4 relative">
