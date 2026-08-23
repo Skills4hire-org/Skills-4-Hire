@@ -118,6 +118,7 @@ export type Profile = {
   total_reviews: number
   completed_bookings: number
   headline: string
+  has_endorsed: boolean
   overview: string
   endorsement_count: number
   user: User

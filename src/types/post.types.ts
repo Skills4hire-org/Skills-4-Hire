@@ -58,7 +58,7 @@ export type Post = {
     total_reviews?: number
     profile?: {
       display_name: string
-
+      has_endorsed: boolean
       city: string | null
       state: string | null
       avatar: {

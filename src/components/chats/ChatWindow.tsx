@@ -22,6 +22,7 @@ import Error from '../global/Error'
 
 export default function ChatWindow() {
   const { conversationId: conversation_id } = useParams()
+
   const {
     data,
     isLoading,
@@ -31,41 +32,55 @@ export default function ChatWindow() {
     isFetchingNextPage,
     fetchNextPage,
     isFetchNextPageError,
-  } = useMessages({ conversation_id })
+  } = useMessages({
+    conversation_id,
+  })
 
   const messages: Message[] = data?.pages.flatMap((page) => page.results) ?? []
-  const sortMessages = messages.sort(
+
+  const sortedMessages = [...messages].sort(
     (a, b) =>
       new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
   )
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const bottomRef = useRef<HTMLDivElement>(null)
+
+  const latestMessageId = sortedMessages[sortedMessages.length - 1]?.message_id
+
+  useEffect(() => {
+    if (!latestMessageId) return
+
+    bottomRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+    })
+  }, [latestMessageId])
+
   const handleSocketMessage = useCallback(
     (incomingMessage: Message) => {
       updateMessage(incomingMessage, conversation_id!)
+
       updateConversationList(incomingMessage)
     },
     [conversation_id],
   )
 
-  useChatSocket(conversation_id!, handleSocketMessage)
+  const { sendSocketMessage } = useChatSocket(
+    conversation_id!,
+    handleSocketMessage,
+  )
 
   const isMobile = useIsMobile()
 
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
-  const bottomRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({
-      behavior: 'smooth',
-    })
-  }, [messages])
 
   const handleMessageFetchingError = () => {
     refetch()
   }
-  const containerRef = useRef<HTMLDivElement>(null)
+
   const handleScroll = () => {
     const container = containerRef.current
 
@@ -101,7 +116,6 @@ export default function ChatWindow() {
         </div>
       ) : (
         <>
-          {/* HEADER */}
           <div>
             <div className="flex items-center gap-3 border-b pb-2 -mt-2">
               {isMobile && (
@@ -109,40 +123,44 @@ export default function ChatWindow() {
                   <ChevronLeft className="w-6 h-6" />
                 </Link>
               )}
+
               <div className="flex items-center gap-2">
                 <ProfileImage
                   size="size-10"
                   noStatus
                   avatar={messages[0]?.receiver?.profile?.avatar?.avatar}
                 />
+
                 <div>
                   <h2 className="font-semibold text-lg">
                     {messages[0]?.receiver?.profile?.display_name}
                   </h2>
-                  <div className="text-xs md:text-sm flex items-center gap-1.5 font-medium -mt-0.5">
-                    {/*   <span className="w-2 h-2 block bg-primary rounded-full" /> */}
-                  </div>
+
+                  <div className="text-xs md:text-sm flex items-center gap-1.5 font-medium -mt-0.5"></div>
                 </div>
               </div>
             </div>
-            <div className="flex items-center max-w-xs mx-auto border mt-3 rounded-sm text-xs/3.5  py-1 ">
+
+            <div className="flex items-center max-w-xs mx-auto border mt-3 rounded-sm text-xs/3.5 py-1">
               <ProposePriceDialog />
               <NegotiatePriceDialog />
               <AgreementDialog />
             </div>
           </div>
 
-          {/* MESSAGES */}
           <div
-            className="flex-1 overflow-y-auto p-4 space-y-3"
             ref={containerRef}
             onScroll={handleScroll}
+            className="flex-1 overflow-y-auto p-4 space-y-3"
           >
+            {/* Loading older messages */}
+
             {isFetchingNextPage && (
               <div className="text-sm md:text-base">
                 Loading older messages...
               </div>
             )}
+
             {isFetchNextPageError && (
               <Error
                 text="Failed to load older messages"
@@ -150,15 +168,18 @@ export default function ChatWindow() {
                 buttonText="Retry"
               />
             )}
-            {sortMessages?.map((message) => {
-              return (
-                <MessageBubble key={message.message_id} message={message} />
-              )
-            })}
+
+            {sortedMessages.map((message) => (
+              <MessageBubble key={message.message_id} message={message} />
+            ))}
+
+            <div ref={bottomRef} />
           </div>
-          <div ref={bottomRef} />
-          {/* INPUT */}
-          <MessageInput conversationId={conversation_id} />
+
+          <MessageInput
+            conversationId={conversation_id}
+            sendSocketMessage={sendSocketMessage}
+          />
         </>
       )}
     </div>

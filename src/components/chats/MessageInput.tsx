@@ -4,14 +4,15 @@ import { useEffect, useRef, useState } from 'react'
 
 interface MessageInputProps {
   conversationId: string
+  sendSocketMessage: (data: unknown) => boolean
 }
 
-export default function MessageInput({ conversationId }: MessageInputProps) {
+export default function MessageInput({
+  conversationId,
+  sendSocketMessage,
+}: MessageInputProps) {
   const [text, setText] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
-  const { mutate: sendMessage, isPending } = useCreateMessage({
-    conversation_id: conversationId,
-  })
 
   const MIN_HEIGHT = 40
   const MAX_HEIGHT = 120
@@ -29,8 +30,10 @@ export default function MessageInput({ conversationId }: MessageInputProps) {
       textarea.scrollHeight > MAX_HEIGHT ? 'auto' : 'hidden'
   }, [text])
 
-  const handleSend = () => {
-    sendMessage(
+  const { mutate: createMessage, isPending } = useCreateMessage()
+
+  const handleSendMessage = () => {
+    createMessage(
       {
         conversation_id: conversationId,
         data: {
@@ -38,11 +41,16 @@ export default function MessageInput({ conversationId }: MessageInputProps) {
         },
       },
       {
-        onSuccess: () => {
+        onSuccess: (createdMessage) => {
+          console.log('REST created message:', createdMessage)
           setText('')
           if (textareaRef.current) {
             textareaRef.current.style.height = `${MIN_HEIGHT}px`
           }
+          sendSocketMessage({
+            event: 'message',
+            message_id: createdMessage.message_id,
+          })
         },
       },
     )
@@ -64,7 +72,7 @@ export default function MessageInput({ conversationId }: MessageInputProps) {
       />
 
       <button
-        onClick={handleSend}
+        onClick={handleSendMessage}
         disabled={text.trim().length == 0 || isPending}
         className="bg-primary text-white p-2 rounded-full cursor-pointer mb-0.5"
       >

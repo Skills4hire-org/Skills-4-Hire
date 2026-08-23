@@ -166,7 +166,7 @@ export default function PostCard({
                   strokeWidth={6}
                 />
               )}
-              {userType == 'customer' && (
+              {userType == 'customer' && !user?.profile?.has_endorsed && (
                 <EndorseDialog
                   provider_pk={provider_id}
                   name={user?.profile?.display_name as string}

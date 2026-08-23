@@ -34,11 +34,7 @@ export const useCreateConversation = () => {
 
   return createConversationFunction
 }
-export const useCreateMessage = ({
-  conversation_id,
-}: {
-  conversation_id?: string
-}) => {
+export const useCreateMessage = () => {
   return useMutation({
     mutationFn: async ({
       conversation_id,
@@ -59,9 +55,6 @@ export const useCreateMessage = ({
       } catch (error: any) {
         throw new Error(error?.message)
       }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['messages', conversation_id] })
     },
   })
 }
@@ -98,52 +91,12 @@ export const useMessages = ({
   return queryData
 }
 
-/* export const useChatSocket = (
-  conversationId: string,
-  onMessage: (data: any) => void,
-) => {
-  const socketRef = useRef<WebSocket | null>(null)
-
-  useEffect(() => {
-    if (!conversationId) return
-
-    const baseUrl = new URL(import.meta.env.VITE_API_BASE_URL)
-    baseUrl.protocol = baseUrl.protocol === 'https:' ? 'wss:' : 'ws:'
-    const ws = new WebSocket(
-      `${baseUrl.toString().replace(/\/$/, '')}/ws/chats/${conversationId}/`,
-    )
-
-    socketRef.current = ws
-
-    ws.onopen = () => {
-      console.log('connected')
-    }
-
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      console.log(data)
-
-      onMessage(data)
-    }
-
-    ws.onclose = () => {
-      console.log('closed')
-    }
-
-    return () => {
-      ws.close()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [conversationId, onMessage])
-
-  return socketRef
-} */
-
 export const useChatSocket = (
   conversationId: string,
   onMessage: (data: any) => void,
 ) => {
   const socketRef = useRef<WebSocket | null>(null)
+
   const state = store.getState()
   const accessToken = state.userState.access
 
@@ -154,44 +107,73 @@ export const useChatSocket = (
 
     baseUrl.protocol = baseUrl.protocol === 'https:' ? 'wss:' : 'ws:'
 
-    const wsUrl = `${baseUrl.toString().replace(/\/$/, '')}/ws/chats/${conversationId}/?token=${encodeURIComponent(accessToken)}`
+    const wsUrl =
+      `${baseUrl.toString().replace(/\/$/, '')}` +
+      `/ws/chats/${encodeURIComponent(conversationId)}/` +
+      `?token=${encodeURIComponent(accessToken)}`
 
     const ws = new WebSocket(wsUrl)
 
     socketRef.current = ws
 
     ws.onopen = () => {
-      console.log('WebSocket connected')
+      console.log('🟢 WebSocket connected')
     }
 
     ws.onmessage = (event) => {
-      console.log(event)
+      console.log('📨 WebSocket message:', event.data)
 
       try {
         const data = JSON.parse(event.data)
 
         console.log('Parsed data:', data)
 
-        onMessage(data.message)
+        if (data.event === 'message' && data.message) {
+          onMessage(data.message)
+        }
       } catch (error) {
         console.error('Failed to parse WebSocket message:', error)
       }
     }
 
     ws.onerror = (error) => {
-      console.error('WebSocket error:', error)
+      console.error(' WebSocket error:', error)
     }
 
-    ws.onclose = () => {
-      console.log('WebSocket closed')
+    ws.onclose = (event) => {
+      console.log(' WebSocket closed')
+      console.log('Close code:', event.code)
+      console.log('Close reason:', event.reason)
     }
 
     return () => {
+      console.log('Cleaning up WebSocket')
       ws.close()
     }
-  }, [conversationId, onMessage])
+  }, [conversationId, accessToken, onMessage])
 
-  return socketRef
+  const sendSocketMessage = (data: unknown) => {
+    const ws = socketRef.current
+
+    if (!ws) {
+      console.error('WebSocket is not initialized')
+      return false
+    }
+
+    if (ws.readyState !== WebSocket.OPEN) {
+      console.error('WebSocket is not open. Ready state:', ws.readyState)
+      return false
+    }
+
+    ws.send(JSON.stringify(data))
+
+    return true
+  }
+
+  return {
+    socketRef,
+    sendSocketMessage,
+  }
 }
 
 export const updateConversationList = (incomingMessage: Message) => {
@@ -292,10 +274,7 @@ export const updateMessage = (
         pages: [
           {
             ...firstPage,
-            results: [
-              ...firstPage.results,
-              { ...incomingMessage, is_sender: true },
-            ],
+            results: [...firstPage.results, incomingMessage],
           },
           ...old.pages.slice(1),
         ],
