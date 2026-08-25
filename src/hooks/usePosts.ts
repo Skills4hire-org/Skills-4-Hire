@@ -5,6 +5,7 @@ import {
   getCommentReplies,
   getComments,
   getHireRequests,
+  getJobApplications,
   getMyComments,
   getMyMedia,
   getMyPosts,
@@ -596,4 +597,17 @@ export const useUnlikeComment = () => {
   })
 
   return unlikeCommentFunction
+}
+
+export const useJobApplications = () => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['jobApplications'],
+    queryFn: ({ pageParam }) => getJobApplications(pageParam),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
 }
