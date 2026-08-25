@@ -1,6 +1,31 @@
-import type { CreatePost, PostParams, SendComment } from '@/types/post.types'
+import type { CreatePost, Post, PostParams, SendComment } from '@/types/post.types'
 import { api } from '@/utils/axiosConfig'
 import { handleApiError } from './error'
+
+type PostsPage = {
+  results: Post[]
+  next?: string | null
+}
+
+const normalizePostsPage = (payload: unknown): PostsPage => {
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    'results' in payload &&
+    Array.isArray(payload.results)
+  ) {
+    return payload as PostsPage
+  }
+
+  return {
+    results: Array.isArray(payload)
+      ? (payload as Post[])
+      : payload
+        ? [payload as Post]
+        : [],
+    next: null,
+  }
+}
 
 export const createPost = async (data: CreatePost) => {
   try {
@@ -82,17 +107,18 @@ export const getMyPosts = async ({
 }: {
   pageParam?: string
   user_id?: string
-}) => {
+}): Promise<PostsPage> => {
   try {
     if (pageParam) {
       const response = await api.get(pageParam)
-      return response?.data
+      return normalizePostsPage(response?.data)
     }
     const response = await api.get(`/api/v1/posts/user/${user_id}/posts/`)
-    return response?.data
+    return normalizePostsPage(response?.data)
   } catch (error) {
     console.error('[getMyPosts] error:', error)
     handleApiError(error)
+    throw error
   }
 }
 export const getMyComments = async (pageParam?: string) => {

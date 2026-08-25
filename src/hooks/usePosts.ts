@@ -200,7 +200,7 @@ export const useMyPosts = ({ user_id }: { user_id?: string } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['my-posts', user_id],
     queryFn: ({ pageParam }) => getMyPosts({ pageParam, user_id }),
-    initialPageParam: undefined,
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.next ?? undefined
     },
