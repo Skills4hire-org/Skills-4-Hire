@@ -58,7 +58,7 @@ export type Post = {
     total_reviews?: number
     profile?: {
       display_name: string
-
+      has_endorsed: boolean
       city: string | null
       state: string | null
       avatar: {
@@ -80,6 +80,7 @@ export type Post = {
   comments_count?: number
   likes_count?: number
   reposts_count?: number
+  impression_count?: number
   is_liked?: boolean
   is_commented?: boolean
   is_reposted?: boolean

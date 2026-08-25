@@ -50,6 +50,7 @@ export default function Comment({ post_id }: { post_id: string | undefined }) {
                       key={singleComment.comment_id}
                       {...singleComment}
                       post_id={post_id}
+                      queryKey={['comments', post_id]}
                     />
                   ))
                 ) : (
@@ -59,6 +60,7 @@ export default function Comment({ post_id }: { post_id: string | undefined }) {
                         key={singleComment.comment_id}
                         {...singleComment}
                         post_id={post_id}
+                        queryKey={['comments', post_id]}
                       />
                     ))}
                     {visible || (

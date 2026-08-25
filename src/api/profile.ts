@@ -41,7 +41,7 @@ export const getProviders = async ({
       return response?.data
     }
     const params = new URLSearchParams()
-    if (search) params.set('q', search)
+    if (search) params.set('search', search)
     if (profession) params.set('professional_title_icontains', profession)
     if (min_charge) params.set('min_charge_gte', String(min_charge))
     if (ratings) params.set('reviews_ratings_gte', String(ratings))
@@ -88,10 +88,11 @@ export const getUserServices = async ({
       const response = await api.get(pageParam)
       return response?.data
     }
-    const response = await api.get(`/api/v1/services/?other=${id}/`)
+    const response = await api.get(`/api/v1/services/?other=${id}`)
     return response?.data
   } catch (error) {
     handleApiError(error)
+    console.log(error)
   }
 }
 export const addServices = async (data: Service) => {

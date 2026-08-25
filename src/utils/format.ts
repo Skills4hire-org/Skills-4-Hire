@@ -228,3 +228,16 @@ export const formatSpaceToString = (text: string | undefined) => {
     return formatString
   }
 }
+export function formatMessageRelativeTime(dateString: string) {
+  const date = new Date(dateString)
+
+  if (isToday(date)) {
+    return format(date, 'hh:mm a')
+  }
+
+  if (isYesterday(date)) {
+    return `Yesterday`
+  }
+
+  return format(date, 'MMM d, yyyy')
+}

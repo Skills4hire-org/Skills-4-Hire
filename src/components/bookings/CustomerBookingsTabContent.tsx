@@ -23,7 +23,7 @@ export default function CustomerBookingsTabContent({
               <>
                 <NoBookingCard label={label} />
                 <Link
-                  to="/customer/services/services-around-you"
+                  to="/customer/services/professionals"
                   className="uppercase bg-primary text-white px-6 py-1.5 w-max mx-auto block -mt-21 rounded-md font-medium hover:bg-primary/90"
                 >
                   Book now

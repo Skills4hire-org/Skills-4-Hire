@@ -25,6 +25,7 @@ export const useEndorse = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['endorse'] })
       queryClient.invalidateQueries({ queryKey: ['profile'] })
+      queryClient.invalidateQueries({ queryKey: ['posts'] })
     },
   })
   return endorseFunction

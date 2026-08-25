@@ -34,7 +34,7 @@ export default function ServiceProviderOverview({
           />
         </figure>
 
-        {userType == 'customer' && (
+        {userType == 'customer' && !profile?.has_endorsed && (
           <div className="flex justify-end md:justify-start bg-blue-400 absolute top-10 md:top-14 right-2 md:right-4 rounded-md p-2">
             <EndorseDialog
               provider_pk={profile?.provider_id}

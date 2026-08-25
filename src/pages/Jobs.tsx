@@ -43,7 +43,9 @@ export default function Jobs() {
 
   const categories = useMemo(() => {
     const cats = new Set(
-      allJobs.map((job) => job.category?.name).filter(Boolean)
+      allJobs
+        .map((job) => job.category?.name)
+        .filter((category): category is string => Boolean(category))
     );
     return ["All", ...Array.from(cats)];
   }, [allJobs]);

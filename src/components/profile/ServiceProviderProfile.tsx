@@ -14,6 +14,8 @@ export default function ServiceProviderProfile() {
   const { data, isLoading, isError, refetch } = useMyProfile()
   const professional: Profile | undefined = data
 
+  console.log(data)
+
   const handleProfileFetchingError = () => {
     refetch()
   }

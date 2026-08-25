@@ -18,14 +18,18 @@ export default function CommentCard({
   is_replied,
   created_at,
   depth = 0,
-}: PostComment & { depth?: number }) {
+  queryKey,
+}: PostComment & { depth?: number; queryKey: any }) {
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [showReplies, setShowReplies] = useState(false)
-
-  const { mutate: likeComment, isPending: liking } = useLikeComment()
-  const { mutate: unlikeComment, isPending: unliking } = useUnlikeComment()
+  const { mutate: likeComment, isPending: liking } = useLikeComment({
+    queryKey,
+  })
+  const { mutate: unlikeComment, isPending: unliking } = useUnlikeComment({
+    queryKey,
+  })
   const handleLike = () => {
-    is_liked ? unlikeComment(comment_id) : likeComment({ comment_id })
+    is_liked ? unlikeComment({ comment_id }) : likeComment({ comment_id })
   }
   const handleShowReply = () => {
     setShowReplies((prev) => !prev)

@@ -53,20 +53,40 @@ export default function PaymentDrawer({
   const servicesIds = services.map((service) => service.service_id)
   const { mutate: bookProvider, isPending } = useAddBooking()
   const navigate = useNavigate()
-  const handlePayment = () => {
-    const data = {
-      address: info.address,
-      provider: provider_id,
-      price: info.price,
-      notes: info.notes,
-      descriptions: info.descriptions,
-      start_date: `${info.date}T${info.time}`,
-      is_urgent: info.is_urgent,
-      is_remote: info.is_remote,
-      provider_service: servicesIds,
-    }
 
-    bookProvider(data, {
+  const address = {
+    street_address: info.address?.street_address,
+    city: info.address?.city,
+    state: info.address?.state,
+    country: info.address?.country,
+    is_default: false,
+  }
+
+  const onsiteData = {
+    address,
+    provider: provider_id,
+    price: info.price,
+    notes: info.notes,
+    descriptions: info.descriptions,
+    start_date: `${info.date}T${info.time}`,
+    is_urgent: info.is_urgent,
+    is_remote: info.is_remote,
+    provider_service: servicesIds,
+  }
+  const remoteData = {
+    provider: provider_id,
+    price: info.price,
+    notes: info.notes,
+    descriptions: info.descriptions,
+    start_date: `${info.date}T${info.time}`,
+    is_urgent: info.is_urgent,
+    is_remote: info.is_remote,
+    provider_service: servicesIds,
+  }
+  const bookingData = info.is_remote ? remoteData : onsiteData
+
+  const handlePayment = () => {
+    bookProvider(bookingData, {
       onSuccess: () => {
         navigate('/customer/bookings')
       },

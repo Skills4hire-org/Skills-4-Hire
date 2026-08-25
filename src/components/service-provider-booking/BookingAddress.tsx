@@ -57,7 +57,7 @@ export default function BookingAddress() {
   })
 
   const handleNext = () => {
-    if (!info.is_remote) {
+    if (info.is_remote) {
       dispatch(
         handleBookingInfo({
           info: {

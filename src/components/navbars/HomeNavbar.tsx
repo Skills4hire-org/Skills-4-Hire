@@ -8,12 +8,12 @@ import { NavLink } from 'react-router-dom'
 
 export default function HomeNavbar() {
   const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState
+    (state: any) => state.userState,
   )
   const navLinks =
     userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
   return (
-    <nav className="border-b h-11 pt-2 bg-white lg:bg-accent md:rounded-2xl">
+    <nav className="border-b h-11 pt-2 bg-white lg:bg-gray-100 md:rounded-2xl">
       <div className="flex gap-8 justify-evenly">
         {navLinks.map(({ label, url }) => (
           <NavLink

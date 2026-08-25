@@ -24,6 +24,7 @@ export default function CommentReplies({
     isFetchingNextPage,
     isFetchNextPageError,
   } = useCommentReplies({ post_id, comment_id })
+
   const replies: CommentReplies[] =
     data?.pages.flatMap((page) => page.results) ?? []
 
@@ -60,6 +61,7 @@ export default function CommentReplies({
                     {...singleComment}
                     post_id={post_id}
                     depth={depth}
+                    queryKey={['replies', singleComment.comment_id]}
                   />
                 ))}
               </div>
