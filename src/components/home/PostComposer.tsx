@@ -6,19 +6,18 @@ import FormSelect from '../form-fields/FormSelect'
 import { timeFrameOptions } from '@/assets/data'
 import { ImageIcon, Paperclip, Plus, VideoIcon } from 'lucide-react'
 import FormSubmitButton from '../buttons/FormSubmitButton'
-import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { useMyProfile } from '@/hooks/useUsers'
 import type { Profile } from '@/types/user.types'
+import type { RootState } from '@/store'
 
 export default function PostComposer() {
   const { data } = useMyProfile()
   const user: Profile | undefined = data
   const avatar = user?.user?.profile?.avatar?.avatar
-  const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState,
-  )
+  const firstName = user?.user?.first_name
+  const { userType } = useSelector((state: RootState) => state.userState)
   const navigate = useNavigate()
   const url =
     userType == 'customer'
@@ -54,7 +53,7 @@ export default function PostComposer() {
     >
       {userType == 'customer' && (
         <p className="text-base md:text-lg font-medium text-gray-900">
-          Create an offer
+          {firstName ? `Create an offer ${firstName}` : 'Create an offer'}
         </p>
       )}
 
