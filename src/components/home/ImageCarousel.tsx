@@ -45,7 +45,7 @@ function AttachmentCell({
           src={attachment.attachmentURL}
           alt={attachment.post_attachment_id}
           loading="lazy"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
           onError={(e) => {
             e.currentTarget.style.display = 'none'
           }}

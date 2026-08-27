@@ -20,7 +20,7 @@ function CategoryCard({ id, name, image, roles }: ServiceCategory) {
           <h3 className="text-neutral-900 font-bold text-sm sm:text-base capitalize line-clamp-2 mb-1 leading-snug">
             {name}
           </h3>
-          <p className="text-xs text-neutral-400 mb-3">{roles.length} specialist{roles.length !== 1 ? 's' : ''}</p>
+          <p className="text-xs text-neutral-400 mb-3">{roles.length} categories{roles.length !== 1 ? 's' : ''}</p>
         </div>
         <figure className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-100 flex items-center justify-center">
           {image && !imgError ? (
