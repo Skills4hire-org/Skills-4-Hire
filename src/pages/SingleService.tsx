@@ -30,7 +30,8 @@ import { categoryBySlug } from '@/data/staticServices'
 
 // ─── Sub-role card ─────────────────────────────────────────────────────────────
 
-function RoleCard({ role }: { role: string }) {
+function RoleCard({ role, image }: { role: string; image?: string }) {
+  const [imageError, setImageError] = useState(false)
   const slug = role.replaceAll(' ', '-')
   return (
     <Link
@@ -42,10 +43,20 @@ function RoleCard({ role }: { role: string }) {
           {role}
         </h3>
         <figure className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-100 flex items-center justify-center">
-          <div className="flex flex-col items-center justify-center gap-1.5 w-full h-full p-2">
-            <ImageIcon className="w-7 h-7 text-neutral-300" />
-            <span className="text-xs text-neutral-400 capitalize text-center">{role}</span>
-          </div>
+          {image && !imageError ? (
+            <img
+              src={image}
+              alt={role}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-1.5 w-full h-full p-2">
+              <ImageIcon className="w-7 h-7 text-neutral-300" />
+              <span className="text-xs text-neutral-400 capitalize text-center">{role}</span>
+            </div>
+          )}
         </figure>
       </div>
     </Link>
@@ -267,13 +278,13 @@ export default function SingleService() {
   // If it's a category → show sub-role cards
   if (category) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen lg:ml-17">
         <HeaderWithBackNavigation title={category.name} />
         <Container>
           <div className="py-4 md:py-6">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
               {category.roles.map((role) => (
-                <RoleCard key={role} role={role} />
+                <RoleCard key={role} role={role} image={category.image} />
               ))}
             </div>
           </div>
