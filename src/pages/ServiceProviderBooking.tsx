@@ -36,7 +36,7 @@ export default function ServiceProviderBooking() {
 
   return (
     <div>
-      <Container className="bg-white">
+      <Container className="lg:ml-17">
         <MobileWithAvatarAndDesktopHeader title="Booking" />
       </Container>
       <div className="md:max-w-lg lg:max-w-2xl mx-auto relative">
