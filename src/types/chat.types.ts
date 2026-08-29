@@ -73,7 +73,7 @@ export type Message = {
 }
 export type Conversation = {
   conversation_id: string
-  participant_one: string
+  participant_one: User
   participant_two: User
   message_count: number
   unread_count: number

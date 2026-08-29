@@ -271,7 +271,7 @@ export const serviceProviderDesktopNavLinks = [
 
 /* ========= TABS LIST ============ */
 
-export const bookingsTabsList = [
+export const providerBookingsTabsList = [
   {
     status: 'In_progress',
     label: 'Ongoing',
@@ -285,17 +285,37 @@ export const bookingsTabsList = [
     label: 'Cancelled',
   },
 ]
+
+export const customerBookingsTabsList = [
+  {
+    status: 'Funded',
+    label: 'Pending',
+  },
+  {
+    status: 'In_progress',
+    label: 'Ongoing',
+  },
+  {
+    status: 'Completed',
+    label: 'Completed',
+  },
+  {
+    status: 'Cancelled',
+    label: 'Cancelled',
+  },
+]
+
 export const customerWalletTabsList = [
   {
     status: 'pending',
     label: 'Pending',
   },
   {
-    status: 'spent',
+    status: 'completed',
     label: 'Spent',
   },
   {
-    status: 'canceled',
+    status: 'failed',
     label: 'Canceled',
   },
 ]
@@ -305,11 +325,11 @@ export const serviceProviderWalletTabsList = [
     label: 'Pending',
   },
   {
-    status: 'earned',
+    status: 'completed',
     label: 'Earned',
   },
   {
-    status: 'canceled',
+    status: 'failed',
     label: 'Canceled',
   },
 ]
@@ -428,8 +448,8 @@ export const serviceProviderHomeNavLinks = [
     hasNotification: false,
   },
   {
-    url: "/professional/home/request",
-    label: "Hire requests",
+    url: '/professional/home/request',
+    label: 'Hire requests',
     hasNotification: true,
     // url: 'job-offers',
     // label: 'Hire requests',

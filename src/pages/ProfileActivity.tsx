@@ -70,8 +70,7 @@ export default function ProfileActivity() {
   })
 
   const postActivity = post?.pages.flatMap((page) => page.results) ?? []
-  const commentActivity =
-    comment?.pages.flatMap((page) => page.results) ?? []
+  const commentActivity = comment?.pages.flatMap((page) => page.results) ?? []
   const mediaActivity = media?.pages.flatMap((page) => page.results) ?? []
 
   const handlePostFetchingError = async () => {
@@ -160,7 +159,7 @@ export default function ProfileActivity() {
                           )}
                           {postHasNextPage && (
                             <button
-                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                               onClick={() => postFetchNextPage()}
                             >
                               Load more posts
@@ -217,7 +216,7 @@ export default function ProfileActivity() {
                           )}
                           {mediaHasNextPage && (
                             <button
-                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                               onClick={() => mediaFetchNextPage()}
                             >
                               Load more media
@@ -274,7 +273,7 @@ export default function ProfileActivity() {
                           )}
                           {commentHasNextPage && (
                             <button
-                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                               onClick={() => commentFetchNextPage()}
                             >
                               Load more comments

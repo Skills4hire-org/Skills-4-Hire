@@ -22,9 +22,10 @@ export const getTransactions = async ({
       const response = await api.get(pageParam)
       return response?.data
     }
-    const params: Record<string, string> = {}
-    if (status) params.status = status
-    const response = await api.get(`/api/v1/wallet/transactions/`, { params })
+
+    const response = await api.get(
+      `/api/v1/wallet/transactions/?status__icontains=${status}`,
+    )
     return response?.data
   } catch (error) {
     handleApiError(error)

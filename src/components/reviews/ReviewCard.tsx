@@ -1,4 +1,4 @@
-import { dateFormatter } from '@/utils/format'
+import { dateFormatter, formatSpaceToString } from '@/utils/format'
 import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
 import type { Review } from '@/types/reviews.types'
@@ -8,22 +8,23 @@ import { Link } from 'react-router-dom'
 
 export default function ReviewCard({
   reviewed_by,
-  review,
+  reviews,
   created_at,
   provider_profile,
+  ratings,
 }: Review) {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
   const name =
     userType == 'customer'
-      ? provider_profile?.profile?.display_name
+      ? provider_profile?.user?.profile?.display_name
       : reviewed_by?.profile?.display_name
   const role =
     userType == 'customer' ? provider_profile?.professional_title : undefined
   const avatar =
     userType == 'customer'
-      ? provider_profile?.profile?.avatar?.avatar
+      ? provider_profile?.user?.profile?.avatar?.avatar
       : reviewed_by?.profile?.avatar?.avatar
   return (
     <div className="bg-white rounded-md px-2 py-4 shadow ">
@@ -49,18 +50,18 @@ export default function ReviewCard({
             )}
 
             {role && (
-              <span className="inline-block text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full mt-0.5">
-                {role}
+              <span className="inline-block text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full mt-0.5 capitalize">
+                {formatSpaceToString(role)}
               </span>
             )}
           </div>
           <div className="flex flex-col items-end gap-2">
             <p className="text-xs text-gray-500">{dateFormatter(created_at)}</p>
-            <Ratings rating={3} />
+            <Ratings rating={ratings} />
           </div>
         </div>
       </div>
-      <p className="text-sm mt-2 text-gray-600 break-all">{review}</p>
+      <p className="text-sm mt-2 text-gray-600 break-all">{reviews}</p>
     </div>
   )
 }

@@ -1,5 +1,14 @@
-import { getReferrals, withdrawReferralBonus } from '@/api/referrals'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  getReferrals,
+  getUserReferrals,
+  withdrawReferralBonus,
+} from '@/api/referrals'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 export const useReferrals = () => {
@@ -31,4 +40,17 @@ export const useWithdrawReferralBonus = () => {
   })
 
   return withdrawReferralBonusFunction
+}
+
+export const useUserReferrals = () => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['user-referrals'],
+    queryFn: ({ pageParam }) => getUserReferrals(pageParam),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage?.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
 }

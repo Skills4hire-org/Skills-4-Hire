@@ -42,7 +42,6 @@ export default function MessageInput({
       },
       {
         onSuccess: (createdMessage) => {
-          console.log('REST created message:', createdMessage)
           setText('')
           if (textareaRef.current) {
             textareaRef.current.style.height = `${MIN_HEIGHT}px`

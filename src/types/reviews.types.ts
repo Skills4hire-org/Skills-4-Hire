@@ -10,16 +10,18 @@ export type Review = {
   }
   provider_profile: {
     provider_id: string
-    profile: {
-      display_name: string
-      avatar: {
-        avatar: string
+    user: {
+      profile: {
+        display_name: string
+        avatar: {
+          avatar: string
+        }
       }
     }
     professional_title: string
   }
   ratings: number
-  review: string
+  reviews: string
   created_at: string
 }
 

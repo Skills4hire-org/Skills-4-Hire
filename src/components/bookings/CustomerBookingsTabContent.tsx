@@ -1,9 +1,10 @@
-import { bookingsTabsList } from '@/assets/data'
 import { TabsContent } from '../ui/tabs'
 import CustomerBookingCard from './CustomerBookingCard'
 import NoBookingCard from './NoBookingCard'
 import { Link } from 'react-router-dom'
 import type { Booking } from '@/types/bookings.type'
+import { customerBookingsTabsList } from '@/assets/data'
+import BookingRequestCard from './BookingRequestCard'
 
 export default function CustomerBookingsTabContent({
   bookings,
@@ -12,12 +13,16 @@ export default function CustomerBookingsTabContent({
 }) {
   return (
     <>
-      {bookingsTabsList.map(({ status, label }) => (
+      {customerBookingsTabsList.map(({ status, label }) => (
         <TabsContent key={status} value={status}>
           <div className="space-y-6 md:space-y-8 md:py-2">
-            {bookings?.map((booking) => (
-              <CustomerBookingCard key={booking.booking_id} {...booking} />
-            ))}
+            {label == 'Pending'
+              ? bookings?.map((booking) => (
+                  <BookingRequestCard key={booking.booking_id} {...booking} />
+                ))
+              : bookings?.map((booking) => (
+                  <CustomerBookingCard key={booking.booking_id} {...booking} />
+                ))}
 
             {bookings?.length == 0 && (
               <>

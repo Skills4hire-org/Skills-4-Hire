@@ -160,7 +160,7 @@ export default function PostCard({
                   {user?.profile?.display_name}
                 </h3>
               </Link>
-              {userType == 'customer' && (
+              {userType == 'customer' && !user?.profile?.has_endorsed && (
                 <Dot
                   className="w-4 h-4 text-black self-center ml-1"
                   strokeWidth={6}

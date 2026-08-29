@@ -1,15 +1,13 @@
+import BookingRequestCard from '@/components/bookings/BookingRequestCard'
 import Container from '@/components/global/Container'
 import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
-import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
-import ServiceProviderGallery from '@/components/service-provider/ServiceProviderGallery'
+import MobileWithAvatarAndDesktopHeader from '@/components/header/MobileWithAvatarAndDesktopHeader'
+import { useBookings } from '@/hooks/useBookings'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
-import { useUserGallery } from '@/hooks/useUsers'
-import type { Gallery } from '@/types/user.types'
-import { useParams } from 'react-router-dom'
+import type { Booking } from '@/types/bookings.type'
 
-export default function ServiceProviderImageGallery() {
-  const { id } = useParams()
+export default function BookingRequest() {
   const {
     data,
     isLoading,
@@ -19,7 +17,9 @@ export default function ServiceProviderImageGallery() {
     hasNextPage,
     isFetchingNextPage,
     isFetchNextPageError,
-  } = useUserGallery({ id })
+  } = useBookings({ booking_status: 'Funded' })
+  const bookingRequests: Booking[] =
+    data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -27,14 +27,15 @@ export default function ServiceProviderImageGallery() {
     fetchNextPage,
   })
 
-  const gallery: Gallery[] = data?.pages.flatMap((page) => page.results) ?? []
-
-  const handleGalleryFetchingError = async () => {
+  const handleBookingRequestFetchingError = () => {
     refetch()
   }
+
   return (
-    <div className="space-y-2 md:space-y-6">
-      <HeaderWithBackNavigation title={`Gallery`} />
+    <div className="space-y-2 md:space-y-4 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
+      <Container className="bg-white">
+        <MobileWithAvatarAndDesktopHeader title="Booking Requests" />
+      </Container>
       <Container>
         {isLoading ? (
           <div className="h-24">
@@ -43,22 +44,25 @@ export default function ServiceProviderImageGallery() {
         ) : (
           <>
             {isError && !data ? (
-              <div className="py-10">
+              <div className="py-6">
                 <Error
-                  text="Failed to load gallery"
-                  buttonFunc={handleGalleryFetchingError}
+                  text="Failed to load your booking requests"
+                  buttonFunc={handleBookingRequestFetchingError}
                 />
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-4">
-                  {gallery?.map((gallery) => (
-                    <ServiceProviderGallery
-                      key={gallery.description}
-                      image={gallery.image_url}
-                    />
+                <div className="space-y-2 md:space-y-4">
+                  {bookingRequests?.map((request) => (
+                    <BookingRequestCard key={request.booking_id} {...request} />
                   ))}
                 </div>
+
+                {bookingRequests?.length === 0 && (
+                  <p className="text-base md:text-lg font-medium text-center h-24 flex items-center justify-center">
+                    No booking requests yet.
+                  </p>
+                )}
 
                 <div ref={loadMoreRef} />
 
@@ -72,12 +76,12 @@ export default function ServiceProviderImageGallery() {
                     className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                     onClick={() => fetchNextPage()}
                   >
-                    Load more media
+                    Load more
                   </button>
                 )}
                 {isFetchNextPageError && (
                   <Error
-                    text="Failed to load more media"
+                    text="Failed to load more  booking requests"
                     buttonFunc={fetchNextPage}
                     buttonText="Retry"
                   />

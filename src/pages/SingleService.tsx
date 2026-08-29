@@ -30,7 +30,9 @@ function RoleCard({ role }: { role: string }) {
         <figure className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-100 flex items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-1.5 w-full h-full p-2">
             <ImageIcon className="w-7 h-7 text-neutral-300" />
-            <span className="text-xs text-neutral-400 capitalize text-center">{role}</span>
+            <span className="text-xs text-neutral-400 capitalize text-center">
+              {role}
+            </span>
           </div>
         </figure>
       </div>
@@ -48,21 +50,21 @@ function ProviderList({ profession }: { profession: string }) {
     search: string | null
   }>({ min_charge: null, ratings: null, search: null })
 
-const {
-  data,
-  isLoading,
-  isError,
-  refetch,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  isFetchNextPageError,
-} = useAllProviders({
-  profession,
-  ...filters,
-  min_charge: filters.min_charge ? Number(filters.min_charge) : null,
-  ratings: filters.ratings ? Number(filters.ratings) : null,
-})
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetchNextPageError,
+  } = useAllProviders({
+    profession,
+    ...filters,
+    min_charge: filters.min_charge ? Number(filters.min_charge) : null,
+    ratings: filters.ratings ? Number(filters.ratings) : null,
+  })
 
   const { data: favoritesData, isLoading: favoritesLoading } = useFavourites()
   const favourites: Favorite[] =
@@ -76,7 +78,11 @@ const {
   const professionals: Provider[] =
     data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
-  const loadMoreRef = useInfiniteScroll({ hasNextPage, isFetchingNextPage, fetchNextPage })
+  const loadMoreRef = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  })
 
   const handleError = async () => {
     if (!data) refetch()
@@ -111,10 +117,15 @@ const {
 
       <div className="max-w-5xl mx-auto flex flex-col gap-6">
         {isLoading || favoritesLoading ? (
-          <div className="h-24"><Loading /></div>
+          <div className="h-24">
+            <Loading />
+          </div>
         ) : isError ? (
           <div className="py-10">
-            <Error text="Failed to load professionals" buttonFunc={handleError} />
+            <Error
+              text="Failed to load professionals"
+              buttonFunc={handleError}
+            />
           </div>
         ) : (
           <>
@@ -140,18 +151,24 @@ const {
             <div ref={loadMoreRef} />
 
             {isFetchingNextPage && (
-              <div className="py-4 text-center"><Loading /></div>
+              <div className="py-4 text-center">
+                <Loading />
+              </div>
             )}
             {hasNextPage && (
               <button
-                className="shadow-sm px-4 py-1 text-sm font-medium rounded-sm cursor-pointer hover:shadow-md"
+                className="shadow-sm px-4 py-1 text-sm font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                 onClick={() => fetchNextPage()}
               >
                 Load more
               </button>
             )}
             {isFetchNextPageError && (
-              <Error text="Failed to load more" buttonFunc={fetchNextPage} buttonText="Retry" />
+              <Error
+                text="Failed to load more"
+                buttonFunc={fetchNextPage}
+                buttonText="Retry"
+              />
             )}
           </>
         )}

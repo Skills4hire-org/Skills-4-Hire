@@ -6,21 +6,26 @@ import {
 import ProfileImage from '../global/ProfileImage'
 import defaultImage from '../../assets/images/profile.jpg'
 import type { Booking } from '@/types/bookings.type'
-import RejectBookingRequestDialog from './RejectBookinRequestDialog'
 import { useBookingAction } from '@/hooks/useBookings'
-import { useState } from 'react'
 import { toast } from 'sonner'
+import RejectBookingRequestDialog from './RejectBookinRequestDialog'
+import { useState } from 'react'
+import AcceptBookingRequestDialog from './AcceptBookingRequestDialog'
+import { useSelector } from 'react-redux'
+import type { UserType } from '@/types/user.types'
 
-export default function ServiceProviderBookingCard({
+export default function BookingRequestCard({
   customer,
   provider,
   created_at,
   descriptions,
   booking_id,
-  booking_status,
 }: Booking) {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
   const { mutate: bookingAction, isPending } = useBookingAction()
-
+  const [acceptOpen, setAcceptOpen] = useState(false)
   const [rejectOpen, setRejectOpen] = useState(false)
 
   const handleBookingRequest = (action: string) => {
@@ -31,19 +36,29 @@ export default function ServiceProviderBookingCard({
       },
       {
         onSuccess: () => {
-          toast.success('Booking canceled!')
-          setRejectOpen(false)
+          toast.success(
+            `${action == 'accept' ? 'Booking request accepted!' : 'Booking request rejected!'}`,
+          )
+          if (action == 'accept') {
+            setAcceptOpen(false)
+          } else {
+            setRejectOpen(false)
+          }
         },
         onError: (error) => {
           toast.error(error?.message)
-          setRejectOpen(true)
+          if (action == 'accept') {
+            setAcceptOpen(true)
+          } else {
+            setRejectOpen(true)
+          }
         },
       },
     )
   }
 
   return (
-    <div className="space-y-2 md:space-y-4 max-w-xl mx-auto ">
+    <div className="space-y-2 md:space-y-4 max-w-xl mx-auto">
       <div className="flex items-center justify-between gap-8 border-y px-2">
         <div className="flex flex-col gap-1">
           <h3 className="capitalize font-medium ">
@@ -88,19 +103,26 @@ export default function ServiceProviderBookingCard({
           </div>
         </div>
       </div>
-      {booking_status == 'In_progress' && (
-        <div className="flex items-center justify-end gap-2 md:gap-4">
+      <div className="flex items-center justify-end gap-2 md:gap-4">
+        {userType == 'professional' && (
           <div className="w-1/2">
-            <RejectBookingRequestDialog
+            <AcceptBookingRequestDialog
               handleBookingRequest={handleBookingRequest}
               isPending={isPending}
-              rejectOpen={rejectOpen}
-              setRejectOpen={setRejectOpen}
-              label="cancel"
+              acceptOpen={acceptOpen}
+              setAcceptOpen={setAcceptOpen}
             />
           </div>
+        )}
+        <div className="w-1/2">
+          <RejectBookingRequestDialog
+            handleBookingRequest={handleBookingRequest}
+            isPending={isPending}
+            rejectOpen={rejectOpen}
+            setRejectOpen={setRejectOpen}
+          />
         </div>
-      )}
+      </div>
     </div>
   )
 }

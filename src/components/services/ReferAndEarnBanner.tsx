@@ -1,11 +1,16 @@
 import { currencyFormatter } from '@/utils/format'
 import referralBonus from '../../assets/images/referral.png'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { UserType } from '@/types/user.types'
 
 export default function ReferAndEarnBanner() {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
   return (
     <Link
-      to="/customer/referral"
+      to={`/${userType}/referral`}
       className="flex items-center border rounded-md py-1 md:py-2 px-3 md:px-5 justify-between gap-4"
     >
       <div className="flex flex-col gap-1 md:gap-1.5">

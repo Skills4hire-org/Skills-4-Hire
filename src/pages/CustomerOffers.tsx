@@ -10,7 +10,9 @@ import { useSelector } from 'react-redux'
 import type { UserData } from '@/types/user.types'
 
 export default function CustomerOffers() {
-  const user: UserData | null = useSelector((state: any) => state.userState.user_data)
+  const user: UserData | null = useSelector(
+    (state: any) => state.userState.user_data,
+  )
   const {
     data,
     isLoading,
@@ -22,7 +24,8 @@ export default function CustomerOffers() {
     isFetchNextPageError,
   } = useMyPosts({ user_id: user?.user_id })
 
-  const offers: Post[] = data?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const offers: Post[] =
+    data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -79,7 +82,7 @@ export default function CustomerOffers() {
               )}
               {hasNextPage && (
                 <button
-                  className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                  className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                   onClick={() => fetchNextPage()}
                 >
                   Load more

@@ -1,5 +1,10 @@
 import { addAddress, deleteAddress, getMyAddresses } from '@/api/address'
-import { addBooking, getBookings } from '@/api/bookings'
+import {
+  addBooking,
+  approveBookingPayment,
+  bookingAction,
+  getBookings,
+} from '@/api/bookings'
 import type { Address, BookingInfo } from '@/types/bookings.type'
 import {
   useInfiniteQuery,
@@ -84,8 +89,60 @@ export const useAddBooking = () => {
     mutationFn: addBookingAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] })
+      queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['wallet'] })
+      queryClient.invalidateQueries({ queryKey: ['profile-overview'] })
     },
   })
 
   return addBookingFunction
+}
+
+export const useBookingAction = () => {
+  const bookingRequestAction = async ({
+    id,
+    action,
+  }: {
+    id: string | undefined
+    action: string
+  }) => {
+    try {
+      await bookingAction({ id, action })
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const bookingFunction = useMutation({
+    mutationFn: bookingRequestAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] })
+      queryClient.invalidateQueries({ queryKey: ['profile-overview'] })
+    },
+  })
+  return bookingFunction
+}
+
+export const useApproveBookingPayment = () => {
+  const approveBookingPaymentAction = async ({
+    id,
+    amount,
+  }: {
+    id: string | undefined
+    amount: string
+  }) => {
+    try {
+      await approveBookingPayment({ id, amount })
+    } catch (error: any) {
+      throw new Error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const approveBookingPaymentFunction = useMutation({
+    mutationFn: approveBookingPaymentAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] })
+    },
+  })
+  return approveBookingPaymentFunction
 }

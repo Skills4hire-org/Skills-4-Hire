@@ -63,6 +63,7 @@ import ProfileServices from './pages/ProfileServices'
 import ProfileGallery from './pages/ProfileGallery'
 import AuthProtectedRoute from './components/global/AuthProtectedRoute'
 import ProfileEndorsers from './pages/ProfileEndorsers'
+import BookingRequest from './pages/BookinRequests'
 
 const router = createBrowserRouter([
   {
@@ -179,6 +180,10 @@ const router = createBrowserRouter([
         element: <ProviderOverview />,
       },
       {
+        path: 'booking-requests',
+        element: <BookingRequest />,
+      },
+      {
         path: 'services',
         element: <Services />,
       },
@@ -226,6 +231,7 @@ const router = createBrowserRouter([
         path: 'bookings',
         element: <Bookings />,
       },
+      { path: 'bookings/:id/approve', element: <ApprovePayment /> },
       {
         path: 'wallet',
         element: <Wallet />,
@@ -234,7 +240,7 @@ const router = createBrowserRouter([
         path: 'wallet/transaction-history',
         element: <TransactionHistory />,
       },
-      { path: 'wallet/approve', element: <ApprovePayment /> },
+
       { path: 'wallet/withdraw', element: <Withdraw /> },
       { path: 'wallet/withdraw-verify', element: <WithdrawVerification /> },
       { path: 'wallet/withdraw-pin', element: <WithdrawPin /> },

@@ -1,4 +1,4 @@
-import { bookingsTabsList } from '@/assets/data'
+import { providerBookingsTabsList } from '@/assets/data'
 import { TabsContent } from '../ui/tabs'
 import NoBookingCard from './NoBookingCard'
 import ServiceProviderBookingCard from './ServiceProviderBookingCard'
@@ -11,7 +11,7 @@ export default function ServiceProviderBookingsTabContent({
 }) {
   return (
     <>
-      {bookingsTabsList.map(({ status, label }) => (
+      {providerBookingsTabsList.map(({ status, label }) => (
         <TabsContent key={status} value={status}>
           <div className="space-y-6 md:space-y-8 md:py-2">
             {bookings?.map((booking) => (

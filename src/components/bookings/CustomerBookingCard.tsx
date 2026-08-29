@@ -1,21 +1,41 @@
-import { dateFormatter, timeFormatter } from '@/utils/format'
+import {
+  dateFormatter,
+  formatSpaceToString,
+  timeFormatter,
+} from '@/utils/format'
 import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
 import defaultImage from '../../assets/images/profile.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import type { Booking } from '@/types/bookings.type'
 
 export default function CustomerBookingCard({
   provider,
   descriptions,
   created_at,
+  booking_status,
+  booking_id,
+  customer,
+  price,
 }: Booking) {
+  const navigate = useNavigate()
+
+  const handleNavigation = () => {
+    navigate(`/customer/bookings/${booking_id}/approve`, {
+      state: {
+        provider,
+        customer,
+        price,
+      },
+    })
+  }
+
   return (
     <div className="space-y-2 md:space-y-4 max-w-xl mx-auto ">
       <div className="flex items-center justify-between gap-8 border-y px-2">
         <div className="flex flex-col gap-1">
           <h3 className="capitalize font-medium ">
-            {provider?.professional_title}
+            {formatSpaceToString(provider?.professional_title)}
           </h3>
           <div className="text-muted-foreground text-base">
             Date:{' '}
@@ -70,6 +90,16 @@ export default function CustomerBookingCard({
           </div>
         </div>
       </div>
+      {booking_status == 'In_progress' && (
+        <div className="flex items-center justify-end gap-2 md:gap-4">
+          <button
+            onClick={handleNavigation}
+            className="rounded-md bg-primary hover:opacity-90 py-2 text-white font-medium text-sm md:text--base cursor-pointer w-1/2 text-center"
+          >
+            Approve
+          </button>
+        </div>
+      )}
     </div>
   )
 }

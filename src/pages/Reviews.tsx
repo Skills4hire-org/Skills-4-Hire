@@ -78,7 +78,7 @@ function Reviews() {
                 )}
                 {hasNextPage && (
                   <button
-                    className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                    className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                     onClick={() => fetchNextPage()}
                   >
                     Load more

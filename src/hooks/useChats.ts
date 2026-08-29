@@ -117,16 +117,12 @@ export const useChatSocket = (
     socketRef.current = ws
 
     ws.onopen = () => {
-      console.log('🟢 WebSocket connected')
+      console.log('WebSocket connected')
     }
 
     ws.onmessage = (event) => {
-      console.log('📨 WebSocket message:', event.data)
-
       try {
         const data = JSON.parse(event.data)
-
-        console.log('Parsed data:', data)
 
         if (data.event === 'message' && data.message) {
           onMessage(data.message)
@@ -144,6 +140,7 @@ export const useChatSocket = (
       console.log(' WebSocket closed')
       console.log('Close code:', event.code)
       console.log('Close reason:', event.reason)
+      console.log('Was clean:', event.wasClean)
     }
 
     return () => {
@@ -176,7 +173,10 @@ export const useChatSocket = (
   }
 }
 
-export const updateConversationList = (incomingMessage: Message) => {
+export const updateConversationList = (
+  incomingMessage: Message,
+  conversation_id: string,
+) => {
   queryClient.setQueryData(
     ['conversations'],
     (
@@ -194,7 +194,8 @@ export const updateConversationList = (incomingMessage: Message) => {
 
       const updatedPages = old.pages.map((page) => {
         const updated = page.results.map((conv) => {
-          if (conv.conversation_id !== incomingMessage.conversation) {
+          // Only update the conversation this message belongs to
+          if (conv.conversation_id !== conversation_id) {
             return conv
           }
 
@@ -219,6 +220,7 @@ export const updateConversationList = (incomingMessage: Message) => {
           }
         })
 
+        // Put the conversation with the newest message first
         const sortUpdated = [...updated].sort(
           (a, b) =>
             new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
@@ -278,6 +280,40 @@ export const updateMessage = (
           },
           ...old.pages.slice(1),
         ],
+      }
+    },
+  )
+}
+
+export const markConversationAsReadInCache = (conversation_id: string) => {
+  queryClient.setQueryData(
+    ['conversations'],
+    (
+      old:
+        | {
+            pages: Array<{
+              results: Conversation[]
+              next?: string | null
+            }>
+            pageParams: unknown[]
+          }
+        | undefined,
+    ) => {
+      if (!old) return old
+
+      return {
+        ...old,
+        pages: old.pages.map((page) => ({
+          ...page,
+          results: page.results.map((conversation) =>
+            conversation.conversation_id === conversation_id
+              ? {
+                  ...conversation,
+                  unread_count: 0,
+                }
+              : conversation,
+          ),
+        })),
       }
     },
   )

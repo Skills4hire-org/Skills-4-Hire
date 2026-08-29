@@ -1,13 +1,10 @@
 import { format, isToday, isYesterday } from 'date-fns'
-import type {
-  AvailableServices,
-  Notification,
-  TransactionHistory,
-} from './types'
+import type { AvailableServices, Notification } from './types'
 import { AiFillNotification } from 'react-icons/ai'
 import type { IconType } from 'react-icons/lib'
 import { MdCancel } from 'react-icons/md'
 import { TbMessage, TbMoneybag } from 'react-icons/tb'
+import type { Transaction } from '@/types/wallet.types'
 
 export const getBasePath = (pathname: string) => {
   return pathname.split('/').slice(0, 3).join('/')
@@ -136,10 +133,10 @@ export function groupNotificationsByDay(notifications: Notification[]) {
   )
 }
 
-export function groupTransactionsByDay(transactions: TransactionHistory[]) {
+export function groupTransactionsByDay(transactions: Transaction[]) {
   return transactions.reduce(
-    (groups: Record<string, TransactionHistory[]>, transaction) => {
-      const date = new Date(transaction.createdAt)
+    (groups: Record<string, Transaction[]>, transaction) => {
+      const date = new Date(transaction.transaction_date)
 
       let groupKey: string
       if (isToday(date)) {
