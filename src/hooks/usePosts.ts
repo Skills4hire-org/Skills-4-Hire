@@ -5,6 +5,7 @@ import {
   getCommentReplies,
   getComments,
   getHireRequests,
+  getJobApplications,
   getMyComments,
   getMyMedia,
   getMyPosts,
@@ -199,7 +200,7 @@ export const useMyPosts = ({ user_id }: { user_id?: string } = {}) => {
   const queryData = useInfiniteQuery({
     queryKey: ['my-posts', user_id],
     queryFn: ({ pageParam }) => getMyPosts({ pageParam, user_id }),
-    initialPageParam: undefined,
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.next ?? undefined
     },
@@ -655,4 +656,17 @@ export const usePostImpression = () => {
     mutationFn: ({ post_id }: { post_id: string | undefined }) =>
       postImpression({ post_id }),
   })
+}
+
+export const useJobApplications = () => {
+  const queryData = useInfiniteQuery({
+    queryKey: ['jobApplications'],
+    queryFn: ({ pageParam }) => getJobApplications(pageParam),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.next ?? undefined
+    },
+    retry: 1,
+  })
+  return queryData
 }

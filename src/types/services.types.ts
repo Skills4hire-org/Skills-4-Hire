@@ -16,7 +16,8 @@ export type Service = {
 
 /** Shape returned by /api/v1/services-categories/ */
 export type ServiceCategory = {
-  id: string | number
+  id?: string | number
+  service_category_id?: string
   name: string
   image_url?: string
   image?: string

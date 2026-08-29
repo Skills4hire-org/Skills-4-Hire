@@ -6,8 +6,9 @@ import FormSelect from '../form-fields/FormSelect'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Check, ImageIcon, Paperclip, Plus } from 'lucide-react'
-import { serviceTypes, timeFrameOptions } from '@/assets/data'
+import { timeFrameOptions } from '@/assets/data'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { useServiceCategories } from '@/hooks/useServices'
 import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
 import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
@@ -24,6 +25,8 @@ export default function OfferForm({
   isSubmitting: boolean
   setIsSubmitting: (value: boolean) => void
 }) {
+  const { data: serviceCategories = [], isLoading: areCategoriesLoading } =
+    useServiceCategories()
   const [formData, setFormData] = useState<OfferFormType>({
     title: offer?.post_title ?? '',
     post: offer?.post_content ?? '',
@@ -34,6 +37,13 @@ export default function OfferForm({
     attachment: [],
     city: offer?.city ?? '',
     state: offer?.state ?? '',
+  })
+
+  const serviceOptions = serviceCategories.flatMap((category) => {
+    const id = category.service_category_id ?? category.id
+    return id === undefined
+      ? []
+      : [{ value: String(id), label: category.name }]
   })
 
   const handleInputChange = (field: string, value: string) => {
@@ -129,8 +139,7 @@ export default function OfferForm({
         post_type: 'JOB',
         amount: validatedData.budget,
         duration: Number(validatedData.timeFrame),
-        // The API accepts category UUIDs only. The temporary UI list contains
-        // labels, so do not submit an invalid tag until those UUIDs are known.
+        tags: [validatedData.service],
         /* attachment: {
           attachment_type: 'VIDEO' | 'PHOTO' | 'FILE'
           attachmentURL: string
@@ -197,11 +206,12 @@ export default function OfferForm({
             label="Type of Service"
             value={formData.service}
             handleInputChange={handleInputChange}
-            selectItems={serviceTypes}
+            selectItems={serviceOptions}
             placeholder="Select"
             className="border-0 border-b h-9 [&_svg]:block pl-3 text-sm md:text-base"
             labelSize="text-xs md:text-sm"
             required
+            disabled={areCategoriesLoading}
           />
         </div>
         <div className="space-y-2">

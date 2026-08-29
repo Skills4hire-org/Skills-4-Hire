@@ -18,7 +18,7 @@ export default function ServiceProviderServiceCard({
   const isFavourite = providerIDs?.includes(provider_id)
 
   return (
-    <div className="relative">
+    <div className="relative bg-white border border-neutral-100 lg:rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-3">
       <div className="relative w-full overflow-visible rounded-2xl">
         <img
           src={user?.profile?.avatar?.avatar ?? defaultImage}

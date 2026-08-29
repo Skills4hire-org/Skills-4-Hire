@@ -1,5 +1,6 @@
 import { api } from '@/utils/axiosConfig'
 import { handleApiError } from './error'
+import type { ServiceCategory } from '@/types/services.types'
 
 export const getAllServices = async ({
   category,
@@ -22,11 +23,13 @@ export const getAllServices = async ({
   }
 }
 
-export const getServiceCategories = async () => {
+export const getServiceCategories = async (): Promise<ServiceCategory[]> => {
   try {
     const response = await api.get('/api/v1/services-categories/')
-    return response.data
+    const payload = response.data
+    return Array.isArray(payload) ? payload : (payload?.results ?? [])
   } catch (error) {
     handleApiError(error)
+    throw error
   }
 }
