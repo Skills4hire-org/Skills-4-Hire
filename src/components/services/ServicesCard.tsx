@@ -2,11 +2,12 @@ import type { Service } from '@/types/services.types'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { ImageIcon } from 'lucide-react'
+import { roleImageMap } from '@/data/roleImageMap'
 
 export default function ServicesCard({ name, attachments, localImage }: Service) {
   const formatServiceName = name?.replaceAll(' ', '-') ?? 'service'
-  // Prefer API-supplied image, fall back to bundled local image
-  const imageUrl = attachments?.[0]?.image_url ?? localImage
+  // Prefer API-supplied image → pro-image by role name → bundled local image
+  const imageUrl = attachments?.[0]?.image_url ?? roleImageMap[name] ?? localImage
   const [imageError, setImageError] = useState(false)
 
   return (

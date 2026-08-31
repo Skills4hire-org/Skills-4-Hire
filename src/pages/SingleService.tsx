@@ -27,6 +27,7 @@ import type { Provider } from '@/types/user.types'
 import type { Favorite } from '@/types/favourites.type'
 import { useFavourites } from '@/hooks/useFavourites'
 import { categoryBySlug } from '@/data/staticServices'
+import { roleImageMap } from '@/data/roleImageMap'
 
 // ─── Sub-role card ─────────────────────────────────────────────────────────────
 
@@ -284,7 +285,7 @@ export default function SingleService() {
           <div className="py-4 md:py-6">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
               {category.roles.map((role) => (
-                <RoleCard key={role} role={role} image={category.image} />
+                <RoleCard key={role} role={role} image={roleImageMap[role] ?? category.image} />
               ))}
             </div>
           </div>

@@ -111,7 +111,6 @@ export const vocationalCategories: ServiceCategory[] = [
     roles: [
     'Solar Installer',
     'Solar Technician',
-    'Solar System Designer',
     ],
   },
   {
@@ -212,8 +211,6 @@ export const vocationalCategories: ServiceCategory[] = [
     roles: [
     'Fashion Designer',
     'Tailor',
-    'Pattern Maker',
-    'Garment Maker',
     ],
   },
   {
@@ -283,8 +280,6 @@ export const digitalCategories: ServiceCategory[] = [
     'Mobile Developer',
     'Android Developer',
     'iOS Developer',
-    'Flutter Developer',
-    'React Native Developer',
     ],
   },
   {
@@ -294,8 +289,6 @@ export const digitalCategories: ServiceCategory[] = [
     roles: [
     'AI Engineer',
     'Machine Learning Engineer',
-    'Deep Learning Engineer',
-    'NLP Engineer',
     ],
   },
   {
@@ -304,8 +297,6 @@ export const digitalCategories: ServiceCategory[] = [
     image: 'https://images.pexels.com/photos/34956927/pexels-photo-34956927.jpeg?auto=compress&cs=tinysrgb&h=350',
     roles: [
     'DevOps Engineer',
-    'Site Reliability Engineer (SRE)',
-    'Platform Engineer',
     ],
   },
   {
@@ -334,8 +325,6 @@ export const digitalCategories: ServiceCategory[] = [
     image: 'https://images.pexels.com/photos/17803200/pexels-photo-17803200.jpeg?auto=compress&cs=tinysrgb&h=350',
     roles: [
     'UI/UX Designer',
-    'Product Designer',
-    'Interaction Designer',
     ],
   },
   {
@@ -355,20 +344,9 @@ export const digitalCategories: ServiceCategory[] = [
     image: 'https://images.pexels.com/photos/8833423/pexels-photo-8833423.jpeg?auto=compress&cs=tinysrgb&h=350',
     roles: [
     'Motion Designer',
-    'Motion Graphics Artist',
     ],
   },
-  {
-    id: 'illustration-animation',
-    name: 'Illustration & Animation',
-    image: 'https://images.pexels.com/photos/9385558/pexels-photo-9385558.jpeg?auto=compress&cs=tinysrgb&h=350',
-    roles: [
-    'Illustrator',
-    '2D Animator',
-    '3D Animator',
-    'Character Designer',
-    ],
-  },
+
   {
     id: 'wordpress-development',
     name: 'WordPress Development',
@@ -376,7 +354,6 @@ export const digitalCategories: ServiceCategory[] = [
     roles: [
     'WordPress Developer',
     'WordPress Designer',
-    'WooCommerce Developer',
     ],
   },
   {
@@ -386,7 +363,6 @@ export const digitalCategories: ServiceCategory[] = [
     roles: [
     'Data Analyst',
     'Business Intelligence Analyst',
-    'BI Developer',
     ],
   },
   {
@@ -404,8 +380,6 @@ export const digitalCategories: ServiceCategory[] = [
     image: 'https://images.pexels.com/photos/5503904/pexels-photo-5503904.jpeg?auto=compress&cs=tinysrgb&h=350',
     roles: [
     'Data Engineer',
-    'ETL Developer',
-    'Big Data Engineer',
     ],
   },
   {

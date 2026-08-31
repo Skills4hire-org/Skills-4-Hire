@@ -19,6 +19,15 @@ function AttachmentCell({
   className?: string
   overlay?: number
 }) {
+  const [imageAspectRatio, setImageAspectRatio] = useState<string | null>(null)
+
+  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget
+    if (naturalWidth > 0 && naturalHeight > 0) {
+      setImageAspectRatio(`${naturalWidth} / ${naturalHeight}`)
+    }
+  }
+
   return (
     <button
       type="button"
@@ -28,6 +37,11 @@ function AttachmentCell({
         'group relative w-full h-full overflow-hidden bg-neutral-100 cursor-pointer focus:outline-none',
         className,
       )}
+      style={
+        attachment.attachment_type !== 'VIDEO' && imageAspectRatio
+          ? { aspectRatio: imageAspectRatio }
+          : undefined
+      }
     >
       {attachment.attachment_type === 'VIDEO' ? (
         <VideoPlayer
@@ -45,7 +59,8 @@ function AttachmentCell({
           src={attachment.attachmentURL}
           alt={attachment.post_attachment_id}
           loading="lazy"
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
+          onLoad={handleImageLoad}
           onError={(e) => {
             e.currentTarget.style.display = 'none'
           }}
@@ -109,7 +124,7 @@ function ImageCarousel({
 
   const gridClass =
     count === 1
-      ? 'grid-cols-1 aspect-[4/5] md:aspect-[16/9]'
+      ? 'grid-cols-1 aspect-[16/9] md:aspect-[16/9]'
       : count === 2
         ? 'grid-cols-2 aspect-[2/1] md:aspect-[3/1] auto-rows-fr'
         : 'grid-cols-2 grid-rows-2 aspect-square md:aspect-[5/4] auto-rows-fr'
