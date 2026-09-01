@@ -51,15 +51,18 @@ export default function OfferForm({
     digitalCategories.map((c) => c.name.toLowerCase()),
   )
 
-  type ApiItem = { main_service_id: string; name: string; category?: { name?: string } }
+  type ApiItem = { main_service_id: string; name: string; category?: { name?: string; service_category_id?: string } }
 
   const vocationalOptions: { value: string; label: string }[] = []
   const digitalOptions: { value: string; label: string }[] = []
   const otherOptions: { value: string; label: string }[] = []
+  const seenIds = new Set<string>()
 
   ;(serviceCategories as unknown as ApiItem[]).forEach((item) => {
-    if (!item.main_service_id) return
-    const option = { value: item.main_service_id, label: item.name }
+    const categoryId = item.category?.service_category_id
+    if (!categoryId || seenIds.has(categoryId)) return
+    seenIds.add(categoryId)
+    const option = { value: categoryId, label: item.category?.name ?? item.name }
     const catName = item.category?.name?.toLowerCase() ?? ''
     if (vocationalCategoryNames.has(catName)) vocationalOptions.push(option)
     else if (digitalCategoryNames.has(catName)) digitalOptions.push(option)
