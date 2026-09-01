@@ -11,6 +11,7 @@ import autoMechanic from '@/assets/images/pro-images/Auto mechanic.jpeg'
 import autoPainter from '@/assets/images/pro-images/Auto painter.jpeg'
 import automationEngineer from '@/assets/images/pro-images/Automation Engineer.jpeg'
 import backendDeveloper from '@/assets/images/pro-images/Backend-developer.jpeg'
+import barber from '@/assets/images/pro-images/Barber.jpeg'
 import blockchainDeveloper from '@/assets/images/pro-images/Blockchain Developer.jpeg'
 import boreholeTechnician from '@/assets/images/pro-images/Bore hole Technician.jpeg'
 import boreholeDriller from '@/assets/images/pro-images/Borehole driller.jpeg'
@@ -44,6 +45,9 @@ import fullstackDeveloper from '@/assets/images/pro-images/Fullstack-developer.j
 import fumigationSpecialist from '@/assets/images/pro-images/Fumigation Specialist.jpeg'
 import furnitureCarpenter from '@/assets/images/pro-images/Furniture Carpenter.jpeg'
 import geleArtist from '@/assets/images/pro-images/Gele artist.jpeg'
+import generatorInstaller from '@/assets/images/pro-images/Generator Installer.jpeg'
+import generatorMaintenanceTechnician from '@/assets/images/pro-images/Generator Maintenance Technician.jpeg'
+import generatorTechnician from '@/assets/images/pro-images/Generator Technician.jpeg'
 import ghostWriter from '@/assets/images/pro-images/Ghost writer.jpeg'
 import graphicDesigner from '@/assets/images/pro-images/Graphic designer.jpeg'
 import hairStylist from '@/assets/images/pro-images/Hair stylist.jpeg'
@@ -163,9 +167,9 @@ export const roleImageMap: Record<string, string> = {
   'Solar Technician': solarTechnician,
 
   // Generator Repair & Maintenance
-  'Generator Technician': hvacTechnician,
-  'Generator Installer': hvacTechnician,
-  'Generator Maintenance Technician': hvacTechnician,
+  'Generator Technician': generatorTechnician,
+  'Generator Installer': generatorInstaller,
+  'Generator Maintenance Technician': generatorMaintenanceTechnician,
 
   // HVAC & Refrigeration Services
   'HVAC Technician': hvacTechnician,
@@ -192,8 +196,7 @@ export const roleImageMap: Record<string, string> = {
   'Fumigation Specialist': fumigationSpecialist,
 
   // Barbering Services
-  'Barber': hairStylist,
-  'Hair Grooming Specialist': hairStylist,
+  'Barber': barber,
 
   // Beauty Services
   'Hair Stylist': hairStylist,
@@ -254,8 +257,6 @@ export const roleImageMap: Record<string, string> = {
   'DevOps Engineer': devOpsEngineer,
 
   // Cloud Engineering
-  'Cloud Engineer': devOpsEngineer,
-  'Cloud Architect': devOpsEngineer,
   'Cloud Administrator': systemAdministrator,
 
   // Blockchain Development
@@ -329,12 +330,8 @@ export const roleImageMap: Record<string, string> = {
   'CV Writer': writing6,
 
   // Video & Audio Editing
-  'Video Editor': videographer,
-  'Audio Editor': videographer,
-  'Podcast Editor': videographer,
 
   // Virtual Assistance
-  'Virtual Assistant': itSupportSpecialist,
 
   // Product Management
   'Product Manager': productManager,

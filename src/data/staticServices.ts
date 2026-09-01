@@ -178,7 +178,6 @@ export const vocationalCategories: ServiceCategory[] = [
     image: 'https://images.pexels.com/photos/5584461/pexels-photo-5584461.jpeg?auto=compress&cs=tinysrgb&h=350',
     roles: [
     'Barber',
-    'Hair Grooming Specialist',
     ],
   },
   {

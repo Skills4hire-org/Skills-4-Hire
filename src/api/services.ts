@@ -27,7 +27,10 @@ export const getServiceCategories = async (): Promise<ServiceCategory[]> => {
   try {
     const response = await api.get('/api/v1/services-categories/')
     const payload = response.data
-    return Array.isArray(payload) ? payload : (payload?.results ?? [])
+    const list = Array.isArray(payload)
+      ? payload
+      : payload?.results ?? payload?.data ?? []
+    return Array.isArray(list) ? list : []
   } catch (error) {
     handleApiError(error)
     throw error
