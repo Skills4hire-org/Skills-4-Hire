@@ -2,6 +2,7 @@ import { Badge } from '../ui/badge'
 import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import defaultImage from '../../assets/images/profile.jpg'
 import { Link } from 'react-router-dom'
+import { Briefcase } from 'lucide-react'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
 import type { Provider } from '@/types/user.types'
 
@@ -18,25 +19,35 @@ export default function ServiceProviderCard({
   const coverImageUrl = user?.profile?.cover_photo?.image_url
 
   return (
-    <div className="rounded-none flex flex-col lg:flex-row bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-md hover:border-slate-300 transition-all w-full relative">
-      {/* Absolute Favorite Button pinned at the top right corner */}
-      <div className="absolute top-35 lg:top-3 md:top-3 right-4 lg:right-3 md:right-3 z-10 bg-white/80 backdrop-blur-sm p-1.5 border border-slate-100 shadow-sm">
-        <AddToFavoriteButton
-          id={provider_id}
-          isFavourite={isFavourite}
-          name={user?.profile?.display_name}
-          favouriteID={favouriteID}
-        />
+    <div className="relative w-full">
+      {/* Top-right actions: Hire Now + Favorite (outside overflow-hidden) */}
+      <div className="absolute top-3 right-3 z-20 flex items-center gap-2">
+        <Link
+          to={`/customer/professionals/${provider_id}/booking`}
+          className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm hover:bg-primary/90 transition-colors"
+        >
+          <Briefcase className="w-3.5 h-3.5" />
+          Hire Now
+        </Link>
+        <div className="bg-white/80 backdrop-blur-sm p-1.5 border border-slate-100 shadow-sm">
+          <AddToFavoriteButton
+            id={provider_id}
+            isFavourite={isFavourite}
+            name={user?.profile?.display_name}
+            favouriteID={favouriteID}
+          />
+        </div>
       </div>
 
-      {/* Cover Photo Header: Top on mobile/tablet, Left side on laptop */}
-      <Link
-        to={`/customer/professionals/${provider_id}`}
-        className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-100 bg-cover bg-center shrink-0"
-        style={{
-          backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : undefined,
-        }}
-      />
+      <div className="rounded-none flex flex-col lg:flex-row bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-md hover:border-slate-300 transition-all w-full relative">
+        {/* Cover Photo Header: Top on mobile/tablet, Left side on laptop */}
+        <Link
+          to={`/customer/professionals/${provider_id}`}
+          className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-100 bg-cover bg-center shrink-0"
+          style={{
+            backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : undefined,
+          }}
+        />
 
       {/* Card Content Elements */}
       <div className="p-4 pt-0 lg:pt-4 flex flex-col lg:flex-row flex-1 relative lg:items-center lg:justify-between lg:gap-4">
@@ -95,6 +106,7 @@ export default function ServiceProviderCard({
             {currencyFormatter(min_charge)}
           </span>
         </div>
+      </div>
       </div>
     </div>
   )

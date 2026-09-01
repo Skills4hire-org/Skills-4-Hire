@@ -13,6 +13,7 @@ import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
 import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
 import ImageEditor from '../global/ImageEditor'
+import { uploadToCloudinary } from '@/utils/cloudinary'
 
 export default function OfferForm({
   offer,
@@ -40,8 +41,12 @@ export default function OfferForm({
   })
 
   const serviceOptions = serviceCategories.flatMap((category) => {
-    const id = category.service_category_id ?? category.id
-    return id === undefined
+    const id =
+      category.category?.service_category_id ??
+      category.service_category_id ??
+      category.category_id ??
+      category.id
+    return id === undefined || id === null || String(id) === ''
       ? []
       : [{ value: String(id), label: category.name }]
   })
@@ -124,12 +129,16 @@ export default function OfferForm({
       return
     }
 
-    const allFiles = [...formData.attachment, ...formData.photo]
-
     setIsSubmitting(true)
     try {
-      if (allFiles.length !== 0) {
-        /* async function to upload files */
+      let attachments: CreatePost['attachments'] = []
+      if (formData.photo.length !== 0) {
+        const uploadedPhotos = await uploadToCloudinary(formData.photo)
+        attachments = uploadedPhotos?.map((url) => ({
+          public_id: url.public_id,
+          attachment_type: 'PHOTO',
+          attachmentURL: url.url,
+        }))
       }
       const allData: CreatePost = {
         city: validatedData.city,
@@ -140,14 +149,12 @@ export default function OfferForm({
         amount: validatedData.budget,
         duration: Number(validatedData.timeFrame),
         tags: [validatedData.service],
-        /* attachment: {
-          attachment_type: 'VIDEO' | 'PHOTO' | 'FILE'
-          attachmentURL: string
-      }[] */
+        attachments,
       }
       onSubmit(allData)
     } catch (error: any) {
       setIsSubmitting(false)
+      toast.error('Uploading of photos failed. Please try again')
     }
   }
   return (

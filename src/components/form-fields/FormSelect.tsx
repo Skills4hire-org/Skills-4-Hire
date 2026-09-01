@@ -80,9 +80,9 @@ export default function FormSelect({
           sideOffset={sideOffset}
           className={selectContentClassName}
         >
-          {selectItems.map(({ value, label }, index) => (
+          {selectItems.map(({ value, label }) => (
             <SelectItem
-              key={index}
+              key={value}
               value={value}
               className={selectItemClassName}
             >

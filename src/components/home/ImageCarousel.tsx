@@ -155,7 +155,6 @@ function ImageCarousel({
             src={activeVideo.attachmentURL}
             poster={activeVideo.thumbnail_url}
             autoPlay
-            muted
             fit="contain"
             className="h-full"
           />
