@@ -171,7 +171,7 @@ export default function PostCard({
               {provider_service && (
                 <Link
                   to={`/customer/professionals/${provider_id}`}
-                  className=" text-primary font-medium no-underline hover:no-underline block w-max capitalize"
+                  className="text-xs md:text-sm bg-primary/10 text-primary rounded-sm px-2 md:px-6 py-1 w-max mb-1 mt-1 font-medium"
                 >
                   {provider_service.replace(/([A-Z])/g, ' $1').trim()}
                 </Link>

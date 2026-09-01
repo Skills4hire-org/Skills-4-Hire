@@ -21,7 +21,7 @@ export default function ServiceProviderCard({
   return (
     <div className="relative w-full">
       {/* Top-right actions: Hire Now + Favorite (outside overflow-hidden) */}
-      <div className="absolute top-3 right-3 z-20 flex items-center gap-2">
+      <div className="absolute top-35 md:top-3 lg:top-3 right-3 z-20 flex items-center gap-2">
         <Link
           to={`/customer/professionals/${provider_id}/booking`}
           className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm hover:bg-primary/90 transition-colors"
