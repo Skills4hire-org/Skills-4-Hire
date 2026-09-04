@@ -44,6 +44,7 @@ import webDevelopment from './images/webDevelopment.jpg'
 import heroCarousel1 from './images/hero-carousel-1.jpg'
 import heroCarousel2 from './images/hero-carousel2.jpg'
 import heroCarousel3 from './images/hero-carousel3.png'
+import { digitalCategories, vocationalCategories } from '@/data/staticServices'
 
 export const images = [img1, img2, img1]
 
@@ -1923,6 +1924,31 @@ export const searchFilters = [
   {
     label: 'Rating',
     value: 'rating',
+  },
+]
+
+const vocationalSkills = vocationalCategories.map((category) => {
+  return {
+    label: category.name,
+    value: category.name,
+  }
+})
+
+const digitalSkills = digitalCategories.map((category) => {
+  return {
+    label: category.name,
+    value: category.name,
+  }
+})
+
+export const skillsTypes = [
+  {
+    label: 'vocational',
+    options: vocationalSkills,
+  },
+  {
+    label: 'digital',
+    options: digitalSkills,
   },
 ]
 

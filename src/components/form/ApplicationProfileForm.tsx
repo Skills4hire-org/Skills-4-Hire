@@ -8,12 +8,12 @@ import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { applicationProfileFormSchema } from '@/utils/schemas'
 import { completeOnboard, selectRole } from '@/api/onboard'
 import type { Registration } from '@/types/onboard.types'
-import FormSelect from '../form-fields/FormSelect'
-import { serviceTypes } from '@/assets/data'
+import { skillsTypes } from '@/assets/data'
 import {
   clearForm,
   completeProfile,
 } from '@/features/registration/registrationSlice'
+import FormSelectGroup from '../form-fields/FormSelectGroup'
 
 export default function ApplicationProfileForm() {
   const dispatch = useDispatch()
@@ -71,12 +71,12 @@ export default function ApplicationProfileForm() {
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
-      <FormSelect
+      <FormSelectGroup
         label="What skill/service do you want to offer?"
         name="service"
         value={service}
         handleInputChange={handleInputChange}
-        selectItems={serviceTypes}
+        selectGroupData={skillsTypes}
         className="capitalize bg-transparent pb-1 pl-3 pr-6 h-9 pt-0  [&>svg]:hidden "
         align="end"
         selectContentClassName="bg-gray-300 shadow-none rounded-none border-0 absolute   break-all w-66 -right-0.5"

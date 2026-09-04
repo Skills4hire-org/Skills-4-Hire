@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom'
 import MessageBubble from './MessageBubble'
 import MessageInput from './MessageInput'
@@ -105,13 +105,26 @@ export default function ChatWindow() {
     markConversationAsReadInCache(conversation_id)
   }, [conversation_id])
 
-  const handleSocketMessage = useCallback(
-    (incomingMessage: Message) => {
-      updateMessage(incomingMessage, conversation_id!)
+  const [isReceiverOnline, setIsReceiverOnline] = useState(false)
 
-      updateConversationList(incomingMessage, conversation_id!)
+  const handleSocketMessage = useCallback(
+    (data: any) => {
+      if (data.event === 'online') {
+        if (data.user_id === receiver?.participant_two?.user_id) {
+          setIsReceiverOnline(data.is_online)
+        }
+
+        return
+      }
+      if (data.event === 'message' && data.message) {
+        const incomingMessage: Message = data.message
+
+        updateMessage(incomingMessage, conversation_id!)
+
+        updateConversationList(incomingMessage, conversation_id!)
+      }
     },
-    [conversation_id],
+    [conversation_id, receiver],
   )
 
   const { sendSocketMessage } = useChatSocket(
@@ -223,28 +236,59 @@ export default function ChatWindow() {
                   <ChevronLeft className="w-6 h-6" />
                 </Link>
               )}
+              {receiver.participant_two.profile.professional_title ? (
+                <Link
+                  to={`/${userType}/professionals/${receiver.participant_two.profile.provider_id}`}
+                  className="flex items-center gap-2"
+                >
+                  <ProfileImage
+                    size="size-10"
+                    noStatus
+                    avatar={receiver?.participant_two?.profile?.avatar?.avatar}
+                  />
 
-              <div className="flex items-center gap-2">
-                <ProfileImage
-                  size="size-10"
-                  noStatus
-                  avatar={receiver?.participant_two?.profile?.avatar?.avatar}
-                />
-
-                <div>
                   <h2 className="font-semibold text-lg">
                     {receiver?.participant_two?.profile?.display_name}
                   </h2>
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      isReceiverOnline ? 'bg-green-500' : 'bg-gray-400'
+                    }`}
+                  />
+                </Link>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <ProfileImage
+                    size="size-10"
+                    noStatus
+                    avatar={receiver?.participant_two?.profile?.avatar?.avatar}
+                  />
 
-                  <div className="text-xs md:text-sm flex items-center gap-1.5 font-medium -mt-0.5"></div>
+                  <h2 className="font-semibold text-lg">
+                    {receiver?.participant_two?.profile?.display_name}
+                  </h2>
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      isReceiverOnline ? 'bg-green-500' : 'bg-gray-400'
+                    }`}
+                  />
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="flex items-center max-w-xs mx-auto border mt-3 rounded-sm text-xs/3.5 py-1">
-              <ProposePriceDialog />
-              <NegotiatePriceDialog />
-              <AgreementDialog />
+              <ProposePriceDialog
+                conversation_id={conversation_id}
+                sendSocketMessage={sendSocketMessage}
+              />
+              <NegotiatePriceDialog
+                conversation_id={conversation_id}
+                sendSocketMessage={sendSocketMessage}
+              />
+              <AgreementDialog
+                conversation_id={conversation_id}
+                sendSocketMessage={sendSocketMessage}
+              />
             </div>
           </div>
 

@@ -1,49 +1,35 @@
-import { useState, type FormEvent } from 'react'
 import FormInput from '../form-fields/FormInput'
-import FormSubmitButton from '../buttons/FormSubmitButton'
-import { useAddAddress } from '@/hooks/useBookings'
-import { toast } from 'sonner'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleBookingInfo } from '@/features/booking/bookingSlice'
+import type { BookingInfo } from '@/types/bookings.type'
 
-export default function AddressForm({ is_remote }: { is_remote: boolean }) {
-  const [formData, setFormData] = useState({
-    street_address: '',
-    city: '',
-    state: '',
-    country: 'Nigeria',
-    is_default: true,
-  })
-  const { mutate: addAddress, isPending } = useAddAddress()
+export default function AddressForm() {
+  const { info }: { info: BookingInfo } = useSelector(
+    (state: any) => state.bookingState,
+  )
+  const dispatch = useDispatch()
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev: any) => ({ ...prev, [field]: value }))
-  }
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    addAddress(formData, {
-      onSuccess: () => {
-        toast.success('Address added successfully')
-        setFormData({
-          street_address: '',
-          city: '',
-          state: '',
-          country: 'Nigeria',
-          is_default: true,
-        })
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    })
+    dispatch(
+      handleBookingInfo({
+        info: {
+          new_address: {
+            ...info.new_address,
+            [field]: value,
+            country: 'Nigeria',
+          },
+          address: null,
+        },
+      }),
+    )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto space-y-6">
+    <form className="w-full max-w-xl mx-auto space-y-6">
       <div className="space-y-3 md:space-y-4">
         <FormInput
           name="street_address"
-          value={formData.street_address}
+          value={info.new_address?.street_address ?? ''}
           handleInputChange={handleInputChange}
           type="text"
           required
@@ -54,7 +40,7 @@ export default function AddressForm({ is_remote }: { is_remote: boolean }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
           <FormInput
             name="city"
-            value={formData.city}
+            value={info.new_address?.city ?? ''}
             handleInputChange={handleInputChange}
             type="text"
             required
@@ -64,7 +50,7 @@ export default function AddressForm({ is_remote }: { is_remote: boolean }) {
           />
           <FormInput
             name="state"
-            value={formData.state}
+            value={info.new_address?.state ?? ''}
             handleInputChange={handleInputChange}
             type="text"
             required
@@ -73,15 +59,6 @@ export default function AddressForm({ is_remote }: { is_remote: boolean }) {
             label="State"
           />
         </div>
-      </div>
-      <div className="ml-auto w-max flex items-center gap-2">
-        <FormSubmitButton
-          texting="adding"
-          text="Add Address"
-          submitting={isPending}
-          className="capitalize min-w-20"
-          disabled={is_remote}
-        />
       </div>
     </form>
   )

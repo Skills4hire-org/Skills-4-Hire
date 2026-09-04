@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLogo from '@/components/global/AuthLogo'
 import SignUpForm from '@/components/form/SignUpForm'
+import GoogleSignInButton from '@/components/buttons/GoogleSignInButton'
 
 export default function SignUp() {
   const navigate = useNavigate()
@@ -45,16 +46,7 @@ export default function SignUp() {
           <div className="grow border-t-2 border-gray-300"></div>
         </div>
 
-        <button className="flex justify-center items-center gap-2 w-full bg-gray-200 p-2 rounded-sm">
-          <img
-            src="https://img.icons8.com/color/48/google-logo.png"
-            alt="Google"
-            className="w-7 h-7"
-          />
-          <span className="font-medium text-gray-600 text-lg">
-            Sign in with Google
-          </span>
-        </button>
+        <GoogleSignInButton />
       </div>
     </div>
   )

@@ -22,9 +22,14 @@ export default function ConversationList() {
   const conversations: Conversation[] =
     data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
+  const sortedConersations = [...conversations].sort(
+    (a, b) =>
+      new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+  )
+
   const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredConversations = conversations.filter((conversation) => {
+  const filteredConversations = sortedConersations.filter((conversation) => {
     const query = searchQuery.trim().toLowerCase()
     if (!query) return true
     const other = conversation.participant_two

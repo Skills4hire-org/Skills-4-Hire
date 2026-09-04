@@ -79,3 +79,12 @@ export const onboardRole = async (data: OnboardPayload) => {
     handleApiError(error)
   }
 }
+
+export const googleSignIn = async (data: { token: string | undefined }) => {
+  try {
+    const response = await api.post(`/api/v1/auth/login/google/`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}

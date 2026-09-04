@@ -16,6 +16,7 @@ export default function SavedAddressCard({ address }: { address: Address }) {
         handleBookingInfo({
           info: {
             address,
+            new_address: null,
           },
         }),
       )

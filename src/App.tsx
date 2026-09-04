@@ -64,6 +64,7 @@ import ProfileGallery from './pages/ProfileGallery'
 import AuthProtectedRoute from './components/global/AuthProtectedRoute'
 import ProfileEndorsers from './pages/ProfileEndorsers'
 import BookingRequest from './pages/BookinRequests'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const router = createBrowserRouter([
   {
@@ -86,11 +87,19 @@ const router = createBrowserRouter([
   },
   {
     path: 'sign-up',
-    element: <SignUp />,
+    element: (
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <SignUp />
+      </GoogleOAuthProvider>
+    ),
   },
   {
     path: 'sign-in',
-    element: <SignIn />,
+    element: (
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <SignIn />
+      </GoogleOAuthProvider>
+    ),
   },
   {
     path: 'forgot-password',

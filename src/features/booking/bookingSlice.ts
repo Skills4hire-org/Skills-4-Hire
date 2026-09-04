@@ -18,6 +18,7 @@ const defaultState: Booking = {
     date: '',
     is_remote: false,
     address: null,
+    new_address: null,
     provider: '',
     price: '',
     descriptions: '',

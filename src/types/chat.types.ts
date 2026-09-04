@@ -1,9 +1,3 @@
-export interface User {
-  id: string
-  name: string
-  avatar?: string
-}
-
 export type CreateConversation = {
   participant_two_id: string
 }
@@ -17,6 +11,7 @@ export interface Profile {
   display_name: string
   professional_title: string | null
   avatar: Avatar | null
+  provider_id: string | null
 }
 
 export interface User {

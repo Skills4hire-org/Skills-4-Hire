@@ -44,7 +44,7 @@ export default function CommentCard({
     <div
       className="space-y-2"
       style={{
-        marginLeft: `${Math.min(depth * 10, 40)}px`,
+        marginLeft: `${Math.min(depth * 20, 60)}px`,
       }}
     >
       <div className="flex items-center gap-2 md:gap-3">

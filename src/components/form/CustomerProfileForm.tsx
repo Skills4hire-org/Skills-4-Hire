@@ -120,10 +120,10 @@ export default function CustomerProfileForm() {
         gender:
           formData.gender?.toUpperCase() ??
           user?.user?.profile?.gender.toUpperCase(),
+        phone_number: phone ?? user?.user?.phone,
         user: {
           first_name: formData.firstName ?? user?.user?.first_name,
           last_name: formData.lastName ?? user?.user?.last_name,
-          phone: phone ?? user?.user?.phone,
         },
       },
     }

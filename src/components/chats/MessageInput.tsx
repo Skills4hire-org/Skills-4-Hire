@@ -1,6 +1,7 @@
 import { useCreateMessage } from '@/hooks/useChats'
 import { Loader, SendHorizontal } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 interface MessageInputProps {
   conversationId: string
@@ -50,6 +51,9 @@ export default function MessageInput({
             event: 'message',
             message_id: createdMessage.message_id,
           })
+        },
+        onError: (error) => {
+          toast.error(error.message)
         },
       },
     )

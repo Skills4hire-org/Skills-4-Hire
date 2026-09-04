@@ -56,6 +56,14 @@ export default function BookingAddress() {
     fetchNextPage,
   })
 
+  const checkNewAddress =
+    info.new_address &&
+    (!info.new_address?.street_address ||
+      !info.new_address?.city ||
+      !info.new_address?.state)
+
+  const checkAddress = info.address ? false : checkNewAddress
+
   const handleNext = () => {
     if (info.is_remote) {
       dispatch(
@@ -96,7 +104,7 @@ export default function BookingAddress() {
 
       <SectionHeading title="Enter Address" />
       <Container>
-        <AddressForm is_remote={info.is_remote} />
+        <AddressForm />
       </Container>
       <SectionHeading title="Saved Address" />
       <Container>
@@ -169,7 +177,7 @@ export default function BookingAddress() {
           type="submit"
           size="lg"
           className="rounded-full px-8 text-base md:text-lg"
-          disabled={(workType === 'onsite' && !info.address) || isLoading}
+          disabled={(workType === 'onsite' && checkAddress) || isLoading}
           onClick={handleNext}
         >
           Next

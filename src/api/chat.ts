@@ -73,3 +73,25 @@ export const getMessages = async ({
     handleApiError(error)
   }
 }
+
+export const negotiate = async ({
+  conversation_id,
+  data,
+}: {
+  conversation_id: string
+  data: {
+    price: string
+    status: string
+    note: string
+  }
+}) => {
+  try {
+    const response = await api.post(
+      `/api/v1/conversation/${conversation_id}/negotiate/`,
+      data,
+    )
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}

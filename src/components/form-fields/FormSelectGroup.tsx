@@ -3,11 +3,18 @@ import { Label } from '../ui/label'
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
 import { ChevronDownIcon } from 'lucide-react'
+
+type SelectGroupData = {
+  label: string
+  options: SelectItems[]
+}
 
 interface FormSelectFieldProp {
   name: string
@@ -17,7 +24,7 @@ interface FormSelectFieldProp {
   handleInputChange: (key: string, value: any) => void
   placeholder?: string
   required?: boolean
-  selectItems: SelectItems[]
+  selectGroupData: SelectGroupData[]
   className?: string
   disabled?: boolean
   handleBlur?: () => void
@@ -28,13 +35,13 @@ interface FormSelectFieldProp {
   indicator?: boolean
 }
 
-export default function FormSelect({
+export default function FormSelectGroup({
   name,
   label,
   value,
   handleInputChange,
   placeholder,
-  selectItems,
+  selectGroupData,
   required,
   className,
   disabled,
@@ -80,14 +87,21 @@ export default function FormSelect({
           sideOffset={sideOffset}
           className={selectContentClassName}
         >
-          {selectItems.map(({ value, label }, index) => (
-            <SelectItem
-              key={index}
-              value={value}
-              className={selectItemClassName}
-            >
-              {label}
-            </SelectItem>
+          {selectGroupData.map((group) => (
+            <SelectGroup key={group.label}>
+              <SelectLabel className="capitalize text-lg">
+                {group.label}
+              </SelectLabel>
+              {group.options.map((item) => (
+                <SelectItem
+                  key={item.value}
+                  value={item.value}
+                  className={selectItemClassName}
+                >
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
           ))}
         </SelectContent>
       </Select>

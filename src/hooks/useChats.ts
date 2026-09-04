@@ -3,6 +3,7 @@ import {
   createMessage,
   getConversationList,
   getMessages,
+  negotiate,
 } from '@/api/chat'
 import type {
   Conversation,
@@ -47,6 +48,33 @@ export const useCreateMessage = () => {
     }) => {
       try {
         const response = await createMessage({
+          conversation_id,
+          data,
+        })
+
+        return response
+      } catch (error: any) {
+        throw new Error(error?.message)
+      }
+    },
+  })
+}
+
+export const useNegotiate = () => {
+  return useMutation({
+    mutationFn: async ({
+      conversation_id,
+      data,
+    }: {
+      conversation_id: string
+      data: {
+        price: string
+        status: string
+        note: string
+      }
+    }) => {
+      try {
+        const response = await negotiate({
           conversation_id,
           data,
         })
@@ -124,9 +152,7 @@ export const useChatSocket = (
       try {
         const data = JSON.parse(event.data)
 
-        if (data.event === 'message' && data.message) {
-          onMessage(data.message)
-        }
+        onMessage(data)
       } catch (error) {
         console.error('Failed to parse WebSocket message:', error)
       }
