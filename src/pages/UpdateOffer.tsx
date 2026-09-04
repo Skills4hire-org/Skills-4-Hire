@@ -5,6 +5,7 @@ import Loading from '@/components/global/Loading'
 import ProfileImage from '@/components/global/ProfileImage'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import { useEditPost, usePost } from '@/hooks/usePosts'
+import { useMyProfile } from '@/hooks/useUsers'
 import type { CreatePost } from '@/types/post.types'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -13,6 +14,7 @@ import { toast } from 'sonner'
 export default function UpdateOffer() {
   const { id } = useParams()
   const { data: offer, isError, isLoading } = usePost({ post_id: id })
+  const { data: profile } = useMyProfile()
   const { mutate: updateOffer } = useEditPost()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
@@ -41,7 +43,9 @@ export default function UpdateOffer() {
           <div className="flex items-center gap-2 md:gap-4">
             <ProfileImage noStatus size="size-12 md:size-16" />
 
-            <p className="text-xl md:text-2xl font-medium">Joshua Friday</p>
+            <p className="text-xl md:text-2xl font-medium">
+              {profile?.user?.first_name} {profile?.user?.last_name}
+            </p>
           </div>
           {isLoading ? (
             <div className="h-24">

@@ -53,7 +53,14 @@ export default function PostComposer() {
     >
       {userType == 'customer' && (
         <p className="text-base md:text-lg font-medium text-gray-900">
-          {firstName ? `Create an offer ${firstName}` : 'Create an offer'}
+          {firstName ? (
+            <>
+              Create an offer{' '}
+              <span className="font-bold text-primary">{firstName}</span>
+            </>
+          ) : (
+            'Create an offer'
+          )}
         </p>
       )}
 

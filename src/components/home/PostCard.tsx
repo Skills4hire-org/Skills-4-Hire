@@ -7,6 +7,7 @@ import {
   MoreVertical,
   Pencil,
   Trash2,
+  Briefcase,
 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
@@ -22,7 +23,6 @@ import {
 import type { Post } from '@/types/post.types'
 import type { UserData, UserType } from '@/types/user.types'
 import type { RootState } from '@/store'
-import EndorseDialog from '../endorse/EndorseDialog'
 import ImageCarousel from './ImageCarousel'
 import Comment from './Comment'
 import { formatCommentTime } from '@/utils/format'
@@ -166,19 +166,12 @@ export default function PostCard({
                   strokeWidth={6}
                 />
               )}
-              {userType == 'customer' && !user?.profile?.has_endorsed && (
-                <EndorseDialog
-                  provider_pk={provider_id}
-                  name={user?.profile?.display_name as string}
-                  triggerClassName="whitespace-nowrap shrink-0 capitalize font-semibold text-primary text-md md:text-sm cursor-pointer hover:underline rounded-[5px] ml-1"
-                />
-              )}
             </div>
             <div className="flex items-center gap-0.5 text-[12px] md:text-sm font-medium ">
               {provider_service && (
                 <Link
                   to={`/customer/professionals/${provider_id}`}
-                  className=" text-primary font-medium no-underline hover:no-underline block w-max capitalize"
+                  className="text-xs md:text-sm bg-primary/10 text-primary rounded-sm px-2 lg:px-2 md:px-6 py-1 w-max mb-1 mt-1 font-medium"
                 >
                   {provider_service.replace(/([A-Z])/g, ' $1').trim()}
                 </Link>
@@ -217,6 +210,15 @@ export default function PostCard({
             </div>
           </div>
         </div>
+        {!isOwner && userType == 'customer' && provider_id && (
+          <Link
+            to={`/customer/professionals/${provider_id}/booking`}
+            className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm hover:bg-primary/90 transition-colors shrink-0"
+          >
+            <Briefcase className="w-3.5 h-3.5" />
+            Hire Now
+          </Link>
+        )}
         {isOwner && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

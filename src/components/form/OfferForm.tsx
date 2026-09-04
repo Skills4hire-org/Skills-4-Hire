@@ -13,6 +13,17 @@ import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
 import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
 import ImageEditor from '../global/ImageEditor'
+import { uploadToCloudinary } from '@/utils/cloudinary'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select'
+import { vocationalCategories, digitalCategories } from '@/data/staticServices'
 
 export default function OfferForm({
   offer,
@@ -27,6 +38,37 @@ export default function OfferForm({
 }) {
   const { data: serviceCategories = [], isLoading: areCategoriesLoading } =
     useServiceCategories()
+
+  // Each item: { main_service_id, name, category: { name, service_category_id } }
+  // Value sent to backend = main_service_id (UUID)
+  // Group by category.name, then sort into vocational / digital by matching
+  // category.name against our static lists
+
+  const vocationalCategoryNames = new Set(
+    vocationalCategories.map((c) => c.name.toLowerCase()),
+  )
+  const digitalCategoryNames = new Set(
+    digitalCategories.map((c) => c.name.toLowerCase()),
+  )
+
+  type ApiItem = { main_service_id: string; name: string; category?: { name?: string; service_category_id?: string } }
+
+  const vocationalOptions: { value: string; label: string }[] = []
+  const digitalOptions: { value: string; label: string }[] = []
+  const otherOptions: { value: string; label: string }[] = []
+  const seenIds = new Set<string>()
+
+  ;(serviceCategories as unknown as ApiItem[]).forEach((item) => {
+    const categoryId = item.category?.service_category_id
+    if (!categoryId || seenIds.has(categoryId)) return
+    seenIds.add(categoryId)
+    const option = { value: categoryId, label: item.category?.name ?? item.name }
+    const catName = item.category?.name?.toLowerCase() ?? ''
+    if (vocationalCategoryNames.has(catName)) vocationalOptions.push(option)
+    else if (digitalCategoryNames.has(catName)) digitalOptions.push(option)
+    else otherOptions.push(option)
+  })
+
   const [formData, setFormData] = useState<OfferFormType>({
     title: offer?.post_title ?? '',
     post: offer?.post_content ?? '',
@@ -37,13 +79,6 @@ export default function OfferForm({
     attachment: [],
     city: offer?.city ?? '',
     state: offer?.state ?? '',
-  })
-
-  const serviceOptions = serviceCategories.flatMap((category) => {
-    const id = category.service_category_id ?? category.id
-    return id === undefined
-      ? []
-      : [{ value: String(id), label: category.name }]
   })
 
   const handleInputChange = (field: string, value: string) => {
@@ -124,12 +159,16 @@ export default function OfferForm({
       return
     }
 
-    const allFiles = [...formData.attachment, ...formData.photo]
-
     setIsSubmitting(true)
     try {
-      if (allFiles.length !== 0) {
-        /* async function to upload files */
+      let attachments: CreatePost['attachments'] = []
+      if (formData.photo.length !== 0) {
+        const uploadedPhotos = await uploadToCloudinary(formData.photo)
+        attachments = uploadedPhotos?.map((url) => ({
+          public_id: url.public_id,
+          attachment_type: 'PHOTO',
+          attachmentURL: url.url,
+        }))
       }
       const allData: CreatePost = {
         city: validatedData.city,
@@ -140,14 +179,12 @@ export default function OfferForm({
         amount: validatedData.budget,
         duration: Number(validatedData.timeFrame),
         tags: [validatedData.service],
-        /* attachment: {
-          attachment_type: 'VIDEO' | 'PHOTO' | 'FILE'
-          attachmentURL: string
-      }[] */
+        attachments,
       }
       onSubmit(allData)
     } catch (error: any) {
       setIsSubmitting(false)
+      toast.error('Uploading of photos failed. Please try again')
     }
   }
   return (
@@ -201,18 +238,60 @@ export default function OfferForm({
           />
         </div>
         <div className="grid">
-          <FormSelect
-            name="service"
-            label="Type of Service"
-            value={formData.service}
-            handleInputChange={handleInputChange}
-            selectItems={serviceOptions}
-            placeholder="Select"
-            className="border-0 border-b h-9 [&_svg]:block pl-3 text-sm md:text-base"
-            labelSize="text-xs md:text-sm"
-            required
-            disabled={areCategoriesLoading}
-          />
+          <div className="space-y-1.5">
+            <Label htmlFor="service" className="text-xs md:text-sm font-medium">
+              Type of Service
+            </Label>
+            <Select
+              value={formData.service}
+              onValueChange={(value) => handleInputChange('service', value)}
+              name="service"
+              required
+              disabled={areCategoriesLoading}
+            >
+              <SelectTrigger className="border-0 border-b h-9 pl-3 text-sm md:text-base w-full">
+                <SelectValue placeholder={areCategoriesLoading ? 'Loading...' : 'Select'} />
+              </SelectTrigger>
+              <SelectContent className="max-h-80">
+                {vocationalOptions.length > 0 && (
+                  <SelectGroup>
+                    <SelectLabel className="text-xs font-bold text-primary uppercase tracking-wide px-2 py-1.5">
+                      Vocational & On-Site
+                    </SelectLabel>
+                    {vocationalOptions.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                )}
+                {digitalOptions.length > 0 && (
+                  <SelectGroup>
+                    <SelectLabel className="text-xs font-bold text-primary uppercase tracking-wide px-2 py-1.5 mt-1">
+                      Digital Skills
+                    </SelectLabel>
+                    {digitalOptions.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                )}
+                {otherOptions.length > 0 && (
+                  <SelectGroup>
+                    <SelectLabel className="text-xs font-bold text-primary uppercase tracking-wide px-2 py-1.5 mt-1">
+                      Other
+                    </SelectLabel>
+                    {otherOptions.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                )}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <div className="space-y-2">
           <span className="text-xs md:text-sm block font-medium">Location</span>
@@ -256,9 +335,9 @@ export default function OfferForm({
           />
           <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
           <span className="text-xs md:text-sm">Photo</span>
-          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
+          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 min-w-5 min-h-5 flex items-center justify-center text-xs leading-none">
             {formData.photo.length !== 0 ? (
-              <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              formData.photo.length
             ) : (
               <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
             )}
