@@ -43,6 +43,9 @@ export default function ServiceProviderProfile() {
             userType == 'customer' ? '/customer' : '/professional'
           navigate(`${basePath}/messages/${conversationId}`)
         },
+        onError: (error) => {
+          toast.error(error.message)
+        },
       },
     )
   }

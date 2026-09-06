@@ -1,16 +1,16 @@
-import ConversationCard from './ConversationCard'
-import type { Conversation } from '@/types/chat.types'
+import type { SupportConversation } from '@/types/chat.types'
 import NoChat from './NoChat'
-import SearchBar from '../global/SearchBar'
-import { useState } from 'react'
-import { useConversations } from '@/hooks/useChats'
+import { useCreateTicket, useSupportConversations } from '@/hooks/useChats'
 import Loading from '../global/Loading'
 import Error from '../global/Error'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
-import type { UserData } from '@/types/user.types'
+import SupportConversationCard from './SupportConversationCard'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import type { UserType } from '@/types/user.types'
 import { useSelector } from 'react-redux'
 
-export default function ConversationList() {
+export default function SupportConversationList() {
   const {
     data,
     isLoading,
@@ -20,38 +20,15 @@ export default function ConversationList() {
     isFetchingNextPage,
     fetchNextPage,
     isFetchNextPageError,
-  } = useConversations()
-  const conversations: Conversation[] =
+  } = useSupportConversations()
+  const conversations: SupportConversation[] =
     data?.pages.flatMap((page) => page?.results ?? []) ?? []
 
   const sortedConversations = [...conversations].sort(
     (a, b) =>
-      new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+      new Date(b.support.updated_at).getTime() -
+      new Date(a.support.updated_at).getTime(),
   )
-
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const { user_data }: { user_data: UserData } = useSelector(
-    (state: any) => state.userState,
-  )
-
-  const filteredConversations = sortedConversations.filter((conversation) => {
-    const query = searchQuery.trim().toLowerCase()
-    if (!query) return true
-    const other =
-      conversation.participant_one.user_id === user_data.user_id
-        ? conversation.participant_two
-        : conversation.participant_one
-    const name = [
-      other?.profile?.display_name,
-      other?.first_name,
-      other?.last_name,
-    ]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase()
-    return name.includes(query)
-  })
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -61,6 +38,25 @@ export default function ConversationList() {
 
   const handleConversationFetchingError = () => {
     refetch()
+  }
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
+  const { mutate: openTicket, isPending } = useCreateTicket()
+
+  const navigate = useNavigate()
+  const handleOpenTicket = () => {
+    openTicket(undefined, {
+      onSuccess: (ticket) => {
+        const conversationId = ticket?.conversation_id
+        if (!conversationId) return toast.error('Unable to open a ticket.')
+        const basePath = userType == 'customer' ? '/customer' : '/professional'
+        navigate(`${basePath}/customer-support/${conversationId}`)
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+    })
   }
 
   return (
@@ -72,37 +68,42 @@ export default function ConversationList() {
       ) : isError && !data ? (
         <div className="py-10">
           <Error
-            text="Failed to load conversations"
+            text="Failed to load tickets."
             buttonFunc={handleConversationFetchingError}
           />
         </div>
       ) : (
         <>
           {conversations.length === 0 ? (
-            <NoChat />
+            <>
+              <NoChat text="No opened ticket yet" />
+              <button
+                onClick={handleOpenTicket}
+                disabled={isPending}
+                className="py-2 px-6 bg-primary text-sm md:text-base my-6 mx-auto text-white font-medium rounded-sm block w-max cursor-pointer"
+              >
+                Open a new ticket
+              </button>
+            </>
           ) : (
             <div className="space-y-4 md:space-y-6">
-              <SearchBar
-                placeholder="Search"
-                maxWidth="max-w-md"
-                value={searchQuery}
-                onSubmit={() => {}}
-                setSearchQuery={setSearchQuery}
-              />
               <div className="grid grid-cols-1 gap-2">
-                {filteredConversations.map((conversation) => (
-                  <ConversationCard
+                {sortedConversations.map((conversation) => (
+                  <SupportConversationCard
                     key={conversation.conversation_id}
                     conversation={conversation}
                   />
                 ))}
-                {filteredConversations.length === 0 && searchQuery && (
-                  <p className="text-sm text-gray-500 text-center py-6">
-                    No conversations found
-                  </p>
-                )}
               </div>
               <div ref={loadMoreRef} />
+
+              <button
+                onClick={handleOpenTicket}
+                disabled={isPending}
+                className="py-2 px-6 bg-primary text-sm md:text-base my-6 mx-auto text-white font-medium rounded-sm block w-max cursor-pointer"
+              >
+                Open a new ticket
+              </button>
 
               {isFetchingNextPage && (
                 <div className="py-4 text-center">
@@ -114,7 +115,7 @@ export default function ConversationList() {
                   className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                   onClick={() => fetchNextPage()}
                 >
-                  Load more conversations
+                  Load more tickets
                 </button>
               )}
               {isFetchNextPageError && (

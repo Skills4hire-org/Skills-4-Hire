@@ -66,6 +66,17 @@ export type Message = {
     user_id: string
   }
 }
+
+export type SupportMessage = {
+  features: string
+  is_read: boolean
+  is_staff: boolean
+  message: string
+  message_id: string
+  updated_at: string
+  created_at: string
+}
+
 export type Conversation = {
   conversation_id: string
   participant_one: User
@@ -78,7 +89,28 @@ export type Conversation = {
     created_at: string
     is_read: boolean
   }
-
   created_at: string
   updated_at: string
+}
+
+export type SupportConversation = {
+  conversation_id: string
+  created_at: string
+  last_message: {
+    features: string
+    is_read: boolean
+    is_staff: boolean
+    message: string
+    message_id: string
+  }
+  support: {
+    support_id: string
+    status: string
+    is_active: boolean
+    created_at: string
+    assigned_at: string
+    updated_at: string
+    resolved_at: string
+    closed_at: string
+  }
 }

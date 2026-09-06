@@ -65,6 +65,9 @@ import AuthProtectedRoute from './components/global/AuthProtectedRoute'
 import ProfileEndorsers from './pages/ProfileEndorsers'
 import BookingRequest from './pages/BookinRequests'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import SupportConversationList from './components/chats/SupportConversationList'
+import ChatSupport from './pages/ChatSupport'
+import SupportChatWindow from './components/chats/SupportChatWindow'
 
 const router = createBrowserRouter([
   {
@@ -265,6 +268,20 @@ const router = createBrowserRouter([
           {
             path: ':conversationId',
             element: <ChatWindow />,
+          },
+        ],
+      },
+      {
+        path: 'customer-support',
+        element: <ChatSupport />,
+        children: [
+          {
+            index: true,
+            element: <SupportConversationList />,
+          },
+          {
+            path: ':conversationId',
+            element: <SupportChatWindow />,
           },
         ],
       },

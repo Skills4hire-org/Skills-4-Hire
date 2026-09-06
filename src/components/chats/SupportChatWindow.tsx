@@ -1,32 +1,31 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom'
-import MessageBubble from './MessageBubble'
-import MessageInput from './MessageInput'
 import { useSelector } from 'react-redux'
 import { useIsChatMobile } from '@/hooks/use-mobile'
 import { ChevronLeft } from 'lucide-react'
-import ProfileImage from '../global/ProfileImage'
 import type { UserType } from '@/utils/types'
 import {
-  markConversationAsReadInCache,
-  updateConversationList,
-  updateMessage,
-  useChatSocket,
-  useMessages,
+  updateSupportMessage,
+  updateSupportConversationList,
+  useChatSupportSocket,
+  useSupportMessages,
 } from '@/hooks/useChats'
-import type { Message, User } from '@/types/chat.types'
-import ProposePriceDialog from './ProposePriceDialog'
-import NegotiatePriceDialog from './NegotiatePriceDialog'
-import AgreementDialog from './AgreementDialog'
+import type { SupportMessage } from '@/types/chat.types'
 import Loading from '../global/Loading'
 import Error from '../global/Error'
+import SupportMessageBubble from './SupportMessageBubble'
+import SupportMessageInput from './SupportMessageInput'
 
-export default function ChatWindow() {
+export default function SupportChatWindow() {
   const { conversationId: conversation_id } = useParams()
-  const location = useLocation()
 
-  const receiver: {
-    participant_two: User
+  const location = useLocation()
+  const {
+    ticket_no,
+    ticket_status,
+  }: {
+    ticket_no: string
+    ticket_status: string
   } = location.state
 
   const {
@@ -38,11 +37,15 @@ export default function ChatWindow() {
     isFetchingNextPage,
     fetchNextPage,
     isFetchNextPageError,
-  } = useMessages({
+  } = useSupportMessages({
     conversation_id,
   })
 
-  const messages: Message[] = data?.pages.flatMap((page) => page.results) ?? []
+  const messages: SupportMessage[] =
+    data?.pages.flatMap((page) => page.results) ?? []
+
+  console.log(messages)
+
   const sortedMessages = [...messages].sort(
     (a, b) =>
       new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
@@ -99,35 +102,27 @@ export default function ChatWindow() {
     isLoadingOlderMessagesRef.current = false
   }, [data])
 
-  useEffect(() => {
-    if (!conversation_id) return
-
-    markConversationAsReadInCache(conversation_id)
-  }, [conversation_id])
-
-  const [isReceiverOnline, setIsReceiverOnline] = useState(false)
+  /*   const [isReceiverOnline, setIsReceiverOnline] = useState(false) */
 
   const handleSocketMessage = useCallback(
     (data: any) => {
-      if (data.event === 'online') {
-        if (data.user_id === receiver?.participant_two?.user_id) {
-          setIsReceiverOnline(data.is_online)
-        }
+      /* if (data.event === 'online') {
+        setIsReceiverOnline(data.data.is_online)
 
         return
-      }
-      if (data.event === 'message' && data.message) {
-        const incomingMessage: Message = data.message
+      } */
+      if (data.event === 'message' && data.data) {
+        const incomingMessage: SupportMessage = data.data
 
-        updateMessage(incomingMessage, conversation_id!)
+        updateSupportMessage(incomingMessage, conversation_id!)
 
-        updateConversationList(incomingMessage, conversation_id!)
+        updateSupportConversationList(incomingMessage, conversation_id!)
       }
     },
-    [conversation_id, receiver],
+    [conversation_id],
   )
 
-  const { sendSocketMessage } = useChatSocket(
+  const { sendSocketMessage } = useChatSupportSocket(
     conversation_id!,
     handleSocketMessage,
   )
@@ -208,7 +203,7 @@ export default function ChatWindow() {
   if (!conversation_id) {
     return (
       <div className="flex items-center justify-center h-full text-gray-400">
-        Select a conversation to start messaging.
+        Select a ticket to start messaging.
       </div>
     )
   }
@@ -232,63 +227,38 @@ export default function ChatWindow() {
           <div>
             <div className="flex items-center gap-3 border-b pb-2 -mt-2">
               {isMobile && (
-                <Link to={`/${userType}/messages`} className="text-sm">
+                <Link to={`/${userType}/customer-support`} className="text-sm">
                   <ChevronLeft className="w-6 h-6" />
                 </Link>
               )}
-              {receiver.participant_two.profile.professional_title ? (
-                <Link
-                  to={`/${userType}/professionals/${receiver.participant_two.profile.provider_id}`}
-                  className="flex items-center gap-2"
-                >
-                  <ProfileImage
-                    size="size-10"
-                    noStatus
-                    avatar={receiver?.participant_two?.profile?.avatar?.avatar}
-                  />
 
-                  <h2 className="font-semibold text-lg">
-                    {receiver?.participant_two?.profile?.display_name}
-                  </h2>
-                  <span
-                    className={`w-2 h-2 rounded-full ${
-                      isReceiverOnline ? 'bg-green-500' : 'bg-gray-400'
-                    }`}
-                  />
-                </Link>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <ProfileImage
-                    size="size-10"
-                    noStatus
-                    avatar={receiver?.participant_two?.profile?.avatar?.avatar}
-                  />
-
-                  <h2 className="font-semibold text-lg">
-                    {receiver?.participant_two?.profile?.display_name}
-                  </h2>
-                  <span
-                    className={`w-2 h-2 rounded-full ${
-                      isReceiverOnline ? 'bg-green-500' : 'bg-gray-400'
-                    }`}
-                  />
+              <div className="space-y-1">
+                <h2 className="font-semibold text-lg">
+                  Ticket No: <span className="pl-1 break-all">{ticket_no}</span>
+                </h2>
+                <div className="flex items-center gap-6">
+                  <p className="text-base text-gray-500">
+                    Ticket Status:{' '}
+                    <span
+                      className={`pl-1 capitalize  ${ticket_status == 'open' ? 'text-green-600' : 'text-red-600'}`}
+                    >
+                      {ticket_status}
+                    </span>
+                  </p>
+                  {/*  <div
+                    className={`${
+                      isReceiverOnline ? 'text-green-500' : 'text-gray-400'
+                    } flex items-center gap-2`}
+                  >
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        isReceiverOnline ? 'bg-green-500' : 'bg-gray-400'
+                      }`}
+                    />
+                    <span>{isReceiverOnline ? 'Online' : 'Offline'}</span>
+                  </div> */}
                 </div>
-              )}
-            </div>
-
-            <div className="flex items-center max-w-xs mx-auto border mt-3 rounded-sm text-xs/3.5 py-1">
-              <ProposePriceDialog
-                conversation_id={conversation_id}
-                sendSocketMessage={sendSocketMessage}
-              />
-              <NegotiatePriceDialog
-                conversation_id={conversation_id}
-                sendSocketMessage={sendSocketMessage}
-              />
-              <AgreementDialog
-                conversation_id={conversation_id}
-                sendSocketMessage={sendSocketMessage}
-              />
+              </div>
             </div>
           </div>
 
@@ -338,7 +308,7 @@ export default function ChatWindow() {
                   )}
 
                   {/* MESSAGE */}
-                  <MessageBubble message={message} />
+                  <SupportMessageBubble message={message} />
                 </div>
               )
             })}
@@ -348,7 +318,7 @@ export default function ChatWindow() {
           </div>
 
           {/* INPUT */}
-          <MessageInput
+          <SupportMessageInput
             conversationId={conversation_id}
             sendSocketMessage={sendSocketMessage}
           />

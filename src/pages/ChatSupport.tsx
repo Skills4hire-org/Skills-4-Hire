@@ -1,0 +1,42 @@
+import SupportConversationList from '@/components/chats/SupportConversationList'
+import Container from '@/components/global/Container'
+import DesktopChatHeader from '@/components/header/DesktopChatHeader'
+import MobileChatHeader from '@/components/header/MobileChatHeader'
+import { useIsChatMobile } from '@/hooks/use-mobile'
+import { Outlet, useParams } from 'react-router-dom'
+
+export default function ChatSupport() {
+  const isMobile = useIsChatMobile()
+  const { conversationId } = useParams()
+
+  return (
+    <div className="space-y-4 md:space-y-6 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
+      <Container className="bg-white">
+        {!conversationId && <MobileChatHeader title="Customer Support" />}
+        <DesktopChatHeader title="Customer Support" />
+      </Container>
+      <Container>
+        {isMobile ? (
+          <div className={`${conversationId && 'h-[calc(100vh-82px)]'}`}>
+            <Outlet />
+          </div>
+        ) : (
+          <div className="flex h-[calc(100vh-100px)] -mb-6">
+            <div className="w-1/2 lg:w-2/5 border-r pr-2">
+              <SupportConversationList />
+            </div>
+            <div className="flex-1 pl-4">
+              {conversationId ? (
+                <Outlet />
+              ) : (
+                <div className="flex items-center justify-center h-full text-gray-500">
+                  Select a ticket
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </Container>
+    </div>
+  )
+}
