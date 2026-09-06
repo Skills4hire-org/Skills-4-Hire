@@ -27,7 +27,7 @@ export default function BookingDateTimeForm() {
     dispatch(
       handleBookingInfo({
         info: {
-          emergency: checked,
+          is_urgent: checked,
         },
       }),
     )
@@ -65,7 +65,7 @@ export default function BookingDateTimeForm() {
         </Label>
         <Checkbox
           name="is_urgent"
-          id="emergency"
+          id="is_urgent"
           checked={info.is_urgent}
           onCheckedChange={(checked) => handleEmergencyService(checked)}
         />

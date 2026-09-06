@@ -296,7 +296,7 @@ export default function ChatWindow() {
           <div
             ref={containerRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto p-4 space-y-3"
+            className="flex-1 overflow-y-auto px-4 pt-4 space-y-3"
           >
             {/* Loading older messages */}
             {isFetchingNextPage && (

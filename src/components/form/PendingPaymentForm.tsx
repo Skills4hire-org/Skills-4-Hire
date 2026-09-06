@@ -2,10 +2,10 @@ import { currencyFormatter } from '@/utils/format'
 import { Star } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Button } from '../ui/button'
-import { useGiveReview } from '@/hooks/useReviews'
 import { toast } from 'sonner'
-import { useApproveBookingPayment } from '@/hooks/useBookings'
 import { useNavigate } from 'react-router-dom'
+import { giveReview } from '@/api/reviews'
+import { approveBookingPayment } from '@/api/bookings'
 
 export default function PendingPaymentForm({
   from,
@@ -24,59 +24,35 @@ export default function PendingPaymentForm({
     rating: 0,
     review: '',
   })
-  const [isReviewSent, setIsReviewSent] = useState(false)
-  const [canApprove, setCanApprove] = useState(false)
-  const { mutate: giveReview, isPending: reviewSending } = useGiveReview()
-  const { mutate: approve, isPending: approveSending } =
-    useApproveBookingPayment()
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    giveReview(
-      {
-        provider_id,
-        reviews: formData.review,
-        ratings: formData.rating,
-      },
-      {
-        onSuccess: () => {
-          return (
-            toast.success('Review sent'),
-            setIsReviewSent(true),
-            setCanApprove(true)
-          )
-        },
-        onError: (error) => {
-          if (error.message == 'review found for this user') {
-            toast.warning('You have sent a review already.')
-            return (setIsReviewSent(true), setCanApprove(true))
-          }
-          toast.error(error?.message)
-        },
-      },
-    )
-  }
+  const [isPending, setIsPending] = useState(false)
+
   const navigate = useNavigate()
   const price = (0.92 * amount).toFixed(2).toString()
 
-  const handleApprovePayment = () => {
-    approve(
-      {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsPending(true)
+    try {
+      await approveBookingPayment({
         id: booking_id,
         amount: price,
-      },
-      {
-        onSuccess: () => {
-          toast.success('Payment approved!')
-          navigate('/customer/bookings')
-        },
-        onError: (error) => {
-          toast.error(error?.message)
-        },
-      },
-    )
-  }
+      })
 
+      await giveReview({
+        provider_id,
+        reviews: formData.review,
+        ratings: formData.rating,
+      })
+
+      toast.success('Payment approved!')
+      navigate('/customer/bookings')
+    } catch (error: any) {
+      toast.error(error?.message)
+    } finally {
+      setIsPending(false)
+    }
+  }
   return (
     <form
       onSubmit={handleSubmit}
@@ -103,7 +79,7 @@ export default function PendingPaymentForm({
           value={formData.review}
           onChange={(e) => setFormData({ ...formData, review: e.target.value })}
           className="flex-1 resize-none focus:outline-0"
-          disabled={isReviewSent}
+          disabled={isPending}
           required
         />
       </div>
@@ -116,7 +92,7 @@ export default function PendingPaymentForm({
               key={star}
               onClick={() => setFormData({ ...formData, rating: star })}
               className="focus:outline-none cursor-pointer"
-              disabled={isReviewSent}
+              disabled={isPending}
             >
               <Star
                 className={`w-6 h-6 ${
@@ -129,24 +105,14 @@ export default function PendingPaymentForm({
           ))}
         </div>
       </div>
-      <div className="flex justify-center mt-8 md:mt-10 mb-10 gap-2 md:gap-4">
+      <div className="flex justify-end mt-8 md:mt-10 mb-10 gap-2 md:gap-4">
         <Button
           size="lg"
-          variant="outline"
           type="submit"
-          disabled={reviewSending || isReviewSent}
+          disabled={isPending}
           className="px-10 py-4 rounded-xl text-base font-semibold"
         >
-          {reviewSending ? 'Sending...' : 'Send Review'}
-        </Button>
-        <Button
-          size="lg"
-          type="button"
-          disabled={approveSending || !canApprove}
-          onClick={handleApprovePayment}
-          className="px-10 py-4 rounded-xl text-base font-semibold"
-        >
-          {approveSending ? 'Approving...' : 'Approve'}
+          {isPending ? 'Approving...' : 'Approve'}
         </Button>
       </div>
     </form>
