@@ -4,8 +4,8 @@ import { useState, type FormEvent } from 'react'
 import { Button } from '../ui/button'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
-import { giveReview } from '@/api/reviews'
-import { approveBookingPayment } from '@/api/bookings'
+import { useApproveBookingPayment } from '@/hooks/useBookings'
+import { useGiveReview } from '@/hooks/useReviews'
 
 export default function PendingPaymentForm({
   from,
@@ -25,32 +25,31 @@ export default function PendingPaymentForm({
     review: '',
   })
 
-  const [isPending, setIsPending] = useState(false)
+  const { mutateAsync: approve, isPending: isApproving } =
+    useApproveBookingPayment()
+  const { mutateAsync: giveReview, isPending: isReviewing } = useGiveReview()
 
   const navigate = useNavigate()
   const price = (0.92 * amount).toFixed(2).toString()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsPending(true)
     try {
-      await approveBookingPayment({
-        id: booking_id,
-        amount: price,
-      })
-
-      await giveReview({
-        provider_id,
-        reviews: formData.review,
-        ratings: formData.rating,
-      })
-
+      await Promise.all([
+        approve({
+          id: booking_id,
+          amount: price,
+        }),
+        giveReview({
+          provider_id,
+          reviews: formData.review,
+          ratings: formData.rating,
+        }),
+      ])
       toast.success('Payment approved!')
       navigate('/customer/bookings')
     } catch (error: any) {
       toast.error(error?.message)
-    } finally {
-      setIsPending(false)
     }
   }
   return (
@@ -79,7 +78,7 @@ export default function PendingPaymentForm({
           value={formData.review}
           onChange={(e) => setFormData({ ...formData, review: e.target.value })}
           className="flex-1 resize-none focus:outline-0"
-          disabled={isPending}
+          disabled={isApproving || isReviewing}
           required
         />
       </div>
@@ -92,7 +91,7 @@ export default function PendingPaymentForm({
               key={star}
               onClick={() => setFormData({ ...formData, rating: star })}
               className="focus:outline-none cursor-pointer"
-              disabled={isPending}
+              disabled={isApproving || isReviewing}
             >
               <Star
                 className={`w-6 h-6 ${
@@ -109,10 +108,10 @@ export default function PendingPaymentForm({
         <Button
           size="lg"
           type="submit"
-          disabled={isPending}
+          disabled={isApproving || isReviewing}
           className="px-10 py-4 rounded-xl text-base font-semibold"
         >
-          {isPending ? 'Approving...' : 'Approve'}
+          {isApproving || isReviewing ? 'Approving...' : 'Approve'}
         </Button>
       </div>
     </form>
