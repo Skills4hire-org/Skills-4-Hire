@@ -9,12 +9,18 @@ import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { useAllProviders } from '@/hooks/useUsers'
 import type { Favorite } from '@/types/favourites.type'
 import { Search } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function ServicesAroundYou() {
   const [serviceFilter, setServiceFilter] = useState('')
+  const [debouncedServiceFilter, setDebouncedServiceFilter] = useState('')
   const [locationFilter, setLocationFilter] = useState('')
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedServiceFilter(serviceFilter), 350)
+    return () => clearTimeout(timer)
+  }, [serviceFilter])
 
   const {
     data,
@@ -26,7 +32,7 @@ export default function ServicesAroundYou() {
     isFetchingNextPage,
     isFetchNextPageError,
   } = useAllProviders({
-    profession: serviceFilter,
+    profession: debouncedServiceFilter,
   })
 
   const {

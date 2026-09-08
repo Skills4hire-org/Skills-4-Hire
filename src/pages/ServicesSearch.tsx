@@ -91,7 +91,7 @@ export default function ServicesSearch() {
                 ) : (
                   <>
                     <div className="grid grid-cols-1 gap-4">
-                      {professionals?.slice(0, 5).map((professional) => (
+                      {professionals?.map((professional) => (
                         <ServiceProviderCard
                           key={professional.provider_id}
                           {...professional}

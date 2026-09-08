@@ -29,16 +29,14 @@ export function matchesProviderFilters(
   if (services.length > 0) {
     const title = (provider.professional_title || '').toLowerCase()
     const headline = (provider.headline || '').toLowerCase()
+    if (!title && !headline) return false
     const match = services.some((svc) => {
       const label = serviceLabel(svc).toLowerCase()
       const labelTokens = label.split(/\s+/).filter(Boolean)
       return labelTokens.some(
         (lt) =>
           lt.length > 2 &&
-          (title.includes(lt) ||
-            headline.includes(lt) ||
-            lt.includes(title) ||
-            lt.includes(headline)),
+          (title.includes(lt) || headline.includes(lt)),
       )
     })
     if (!match) return false
@@ -59,6 +57,7 @@ export function matchesPostFilters(
 ): boolean {
   if (services.length > 0) {
     const tag = (post.tags?.[0]?.name ?? '').toLowerCase()
+    if (!tag) return false
     const match = services.some((svc) => {
       const label = serviceLabel(svc).toLowerCase()
       return !!label && (tag.includes(label) || label.includes(tag))
