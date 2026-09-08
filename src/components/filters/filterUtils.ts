@@ -50,6 +50,22 @@ export function matchesProviderFilters(
   return true
 }
 
+export function matchesProfession(
+  provider: Provider,
+  profession: string,
+): boolean {
+  const normalized = profession.toLowerCase().trim()
+  if (!normalized) return true
+  const title = (provider.professional_title || '').toLowerCase()
+  const headline = (provider.headline || '').toLowerCase()
+  const text = `${title} ${headline}`.trim()
+  if (!text) return false
+  if (text.includes(normalized)) return true
+  const tokens = normalized.split(/\s+/).filter((t) => t.length > 2)
+  if (tokens.length === 0) return false
+  return tokens.every((token) => text.includes(token))
+}
+
 export function matchesPostFilters(
   post: Post,
   services: string[],
