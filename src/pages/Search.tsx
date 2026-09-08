@@ -10,6 +10,7 @@ import {
 import { FilterPanel } from '@/components/filters/FilterPanel'
 import {
   EMPTY_FILTERS,
+  MAX_PRICE,
   countActiveFilters,
   matchesPostFilters,
   matchesProviderFilters,
@@ -98,6 +99,9 @@ export default function SearchPage() {
   const offersEnabled = category === 'offers' && canSearch
   const favouritesEnabled = providersEnabled
 
+  const providerMinCharge = filters.price[0] > 0 ? filters.price[0] : undefined
+  const providerRatings = filters.rating ?? undefined
+
   const {
     data: providersData,
     isLoading: providersLoading,
@@ -108,7 +112,12 @@ export default function SearchPage() {
     hasNextPage: providersHasNextPage,
     isFetchingNextPage: providersFetchingNextPage,
     isFetchNextPageError: providersFetchNextPageError,
-  } = useAllProviders({ search: debouncedQuery, enabled: providersEnabled })
+  } = useAllProviders({
+    search: debouncedQuery,
+    min_charge: providerMinCharge,
+    ratings: providerRatings,
+    enabled: providersEnabled,
+  })
   const {
     data: postsData,
     isLoading: postsLoading,
@@ -120,6 +129,9 @@ export default function SearchPage() {
     isFetchingNextPage: postsFetchingNextPage,
     isFetchNextPageError: postsFetchNextPageError,
   } = usePosts({ enabled: postsEnabled })
+  const offerMinAmount = filters.price[0] > 0 ? String(filters.price[0]) : undefined
+  const offerMaxAmount = filters.price[1] < MAX_PRICE ? String(filters.price[1]) : undefined
+
   const {
     data: offersData,
     isLoading: offersLoading,
@@ -130,7 +142,11 @@ export default function SearchPage() {
     hasNextPage: offersHasNextPage,
     isFetchingNextPage: offersFetchingNextPage,
     isFetchNextPageError: offersFetchNextPageError,
-  } = useOffers({ enabled: offersEnabled })
+  } = useOffers({
+    min_amount: offerMinAmount,
+    max_amount: offerMaxAmount,
+    enabled: offersEnabled,
+  })
   const { data: favoritesData, isLoading: favoritesLoading } = useFavourites({
     enabled: favouritesEnabled,
   })
