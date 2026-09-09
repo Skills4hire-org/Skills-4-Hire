@@ -31,6 +31,10 @@ export default function BookingRequest() {
     refetch()
   }
 
+  const handleBookingRefetch = () => {
+    refetch()
+  }
+
   return (
     <div className="space-y-2 md:space-y-4 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
       <Container className="bg-white">
@@ -54,7 +58,11 @@ export default function BookingRequest() {
               <>
                 <div className="space-y-2 md:space-y-4">
                   {bookingRequests?.map((request) => (
-                    <BookingRequestCard key={request.booking_id} {...request} />
+                    <BookingRequestCard
+                      key={request.booking_id}
+                      {...request}
+                      handleRefetch={handleBookingRefetch}
+                    />
                   ))}
                 </div>
 

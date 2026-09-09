@@ -80,6 +80,9 @@ export default function ProviderOverview() {
   const handleReviewsFetchingError = () => {
     reviewRefetch()
   }
+  const handleBookingRefetch = () => {
+    bookingsRefetch()
+  }
 
   return (
     <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17 lg:ml-[4.2rem]">
@@ -165,7 +168,10 @@ export default function ProviderOverview() {
                     <>
                       <div className="w-full">
                         {latestBookings && latestBookings.length !== 0 && (
-                          <BookingRequestCard {...latestBookings[0]} />
+                          <BookingRequestCard
+                            {...latestBookings[0]}
+                            handleRefetch={handleBookingRefetch}
+                          />
                         )}
                       </div>
 
