@@ -13,6 +13,7 @@ import { FilterPanel } from '@/components/filters/FilterPanel'
 import {
   EMPTY_FILTERS,
   countActiveFilters,
+  matchesProfession,
   matchesProviderFilters,
 } from '@/components/filters/filterUtils'
 import type { AppliedFilters } from '@/components/filters/filterUtils'
@@ -101,15 +102,17 @@ function ProviderList({ profession }: { profession: string }) {
 
   const professionals: Provider[] = useMemo(() => {
     const all = data?.pages.flatMap((page) => page?.results ?? []) ?? []
-    return all.filter((provider) =>
-      matchesProviderFilters(
-        provider,
-        filters.service,
-        filters.price,
-        filters.rating,
-      ),
+    return all.filter(
+      (provider) =>
+        matchesProfession(provider, profession) &&
+        matchesProviderFilters(
+          provider,
+          filters.service,
+          filters.price,
+          filters.rating,
+        ),
     )
-  }, [data, filters.service, filters.price, filters.rating])
+  }, [data, profession, filters.service, filters.price, filters.rating])
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

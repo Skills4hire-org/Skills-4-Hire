@@ -13,11 +13,13 @@ function AttachmentCell({
   onClick,
   className,
   overlay,
+  fillCell = false,
 }: {
   attachment: PostAttachment
   onClick: () => void
   className?: string
   overlay?: number
+  fillCell?: boolean
 }) {
   const [imageAspectRatio, setImageAspectRatio] = useState<string>('4 / 5')
 
@@ -35,10 +37,11 @@ function AttachmentCell({
       aria-label={attachment.post_attachment_id}
       className={cn(
         'group relative w-full overflow-hidden bg-neutral-100 cursor-pointer focus:outline-none',
+        fillCell && 'h-full',
         className,
       )}
       style={
-        attachment.attachment_type !== 'VIDEO'
+        attachment.attachment_type !== 'VIDEO' && !fillCell
           ? { aspectRatio: imageAspectRatio }
           : undefined
       }
@@ -127,7 +130,9 @@ function ImageCarousel({
       ? 'grid-cols-1'
       : count === 2
         ? 'grid-cols-2 auto-rows-fr'
-        : 'grid-cols-2 grid-rows-2 auto-rows-fr'
+        : count === 3
+          ? 'grid-cols-2 grid-rows-2 aspect-[4/5]'
+          : 'grid-cols-2 grid-rows-2 auto-rows-fr'
 
   return (
     <>
@@ -138,6 +143,7 @@ function ImageCarousel({
             attachment={attachment}
             onClick={() => openAt(i)}
             className={count === 3 && i === 0 ? 'row-span-2' : undefined}
+            fillCell={count === 3}
             overlay={i === MAX_VISIBLE - 1 ? overflow : undefined}
           />
         ))}
