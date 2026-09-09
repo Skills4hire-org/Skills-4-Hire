@@ -47,7 +47,7 @@ export default function PendingPaymentForm({
         }),
       ])
       toast.success('Payment approved!')
-      navigate('/customer/bookings')
+      navigate(`/customer/bookings`)
     } catch (error: any) {
       toast.error(error?.message)
     }

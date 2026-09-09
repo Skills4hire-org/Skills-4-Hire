@@ -5,7 +5,7 @@ import Loading from '@/components/global/Loading'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
-import { useMyComments, useMyMedia, useMyPosts } from '@/hooks/usePosts'
+import { useMyMedia, useMyPosts, useUserComments } from '@/hooks/usePosts'
 import { cn } from '@/lib/utils'
 import PostCard from '@/components/home/PostCard'
 import EmptyTab from '@/components/service-provider/EmptyTab'
@@ -41,7 +41,8 @@ export default function ProfileActivity() {
     hasNextPage: commentHasNextPage,
     isFetchingNextPage: commentIsFetchingNextPage,
     isFetchNextPageError: commentIsFetchNextPageError,
-  } = useMyComments()
+  } = useUserComments({ id: user_id })
+
   const {
     data: media,
     isLoading: mediaLoading,

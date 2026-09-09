@@ -75,6 +75,16 @@ export type SupportMessage = {
   message_id: string
   updated_at: string
   created_at: string
+  support: {
+    support_id: string
+    status: string
+    is_active: boolean
+    created_at: string
+    assigned_at: string
+    updated_at: string
+    resolved_at: string
+    closed_at: string
+  }
 }
 
 export type Conversation = {

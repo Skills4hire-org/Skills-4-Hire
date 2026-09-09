@@ -52,6 +52,9 @@ export default function Bookings() {
   const handleBookingsFetchingError = async () => {
     refetch()
   }
+  const handleRefetch = () => {
+    refetch()
+  }
 
   return (
     <div className="space-y-2 md:space-y-6 lg:ml-17 lg:w-[63.8rem] max-[1023px]:min-[768px]:ml-17">
@@ -71,14 +74,17 @@ export default function Bookings() {
               {isError && !data ? (
                 <div className="py-6">
                   <Error
-                    text={`Failed to load ${bookingStatus == 'In_progress' ? 'ongoing' : bookingStatus}  bookings`}
+                    text={`Failed to load ${bookingStatus == 'Funded' ? 'Pending' : bookingStatus == 'In_progress' ? 'ongoing' : bookingStatus}  bookings`}
                     buttonFunc={handleBookingsFetchingError}
                     buttonText="Retry"
                   />
                 </div>
               ) : (
                 <>
-                  <BookingsTabContent bookings={bookings} />
+                  <BookingsTabContent
+                    bookings={bookings}
+                    handleRefetch={handleRefetch}
+                  />
                   <div ref={loadMoreRef} />
 
                   {isFetchingNextPage && (

@@ -49,7 +49,9 @@ export default function SupportMessageInput({
           }
           sendSocketMessage({
             event: 'message',
-            message_id: createdMessage.message_id,
+            data: {
+              message_id: createdMessage.message_id,
+            },
           })
         },
         onError: (error) => {

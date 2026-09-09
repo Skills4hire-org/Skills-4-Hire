@@ -13,7 +13,10 @@ import { ChevronDownIcon } from 'lucide-react'
 
 type SelectGroupData = {
   label: string
-  options: SelectItems[]
+  options: {
+    label: string
+    options: SelectItems[]
+  }[]
 }
 
 interface FormSelectFieldProp {
@@ -93,13 +96,20 @@ export default function FormSelectGroup({
                 {group.label}
               </SelectLabel>
               {group.options.map((item) => (
-                <SelectItem
-                  key={item.value}
-                  value={item.value}
-                  className={selectItemClassName}
-                >
-                  {item.label}
-                </SelectItem>
+                <SelectGroup key={item.label}>
+                  <SelectLabel className="capitalize text-base ml-1">
+                    {item.label}
+                  </SelectLabel>
+                  {item.options.map((item) => (
+                    <SelectItem
+                      key={item.value}
+                      value={item.value}
+                      className={`${selectItemClassName} ml-2`}
+                    >
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
               ))}
             </SelectGroup>
           ))}

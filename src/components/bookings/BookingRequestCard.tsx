@@ -13,6 +13,7 @@ import { useState } from 'react'
 import AcceptBookingRequestDialog from './AcceptBookingRequestDialog'
 import { useSelector } from 'react-redux'
 import type { UserType } from '@/types/user.types'
+import { useNavigate } from 'react-router-dom'
 
 export default function BookingRequestCard({
   customer,
@@ -20,13 +21,15 @@ export default function BookingRequestCard({
   created_at,
   descriptions,
   booking_id,
-}: Booking) {
+  handleRefetch,
+}: Booking & { handleRefetch: () => void }) {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
   const { mutate: bookingAction, isPending } = useBookingAction()
   const [acceptOpen, setAcceptOpen] = useState(false)
   const [rejectOpen, setRejectOpen] = useState(false)
+  const navigate = useNavigate()
 
   const handleBookingRequest = (action: string) => {
     bookingAction(
@@ -37,13 +40,21 @@ export default function BookingRequestCard({
       {
         onSuccess: () => {
           toast.success(
-            `${action == 'accept' ? 'Booking request accepted!' : 'Booking request rejected!'}`,
+            `${
+              action == 'accept'
+                ? 'Booking request accepted!'
+                : `Booking request ${
+                    userType == 'customer' ? 'cancelled' : 'rejected'
+                  }!`
+            }`,
           )
           if (action == 'accept') {
             setAcceptOpen(false)
           } else {
             setRejectOpen(false)
           }
+          handleRefetch()
+          navigate(`/${userType}/bookings`)
         },
         onError: (error) => {
           toast.error(error?.message)

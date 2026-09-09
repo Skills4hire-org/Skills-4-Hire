@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { useParams, Link, useLocation } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useIsChatMobile } from '@/hooks/use-mobile'
 import { ChevronLeft } from 'lucide-react'
@@ -19,15 +19,6 @@ import SupportMessageInput from './SupportMessageInput'
 export default function SupportChatWindow() {
   const { conversationId: conversation_id } = useParams()
 
-  const location = useLocation()
-  const {
-    ticket_no,
-    ticket_status,
-  }: {
-    ticket_no: string
-    ticket_status: string
-  } = location.state
-
   const {
     data,
     isLoading,
@@ -44,12 +35,14 @@ export default function SupportChatWindow() {
   const messages: SupportMessage[] =
     data?.pages.flatMap((page) => page.results) ?? []
 
-  console.log(messages)
 
   const sortedMessages = [...messages].sort(
     (a, b) =>
       new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
   )
+
+  const ticket_no = messages[0]?.support?.support_id
+  const ticket_status = messages[0]?.support?.status
 
   const containerRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -266,7 +259,7 @@ export default function SupportChatWindow() {
           <div
             ref={containerRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto p-4 space-y-3"
+            className="flex-1 min-h-0 overflow-y-auto px-4 pt-4 space-y-3"
           >
             {/* Loading older messages */}
             {isFetchingNextPage && (

@@ -36,6 +36,7 @@ export const useMyAddress = () => {
       return lastPage?.pagination?.next ?? undefined
     },
     retry: 1,
+    refetchOnMount: 'always',
   })
   return queryData
 }

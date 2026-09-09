@@ -33,7 +33,7 @@ export default function AgreementDialog({
       const newValue = value.replace(/[^0-9]/g, '')
       setFormData((prev) => ({
         ...prev,
-        [field]: newValue && `${currencyFormatter(Number(newValue))}`,
+        [field]: newValue,
       }))
     } else {
       setFormData((prev) => ({ ...prev, [field]: value }))
@@ -96,7 +96,7 @@ export default function AgreementDialog({
         <form className="space-y-4">
           <FormInput
             name="price"
-            value={formData.price}
+            value={currencyFormatter(Number(formData.price))}
             handleInputChange={handleInputChange}
             type="text"
             label="Final Price"

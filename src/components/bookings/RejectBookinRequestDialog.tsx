@@ -30,6 +30,9 @@ export default function RejectBookingRequestDialog({
   )
 
   const text = userType == 'customer' ? 'cancel' : 'reject'
+
+  const isPendingText = label ? `${label}ing...` : `${text}ing...`
+
   return (
     <Dialog open={rejectOpen} onOpenChange={setRejectOpen}>
       <DialogTrigger asChild>
@@ -57,7 +60,7 @@ export default function RejectBookingRequestDialog({
             disabled={isPending}
             onClick={() => handleBookingRequest('reject')}
           >
-            {isPending ? `${label}ing || ${text}ing` : label || text}
+            {isPending ? isPendingText : label || text}
           </button>
         </DialogFooter>
       </DialogContent>

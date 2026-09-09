@@ -5,7 +5,11 @@ import { toast } from 'sonner'
 import { googleSignIn } from '@/api/auth'
 import { setUserCredentials } from '@/features/user/userSlice'
 
-function GoogleSignInButton() {
+function GoogleSignInButton({
+  referral_code,
+}: {
+  referral_code?: string | null
+}) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -17,10 +21,15 @@ function GoogleSignInButton() {
         toast.error('Google authentication failed')
         return
       }
+      const data = referral_code
+        ? { token: googleToken, referral_code: referral_code }
+        : {
+            token: googleToken,
+          }
 
-      const response = await googleSignIn({
-        token: googleToken,
-      })
+      const response = await googleSignIn(data)
+
+      console.log(response)
 
       dispatch(setUserCredentials(response))
 

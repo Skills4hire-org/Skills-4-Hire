@@ -45,6 +45,7 @@ export const useCreateTicket = () => {
   const createTicketAction = async () => {
     try {
       const response = await chatWithSupport()
+
       return response
     } catch (error: any) {
       throw new Error(error?.message)
@@ -235,7 +236,6 @@ export const useChatSocket = (
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data)
-
         onMessage(data)
       } catch (error) {
         console.error('Failed to parse WebSocket message:', error)

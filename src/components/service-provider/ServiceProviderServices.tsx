@@ -2,7 +2,8 @@ import ServiceProviderServicesCard from './ServiceProviderServicesCard'
 import EmptyTab from './EmptyTab'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import type { Service } from '@/types/user.types'
+import type { Service, UserType } from '@/types/user.types'
+import { useSelector } from 'react-redux'
 
 export default function ServiceProviderServices({
   services,
@@ -13,6 +14,10 @@ export default function ServiceProviderServices({
   user_id?: string
   profession?: string
 }) {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
+
   return (
     <div className="space-y-4">
       <h2 className="font-semibold text-lg md:text-xl ">Services</h2>
@@ -28,7 +33,7 @@ export default function ServiceProviderServices({
           ))}
           {services?.length !== 0 && (
             <Link
-              to={`/customer/professionals/${user_id}/${profession}/services`}
+              to={`/${userType}/professionals/${user_id}/${profession}/services`}
               className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
             >
               Show all services

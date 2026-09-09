@@ -8,8 +8,10 @@ import BookingRequestCard from './BookingRequestCard'
 
 export default function CustomerBookingsTabContent({
   bookings,
+  handleRefetch,
 }: {
   bookings: Booking[] | undefined
+  handleRefetch: () => void
 }) {
   return (
     <>
@@ -18,7 +20,11 @@ export default function CustomerBookingsTabContent({
           <div className="space-y-6 md:space-y-8 md:py-2">
             {label == 'Pending'
               ? bookings?.map((booking) => (
-                  <BookingRequestCard key={booking.booking_id} {...booking} />
+                  <BookingRequestCard
+                    key={booking.booking_id}
+                    {...booking}
+                    handleRefetch={handleRefetch}
+                  />
                 ))
               : bookings?.map((booking) => (
                   <CustomerBookingCard key={booking.booking_id} {...booking} />

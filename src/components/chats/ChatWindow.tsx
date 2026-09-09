@@ -109,11 +109,13 @@ export default function ChatWindow() {
 
   const handleSocketMessage = useCallback(
     (data: any) => {
+      console.log(data)
       if (data.event === 'online') {
-        if (data.user_id === receiver?.participant_two?.user_id) {
+        console.log(data.user_id)
+        console.log(receiver?.participant_two?.user_id)
+        if (data.user_data.user_id === receiver?.participant_two?.user_id) {
           setIsReceiverOnline(data.is_online)
         }
-
         return
       }
       if (data.event === 'message' && data.message) {
@@ -230,7 +232,7 @@ export default function ChatWindow() {
         <>
           {/* HEADER */}
           <div>
-            <div className="flex items-center gap-3 border-b pb-2 -mt-2">
+            <div className="flex items-center gap-3 border-b pb-2">
               {isMobile && (
                 <Link to={`/${userType}/messages`} className="text-sm">
                   <ChevronLeft className="w-6 h-6" />
@@ -296,7 +298,7 @@ export default function ChatWindow() {
           <div
             ref={containerRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto px-4 pt-4 space-y-3"
+            className="flex-1 min-h-0 overflow-y-auto px-4 pt-4 space-y-3"
           >
             {/* Loading older messages */}
             {isFetchingNextPage && (

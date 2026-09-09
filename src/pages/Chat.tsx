@@ -18,7 +18,11 @@ export default function Chat() {
       <Container>
         {isMobile ? (
           <div
-            className={`${conversationId && 'h-[calc(100vh-83px)] md:h-[calc(100vh-48px)]'} `}
+            className={`${
+              conversationId
+                ? 'h-[calc(100dvh-83px)] md:h-[calc(100dvh-56px)] overflow-hidden'
+                : 'h-auto'
+            } `}
           >
             <Outlet />
           </div>

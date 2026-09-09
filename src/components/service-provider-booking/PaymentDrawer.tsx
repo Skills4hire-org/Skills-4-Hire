@@ -19,6 +19,8 @@ import { useNavigate } from 'react-router-dom'
 import { useWallet } from '@/hooks/useWallet'
 import type { WalletBalance } from '@/types/wallet.types'
 import { addAddress } from '@/api/address'
+import { useDispatch } from 'react-redux'
+import { resetBooking } from '@/features/booking/bookingSlice'
 
 export default function PaymentDrawer({
   name,
@@ -72,7 +74,7 @@ export default function PaymentDrawer({
   }
 
   const onsiteData = {
-    address: newAddress ?? address,
+    address: info.new_address ? newAddress : address,
     provider: provider_id,
     price: info.price,
     notes: info.notes,
@@ -93,10 +95,11 @@ export default function PaymentDrawer({
     provider_service: servicesIds,
   }
   const bookingData = info.is_remote ? remoteData : onsiteData
+  const dispatch = useDispatch()
 
   const handlePayment = async () => {
     try {
-      if (newAddress) {
+      if (info.new_address) {
         await addAddress(newAddress)
       }
     } catch (error) {
@@ -105,7 +108,8 @@ export default function PaymentDrawer({
     }
     bookProvider(bookingData, {
       onSuccess: () => {
-        navigate('/customer/bookings')
+        dispatch(resetBooking())
+        navigate(`/customer/bookings`)
       },
       onError: (error) => {
         toast.error(error.message)

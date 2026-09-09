@@ -11,8 +11,6 @@ interface ConversationProps {
 export default function SupportConversationCard({
   conversation,
 }: ConversationProps) {
-  console.log(conversation)
-
   const { conversationId } = useParams()
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
@@ -23,12 +21,7 @@ export default function SupportConversationCard({
   const navigate = useNavigate()
 
   const handleReadMessages = () => {
-    navigate(`/${userType}/customer-support/${conversation.conversation_id}`, {
-      state: {
-        ticket_no: conversation.support.support_id,
-        ticket_status: conversation?.support?.status,
-      },
-    })
+    navigate(`/${userType}/customer-support/${conversation.conversation_id}`)
   }
 
   return (

@@ -1,10 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import AuthLogo from '@/components/global/AuthLogo'
 import SignUpForm from '@/components/form/SignUpForm'
 import GoogleSignInButton from '@/components/buttons/GoogleSignInButton'
 
 export default function SignUp() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const referral_code = searchParams.get('ref')
 
   const handleSignUpSuccess = (email: string) => {
     //Persist email for verification recovery
@@ -28,7 +30,10 @@ export default function SignUp() {
           Connect with skilled professional. Get hired on Skills4hire
         </p>
 
-        <SignUpForm onSuccess={handleSignUpSuccess} />
+        <SignUpForm
+          onSuccess={handleSignUpSuccess}
+          referral_code={referral_code}
+        />
 
         <p className="text-sm text-gray-600 mt-3">
           Already have an account?{' '}
@@ -46,7 +51,7 @@ export default function SignUp() {
           <div className="grow border-t-2 border-gray-300"></div>
         </div>
 
-        <GoogleSignInButton />
+        <GoogleSignInButton referral_code={referral_code} />
       </div>
     </div>
   )

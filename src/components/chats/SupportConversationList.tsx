@@ -48,6 +48,7 @@ export default function SupportConversationList() {
   const handleOpenTicket = () => {
     openTicket(undefined, {
       onSuccess: (ticket) => {
+        console.log(ticket)
         const conversationId = ticket?.conversation_id
         if (!conversationId) return toast.error('Unable to open a ticket.')
         const basePath = userType == 'customer' ? '/customer' : '/professional'

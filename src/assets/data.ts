@@ -139,7 +139,7 @@ export const customerMobileNavLinks = [
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/customer/bookings',
+    url: `/customer/bookings`,
     activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
@@ -171,7 +171,7 @@ export const customerDesktopNavLinks = [
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/customer/bookings',
+    url: `/customer/bookings`,
   },
   { label: 'wallet', icon: 'solar:wallet-outline', url: '/customer/wallet' },
   {
@@ -207,7 +207,7 @@ export const serviceProviderMobileNavLinks = [
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/professional/bookings',
+    url: `/professional/bookings`,
     activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
@@ -242,7 +242,7 @@ export const serviceProviderDesktopNavLinks = [
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
     activeIcon: 'fluent:clipboard-settings-24-filled',
-    url: '/professional/bookings',
+    url: `/professional/bookings`,
   },
   {
     label: 'wallet',
@@ -1928,16 +1928,30 @@ export const searchFilters = [
 ]
 
 const vocationalSkills = vocationalCategories.map((category) => {
+  const subcategories = category.roles.map((role) => {
+    return {
+      label: role,
+      value: role,
+    }
+  })
+
   return {
     label: category.name,
-    value: category.name,
+    options: subcategories,
   }
 })
 
 const digitalSkills = digitalCategories.map((category) => {
+  const subcategories = category.roles.map((role) => {
+    return {
+      label: role,
+      value: role,
+    }
+  })
+
   return {
     label: category.name,
-    value: category.name,
+    options: subcategories,
   }
 })
 

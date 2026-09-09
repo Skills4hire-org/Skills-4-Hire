@@ -20,6 +20,8 @@ export default function ServiceProviderProfile() {
   const { data, isLoading, isError, refetch } = useProfileDetails({ id })
   const profile: Profile | undefined = data
 
+  console.log(profile)
+
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
@@ -83,7 +85,7 @@ export default function ServiceProviderProfile() {
                       posts={profile?.posts}
                       comments={profile?.comments}
                       media={profile?.media}
-                      user_id={id}
+                      user_id={profile?.user?.user_id}
                     />
                   </Container>
                   {profile?.services && (
