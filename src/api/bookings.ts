@@ -15,7 +15,7 @@ export const getBookings = async ({
       return response?.data
     }
     const response = await api.get(
-      `/api/v1/bookings/?booking_status_icontains=${booking_status}`,
+      `/api/v1/bookings/?booking_status__icontains=${booking_status}`,
     )
     return response?.data
   } catch (error) {
@@ -26,6 +26,38 @@ export const getBookings = async ({
 export const addBooking = async (data: BookingInfo) => {
   try {
     const response = await api.post('/api/v1/bookings/', data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const bookingAction = async ({
+  id,
+  action,
+}: {
+  id: string | undefined
+  action: string
+}) => {
+  try {
+    const response = await api.post(`/api/v1/bookings/${id}/${action}/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const approveBookingPayment = async ({
+  id,
+  amount,
+}: {
+  id: string | undefined
+  amount: string
+}) => {
+  try {
+    const response = await api.post(`/api/v1/bookings/${id}/release/payment/`, {
+      amount,
+    })
     return response?.data
   } catch (error) {
     handleApiError(error)

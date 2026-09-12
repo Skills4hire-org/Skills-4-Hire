@@ -7,9 +7,10 @@ import ServiceProviderGallery from './ServiceProviderGallery'
 import { ArrowRight } from 'lucide-react'
 import EmptyTab from './EmptyTab'
 import type { Post, PostComment } from '@/types/post.types'
-import type { Media } from '@/types/user.types'
+import type { Media, UserType } from '@/types/user.types'
 import PostCard from '../home/PostCard'
 import CommentCard from '../home/CommentCard'
+import { useSelector } from 'react-redux'
 
 export default function ServiceProviderActivity({
   posts,
@@ -22,6 +23,10 @@ export default function ServiceProviderActivity({
   media: Media[] | undefined
   user_id: string | undefined
 }) {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
+
   return (
     <div className="space-y-4">
       <h2 className="font-semibold text-lg md:text-xl ">Activity</h2>
@@ -60,7 +65,7 @@ export default function ServiceProviderActivity({
                     </div>
                   ) : (
                     <Link
-                      to={`/customer/professionals/${user_id}/activity`}
+                      to={`/${userType}/professionals/${user_id}/activity`}
                       className="border-t py-2  text-base md:text-lg font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
                     >
                       Show all posts
@@ -85,7 +90,7 @@ export default function ServiceProviderActivity({
                     </div>
                   ) : (
                     <Link
-                      to={`/customer/professionals/${user_id}/activity`}
+                      to={`/${userType}/professionals/${user_id}/activity`}
                       className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
                     >
                       Show all images
@@ -109,7 +114,7 @@ export default function ServiceProviderActivity({
                     </div>
                   ) : (
                     <Link
-                      to={`/customer/professionals/${user_id}/activity`}
+                      to={`/${userType}/professionals/${user_id}/activity`}
                       className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
                     >
                       Show all comments

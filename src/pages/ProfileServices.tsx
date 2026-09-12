@@ -30,8 +30,7 @@ export default function ProfileServices() {
   } = useAllProviders({
     profession,
   })
-  const services: Service[] =
-    data?.pages.flatMap((page) => page.results) ?? []
+  const services: Service[] = data?.pages.flatMap((page) => page.results) ?? []
   const professionals: Provider[] =
     providers?.pages.flatMap((page) => page.results) ?? []
 
@@ -88,7 +87,7 @@ export default function ProfileServices() {
                     )}
                     {hasNextPage && (
                       <button
-                        className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                        className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                         onClick={() => fetchNextPage()}
                       >
                         Load more services

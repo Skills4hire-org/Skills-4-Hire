@@ -7,6 +7,8 @@ import { useConversations } from '@/hooks/useChats'
 import Loading from '../global/Loading'
 import Error from '../global/Error'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import type { UserData } from '@/types/user.types'
+import { useSelector } from 'react-redux'
 
 export default function ConversationList() {
   const {
@@ -21,12 +23,25 @@ export default function ConversationList() {
   } = useConversations()
   const conversations: Conversation[] =
     data?.pages.flatMap((page) => page?.results ?? []) ?? []
+
+  const sortedConversations = [...conversations].sort(
+    (a, b) =>
+      new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+  )
+
   const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredConversations = conversations.filter((conversation) => {
+  const { user_data }: { user_data: UserData } = useSelector(
+    (state: any) => state.userState,
+  )
+
+  const filteredConversations = sortedConversations.filter((conversation) => {
     const query = searchQuery.trim().toLowerCase()
     if (!query) return true
-    const other = conversation.participant_two
+    const other =
+      conversation.participant_one.user_id === user_data.user_id
+        ? conversation.participant_two
+        : conversation.participant_one
     const name = [
       other?.profile?.display_name,
       other?.first_name,
@@ -96,7 +111,7 @@ export default function ConversationList() {
               )}
               {hasNextPage && (
                 <button
-                  className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                  className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                   onClick={() => fetchNextPage()}
                 >
                   Load more conversations

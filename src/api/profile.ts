@@ -10,6 +10,16 @@ export const getMyProfile = async () => {
     handleApiError(error)
   }
 }
+
+export const getMyProfileOverview = async () => {
+  try {
+    const response = await api.get('/api/v1/profile/overview/')
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
 export const updateMyProfile = async (data: any) => {
   try {
     const response = await api.patch('/api/v1/profile/me', data)

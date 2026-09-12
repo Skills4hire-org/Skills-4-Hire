@@ -65,7 +65,7 @@ export default function FormSelect({
         <SelectTrigger
           className={`w-full relative  text-sm md:text-base pl-4 cursor-pointer  ${className}`}
         >
-          <SelectValue placeholder={placeholder}></SelectValue>
+          <SelectValue placeholder={placeholder} />
           {indicator && (
             <span className="absolute right-0 top-1/2 -translate-y-1/2">
               <ChevronDownIcon

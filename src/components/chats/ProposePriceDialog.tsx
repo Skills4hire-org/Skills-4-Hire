@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react'
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -14,8 +13,18 @@ import { currencyFormatter } from '@/utils/format'
 import { useState } from 'react'
 import FormInput from '../form-fields/FormInput'
 import FormTextArea from '../form-fields/FormTextArea'
+import { useNegotiate } from '@/hooks/useChats'
+import { toast } from 'sonner'
+import { Button } from '../ui/button'
 
-export default function ProposePriceDialog() {
+export default function ProposePriceDialog({
+  conversation_id,
+  sendSocketMessage,
+}: {
+  conversation_id: string
+  sendSocketMessage: (data: unknown) => boolean
+}) {
+  const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState({
     price: '',
     note: '',
@@ -25,14 +34,43 @@ export default function ProposePriceDialog() {
       const newValue = value.replace(/[^0-9]/g, '')
       setFormData((prev) => ({
         ...prev,
-        [field]: newValue && `${currencyFormatter(Number(newValue))}`,
+        [field]: newValue,
       }))
     } else {
       setFormData((prev) => ({ ...prev, [field]: value }))
     }
   }
+
+  const { mutate: negotiate, isPending } = useNegotiate()
+
+  const handleSendProposedPrice = () => {
+    negotiate(
+      {
+        conversation_id,
+        data: {
+          price: formData.price,
+          note: formData.note,
+          status: 'proposed',
+        },
+      },
+      {
+        onSuccess: (createdMessage) => {
+          sendSocketMessage({
+            event: 'message',
+            message_id: createdMessage.message_id,
+          })
+          setIsOpen(false)
+        },
+        onError: (error) => {
+          toast.error(error.message)
+          setIsOpen(true)
+        },
+      },
+    )
+  }
+
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <button className="border-r-1 border-foreground px-1  flex items-center gap-1 cursor-pointer hover:text-primary text-start">
           <Icon
@@ -58,7 +96,7 @@ export default function ProposePriceDialog() {
         <form className="space-y-4">
           <FormInput
             name="price"
-            value={formData.price}
+            value={currencyFormatter(Number(formData.price))}
             handleInputChange={handleInputChange}
             type="text"
             label="Price"
@@ -76,8 +114,12 @@ export default function ProposePriceDialog() {
           />
         </form>
         <AlertDialogFooter className="grid grid-cols-2">
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Send</AlertDialogAction>
+          <AlertDialogCancel onClick={() => setIsOpen(false)}>
+            Cancel
+          </AlertDialogCancel>
+          <Button onClick={handleSendProposedPrice} disabled={isPending}>
+            {isPending ? 'Sending...' : 'Send'}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

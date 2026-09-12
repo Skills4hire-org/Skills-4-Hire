@@ -7,6 +7,7 @@ import {
   deleteService,
   getMyGallery,
   getMyProfile,
+  getMyProfileOverview,
   getMyServices,
   getProviderDetails,
   getProviders,
@@ -54,6 +55,19 @@ export const useMyProfile = () => {
   const queryData = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
+  })
+  return queryData
+}
+
+export const useMyProfileOverview = () => {
+  const getProfileOverview = async () => {
+    const profile = await getMyProfileOverview()
+    return profile
+  }
+
+  const queryData = useQuery({
+    queryKey: ['profile-overview'],
+    queryFn: getProfileOverview,
   })
   return queryData
 }

@@ -143,7 +143,7 @@ export default function ServiceProviderActivity() {
                           )}
                           {postHasNextPage && (
                             <button
-                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                               onClick={() => postFetchNextPage()}
                             >
                               Load more posts
@@ -200,7 +200,7 @@ export default function ServiceProviderActivity() {
                           )}
                           {mediaHasNextPage && (
                             <button
-                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                               onClick={() => mediaFetchNextPage()}
                             >
                               Load more media
@@ -257,7 +257,7 @@ export default function ServiceProviderActivity() {
                           )}
                           {commentHasNextPage && (
                             <button
-                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                              className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                               onClick={() => commentFetchNextPage()}
                             >
                               Load more comments

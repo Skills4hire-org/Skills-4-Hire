@@ -1,4 +1,3 @@
-import { bookingsTabsList } from '@/assets/data'
 import Container from '@/components/global/Container'
 import MobileBookingsHeader from '@/components/header/MobileBookingsHeader'
 import { Tabs } from '@/components/ui/tabs'
@@ -13,9 +12,17 @@ import { useBookings } from '@/hooks/useBookings'
 import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import {
+  customerBookingsTabsList,
+  providerBookingsTabsList,
+} from '@/assets/data'
 
 export default function Bookings() {
-  const [bookingStatus, setBookingStatus] = useState('In_progress')
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
+  const status = userType == 'customer' ? 'Funded' : 'In_progress'
+  const [bookingStatus, setBookingStatus] = useState(status)
   const {
     data,
     isLoading,
@@ -29,13 +36,13 @@ export default function Bookings() {
 
   const bookings = data?.pages.flatMap((page) => page.results) ?? []
 
-  const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState,
-  )
   const BookingsTabContent =
     userType == 'customer'
       ? CustomerBookingsTabContent
       : ServiceProviderBookingsTabContent
+
+  const bookingsTabsList =
+    userType == 'customer' ? customerBookingsTabsList : providerBookingsTabsList
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -43,6 +50,9 @@ export default function Bookings() {
     fetchNextPage,
   })
   const handleBookingsFetchingError = async () => {
+    refetch()
+  }
+  const handleRefetch = () => {
     refetch()
   }
 
@@ -53,7 +63,7 @@ export default function Bookings() {
         <TitleOnlyDesktopHeader title="Bookings" />
       </Container>
       <Container>
-        <Tabs defaultValue="In_progress" className="w-full">
+        <Tabs defaultValue={status} className="w-full">
           <TabHead tabList={bookingsTabsList} setStatus={setBookingStatus} />
           {isLoading ? (
             <div className="h-24">
@@ -64,14 +74,17 @@ export default function Bookings() {
               {isError && !data ? (
                 <div className="py-6">
                   <Error
-                    text={`Failed to load ${bookingStatus == 'In_progress' ? 'ongoing' : bookingStatus}  bookings`}
+                    text={`Failed to load ${bookingStatus == 'Funded' ? 'Pending' : bookingStatus == 'In_progress' ? 'ongoing' : bookingStatus}  bookings`}
                     buttonFunc={handleBookingsFetchingError}
                     buttonText="Retry"
                   />
                 </div>
               ) : (
                 <>
-                  <BookingsTabContent bookings={bookings} />
+                  <BookingsTabContent
+                    bookings={bookings}
+                    handleRefetch={handleRefetch}
+                  />
                   <div ref={loadMoreRef} />
 
                   {isFetchingNextPage && (
@@ -81,7 +94,7 @@ export default function Bookings() {
                   )}
                   {hasNextPage && (
                     <button
-                      className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md"
+                      className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
                       onClick={() => fetchNextPage()}
                     >
                       Load more
@@ -89,7 +102,7 @@ export default function Bookings() {
                   )}
                   {isFetchNextPageError && (
                     <Error
-                      text="Failed to load more reviews"
+                      text="Failed to load more bookings"
                       buttonFunc={fetchNextPage}
                       buttonText="Retry"
                     />

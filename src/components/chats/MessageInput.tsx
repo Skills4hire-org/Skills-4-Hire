@@ -1,6 +1,9 @@
 import { useCreateMessage } from '@/hooks/useChats'
+import type { UserData } from '@/types/user.types'
 import { Loader, SendHorizontal } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { toast } from 'sonner'
 
 interface MessageInputProps {
   conversationId: string
@@ -10,9 +13,13 @@ interface MessageInputProps {
 export default function MessageInput({
   conversationId,
   sendSocketMessage,
+  
 }: MessageInputProps) {
   const [text, setText] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const { user_data }: { user_data: UserData } = useSelector(
+      (state: any) => state.userState,
+    )
 
   const MIN_HEIGHT = 40
   const MAX_HEIGHT = 120
@@ -42,7 +49,6 @@ export default function MessageInput({
       },
       {
         onSuccess: (createdMessage) => {
-          console.log('REST created message:', createdMessage)
           setText('')
           if (textareaRef.current) {
             textareaRef.current.style.height = `${MIN_HEIGHT}px`
@@ -51,6 +57,14 @@ export default function MessageInput({
             event: 'message',
             message_id: createdMessage.message_id,
           })
+          sendSocketMessage({
+            event: 'online',
+            user_id: user_data?.user_id,
+            is_online: true,
+          })
+        },
+        onError: (error) => {
+          toast.error(error.message)
         },
       },
     )

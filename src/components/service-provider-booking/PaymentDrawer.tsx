@@ -18,6 +18,9 @@ import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import { useWallet } from '@/hooks/useWallet'
 import type { WalletBalance } from '@/types/wallet.types'
+import { addAddress } from '@/api/address'
+import { useDispatch } from 'react-redux'
+import { resetBooking } from '@/features/booking/bookingSlice'
 
 export default function PaymentDrawer({
   name,
@@ -62,8 +65,16 @@ export default function PaymentDrawer({
     is_default: false,
   }
 
+  const newAddress = {
+    street_address: info.new_address?.street_address,
+    city: info.new_address?.city,
+    state: info.new_address?.state,
+    country: info.new_address?.country,
+    is_default: false,
+  }
+
   const onsiteData = {
-    address,
+    address: info.new_address ? newAddress : address,
     provider: provider_id,
     price: info.price,
     notes: info.notes,
@@ -84,11 +95,21 @@ export default function PaymentDrawer({
     provider_service: servicesIds,
   }
   const bookingData = info.is_remote ? remoteData : onsiteData
+  const dispatch = useDispatch()
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
+    try {
+      if (info.new_address) {
+        await addAddress(newAddress)
+      }
+    } catch (error) {
+      toast.error('An error occured.')
+      return
+    }
     bookProvider(bookingData, {
       onSuccess: () => {
-        navigate('/customer/bookings')
+        dispatch(resetBooking())
+        navigate(`/customer/bookings`)
       },
       onError: (error) => {
         toast.error(error.message)

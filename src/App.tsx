@@ -51,9 +51,6 @@ import Chat from './pages/Chat'
 import ChatWindow from './components/chats/ChatWindow'
 import ConversationList from './components/chats/ConversationList'
 import Search from './pages/Search'
-import WithdrawVerification from './pages/WithdrawVerification'
-import WithdrawSuccess from './pages/WithdrawSuccess'
-import WithdrawPin from './pages/WithdrawPin'
 import OnboardingRole from './pages/OnboardingRole'
 import UploadPhoto from './pages/UploadPhoto'
 import Endorsers from './pages/Endorsers'
@@ -63,6 +60,12 @@ import ProfileServices from './pages/ProfileServices'
 import ProfileGallery from './pages/ProfileGallery'
 import AuthProtectedRoute from './components/global/AuthProtectedRoute'
 import ProfileEndorsers from './pages/ProfileEndorsers'
+import BookingRequest from './pages/BookinRequests'
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import SupportConversationList from './components/chats/SupportConversationList'
+import ChatSupport from './pages/ChatSupport'
+import SupportChatWindow from './components/chats/SupportChatWindow'
+import Deposit from './pages/Deposit'
 
 const router = createBrowserRouter([
   {
@@ -85,11 +88,19 @@ const router = createBrowserRouter([
   },
   {
     path: 'sign-up',
-    element: <SignUp />,
+    element: (
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <SignUp />
+      </GoogleOAuthProvider>
+    ),
   },
   {
     path: 'sign-in',
-    element: <SignIn />,
+    element: (
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <SignIn />
+      </GoogleOAuthProvider>
+    ),
   },
   {
     path: 'forgot-password',
@@ -179,6 +190,10 @@ const router = createBrowserRouter([
         element: <ProviderOverview />,
       },
       {
+        path: 'booking-requests',
+        element: <BookingRequest />,
+      },
+      {
         path: 'services',
         element: <Services />,
       },
@@ -226,6 +241,7 @@ const router = createBrowserRouter([
         path: 'bookings',
         element: <Bookings />,
       },
+      { path: 'bookings/:id/approve', element: <ApprovePayment /> },
       {
         path: 'wallet',
         element: <Wallet />,
@@ -234,11 +250,10 @@ const router = createBrowserRouter([
         path: 'wallet/transaction-history',
         element: <TransactionHistory />,
       },
-      { path: 'wallet/approve', element: <ApprovePayment /> },
+
       { path: 'wallet/withdraw', element: <Withdraw /> },
-      { path: 'wallet/withdraw-verify', element: <WithdrawVerification /> },
-      { path: 'wallet/withdraw-pin', element: <WithdrawPin /> },
-      { path: 'wallet/withdraw-success', element: <WithdrawSuccess /> },
+      { path: 'wallet/deposit', element: <Deposit /> },
+
       {
         path: 'messages',
         element: <Chat />,
@@ -250,6 +265,20 @@ const router = createBrowserRouter([
           {
             path: ':conversationId',
             element: <ChatWindow />,
+          },
+        ],
+      },
+      {
+        path: 'customer-support',
+        element: <ChatSupport />,
+        children: [
+          {
+            index: true,
+            element: <SupportConversationList />,
+          },
+          {
+            path: ':conversationId',
+            element: <SupportChatWindow />,
           },
         ],
       },

@@ -7,3 +7,12 @@ export type WalletBalance = {
   overall_balance: string
   overall_locked_balance: string
 }
+
+export type Transaction = {
+  amount: string
+  reference_key: string
+  status: string
+  transaction_id: string
+  type: string
+  transaction_date: string
+}

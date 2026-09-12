@@ -1,9 +1,3 @@
-export interface User {
-  id: string
-  name: string
-  avatar?: string
-}
-
 export type CreateConversation = {
   participant_two_id: string
 }
@@ -17,6 +11,7 @@ export interface Profile {
   display_name: string
   professional_title: string | null
   avatar: Avatar | null
+  provider_id: string | null
 }
 
 export interface User {
@@ -71,9 +66,30 @@ export type Message = {
     user_id: string
   }
 }
+
+export type SupportMessage = {
+  features: string
+  is_read: boolean
+  is_staff: boolean
+  message: string
+  message_id: string
+  updated_at: string
+  created_at: string
+  support: {
+    support_id: string
+    status: string
+    is_active: boolean
+    created_at: string
+    assigned_at: string
+    updated_at: string
+    resolved_at: string
+    closed_at: string
+  }
+}
+
 export type Conversation = {
   conversation_id: string
-  participant_one: string
+  participant_one: User
   participant_two: User
   message_count: number
   unread_count: number
@@ -83,7 +99,28 @@ export type Conversation = {
     created_at: string
     is_read: boolean
   }
-
   created_at: string
   updated_at: string
+}
+
+export type SupportConversation = {
+  conversation_id: string
+  created_at: string
+  last_message: {
+    features: string
+    is_read: boolean
+    is_staff: boolean
+    message: string
+    message_id: string
+  }
+  support: {
+    support_id: string
+    status: string
+    is_active: boolean
+    created_at: string
+    assigned_at: string
+    updated_at: string
+    resolved_at: string
+    closed_at: string
+  }
 }

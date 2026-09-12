@@ -44,6 +44,7 @@ import webDevelopment from './images/webDevelopment.jpg'
 import heroCarousel1 from './images/hero-carousel-1.jpg'
 import heroCarousel2 from './images/hero-carousel2.jpg'
 import heroCarousel3 from './images/hero-carousel3.png'
+import { digitalCategories, vocationalCategories } from '@/data/staticServices'
 
 export const images = [img1, img2, img1]
 
@@ -138,7 +139,7 @@ export const customerMobileNavLinks = [
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/customer/bookings',
+    url: `/customer/bookings`,
     activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
@@ -170,7 +171,7 @@ export const customerDesktopNavLinks = [
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/customer/bookings',
+    url: `/customer/bookings`,
   },
   { label: 'wallet', icon: 'solar:wallet-outline', url: '/customer/wallet' },
   {
@@ -206,7 +207,7 @@ export const serviceProviderMobileNavLinks = [
   {
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
-    url: '/professional/bookings',
+    url: `/professional/bookings`,
     activeIcon: 'fluent:clipboard-settings-24-filled',
   },
   {
@@ -241,7 +242,7 @@ export const serviceProviderDesktopNavLinks = [
     label: 'bookings',
     icon: 'fluent:clipboard-settings-24-regular',
     activeIcon: 'fluent:clipboard-settings-24-filled',
-    url: '/professional/bookings',
+    url: `/professional/bookings`,
   },
   {
     label: 'wallet',
@@ -271,7 +272,7 @@ export const serviceProviderDesktopNavLinks = [
 
 /* ========= TABS LIST ============ */
 
-export const bookingsTabsList = [
+export const providerBookingsTabsList = [
   {
     status: 'In_progress',
     label: 'Ongoing',
@@ -285,17 +286,37 @@ export const bookingsTabsList = [
     label: 'Cancelled',
   },
 ]
+
+export const customerBookingsTabsList = [
+  {
+    status: 'Funded',
+    label: 'Pending',
+  },
+  {
+    status: 'In_progress',
+    label: 'Ongoing',
+  },
+  {
+    status: 'Completed',
+    label: 'Completed',
+  },
+  {
+    status: 'Cancelled',
+    label: 'Cancelled',
+  },
+]
+
 export const customerWalletTabsList = [
   {
     status: 'pending',
     label: 'Pending',
   },
   {
-    status: 'spent',
-    label: 'Spent',
+    status: 'completed',
+    label: 'Completed',
   },
   {
-    status: 'canceled',
+    status: 'failed',
     label: 'Canceled',
   },
 ]
@@ -305,11 +326,11 @@ export const serviceProviderWalletTabsList = [
     label: 'Pending',
   },
   {
-    status: 'earned',
-    label: 'Earned',
+    status: 'completed',
+    label: 'Completed',
   },
   {
-    status: 'canceled',
+    status: 'failed',
     label: 'Canceled',
   },
 ]
@@ -428,8 +449,8 @@ export const serviceProviderHomeNavLinks = [
     hasNotification: false,
   },
   {
-    url: "/professional/home/request",
-    label: "Hire requests",
+    url: '/professional/home/request',
+    label: 'Hire requests',
     hasNotification: true,
     // url: 'job-offers',
     // label: 'Hire requests',
@@ -1903,6 +1924,45 @@ export const searchFilters = [
   {
     label: 'Rating',
     value: 'rating',
+  },
+]
+
+const vocationalSkills = vocationalCategories.map((category) => {
+  const subcategories = category.roles.map((role) => {
+    return {
+      label: role,
+      value: role,
+    }
+  })
+
+  return {
+    label: category.name,
+    options: subcategories,
+  }
+})
+
+const digitalSkills = digitalCategories.map((category) => {
+  const subcategories = category.roles.map((role) => {
+    return {
+      label: role,
+      value: role,
+    }
+  })
+
+  return {
+    label: category.name,
+    options: subcategories,
+  }
+})
+
+export const skillsTypes = [
+  {
+    label: 'vocational',
+    options: vocationalSkills,
+  },
+  {
+    label: 'digital',
+    options: digitalSkills,
   },
 ]
 

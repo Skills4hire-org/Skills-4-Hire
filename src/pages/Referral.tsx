@@ -11,7 +11,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { toast } from 'sonner'
-import { useReferrals, useWithdrawReferralBonus } from '@/hooks/useReferrals'
+import {
+  useReferrals,
+  useUserReferrals,
+  useWithdrawReferralBonus,
+} from '@/hooks/useReferrals'
 import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
 import type { ReferralDetails } from '@/types/referrals.types'
@@ -24,11 +28,34 @@ import {
 } from '@radix-ui/react-tooltip'
 import ShareButtons from '@/components/referrals/ShareButtons'
 import ReferralCard from '@/components/referrals/ReferralCard'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 
 export default function Referral() {
   const { data, isLoading, isError, refetch } = useReferrals()
-
   const referralsDetails: ReferralDetails = data?.referrals
+  const {
+    data: userReferrals,
+    isLoading: userReferralLoading,
+    isError: userReferralError,
+    refetch: userReferralRefetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetchNextPageError,
+  } = useUserReferrals()
+
+  const referrals = userReferrals?.pages.flatMap((page) => page.results) ?? []
+
+  const loadMoreRef = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  })
+
+  const handleUserReferralsFetchingError = async () => {
+    userReferralRefetch()
+  }
+
   const [searchQuery, setSearchQuery] = useState('')
   const [search, setSearch] = useState('')
   const referralLink = referralsDetails?.referral_link
@@ -36,10 +63,8 @@ export default function Referral() {
   const handleSearch = () => {
     setSearch(searchQuery)
   }
-  const filteredReferrals = referralsDetails?.referrals?.filter((referral) =>
-    referral.referred.profile.display_name
-      .toLowerCase()
-      .includes(search.toLowerCase()),
+  const filteredReferrals = referrals?.filter((referral) =>
+    referral.profile.display_name.toLowerCase().includes(search.toLowerCase()),
   )
   const handleCopy = (text: string, value: string) => {
     navigator.clipboard.writeText(value)
@@ -163,51 +188,92 @@ export default function Referral() {
                     </p>
                   </div>
                 </div>
-                <div className="flex-grow flex justify-center px-4 mt-8 pb-8">
-                  <div
-                    className="bg-gray-400 rounded-t-lg w-full max-w-md flex flex-col"
-                    style={{ minHeight: '65vh' }}
-                  >
-                    <div className="px-6 pt-6 pb-4">
-                      <h2 className="text-lg font-semibold text-gray-900 text-left">
-                        Referrals
-                      </h2>
-
-                      <div className="mt-4 max-w-xs mx-auto">
-                        <SearchBar
-                          placeholder="Search by name"
-                          maxWidth="w-full"
-                          value={searchQuery}
-                          setSearchQuery={setSearchQuery}
-                          onSubmit={handleSearch}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="px-4 flex-1 overflow-auto">
-                      <div className="divide-y divide-gray-500">
-                        {filteredReferrals?.map((referral) => (
-                          <ReferralCard
-                            key={referral.referral_id}
-                            {...referral}
-                          />
-                        ))}
-
-                        {filteredReferrals?.length === 0 && (
-                          <p className="text-base md:text-lg font-medium text-center h-24 flex items-center justify-center">
-                            {referralsDetails?.referrals?.length === 0
-                              ? 'No referrals yet.'
-                              : 'No results'}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </>
             )}
           </>
         )}
+
+        <div className="flex-grow flex justify-center px-4 mt-8 pb-8">
+          <div
+            className="bg-gray-400 rounded-t-lg w-full max-w-md flex flex-col"
+            style={{ minHeight: '65vh' }}
+          >
+            <div className="px-6 pt-6 pb-4">
+              <h2 className="text-lg font-semibold text-gray-900 text-left">
+                Referrals
+              </h2>
+
+              <div className="mt-4 max-w-xs mx-auto">
+                <SearchBar
+                  placeholder="Search by name"
+                  maxWidth="w-full"
+                  value={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  onSubmit={handleSearch}
+                />
+              </div>
+            </div>
+
+            {userReferralLoading ? (
+              <div className="h-24">
+                <Loading />
+              </div>
+            ) : (
+              <>
+                {userReferralError ? (
+                  <div className="h-24">
+                    <Error
+                      text="Failed to fetch referrals"
+                      buttonFunc={handleUserReferralsFetchingError}
+                    />
+                  </div>
+                ) : (
+                  <div className="px-4 flex-1 overflow-auto">
+                    <div className="divide-y divide-gray-500">
+                      {filteredReferrals?.map((referral) => (
+                        <ReferralCard
+                          key={referral.referral_id}
+                          {...referral}
+                        />
+                      ))}
+                    </div>
+
+                    {filteredReferrals?.length === 0 && (
+                      <p className="text-base md:text-lg font-medium text-center h-24 flex items-center justify-center">
+                        {referralsDetails?.referrals?.length === 0
+                          ? 'No referrals yet.'
+                          : 'No results'}
+                      </p>
+                    )}
+
+                    <div ref={loadMoreRef} />
+
+                    {isFetchingNextPage && (
+                      <div className="py-4 text-center">
+                        <Loading />
+                      </div>
+                    )}
+                    {hasNextPage && (
+                      <button
+                        className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
+                        onClick={() => fetchNextPage()}
+                      >
+                        Load more referrals
+                      </button>
+                    )}
+                    {isFetchNextPageError && (
+                      <Error
+                        text="Failed to load more referrals"
+                        buttonFunc={fetchNextPage}
+                        buttonText="Retry"
+                      />
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </Container>
     </div>
   )

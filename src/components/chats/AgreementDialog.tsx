@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react'
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -13,8 +12,18 @@ import {
 import { currencyFormatter } from '@/utils/format'
 import { useState } from 'react'
 import FormInput from '../form-fields/FormInput'
+import { useNegotiate } from '@/hooks/useChats'
+import { toast } from 'sonner'
+import { Button } from '../ui/button'
 
-export default function AgreementDialog() {
+export default function AgreementDialog({
+  conversation_id,
+  sendSocketMessage,
+}: {
+  conversation_id: string
+  sendSocketMessage: (data: unknown) => boolean
+}) {
+  const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState({
     price: '',
     note: '',
@@ -24,14 +33,43 @@ export default function AgreementDialog() {
       const newValue = value.replace(/[^0-9]/g, '')
       setFormData((prev) => ({
         ...prev,
-        [field]: newValue && `${currencyFormatter(Number(newValue))}`,
+        [field]: newValue,
       }))
     } else {
       setFormData((prev) => ({ ...prev, [field]: value }))
     }
   }
+
+  const { mutate: negotiate, isPending } = useNegotiate()
+
+  const handleSendAcceptedPrice = () => {
+    negotiate(
+      {
+        conversation_id,
+        data: {
+          price: formData.price,
+          note: formData.note,
+          status: 'accepted',
+        },
+      },
+      {
+        onSuccess: (createdMessage) => {
+          sendSocketMessage({
+            event: 'message',
+            message_id: createdMessage.message_id,
+          })
+          setIsOpen(false)
+        },
+        onError: (error) => {
+          toast.error(error.message)
+          setIsOpen(true)
+        },
+      },
+    )
+  }
+
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <button className=" px-1  flex items-center gap-1 cursor-pointer  group text-start">
           <Icon
@@ -58,7 +96,7 @@ export default function AgreementDialog() {
         <form className="space-y-4">
           <FormInput
             name="price"
-            value={formData.price}
+            value={currencyFormatter(Number(formData.price))}
             handleInputChange={handleInputChange}
             type="text"
             label="Final Price"
@@ -68,8 +106,12 @@ export default function AgreementDialog() {
           />
         </form>
         <AlertDialogFooter className="grid grid-cols-2">
-          <AlertDialogCancel>No</AlertDialogCancel>
-          <AlertDialogAction>Yes</AlertDialogAction>
+          <AlertDialogCancel onClick={() => setIsOpen(false)}>
+            No
+          </AlertDialogCancel>
+          <Button onClick={handleSendAcceptedPrice} disabled={isPending}>
+            {isPending ? 'Please wait...' : 'Yes'}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

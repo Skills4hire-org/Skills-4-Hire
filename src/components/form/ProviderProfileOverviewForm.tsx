@@ -2,12 +2,12 @@ import type { Profile, ProfileOverviewFormData } from '@/types/user.types'
 import { useState, type FormEvent } from 'react'
 import FormInput from '../form-fields/FormInput'
 import { Minus } from 'lucide-react'
-import FormSelect from '../form-fields/FormSelect'
-import { serviceTypes } from '@/assets/data'
+import { skillsTypes } from '@/assets/data'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Button } from '../ui/button'
 import { useUpdateMyProfile } from '../../hooks/useUsers'
 import { toast } from 'sonner'
+import FormSelectGroup from '../form-fields/FormSelectGroup'
 
 export default function ProviderProfileOverviewForm({
   professional,
@@ -45,13 +45,13 @@ export default function ProviderProfileOverviewForm({
       max_charge: formData.maxCharge,
       min_charge: formData.minCharge,
       headline: formData.headline,
-      user: {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        profile: {
-          city: formData.city,
-          state: formData.state,
-          location: formData.address,
+      profile: {
+        city: formData.city,
+        state: formData.state,
+        location: formData.address,
+        user: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
         },
       },
     }
@@ -91,17 +91,16 @@ export default function ProviderProfileOverviewForm({
           />
         </div>
 
-        <FormSelect
+        <FormSelectGroup
           name="profession"
           value={formData.profession}
           handleInputChange={handleInputChange}
-          selectItems={serviceTypes}
+          selectGroupData={skillsTypes}
           className="capitalize bg-gray-300 h-[44px] pr-6 disabled:cursor-auto"
           required
           placeholder="Profession"
           label="Profession"
         />
-
         <FormInput
           name="headline"
           value={formData?.headline}

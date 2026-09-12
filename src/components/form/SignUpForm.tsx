@@ -10,9 +10,13 @@ import { Eye, EyeClosed } from 'lucide-react'
 
 interface SignUpFormProps {
   onSuccess?: (email: string) => void
+  referral_code?: string | null
 }
 
-export default function SignUpForm({ onSuccess }: SignUpFormProps) {
+export default function SignUpForm({
+  onSuccess,
+  referral_code,
+}: SignUpFormProps) {
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -20,7 +24,7 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
     email: '',
     password: '',
     confirm_password: '',
-    referral_code: '',
+    referral_code: referral_code ?? '',
     countryCode: '+234',
   })
 

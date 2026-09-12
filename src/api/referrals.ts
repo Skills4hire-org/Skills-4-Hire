@@ -21,3 +21,16 @@ export const withdrawReferralBonus = async (data: { amount: number }) => {
     handleApiError(error)
   }
 }
+
+export const getUserReferrals = async (pageParam?: string) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(`/api/v1/user-referrals/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}

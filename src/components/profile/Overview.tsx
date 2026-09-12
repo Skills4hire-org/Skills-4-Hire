@@ -62,7 +62,7 @@ export default function Overview({
             <MapPin className="w-4 h-4" />
             {professional?.user?.profile?.location},{' '}
             {professional?.user?.profile?.city},{' '}
-            {professional?.user?.profile?.state}
+            {professional?.user?.profile?.state},{' '}
             {professional?.user?.profile?.country}
           </p>
           <div className="text-xs md:text-sm flex items-center justify-start gap-4 mt-1 ">

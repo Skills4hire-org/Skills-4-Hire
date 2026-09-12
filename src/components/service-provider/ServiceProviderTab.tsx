@@ -6,7 +6,8 @@ import ServiceProviderGallery from './ServiceProviderGallery'
 import EmptyTab from './EmptyTab'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import type { Gallery } from '@/types/user.types'
+import type { Gallery, UserType } from '@/types/user.types'
+import { useSelector } from 'react-redux'
 
 export default function ServiceProviderTab({
   about,
@@ -17,6 +18,10 @@ export default function ServiceProviderTab({
   gallery: Gallery[] | undefined
   user_id: string | undefined
 }) {
+  const { userType }: { userType: UserType } = useSelector(
+    (state: any) => state.userState,
+  )
+
   return (
     <Tabs defaultValue="about" className="space-y-1 ">
       <TabsList className="border-b-0 bg-background  rounded-none relative p-0 space-x-12 md:space-x-24">
@@ -54,7 +59,7 @@ export default function ServiceProviderTab({
                   </div>
                 ) : (
                   <Link
-                    to={`/customer/professionals/${user_id}/gallery`}
+                    to={`/${userType}/professionals/${user_id}/gallery`}
                     className="border-t py-2  text-base md:text-lg mt-2 font-medium absolute left-1/2 -translate-x-1/2 bottom-0 w-full  flex items-center justify-center gap-2 hover:bg-gray-300"
                   >
                     Show all images

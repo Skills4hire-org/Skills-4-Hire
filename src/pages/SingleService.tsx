@@ -57,7 +57,9 @@ function RoleCard({ role, image }: { role: string; image?: string }) {
           ) : (
             <div className="flex flex-col items-center justify-center gap-1.5 w-full h-full p-2">
               <ImageIcon className="w-7 h-7 text-neutral-300" />
-              <span className="text-xs text-neutral-400 capitalize text-center">{role}</span>
+              <span className="text-xs text-neutral-400 capitalize text-center">
+                {role}
+              </span>
             </div>
           )}
         </figure>
@@ -73,7 +75,8 @@ function ProviderList({ profession }: { profession: string }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [providerSearchQuery, setProviderSearchQuery] = useState('')
   const [filters, setFilters] = useState<AppliedFilters>(EMPTY_FILTERS)
-  const [draftFilters, setDraftFilters] = useState<AppliedFilters>(EMPTY_FILTERS)
+  const [draftFilters, setDraftFilters] =
+    useState<AppliedFilters>(EMPTY_FILTERS)
 
   const {
     data,
@@ -253,10 +256,7 @@ function ProviderList({ profession }: { profession: string }) {
       </aside>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent
-          side="right"
-          className="w-[85%] sm:max-w-sm bg-white p-0"
-        >
+        <SheetContent side="right" className="w-[85%] sm:max-w-sm bg-white p-0">
           <SheetHeader className="px-4 py-3 border-b">
             <div className="text-center">
               <SheetTitle className="text-base">Filter by</SheetTitle>

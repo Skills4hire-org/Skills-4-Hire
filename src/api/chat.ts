@@ -33,6 +33,19 @@ export const getConversationList = async (pageParam?: string) => {
   }
 }
 
+export const getSupportConversationList = async (pageParam?: string) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(`/api/v1/opened/ticket/`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
 export const createMessage = async ({
   conversation_id,
   data,
@@ -45,6 +58,26 @@ export const createMessage = async ({
   try {
     const response = await api.post(
       `/api/v1/conversation/${conversation_id}/messages/`,
+      data,
+    )
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const createSupportMessage = async ({
+  conversation_id,
+  data,
+}: {
+  conversation_id: string
+  data: {
+    message: string
+  }
+}) => {
+  try {
+    const response = await api.post(
+      `/api/v1/opened/ticket/${conversation_id}/messages/`,
       data,
     )
     return response?.data
@@ -67,6 +100,49 @@ export const getMessages = async ({
     }
     const response = await api.get(
       `/api/v1/conversation/${conversation_id}/messages/`,
+    )
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const getSupportMessages = async ({
+  pageParam,
+  conversation_id,
+}: {
+  conversation_id?: string
+  pageParam?: string
+}) => {
+  try {
+    if (pageParam) {
+      const response = await api.get(pageParam)
+      return response?.data
+    }
+    const response = await api.get(
+      `/api/v1/opened/ticket/${conversation_id}/messages/`,
+    )
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const negotiate = async ({
+  conversation_id,
+  data,
+}: {
+  conversation_id: string
+  data: {
+    price: string
+    status: string
+    note: string
+  }
+}) => {
+  try {
+    const response = await api.post(
+      `/api/v1/conversation/${conversation_id}/negotiate/`,
+      data,
     )
     return response?.data
   } catch (error) {

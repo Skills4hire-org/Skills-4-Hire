@@ -1,14 +1,14 @@
 import ConversationList from '@/components/chats/ConversationList'
 import Container from '@/components/global/Container'
-import DesktopWalletHeader from '@/components/header/DesktopWalletHeader'
-import MobileWalletHeader from '@/components/header/MobileWalletHeader'
-import { useIsMobile } from '@/hooks/use-mobile'
+import DesktopChatHeader from '@/components/header/DesktopChatHeader'
+import MobileChatHeader from '@/components/header/MobileChatHeader'
+import { useIsChatMobile } from '@/hooks/use-mobile'
 import { Outlet, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useNotificationSeenContext } from '@/contexts/notification-seen'
 
 export default function Chat() {
-  const isMobile = useIsMobile()
+  const isMobile = useIsChatMobile()
   const { conversationId } = useParams()
   const { markSeen } = useNotificationSeenContext()
 
@@ -19,12 +19,18 @@ export default function Chat() {
   return (
     <div className="space-y-4 md:space-y-6 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
       <Container className="bg-white">
-        {!conversationId && <MobileWalletHeader title="Chats" />}
-        <DesktopWalletHeader title="Messages" />
+        {!conversationId && <MobileChatHeader title="Messages" />}
+        <DesktopChatHeader title="Messages" />
       </Container>
       <Container>
         {isMobile ? (
-          <div className={`${conversationId && 'h-[calc(100vh-82px)]'}`}>
+          <div
+            className={`${
+              conversationId
+                ? 'h-[calc(100dvh-83px)] md:h-[calc(100dvh-56px)] overflow-hidden'
+                : 'h-auto'
+            } `}
+          >
             <Outlet />
           </div>
         ) : (

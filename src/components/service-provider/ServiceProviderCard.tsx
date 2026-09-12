@@ -4,7 +4,8 @@ import defaultImage from '../../assets/images/profile.jpg'
 import { Link } from 'react-router-dom'
 import { Briefcase } from 'lucide-react'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
-import type { Provider } from '@/types/user.types'
+import type { Provider, UserType } from '@/types/user.types'
+import { useSelector } from 'react-redux'
 
 export default function ServiceProviderCard({
   provider_id,
@@ -17,13 +18,16 @@ export default function ServiceProviderCard({
 }: Provider) {
   const isFavourite = providerIDs?.includes(provider_id)
   const coverImageUrl = user?.profile?.cover_photo?.image_url
+  const { userType }: { userType: UserType } = useSelector(
+      (state: any) => state.userState,
+    )
 
   return (
     <div className="relative w-full">
       {/* Top-right actions: Hire Now + Favorite (outside overflow-hidden) */}
       <div className="absolute top-35 md:top-3 lg:top-3 right-3 z-20 flex items-center gap-2">
         <Link
-          to={`/customer/professionals/${provider_id}/booking`}
+          to={`/${userType}/professionals/${provider_id}/booking`}
           className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm hover:bg-primary/90 transition-colors"
         >
           <Briefcase className="w-3.5 h-3.5" />
@@ -42,7 +46,7 @@ export default function ServiceProviderCard({
       <div className="rounded-none flex flex-col lg:flex-row bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-md hover:border-slate-300 transition-all w-full relative">
         {/* Cover Photo Header: Top on mobile/tablet, Left side on laptop */}
         <Link
-          to={`/customer/professionals/${provider_id}`}
+          to={`/${userType}/professionals/${provider_id}`}
           className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-100 bg-cover bg-center shrink-0"
           style={{
             backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : undefined,
@@ -56,7 +60,7 @@ export default function ServiceProviderCard({
           {/* Rounded profile avatar image: Overlaps cover on mobile, stands clean on laptop */}
           <div className="-mt-10 lg:-mt-0 shrink-0 z-0">
             <Link
-              to={`/customer/professionals/${provider_id}`}
+              to={`/${userType}/professionals/${provider_id}`}
               className="w-20 h-20 rounded-full border-4 border-white lg:border-2 lg:border-slate-100 bg-white shadow-sm overflow-hidden block"
             >
               <img
@@ -72,7 +76,7 @@ export default function ServiceProviderCard({
           <div className="flex flex-col min-w-0 space-y-1">
             <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
               <Link
-                to={`/customer/professionals/${provider_id}`}
+                to={`/${userType}/professionals/${provider_id}`}
                 className="inline-block min-w-0"
               >
                 <h3 className="font-bold text-base text-slate-900 hover:text-primary transition-colors truncate">
@@ -87,7 +91,7 @@ export default function ServiceProviderCard({
             </div>
 
             <Link
-              to={`/customer/professionals/${provider_id}`}
+              to={`/${userType}/professionals/${provider_id}`}
               className="block"
             >
               <p className="font-normal text-xs md:text-sm text-slate-500 line-clamp-2 lg:line-clamp-1 leading-relaxed">

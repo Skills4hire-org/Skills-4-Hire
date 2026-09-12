@@ -8,13 +8,33 @@ import TransactionCard from '@/components/wallet/TransactionCard'
 import NoTransactionHistory from '@/components/wallet/NoTransactionHistory'
 import { useTransactions } from '@/hooks/useWallet'
 import { Skeleton } from '@/components/ui/skeleton'
+import Error from '@/components/global/Error'
+import Loading from '@/components/global/Loading'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 
 export default function Wallet() {
-  const { data, isLoading, isError } = useTransactions({ status: 'pending' })
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetchNextPageError,
+  } = useTransactions({ status: 'PENDING' })
 
-  const allTransactions =
-    data?.pages.flatMap((page) => page?.results ?? []) ?? []
-  const groupedTransactions = groupTransactionsByDay(allTransactions)
+  const loadMoreRef = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  })
+
+  const pendingTransactions = data?.pages.flatMap((page) => page.results) ?? []
+  const handleTransactionFetchingError = () => {
+    refetch()
+  }
+  const groupedTransactions = groupTransactionsByDay(pendingTransactions)
   const groupedTransactionsArray = Object.entries(groupedTransactions)
 
   return (
@@ -33,38 +53,68 @@ export default function Wallet() {
           <SectionHeading heading="Pending Payment" />
 
           <div className="space-y-2 md:space-y-4">
-            {isLoading && (
+            {isLoading ? (
               <div className="space-y-3">
                 {[...Array(3)].map((_, i) => (
                   <Skeleton key={i} className="h-16 w-full rounded-md" />
                 ))}
               </div>
-            )}
-
-            {!isLoading &&
-              !isError &&
-              groupedTransactionsArray.map(([day, transactions]) => (
-                <div key={day} className="space-y-2 md:space-y-3">
-                  <h3 className="text-sm md:text-base font-semibold capitalize text-muted-foreground">
-                    {day}
-                  </h3>
-
-                  <div className="grid grid-cols-1 gap-3 md:gap-4 max-w-xl mx-auto">
-                    {transactions.map((transaction, index) => (
-                      <TransactionCard key={index} {...transaction} />
-                    ))}
+            ) : (
+              <>
+                {isError && !data ? (
+                  <div className="py-6">
+                    <Error
+                      text="Failed to load your pending transactions"
+                      buttonFunc={handleTransactionFetchingError}
+                    />
                   </div>
-                </div>
-              ))}
+                ) : (
+                  <>
+                    <div className="grid grid-cols-1 gap-2 md:gap-4 max-w-xl mx-auto">
+                      {groupedTransactionsArray.map(([day, transactions]) => (
+                        <div key={day} className="space-y-2 md:space-y-3">
+                          <h3 className="text-sm md:text-base font-semibold capitalize text-muted-foreground">
+                            {day}
+                          </h3>
 
-            {!isLoading && !isError && groupedTransactionsArray.length === 0 && (
-              <NoTransactionHistory label="pending" />
-            )}
+                          <div className="grid grid-cols-1 gap-3 md:gap-4 max-w-xl mx-auto">
+                            {transactions.map((transaction, index) => (
+                              <TransactionCard key={index} {...transaction} />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
 
-            {isError && (
-              <p className="text-center text-sm text-muted-foreground py-10">
-                Failed to load transactions. Please refresh.
-              </p>
+                    {groupedTransactionsArray.length === 0 && (
+                      <NoTransactionHistory label="pending" />
+                    )}
+
+                    <div ref={loadMoreRef} />
+
+                    {isFetchingNextPage && (
+                      <div className="py-4 text-center">
+                        <Loading />
+                      </div>
+                    )}
+                    {hasNextPage && (
+                      <button
+                        className="shadow-sm px-4 py-1 text-sm md:text-base font-medium rounded-sm cursor-pointer hover:shadow-md block w-max mx-auto"
+                        onClick={() => fetchNextPage()}
+                      >
+                        Load more
+                      </button>
+                    )}
+                    {isFetchNextPageError && (
+                      <Error
+                        text="Failed to load more transactions"
+                        buttonFunc={fetchNextPage}
+                        buttonText="Retry"
+                      />
+                    )}
+                  </>
+                )}
+              </>
             )}
           </div>
         </div>
