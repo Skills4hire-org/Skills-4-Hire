@@ -15,3 +15,18 @@ export const markNotificationRead = async (notificationId: string) => {
   try { return (await api.post(`/api/v1/notifications/${notificationId}/mark-read/`, {})).data }
   catch (error) { handleApiError(error) }
 }
+
+export const getNotification = async (notificationId: string) => {
+  try { return (await api.get(`/api/v1/notifications/${notificationId}/`)).data }
+  catch (error) { handleApiError(error) }
+}
+
+export const createNotification = async (data: { event: string; content?: string }) => {
+  try { return (await api.post('/api/v1/notifications/', data)).data }
+  catch (error) { handleApiError(error) }
+}
+
+export const deleteNotification = async (notificationId: string) => {
+  try { return (await api.delete(`/api/v1/notifications/${notificationId}/`)).data }
+  catch (error) { handleApiError(error) }
+}

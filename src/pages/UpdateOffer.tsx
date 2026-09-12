@@ -37,7 +37,10 @@ export default function UpdateOffer() {
 
   return (
     <div className="pb-10">
-      <HeaderWithBackNavigation title="Edit Offer" />
+      <HeaderWithBackNavigation
+        title="Edit Offer"
+        fallback="/customer/home/my-offers"
+      />
       <Container className="pt-1 max-w-2xl mx-auto">
         <div className="space-y-4 md:space-y-6">
           <div className="flex items-center gap-2 md:gap-4">

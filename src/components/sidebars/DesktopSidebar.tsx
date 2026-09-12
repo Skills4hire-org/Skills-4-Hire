@@ -21,6 +21,8 @@ import ProfileImage from '../global/ProfileImage'
 import { Icon } from '@iconify/react'
 import { useMyProfile } from '@/hooks/useUsers'
 import type { Profile } from '@/types/user.types'
+import { useUnreadMessageCount } from '@/hooks/useChats'
+import { useUnreadNotificationCount } from '@/hooks/useNotifications'
 
 export default function DesktopSidebar() {
   const { userType }: { userType: UserType } = useSelector(
@@ -31,6 +33,8 @@ export default function DesktopSidebar() {
   const avatar = user?.user?.profile?.avatar?.avatar
   const is_active = navigator.onLine
   const pathname = useLocation().pathname
+  const { count: unreadMessageCount } = useUnreadMessageCount()
+  const { count: unreadNotificationCount } = useUnreadNotificationCount()
 
   const desktopNavLinks =
     userType == 'customer'
@@ -64,6 +68,16 @@ export default function DesktopSidebar() {
                       />
                       <span className="capitalize text-[1rem] flex items-center justify-between flex-1 ">
                         {label}
+                        {label === 'messages' && unreadMessageCount > 0 && (
+                          <span className="bg-red-600 text-white text-[10px] leading-3.5 min-w-4 h-4 px-1 rounded-full inline-flex items-center justify-center font-semibold">
+                            {unreadMessageCount > 99 ? '99+' : unreadMessageCount}
+                          </span>
+                        )}
+                        {label === 'notification' && unreadNotificationCount > 0 && (
+                          <span className="bg-red-600 text-white text-[10px] leading-3.5 min-w-4 h-4 px-1 rounded-full inline-flex items-center justify-center font-semibold">
+                            {unreadNotificationCount > 99 ? '99+' : unreadNotificationCount}
+                          </span>
+                        )}
                       </span>
                     </NavLink>
                   </SidebarMenuItem>

@@ -1,5 +1,5 @@
 import { Briefcase, Search, Sliders, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import NoJobsFound from "@/components/global/NoResultFound";
 import JobListingCard from "@/components/home/JobListingCard";
 import { useJobApplications } from "@/hooks/usePosts";
@@ -7,8 +7,14 @@ import Loading from "@/components/global/Loading";
 import ErrorComponent from "@/components/global/Error";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import type { JobListing } from "@/components/home/JobListingCard";
+import { useNotificationSeenContext } from "@/contexts/notification-seen";
 
 export default function Jobs() {
+  const { markSeen } = useNotificationSeenContext();
+
+  useEffect(() => {
+    markSeen("jobs");
+  }, [markSeen]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filterOpen, setFilterOpen] = useState(false);

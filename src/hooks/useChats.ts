@@ -20,14 +20,29 @@ import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 import { queryClient } from '@/utils/queryClientConfig'
 import { store } from '@/store'
+import { useNotificationSeenContext } from '@/contexts/notification-seen'
+import { toast } from 'sonner'
 
 export const useCreateConversation = () => {
   const createConversationAction = async (data: CreateConversation) => {
     try {
       const response = await createConversation(data)
       return response
-    } catch (error: any) {
-      throw new Error(error?.message)
+} catch (error: unknown) {
+      const message = error instanceof Error ? error.message : ''
+
+      if (message.toLowerCase().includes('conversation already exists')) {
+        const conversationsPage = await getConversationList()
+        const existingConversation = conversationsPage?.results?.find(
+          (conversation: Conversation) =>
+            conversation.participant_two?.user_id === data.participant_two_id,
+        )
+
+        if (existingConversation) return existingConversation
+      }
+
+      toast.error(error instanceof Error ? error.message : 'Unable to open conversation')
+      throw error
     }
   }
 
@@ -80,8 +95,10 @@ export const useCreateMessage = () => {
         })
 
         return response
-      } catch (error: any) {
-        throw new Error(error?.message)
+      } catch (error: unknown) {
+        throw new Error(
+          error instanceof Error ? error.message : 'Unable to send message',
+        )
       }
     },
   })
@@ -148,9 +165,30 @@ export const useConversations = () => {
       return lastPage?.next ?? undefined
     },
     retry: 1,
+    refetchInterval: 30000,
   })
 
   return queryData
+}
+
+export const useUnreadMessageCount = () => {
+  const { lastSeen } = useNotificationSeenContext()
+  const query = useConversations()
+  const conversations: Conversation[] =
+    query.data?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const filtered = lastSeen.messages > 0
+    ? conversations.filter((convo) => {
+        const normalized = convo.updated_at.trim().replace(' ', 'T')
+        const hasTimezone = /[zZ]|[+-]\d{2}:?\d{2}$/.test(normalized)
+        const time = new Date(hasTimezone ? normalized : `${normalized}Z`).getTime()
+        return !Number.isNaN(time) && time > lastSeen.messages
+      })
+    : conversations
+  const count = filtered.reduce(
+    (sum, convo) => sum + Number(convo.unread_count ?? 0),
+    0,
+  )
+  return { ...query, count }
 }
 
 export const useSupportConversations = () => {
@@ -206,7 +244,7 @@ export const useSupportMessages = ({
 
 export const useChatSocket = (
   conversationId: string,
-  onMessage: (data: any) => void,
+  onMessage: (data: Message) => void,
 ) => {
   const socketRef = useRef<WebSocket | null>(null)
 

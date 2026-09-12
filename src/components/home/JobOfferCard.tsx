@@ -38,7 +38,11 @@ export default function JobOfferCard({
   return (
     <>
       {isNegotiateOpen && (
-        <NegotiationDialog setIsNegotiateOpen={setIsNegotiateOpen} />
+        <NegotiationDialog
+          setIsNegotiateOpen={setIsNegotiateOpen}
+          customerUserId={user?.user_id}
+          postTitle={post_title ?? undefined}
+        />
       )}
 
       <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">

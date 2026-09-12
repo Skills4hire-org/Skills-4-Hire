@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Briefcase, Sliders } from 'lucide-react'
 import Container from '@/components/global/Container'
 import RequestCard from '@/components/overview/RequestCard'
@@ -11,8 +11,14 @@ import SortDropdown from '@/components/home/SortDropdown'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { carouselServices } from '@/assets/data'
 import type { Post } from '@/types/post.types'
+import { useNotificationSeenContext } from '@/contexts/notification-seen'
 
 export default function Request() {
+  const { markSeen } = useNotificationSeenContext()
+
+  useEffect(() => {
+    markSeen('hireRequests')
+  }, [markSeen])
   const [filterOpen, setFilterOpen] = useState(false)
   const [filters, setFilters] = useState({
     serviceType: '',

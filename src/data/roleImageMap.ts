@@ -302,12 +302,12 @@ export const roleImageMap: Record<string, string> = {
   'Network Administrator': networkAdministrator,
 
   // Digital Marketing
-  'Digital Marketer': digitalMarketing,
+  'Digital Marketing': digitalMarketing,
   'SEO Specialist': seo,
   'SEM Specialist': sem,
   'PPC Specialist': ppcMarketing,
-  'Email Marketer': emailMarketing,
-  'Performance Marketer': performanceMarketer,
+  'Email Marketing': emailMarketing,
+  'Performance Marketing': performanceMarketer,
 
   // Social Media Management
   'Social Media Manager': socialMediaManager,

@@ -1,7 +1,8 @@
-import { ImageIcon, Sliders } from 'lucide-react'
+import { Handshake, ImageIcon, Sliders } from 'lucide-react'
 import Container from '@/components/global/Container'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import SearchBar from '@/components/global/SearchBar'
+import NoResultFound from '@/components/global/NoResultFound'
 import {
   Sheet,
   SheetContent,
@@ -27,7 +28,7 @@ import ServiceProviderServiceCard from '@/components/service-provider/ServicePro
 import type { Provider } from '@/types/user.types'
 import type { Favorite } from '@/types/favourites.type'
 import { useFavourites } from '@/hooks/useFavourites'
-import { categoryBySlug } from '@/data/staticServices'
+import { categoryBySlug, serviceTypeLabelForRole } from '@/data/staticServices'
 import { roleImageMap } from '@/data/roleImageMap'
 
 // ─── Sub-role card ─────────────────────────────────────────────────────────────
@@ -87,7 +88,6 @@ function ProviderList({ profession }: { profession: string }) {
     isFetchingNextPage,
     isFetchNextPageError,
   } = useAllProviders({
-    profession,
     search: providerSearchQuery || null,
   })
 
@@ -199,11 +199,19 @@ function ProviderList({ profession }: { profession: string }) {
               </div>
 
               {professionals?.length === 0 && (
-                <p className="text-center text-sm md:text-base text-gray-400 py-6">
-                  {hasActiveFilters || providerSearchQuery
-                    ? 'No professional found. Adjust your search or filters'
-                    : 'No professional providing this service yet. Check back later.'}
-                </p>
+                hasActiveFilters || providerSearchQuery ? (
+                  <NoResultFound
+                    icon={Sliders}
+                    text="No professional found."
+                    subtitle="Adjust your search or filters"
+                  />
+                ) : (
+                  <NoResultFound
+                    icon={Handshake}
+                    text="No professional providing this service yet."
+                    subtitle="Refer a professional to fill this category"
+                  />
+                )
               )}
 
               <div ref={loadMoreRef} />
@@ -299,6 +307,9 @@ export default function SingleService() {
 
   // Otherwise it's a specific role slug → show providers
   const formatService = service?.replaceAll('-', ' ') ?? ''
+  // Providers use broad service-type labels as their professional_title, so
+  // resolve the role page to its service-type label before matching.
+  const matchProfession = serviceTypeLabelForRole(formatService) ?? formatService
 
   return (
     <div className="min-h-screen lg:ml-17">
@@ -307,7 +318,7 @@ export default function SingleService() {
       </div>
       <Container>
         <div className="space-y-4">
-          <ProviderList profession={formatService} />
+          <ProviderList profession={matchProfession} />
         </div>
       </Container>
     </div>

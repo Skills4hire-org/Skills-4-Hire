@@ -1,4 +1,4 @@
-import { searchFilters, serviceTypes } from '@/assets/data'
+import { searchFilters } from '@/assets/data'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
@@ -7,6 +7,7 @@ import { currencyFormatter } from '@/utils/format'
 import { useState } from 'react'
 import { MAX_PRICE } from './filterUtils'
 import type { AppliedFilters } from './filterUtils'
+import { vocationalCategories, digitalCategories } from '@/data/staticServices'
 
 export function FilterPanel({
   filters,
@@ -49,23 +50,45 @@ export function FilterPanel({
 
       <div className="flex-1 overflow-y-auto p-4">
         {filterType === 'services' && (
-          <div className="space-y-3">
-            {serviceTypes.map(({ label, value }) => (
-              <div key={value} className="flex items-center gap-2">
-                <Checkbox
-                  id={`svc-${value}`}
-                  checked={filters.service.includes(value)}
-                  onCheckedChange={(checked) =>
-                    toggleService(value, checked as boolean)
-                  }
-                  className="border border-primary rounded-full"
-                />
-                <Label
-                  htmlFor={`svc-${value}`}
-                  className="text-sm lg:text-base font-normal cursor-pointer"
-                >
-                  {label}
-                </Label>
+          <div className="space-y-4">
+            {[
+              { title: 'Vocational & On-Site', categories: vocationalCategories },
+              { title: 'Digital Skills', categories: digitalCategories },
+            ].map(({ title, categories }) => (
+              <div key={title}>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5">
+                  {title}
+                </p>
+                {categories.map(({ id, name, roles }) => (
+                  <div key={id} className="mb-3">
+                    <p className="text-sm font-medium text-gray-600 mb-1">
+                      {name}
+                    </p>
+                    <div className="space-y-2">
+                      {roles.map((role) => (
+                        <div
+                          key={role}
+                          className="flex items-center gap-2 pl-2"
+                        >
+                          <Checkbox
+                            id={`svc-${role}`}
+                            checked={filters.service.includes(role)}
+                            onCheckedChange={(checked) =>
+                              toggleService(role, checked as boolean)
+                            }
+                            className="border border-primary rounded-full"
+                          />
+                          <Label
+                            htmlFor={`svc-${role}`}
+                            className="text-sm lg:text-base font-normal cursor-pointer"
+                          >
+                            {role}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             ))}
           </div>

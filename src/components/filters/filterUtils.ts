@@ -1,4 +1,8 @@
 import { serviceTypes } from '@/assets/data'
+import {
+  categoryNameForRole,
+  serviceTypeLabelForRole,
+} from '@/data/staticServices'
 import type { Provider } from '@/types/user.types'
 import type { Post } from '@/types/post.types'
 
@@ -17,7 +21,9 @@ export const EMPTY_FILTERS: AppliedFilters = {
 }
 
 function serviceLabel(value: string): string {
-  return serviceTypes.find((t) => t.value === value)?.label ?? ''
+  const fromTypes = serviceTypes.find((t) => t.value === value)?.label
+  if (fromTypes) return fromTypes
+  return serviceTypeLabelForRole(value) ?? value
 }
 
 export function matchesProviderFilters(
@@ -57,13 +63,14 @@ export function matchesProfession(
   const normalized = profession.toLowerCase().trim()
   if (!normalized) return true
   const title = (provider.professional_title || '').toLowerCase()
-  const headline = (provider.headline || '').toLowerCase()
-  const text = `${title} ${headline}`.trim()
-  if (!text) return false
-  if (text.includes(normalized)) return true
-  const tokens = normalized.split(/\s+/).filter((t) => t.length > 2)
-  if (tokens.length === 0) return false
-  return tokens.every((token) => text.includes(token))
+  if (!title) return false
+  if (title.includes(normalized)) return true
+  const professionTokens = normalized.split(/\s+/).filter((t) => t.length > 2)
+  if (professionTokens.length === 0) return false
+  const titleTokens = title.split(/\s+/).filter(Boolean)
+  return professionTokens.every((pt) =>
+    titleTokens.some((tt) => tt.includes(pt) || pt.includes(tt)),
+  )
 }
 
 export function matchesPostFilters(
@@ -75,8 +82,10 @@ export function matchesPostFilters(
     const tag = (post.tags?.[0]?.name ?? '').toLowerCase()
     if (!tag) return false
     const match = services.some((svc) => {
-      const label = serviceLabel(svc).toLowerCase()
-      return !!label && (tag.includes(label) || label.includes(tag))
+      const label =
+        categoryNameForRole(svc) ?? serviceLabel(svc) ?? svc
+      const normalized = label?.toLowerCase() ?? ''
+      return !!normalized && (tag.includes(normalized) || normalized.includes(tag))
     })
     if (!match) return false
   }
