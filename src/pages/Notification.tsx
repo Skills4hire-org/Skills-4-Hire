@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Container from '@/components/global/Container'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import TitleOnlyDesktopHeader from '@/components/header/TitleOnlyDesktopHeader'
@@ -5,10 +6,16 @@ import NotificationCard from '@/components/notification/NotificationCard'
 import { groupNotificationsByDay } from '@/utils/format'
 import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
-import { useMarkNotificationRead, useNotifications, type AppNotification } from '@/hooks/useNotifications'
+import { useDeleteNotification, useMarkNotificationRead, useNotifications, type AppNotification } from '@/hooks/useNotifications'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import { useNotificationSeenContext } from '@/contexts/notification-seen'
 
 export default function Notification() {
+  const { markSeen } = useNotificationSeenContext()
+
+  useEffect(() => {
+    markSeen('notifications')
+  }, [markSeen])
   const {
     data,
     isLoading,
@@ -20,6 +27,7 @@ export default function Notification() {
     isFetchNextPageError,
   } = useNotifications()
   const { mutate: markRead } = useMarkNotificationRead()
+  const { mutate: deleteNotification } = useDeleteNotification()
   const notifications: AppNotification[] = data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const notificationMap = new Map(notifications.map((n) => [n.notification_id, n]))
   const groupedNotifications = groupNotificationsByDay(
@@ -50,7 +58,7 @@ export default function Notification() {
               <div className="grid grid-cols-1 gap-2 md:gap-3">
                 {items.map((item) => {
                   const apiNotification = notificationMap.get(String(item.id))
-                  return apiNotification ? <NotificationCard key={item.id} event={apiNotification.event} content={apiNotification.content} createdAt={apiNotification.created_at} isRead={apiNotification.is_read} onRead={() => !apiNotification.is_read && markRead(apiNotification.notification_id)} /> : null
+                  return apiNotification ? <NotificationCard key={item.id} event={apiNotification.event} content={apiNotification.content} createdAt={apiNotification.created_at} isRead={apiNotification.is_read} onRead={() => !apiNotification.is_read && markRead(apiNotification.notification_id)} onDelete={() => deleteNotification(apiNotification.notification_id)} /> : null
                 })}
               </div>
             </div>

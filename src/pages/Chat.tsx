@@ -4,10 +4,17 @@ import DesktopWalletHeader from '@/components/header/DesktopWalletHeader'
 import MobileWalletHeader from '@/components/header/MobileWalletHeader'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { Outlet, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useNotificationSeenContext } from '@/contexts/notification-seen'
 
 export default function Chat() {
   const isMobile = useIsMobile()
   const { conversationId } = useParams()
+  const { markSeen } = useNotificationSeenContext()
+
+  useEffect(() => {
+    markSeen('messages')
+  }, [markSeen])
 
   return (
     <div className="space-y-4 md:space-y-6 lg:ml-17 max-[1023px]:min-[768px]:ml-17">

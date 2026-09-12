@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import FormInput from '../form-fields/FormInput'
 import FormTextArea from '../form-fields/FormTextArea'
@@ -36,6 +36,7 @@ export default function OfferForm({
   isSubmitting: boolean
   setIsSubmitting: (value: boolean) => void
 }) {
+  const isEdit = !!offer
   const { data: serviceCategories = [], isLoading: areCategoriesLoading } =
     useServiceCategories()
 
@@ -74,12 +75,26 @@ export default function OfferForm({
     post: offer?.post_content ?? '',
     budget: offer?.amount ?? '',
     timeFrame: offer?.duration?.toString() ?? undefined,
-    service: offer?.tags?.[0]?.name ?? undefined,
+    service: offer?.tags?.[0]?.service_category_id ?? undefined,
     photo: [],
     attachment: [],
-    city: offer?.city ?? '',
-    state: offer?.state ?? '',
+    city: offer?.city ?? offer?.user?.profile?.city ?? '',
+    state: offer?.state ?? offer?.user?.profile?.state ?? '',
   })
+
+  useEffect(() => {
+    if (!offer) return
+    setFormData((prev) => ({
+      ...prev,
+      title: offer.post_title ?? '',
+      post: offer.post_content ?? '',
+      budget: offer.amount ?? '',
+      timeFrame: offer.duration?.toString() ?? undefined,
+      service: offer.tags?.[0]?.service_category_id ?? undefined,
+      city: offer.city ?? offer.user?.profile?.city ?? '',
+      state: offer.state ?? offer.user?.profile?.state ?? '',
+    }))
+  }, [offer])
 
   const handleInputChange = (field: string, value: string) => {
     if (field === 'budget') {
@@ -171,15 +186,15 @@ export default function OfferForm({
         }))
       }
       const allData: CreatePost = {
-        city: validatedData.city,
-        state: validatedData.state,
         post_title: validatedData.title,
         post_content: validatedData.post,
         post_type: 'JOB',
-        amount: validatedData.budget,
         duration: Number(validatedData.timeFrame),
         tags: [validatedData.service],
-        attachments,
+        ...(isEdit ? {} : { attachments }),
+        ...(validatedData.budget ? { amount: validatedData.budget } : {}),
+        ...(validatedData.city ? { city: validatedData.city } : {}),
+        ...(validatedData.state ? { state: validatedData.state } : {}),
       }
       onSubmit(allData)
     } catch (error: any) {
@@ -318,63 +333,65 @@ export default function OfferForm({
         </div>
       </div>
 
-      <div className="flex items-center flex-wrap gap-4 md:gap-6 text-sm text-muted-foreground justify-start ml-0 mt-6 md:mt-8">
-        <Label
-          htmlFor="photo"
-          className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
-        >
-          <Input
-            id="photo"
-            name="photo"
-            type="file"
-            multiple
-            ref={fileRef}
-            accept="image/png, image/jpeg"
-            onChange={(e) => handleFileChange('photo', e.target.files)}
-            className="hidden"
-          />
-          <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
-          <span className="text-xs md:text-sm">Photo</span>
-          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 min-w-5 min-h-5 flex items-center justify-center text-xs leading-none">
-            {formData.photo.length !== 0 ? (
-              formData.photo.length
-            ) : (
-              <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-            )}
-          </span>
-        </Label>
+      {!isEdit && (
+        <div className="flex items-center flex-wrap gap-4 md:gap-6 text-sm text-muted-foreground justify-start ml-0 mt-6 md:mt-8">
+          <Label
+            htmlFor="photo"
+            className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
+          >
+            <Input
+              id="photo"
+              name="photo"
+              type="file"
+              multiple
+              ref={fileRef}
+              accept="image/png, image/jpeg"
+              onChange={(e) => handleFileChange('photo', e.target.files)}
+              className="hidden"
+            />
+            <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="text-xs md:text-sm">Photo</span>
+            <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1 min-w-5 min-h-5 flex items-center justify-center text-xs leading-none">
+              {formData.photo.length !== 0 ? (
+                formData.photo.length
+              ) : (
+                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              )}
+            </span>
+          </Label>
 
-        <Label
-          htmlFor="attachment"
-          className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
-        >
-          <Input
-            id="attachment"
-            name="attachment"
-            type="file"
-            multiple
-            ref={fileRef}
-            accept=".pdf, .doc, .docx"
-            onChange={(e) => handleFileChange('attachment', e.target.files)}
-            className="hidden"
-          />
-          <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
-          <span className="text-xs md:text-sm">Attachment</span>
-          <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
-            {formData.attachment.length !== 0 ? (
-              <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-            ) : (
-              <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
-            )}
-          </span>
-        </Label>
-      </div>
+          <Label
+            htmlFor="attachment"
+            className="flex items-center gap-1 hover:text-gray-700 cursor-pointer"
+          >
+            <Input
+              id="attachment"
+              name="attachment"
+              type="file"
+              multiple
+              ref={fileRef}
+              accept=".pdf, .doc, .docx"
+              onChange={(e) => handleFileChange('attachment', e.target.files)}
+              className="hidden"
+            />
+            <Paperclip className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="text-xs md:text-sm">Attachment</span>
+            <span className="text-white font-medium p-0.5 bg-green-600 rounded-full ml-0.5 md:ml-1">
+              {formData.attachment.length !== 0 ? (
+                <Check strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              ) : (
+                <Plus strokeWidth={4} className="w-3 h-3 md:w-4 md:h-4" />
+              )}
+            </span>
+          </Label>
+        </div>
+      )}
       <div className="border-t pt-2 md:pt-4 flex justify-end">
         <FormSubmitButton
           size="sm"
           submitting={isSubmitting}
-          text="Post offer"
-          texting="Posting"
+          text={isEdit ? 'Save changes' : 'Post offer'}
+          texting={isEdit ? 'Saving' : 'Posting'}
           className="px-4 md:px-8 text-sm md:text-base"
         />
       </div>

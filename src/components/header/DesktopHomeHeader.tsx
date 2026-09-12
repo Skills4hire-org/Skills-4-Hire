@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import type { Profile } from '@/types/user.types'
 import { useMyProfile } from '@/hooks/useUsers'
 import { useUnreadNotificationCount } from '@/hooks/useNotifications'
+import { useUnreadMessageCount } from '@/hooks/useChats'
 
 export default function DesktopHomeHeader() {
   const { data } = useMyProfile()
@@ -21,6 +22,7 @@ export default function DesktopHomeHeader() {
 
   const is_active = navigator.onLine
   const { count: unreadCount } = useUnreadNotificationCount()
+  const { count: unreadMessageCount } = useUnreadMessageCount()
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -46,7 +48,9 @@ export default function DesktopHomeHeader() {
           <Link to={`/${userType}/notification`}>
             <RecentNotification icon={Bell} count={unreadCount} />
           </Link>
-          <RecentNotification icon={MessageSquareMore} />
+          <Link to={`/${userType}/messages`}>
+            <RecentNotification icon={MessageSquareMore} count={unreadMessageCount} />
+          </Link>
 
           <Link to={`/${userType}/profile`} className="flex items-center gap-2">
             <ProfileImage

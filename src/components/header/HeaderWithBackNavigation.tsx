@@ -5,11 +5,21 @@ import Container from '../global/Container'
 export default function HeaderWithBackNavigation({
   title,
   onlyMobile,
+  fallback = '/',
 }: {
   title: string | undefined
   onlyMobile?: boolean
+  fallback?: string
 }) {
   const navigate = useNavigate()
+
+  const handleBack = () => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1)
+    } else {
+      navigate(fallback)
+    }
+  }
 
   return (
     <Container
@@ -20,7 +30,7 @@ export default function HeaderWithBackNavigation({
       <div className="relative flex items-center justify-center">
         <button
           className="absolute left-0 flex items-center justify-center p-1 cursor-pointer"
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
         >
           <ChevronLeft className="w-6 h-6" />
           <span className="sr-only">Back</span>

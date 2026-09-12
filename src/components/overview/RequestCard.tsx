@@ -61,7 +61,11 @@ export default function RequestCard({ post }: RequestCardProp) {
   return (
     <>
       {isNegotiateOpen && (
-        <NegotiationDialog setIsNegotiateOpen={setIsNegotiateOpen} />
+        <NegotiationDialog
+          setIsNegotiateOpen={setIsNegotiateOpen}
+          customerUserId={post.user?.user_id}
+          postTitle={post.post_title ?? undefined}
+        />
       )}
 
       <div className="shadow-md border border-gray-200 overflow-hidden">

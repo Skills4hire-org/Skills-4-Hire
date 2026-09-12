@@ -322,7 +322,7 @@ export const digitalCategories: ServiceCategory[] = [
     id: 'digital-marketing',
     name: 'Digital Marketing',
     image: digitalMarketingImg,
-    roles: ['Digital Marketer', 'SEO Specialist', 'SEM Specialist', 'PPC Specialist', 'Email Marketer', 'Performance Marketer'],
+    roles: ['Digital Marketing', 'SEO Specialist', 'SEM Specialist', 'PPC Specialist', 'Email Marketing', 'Performance Marketing'],
   },
   {
     id: 'social-media-management',
@@ -378,3 +378,71 @@ export const allCategories: ServiceCategory[] = [
 export const categoryBySlug = Object.fromEntries(
   allCategories.map((cat) => [cat.id, cat]),
 )
+
+// Providers set their `professional_title` from a fixed list of broad service
+// type labels (see `serviceTypes` in '@/assets/data'). Services are displayed as
+// granular roles, so a role must resolve to the broad service-type label that
+// providers actually use as their title. This maps each category to that label.
+const categoryServiceType: Record<string, string> = {
+  // Vocational
+  'electrical-services': 'Electrical',
+  'plumbing-services': 'Plumbing',
+  'carpentry-services': 'Carpentry',
+  'cctv-installation-services': 'Electrical',
+  'solar-installation-services': 'Electrical',
+  'generator-repair-maintenance': 'Electrical',
+  'hvac-refrigeration-services': 'Electrical',
+  'auto-repair-maintenance': 'Electrical',
+  'cleaning-services': 'Cleaning',
+  'laundry-dry-cleaning-services': 'Cleaning',
+  'barbering-services': 'Hairdressing',
+  'beauty-services': 'Hairdressing',
+  'photography-videography': 'Video Editing',
+  'electronics-appliance-repair': 'Electrical',
+  'art-creative-services': 'Graphic Design',
+  // Digital
+  'software-development': 'Web development',
+  'mobile-app-development': 'Mobile App Development',
+  'ai-machine-learning-services': 'Data Analysis',
+  'devops-engineering': 'DevOps',
+  'cloud-engineering': 'DevOps',
+  'blockchain-development': 'Web development',
+  'ui-ux-design': 'Graphic Design',
+  'graphic-design': 'Graphic Design',
+  'motion-graphics-design': 'Motion Graphics',
+  'illustration-animation': 'Graphic Design',
+  'wordpress-development': 'Web development',
+  'data-analytics-business-intelligence': 'Data Analysis',
+  'data-science': 'Data Analysis',
+  'data-engineering': 'Data Analysis',
+  'cybersecurity-services': 'Cybersecurity',
+  'digital-marketing': 'Digital Marketing',
+  'social-media-management': 'Digital Marketing',
+  'content-creation': 'Digital Marketing',
+  'writing-services': 'Digital Marketing',
+  'video-audio-editing': 'Video Editing',
+  'product-management': 'Project Management',
+  'ai-automation-services': 'Data Analysis',
+}
+
+const roleToCategory = allCategories.reduce<Record<string, string>>(
+  (acc, cat) => {
+    cat.roles.forEach((role) => {
+      acc[role.toLowerCase()] = cat.id
+    })
+    return acc
+  },
+  {},
+)
+
+export function serviceTypeLabelForRole(role: string): string | undefined {
+  const catId = roleToCategory[role.toLowerCase()]
+  if (!catId) return undefined
+  return categoryServiceType[catId]
+}
+
+export function categoryNameForRole(role: string): string | undefined {
+  const catId = roleToCategory[role.toLowerCase()]
+  if (!catId) return undefined
+  return categoryBySlug[catId]?.name
+}
