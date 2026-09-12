@@ -102,7 +102,7 @@ export default function Bookings() {
                   )}
                   {isFetchNextPageError && (
                     <Error
-                      text="Failed to load more reviews"
+                      text="Failed to load more bookings"
                       buttonFunc={fetchNextPage}
                       buttonText="Retry"
                     />

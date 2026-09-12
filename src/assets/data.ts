@@ -313,7 +313,7 @@ export const customerWalletTabsList = [
   },
   {
     status: 'completed',
-    label: 'Spent',
+    label: 'Completed',
   },
   {
     status: 'failed',
@@ -327,7 +327,7 @@ export const serviceProviderWalletTabsList = [
   },
   {
     status: 'completed',
-    label: 'Earned',
+    label: 'Completed',
   },
   {
     status: 'failed',

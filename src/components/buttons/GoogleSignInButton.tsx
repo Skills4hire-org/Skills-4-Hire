@@ -29,9 +29,13 @@ function GoogleSignInButton({
 
       const response = await googleSignIn(data)
 
-      console.log(response)
+      const userData = {
+        access: response?.access_token,
+        refresh: response?.refresh_token,
+        user_data: response?.user_data,
+      }
 
-      dispatch(setUserCredentials(response))
+      dispatch(setUserCredentials(userData))
 
       if (
         !response?.user_data?.is_customer &&
