@@ -1036,7 +1036,7 @@ Service Providers may accept jobs, complete tasks professionally, and earn payme
 All jobs must be processed and paid within the platform. Any attempt to bypass the platform or engage in offline transactions is a violation of these Terms and may result in account termination and loss of earnings.`,
 
     `3. Fees and Payments:
-Customers are not charged any fee while Service Providers pay a 2% commission on earnings.
+Customers are not charged any fee while Service Providers pay a 8% commission on earnings.
 All payments must go through the Skills4Hire platform.
 Payment is released to providers only after the job is marked Completed by the customer or auto-completes after the agreed time window.`,
 
@@ -1088,7 +1088,7 @@ We may modify these Terms at any time. Continued use of the platform after chang
 
     `12. Contact Us:
 For support, questions, or disputes, contact us at:
-support@theskills4hireapp.com`,
+support@theskills4hire.com`,
 
     `13. Acceptance:
 By clicking “Sign Up” or using the platform, you acknowledge that you have read, understood, and agree to be bound by these Terms.`,
