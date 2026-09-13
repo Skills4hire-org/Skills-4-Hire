@@ -1013,7 +1013,7 @@ We may modify these Terms at any time. Continued use of the platform after chang
 
     `12. Contact Us:  
 For support, questions, or disputes, contact us at:  
-support@theskills4hireapp.com`,
+support@theskills4hire.com`,
 
     `13. Acceptance:  
 By clicking “Sign Up” or using the platform, you acknowledge that you have read, understood, and agree to be bound by these Terms.`,
