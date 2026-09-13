@@ -3,7 +3,7 @@ import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import ProfileImage from '../global/ProfileImage'
-import { formatMessageRelativeTime, formatSpaceToString } from '@/utils/format'
+import { formatMessageRelativeTime, formatSpaceToString, decodeHtmlEntities } from '@/utils/format'
 import type { UserData } from '@/types/user.types'
 
 interface ConversationProps {
@@ -53,7 +53,7 @@ export default function ConversationCard({ conversation }: ConversationProps) {
               formatSpaceToString(isParticipantTwo.profile.professional_title)}
           </p>
           <p className="text-sm md:text-base break-all line-clamp-1 w-full">
-            {conversation.last_message?.content || 'No messages yet'}
+            {decodeHtmlEntities(conversation.last_message?.content || 'No messages yet')}
           </p>
         </div>
         <div className="flex flex-col items-center justify-between shrink-0">

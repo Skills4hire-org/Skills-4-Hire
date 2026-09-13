@@ -1,4 +1,5 @@
 import type { Message } from '@/types/chat.types'
+import { decodeHtmlEntities } from '@/utils/format'
 
 interface MessageProps {
   message: Message
@@ -23,7 +24,7 @@ export default function MessageBubble({ message }: MessageProps) {
         }`}
       >
         {/* Message text */}
-        <div className="break-words pb-2.5 min-w-6">{message.content}</div>
+        <div className="break-words pb-2.5 min-w-6">{decodeHtmlEntities(message.content)}</div>
 
         {/* Timestamp */}
         <span

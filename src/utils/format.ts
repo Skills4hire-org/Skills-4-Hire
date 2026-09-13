@@ -9,6 +9,28 @@ import type { Transaction } from '@/types/wallet.types'
 export const getBasePath = (pathname: string) => {
   return pathname.split('/').slice(0, 3).join('/')
 }
+
+export const decodeHtmlEntities = (value: string): string => {
+  const namedEntities: Record<string, string> = {
+    amp: '&',
+    quot: '"',
+    apos: "'",
+    lt: '<',
+    gt: '>',
+    nbsp: '\u00A0',
+  }
+
+  return value.replace(/&(#x?[0-9a-fA-F]+|[a-zA-Z]+);/g, (match, entity: string) => {
+    if (entity[0] === '#') {
+      const isHex = entity[1]?.toLowerCase() === 'x'
+      const code = isHex
+        ? parseInt(entity.slice(2), 16)
+        : parseInt(entity.slice(1), 10)
+      return Number.isNaN(code) ? match : String.fromCharCode(code)
+    }
+    return namedEntities[entity] ?? match
+  })
+}
 export const currencyFormatter = (price: number | undefined) => {
   if (price || price == 0) {
     const amount = new Intl.NumberFormat('en-NG', {

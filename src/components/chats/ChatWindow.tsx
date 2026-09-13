@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import MessageBubble from './MessageBubble'
 import MessageInput from './MessageInput'
 import { useSelector } from 'react-redux'
@@ -14,7 +15,8 @@ import {
   useChatSocket,
   useMessages,
 } from '@/hooks/useChats'
-import type { Message, User } from '@/types/chat.types'
+import type { Conversation, Message, User } from '@/types/chat.types'
+import type { UserData } from '@/types/user.types'
 import ProposePriceDialog from './ProposePriceDialog'
 import NegotiatePriceDialog from './NegotiatePriceDialog'
 import AgreementDialog from './AgreementDialog'
@@ -24,10 +26,32 @@ import Error from '../global/Error'
 export default function ChatWindow() {
   const { conversationId: conversation_id } = useParams()
   const location = useLocation()
+  const queryClient = useQueryClient()
 
-  const receiver: {
-    participant_two: User
-  } = location.state
+  const { userType, user_data }: { userType: UserType; user_data: UserData } =
+    useSelector((state: any) => state.userState)
+
+  const stateReceiver: { participant_two: User } | null = location.state
+
+  const cachedConversations: Conversation[] =
+    queryClient.getQueryData<{
+      pages: { results: Conversation[] }[]
+    }>(['conversations'])?.pages.flatMap((page) => page?.results ?? []) ?? []
+
+  const cachedConversation = cachedConversations.find(
+    (conversation) => conversation.conversation_id === conversation_id,
+  )
+
+  const cachedReceiver: { participant_two: User } | null =
+    stateReceiver ??
+    (cachedConversation
+      ? {
+          participant_two:
+            cachedConversation.participant_one.user_id === user_data?.user_id
+              ? cachedConversation.participant_two
+              : cachedConversation.participant_one,
+        }
+      : null)
 
   const {
     data,
@@ -47,6 +71,14 @@ export default function ChatWindow() {
     (a, b) =>
       new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
   )
+
+  const messagesReceiver = sortedMessages[0]?.receiver
+
+  const receiver: { participant_two: User } | null =
+    cachedReceiver ??
+    (messagesReceiver
+      ? { participant_two: messagesReceiver as unknown as User }
+      : null)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -135,10 +167,6 @@ export default function ChatWindow() {
   )
 
   const isMobile = useIsChatMobile()
-
-  const { userType }: { userType: UserType } = useSelector(
-    (state: any) => state.userState,
-  )
 
   const handleMessageFetchingError = () => {
     refetch()
@@ -238,9 +266,9 @@ export default function ChatWindow() {
                   <ChevronLeft className="w-6 h-6" />
                 </Link>
               )}
-              {receiver.participant_two.profile.professional_title ? (
+              {receiver?.participant_two?.profile?.professional_title ? (
                 <Link
-                  to={`/${userType}/professionals/${receiver.participant_two.profile.provider_id}`}
+                  to={`/${userType}/professionals/${receiver?.participant_two?.profile?.provider_id}`}
                   className="flex items-center gap-2"
                 >
                   <ProfileImage
