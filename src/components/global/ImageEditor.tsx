@@ -94,7 +94,7 @@ export default function ImageEditor({
 
   return (
     <Dialog open={open} onOpenChange={(value) => !value && onCancel()}>
-      <DialogContent className="sm:max-w-3xl lg:max-w-4xl">
+      <DialogContent className="sm:max-w-3xl lg:max-w-4xl max-h-[calc(100dvh_-_2rem)] overflow-y-auto">
         <DialogHeader className="text-center">
           <DialogTitle className="text-base md:text-lg">
             Adjust your image
@@ -132,7 +132,7 @@ export default function ImageEditor({
 
         {mode === 'crop' ? (
           <>
-            <div className="relative h-80 md:h-[32rem] lg:h-[36rem] w-full overflow-hidden rounded-lg bg-neutral-900">
+            <div className="relative h-80 md:h-[30rem] lg:h-[calc(100dvh_-_22rem)] w-full overflow-hidden rounded-lg bg-neutral-900">
               <Cropper
                 image={imageSrc}
                 crop={crop}
@@ -168,7 +168,7 @@ export default function ImageEditor({
             </div>
           </>
         ) : (
-          <div className="relative h-80 md:h-[32rem] lg:h-[36rem] w-full overflow-hidden rounded-lg bg-neutral-900 flex items-center justify-center">
+          <div className="relative h-80 md:h-[30rem] lg:h-[calc(100dvh_-_22rem)] w-full overflow-hidden rounded-lg bg-neutral-900 flex items-center justify-center">
             <img
               src={imageSrc}
               alt="Original image"
