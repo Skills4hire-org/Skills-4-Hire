@@ -15,7 +15,11 @@ export default function Repost({
   const { mutate: repost, isPending: reposting } = useRepost(queryKey)
   const { mutate: unrepost, isPending: unreposting } = useUnrepost(queryKey)
   const handleRepost = () => {
-    is_reposted ? unrepost({ post_id }) : repost({ post_id })
+    if (is_reposted) {
+      unrepost({ post_id })
+    } else {
+      repost({ post_id })
+    }
   }
 
   return (

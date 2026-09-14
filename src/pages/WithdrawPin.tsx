@@ -6,7 +6,7 @@ import HeaderWithBackNavigation from "@/components/header/HeaderWithBackNavigati
 import Container from "@/components/global/Container";
 import type { WithdrawalDetails } from "@/types/withdrawal";
 import { withdrawPinSchema } from "@/utils/schemas";
-import { useValidateSchema } from "@/hooks/useValidateSchema";
+import { validateSchema } from "@/hooks/validateSchema";
 import { toast } from "sonner";
 
 export default function WithdrawPin() {
@@ -28,7 +28,7 @@ export default function WithdrawPin() {
     setPin(newPin);
 
     if (newPin.length === 4) {
-      const validated = useValidateSchema(withdrawPinSchema, { pin: newPin });
+      const validated = validateSchema(withdrawPinSchema, { pin: newPin });
 
       if (!validated) {
         setPin("");

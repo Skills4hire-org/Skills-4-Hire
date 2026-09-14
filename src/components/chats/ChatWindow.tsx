@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import MessageBubble from './MessageBubble'
@@ -42,16 +42,19 @@ export default function ChatWindow() {
     (conversation) => conversation.conversation_id === conversation_id,
   )
 
-  const cachedReceiver: { participant_two: User } | null =
-    stateReceiver ??
-    (cachedConversation
-      ? {
-          participant_two:
-            cachedConversation.participant_one.user_id === user_data?.user_id
-              ? cachedConversation.participant_two
-              : cachedConversation.participant_one,
-        }
-      : null)
+  const cachedReceiver: { participant_two: User } | null = useMemo(
+    () =>
+      stateReceiver ??
+      (cachedConversation
+        ? {
+            participant_two:
+              cachedConversation.participant_one.user_id === user_data?.user_id
+                ? cachedConversation.participant_two
+                : cachedConversation.participant_one,
+          }
+        : null),
+    [stateReceiver, cachedConversation, user_data],
+  )
 
   const {
     data,
@@ -74,11 +77,14 @@ export default function ChatWindow() {
 
   const messagesReceiver = sortedMessages[0]?.receiver
 
-  const receiver: { participant_two: User } | null =
-    cachedReceiver ??
-    (messagesReceiver
-      ? { participant_two: messagesReceiver as unknown as User }
-      : null)
+  const receiver: { participant_two: User } | null = useMemo(
+    () =>
+      cachedReceiver ??
+      (messagesReceiver
+        ? { participant_two: messagesReceiver as unknown as User }
+        : null),
+    [cachedReceiver, messagesReceiver],
+  )
 
   const containerRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -141,10 +147,7 @@ export default function ChatWindow() {
 
   const handleSocketMessage = useCallback(
     (data: any) => {
-      console.log(data)
       if (data.event === 'online') {
-        console.log(data.user_id)
-        console.log(receiver?.participant_two?.user_id)
         if (data.user_data.user_id === receiver?.participant_two?.user_id) {
           setIsReceiverOnline(data.is_online)
         }

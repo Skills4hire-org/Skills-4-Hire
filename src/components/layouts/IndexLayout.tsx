@@ -13,7 +13,7 @@ export default function IndexLayout() {
       smoothWheel: true,
     })
 
-    // @ts-ignore
+    // @ts-ignore lenis's global Window typing conflicts with assigning an instance
     window.lenis = lenis
 
     let rafId: number
@@ -28,7 +28,7 @@ export default function IndexLayout() {
     return () => {
       cancelAnimationFrame(rafId)
       lenis.destroy()
-      // @ts-ignore
+      // @ts-ignore lenis's global Window typing does not allow undefined
       window.lenis = undefined
     }
   }, [])

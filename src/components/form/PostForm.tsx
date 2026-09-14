@@ -128,7 +128,7 @@ export default function PostForm({
     const MAX_SIZE_MB = 250 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
-    let acceptedVideoFiles: File[] = []
+    const acceptedVideoFiles: File[] = []
     if (files.length === 0) return
     files.forEach((newFile) => {
       const fileType = newFile.type.startsWith('video/')
@@ -205,7 +205,7 @@ export default function PostForm({
       }
 
       onSubmit(allData)
-    } catch (error: any) {
+    } catch {
       setIsSubmitting(false)
       toast.error('Uploading of media files failed. Please try again')
     }

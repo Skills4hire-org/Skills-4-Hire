@@ -1,4 +1,5 @@
 import type { SelectItems } from '@/utils/types'
+import { cn } from '@/lib/utils'
 import { Label } from '../ui/label'
 import {
   Select,
@@ -104,7 +105,7 @@ export default function FormSelectGroup({
                     <SelectItem
                       key={item.value}
                       value={item.value}
-                      className={`${selectItemClassName} ml-2`}
+                      className={cn(selectItemClassName, 'ml-2')}
                     >
                       {item.label}
                     </SelectItem>

@@ -22,14 +22,18 @@ function loadFromStorage(): NotificationSeenState {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored) return JSON.parse(stored)
-  } catch {}
+  } catch {
+    // fall through to default state for malformed or unavailable storage
+  }
   return { hireRequests: 0, jobs: 0, messages: 0, notifications: 0 }
 }
 
 function saveToStorage(state: NotificationSeenState) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-  } catch {}
+  } catch {
+    // storage may be unavailable (private mode, quota, etc.) — ignore
+  }
 }
 
 export function NotificationSeenProvider({ children }: { children: React.ReactNode }) {

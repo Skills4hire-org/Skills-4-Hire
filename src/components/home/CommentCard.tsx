@@ -29,7 +29,11 @@ export default function CommentCard({
     queryKey,
   })
   const handleLike = () => {
-    is_liked ? unlikeComment({ comment_id }) : likeComment({ comment_id })
+    if (is_liked) {
+      unlikeComment({ comment_id })
+    } else {
+      likeComment({ comment_id })
+    }
   }
   const handleShowReply = () => {
     setShowReplies((prev) => !prev)

@@ -99,7 +99,7 @@ export default function ProfileImageForm({
           },
         })
       }
-    } catch (error) {
+    } catch {
       toast.error('Upload failed.')
     }
   }

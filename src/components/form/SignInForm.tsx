@@ -1,6 +1,6 @@
 import { login } from '@/api/auth'
 import { setUserCredentials } from '@/features/user/userSlice'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { loginSchema } from '@/utils/schemas'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -32,7 +32,7 @@ export default function SignInForm({ initialEmail }: SignInFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const validatedData = useValidateSchema(loginSchema, formData)
+    const validatedData = validateSchema(loginSchema, formData)
     if (!validatedData) return
 
     setLoading(true)

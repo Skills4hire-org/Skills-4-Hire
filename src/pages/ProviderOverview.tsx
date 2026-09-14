@@ -21,7 +21,7 @@ import BookingRequestCard from '@/components/bookings/BookingRequestCard'
 import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
 import type { Booking } from '@/types/bookings.type'
-import { useMyProfileOverview } from '@/hooks/useUsers'
+import { useMyProfile, useMyProfileOverview } from '@/hooks/useUsers'
 import { useReviews } from '@/hooks/useReviews'
 import ReviewCard from '@/components/reviews/ReviewCard'
 import { BookOpen } from 'lucide-react'
@@ -46,6 +46,10 @@ export default function ProviderOverview() {
   const reviews = reviewData?.pages.flatMap((page) => page.result) ?? []
 
   const {
+    data: myProfile,
+  } = useMyProfile()
+
+  const {
     data: statData,
     isLoading: statLoading,
     isError: statError,
@@ -61,8 +65,6 @@ export default function ProviderOverview() {
     },
     { label: 'Wallet', value: statData?.wallet?.balance, icon: Wallet },
   ]
-
-  console.log(statData)
 
   const {
     data: bookingsData,
@@ -96,7 +98,10 @@ export default function ProviderOverview() {
             <p>
               Professional Skill:{' '}
               <span className="font-semibold capitalize">
-                {formatSpaceToString(user_data?.profile?.professional_title)}
+                {formatSpaceToString(
+                  myProfile?.professional_title ??
+                    user_data?.profile?.professional_title,
+                )}
               </span>
             </p>
             <p>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { register } from '@/api/auth'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { registerSchema } from '@/utils/schemas'
 import FormInput from '@/components/form-fields/FormInput'
 
@@ -42,7 +42,7 @@ export default function SignUpForm({
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const validatedData = useValidateSchema(registerSchema, formData)
+    const validatedData = validateSchema(registerSchema, formData)
     if (!validatedData) return
 
     const payload = {

@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import FormTextArea from '../form-fields/FormTextArea'
 import ProfileImage from '../global/ProfileImage'
 import FormSubmitButton from '../buttons/FormSubmitButton'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { commentFormSchema } from '@/utils/schemas'
 import { usePostComment } from '@/hooks/usePosts'
 import { toast } from 'sonner'
@@ -27,7 +27,7 @@ export default function CommentForm({
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const validatedData = useValidateSchema(commentFormSchema, formData)
+    const validatedData = validateSchema(commentFormSchema, formData)
     if (!validatedData) {
       return
     }

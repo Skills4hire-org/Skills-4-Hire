@@ -96,7 +96,7 @@ export default function CoverPhotoForm({
           },
         })
       }
-    } catch (error) {
+    } catch {
       toast.error('Upload failed.')
     }
   }
