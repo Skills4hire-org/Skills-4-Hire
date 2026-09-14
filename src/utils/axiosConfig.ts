@@ -13,7 +13,7 @@ const refreshAccessToken = async (): Promise<string> => {
 
   if (!refreshToken) {
     store.dispatch(logoutUser())
-    throw new Error('No refresh token')
+    throw new Error('Your session has expired. Please sign in again.')
   }
 
   refreshPromise = axios
@@ -53,10 +53,19 @@ api.interceptors.request.use(async (config) => {
 
   if (token) {
     if (isTokenExpired(token)) {
-      try {
-        token = await refreshAccessToken()
-      } catch (err) {
-        return Promise.reject(err) // logout already handled, abort the request
+      if (state.userState.refresh) {
+        try {
+          token = await refreshAccessToken()
+        } catch (err) {
+          return Promise.reject(err) // logout already handled, abort the request
+        }
+      } else {
+        // Stale or partial session: no refresh token to renew the access
+        // token with. Clear the leftover session so public requests such as
+        // registration, OTP verification, or onboarding are not blocked, and
+        // protected requests simply fail as unauthenticated.
+        store.dispatch(logoutUser())
+        return config
       }
     }
 

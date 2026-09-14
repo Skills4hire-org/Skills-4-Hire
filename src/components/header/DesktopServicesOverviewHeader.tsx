@@ -8,8 +8,8 @@ export default function DesktopServicesOverviewHeader() {
   return (
     <header className=" hidden md:block text-center py-4">
       <h1 className="text-2xl font-semibold">
-        Hi, {user_data?.user?.first_name}{' '}
-        <span className="text-primary">{user_data?.user?.last_name}</span>
+        Hi, <span className="text-primary">{user_data?.user?.first_name}{' '}
+        {user_data?.user?.last_name}</span>
       </h1>
       <p className="text-base">Welcome back!</p>
     </header>

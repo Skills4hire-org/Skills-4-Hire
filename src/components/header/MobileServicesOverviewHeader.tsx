@@ -41,9 +41,9 @@ export default function MobileServicesOverviewHeader() {
         )}
         <div>
           <h1 className="font-semibold">
-            Hi, {user_data?.user?.first_name}
+            Hi, <span className="text-primary">{user_data?.user?.first_name}
             {'   '}
-            <span className="text-primary">{user_data?.user?.last_name}</span>
+            {user_data?.user?.last_name}</span>
           </h1>
           <p className="text-xs">{user_data?.user?.profile?.city}</p>
         </div>
