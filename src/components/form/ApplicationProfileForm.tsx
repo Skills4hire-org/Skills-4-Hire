@@ -7,6 +7,7 @@ import { Button } from '../ui/button'
 import { validateSchema } from '@/hooks/validateSchema'
 import { applicationProfileFormSchema } from '@/utils/schemas'
 import { completeOnboard, selectRole } from '@/api/onboard'
+import { updateMyProfile } from '@/api/profile'
 import type { Registration } from '@/types/onboard.types'
 import { skillsTypes } from '@/assets/data'
 import {
@@ -54,12 +55,23 @@ export default function ApplicationProfileForm() {
         profile: {
           country,
           city,
+          state,
           location: address,
         },
         date_of_birth: dateOfBirth,
       }
-      await completeOnboard(profilePayload)
       await selectRole('SERVICE_PROVIDER')
+      await completeOnboard(profilePayload)
+      await updateMyProfile({
+        professional_title: additionalInfo.service,
+        headline,
+        profile: {
+          country,
+          city,
+          state,
+          location: address,
+        },
+      })
       toast.success('Registration successful!')
       dispatch(clearForm())
       navigate('/professional/home')
