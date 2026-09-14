@@ -1,5 +1,5 @@
 import { useEndorse } from '@/hooks/useEndorse'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { endorseFormSchema } from '@/utils/schemas'
 import { useState, type FormEvent } from 'react'
 import FormTextArea from '../form-fields/FormTextArea'
@@ -23,7 +23,7 @@ export default function EndorseForm({
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const validatedData = useValidateSchema(endorseFormSchema, formData)
+    const validatedData = validateSchema(endorseFormSchema, formData)
     if (!validatedData) {
       return
     }

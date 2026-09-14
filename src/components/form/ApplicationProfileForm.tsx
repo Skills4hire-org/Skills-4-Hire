@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import FormInput from '../form-fields/FormInput'
 import { Button } from '../ui/button'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { applicationProfileFormSchema } from '@/utils/schemas'
 import { completeOnboard, selectRole } from '@/api/onboard'
 import type { Registration } from '@/types/onboard.types'
@@ -38,7 +38,7 @@ export default function ApplicationProfileForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const valid = useValidateSchema(
+    const valid = validateSchema(
       applicationProfileFormSchema,
       additionalInfo,
     )
@@ -77,11 +77,7 @@ export default function ApplicationProfileForm() {
         value={service}
         handleInputChange={handleInputChange}
         selectGroupData={skillsTypes}
-        className="capitalize bg-transparent pb-1 pl-3 pr-6 h-9 pt-0  [&>svg]:hidden "
-        align="end"
-        selectContentClassName="bg-gray-300 shadow-none rounded-none border-0 absolute   break-all w-66 -right-0.5"
-        selectItemClassName="place-content-center w-64 rounded-none px-4"
-        sideOffset={-4}
+        className="capitalize bg-transparent pb-1 pl-3 pr-6 h-9 pt-0 [&>svg]:hidden"
         indicator
         required
       />

@@ -20,8 +20,6 @@ export default function ServiceProviderProfile() {
   const { data, isLoading, isError, refetch } = useProfileDetails({ id })
   const profile: Profile | undefined = data
 
-  console.log(profile)
-
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
@@ -32,9 +30,14 @@ export default function ServiceProviderProfile() {
 
   const navigate = useNavigate()
   const handleMessageMe = () => {
+    const profileUserId = profile?.user?.user_id
+
+    if (!profileUserId)
+      return toast.error('Unable to open a conversation.')
+
     createConversation(
       {
-        participant_two_id: profile?.user?.user_id!,
+        participant_two_id: profileUserId,
       },
       {
         onSuccess: (conversation) => {

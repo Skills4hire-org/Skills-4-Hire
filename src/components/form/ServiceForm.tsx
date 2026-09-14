@@ -40,7 +40,7 @@ export default function ServiceForm({
     const MAX_SIZE_MB = 10 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
-    let acceptedImageFiles: File[] = []
+    const acceptedImageFiles: File[] = []
     if (files.length === 0) return
     files.forEach((newFile) => {
       const fileType = newFile.type.startsWith('image/')
@@ -89,7 +89,7 @@ export default function ServiceForm({
           },
         })
       }
-    } catch (error: any) {
+    } catch {
       setIsLoading(false)
       toast.error('Failed. Please try again.')
     } finally {

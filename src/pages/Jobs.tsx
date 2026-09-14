@@ -30,8 +30,10 @@ export default function Jobs() {
     isFetchNextPageError,
   } = useJobApplications();
 
-  const allJobs: JobListing[] =
-    data?.pages.flatMap((page) => page.results) ?? [];
+  const allJobs: JobListing[] = useMemo(
+    () => data?.pages.flatMap((page) => page.results) ?? [],
+    [data]
+  );
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

@@ -16,25 +16,25 @@ const refreshAccessToken = async (): Promise<string> => {
     throw new Error('No refresh token')
   }
 
-  refreshPromise = new Promise(async (resolve, reject) => {
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/refresh/token/`,
-        { refresh: refreshToken },
-      )
-
+  refreshPromise = axios
+    .post(
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/refresh/token/`,
+      { refresh: refreshToken },
+    )
+    .then((res) => {
       const newAccess = res.data.access
 
       store.dispatch(setAccessToken(newAccess))
 
-      resolve(newAccess)
-    } catch (err) {
+      return newAccess
+    })
+    .catch((err) => {
       store.dispatch(logoutUser())
-      reject(err)
-    } finally {
+      throw err
+    })
+    .finally(() => {
       refreshPromise = null
-    }
-  })
+    })
 
   return refreshPromise
 }
@@ -79,7 +79,13 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    const noTokenRefreshUrls = /(\/auth\/|\/onboard\/)/
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !noTokenRefreshUrls.test(originalRequest.url ?? '')
+    ) {
       originalRequest._retry = true
 
       try {

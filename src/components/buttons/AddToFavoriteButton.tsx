@@ -16,33 +16,35 @@ export default function AddToFavoriteButton({
   const { mutate: addFavourite, isPending: adding } = useAddFavourite()
   const { mutate: deleteFavourite, isPending: deleting } = useDeleteFavourite()
   const handleFavourites = () => {
-    isFavourite
-      ? deleteFavourite(
-          {
-            provider_id: id,
-            favourite_id: favouriteID as string,
-          },
-          {
-            onSuccess: () => {
-              toast.success(
-                `You've removed ${name} from your favourite professionals`,
-              )
-            },
-            onError: (error) => {
-              toast.error(error.message)
-            },
-          },
-        )
-      : addFavourite(id, {
+    if (isFavourite) {
+      deleteFavourite(
+        {
+          provider_id: id,
+          favourite_id: favouriteID as string,
+        },
+        {
           onSuccess: () => {
             toast.success(
-              `You've added ${name} to your favourite professionals`,
+              `You've removed ${name} from your favourite professionals`,
             )
           },
           onError: (error) => {
             toast.error(error.message)
           },
-        })
+        },
+      )
+    } else {
+      addFavourite(id, {
+        onSuccess: () => {
+          toast.success(
+            `You've added ${name} to your favourite professionals`,
+          )
+        },
+        onError: (error) => {
+          toast.error(error.message)
+        },
+      })
+    }
   }
 
   return (

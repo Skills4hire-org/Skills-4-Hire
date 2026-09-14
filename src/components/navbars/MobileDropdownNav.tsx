@@ -88,8 +88,12 @@ export default function MobileDropdownNav() {
                       if (active) {
                         e.preventDefault()
                         // Smooth-scroll to top using Lenis if available, else native
-                        // @ts-ignore
-                        window.lenis?.scrollTo(0) ?? window.scrollTo({ top: 0, behavior: 'smooth' })
+                        if (window.lenis) {
+                          // @ts-ignore lenis's global Window typing lacks scrollTo
+                          window.lenis.scrollTo(0)
+                        } else {
+                          window.scrollTo({ top: 0, behavior: 'smooth' })
+                        }
                       }
                       setOpen(false)
                     }}

@@ -52,7 +52,7 @@ export default function GalleryForm({
     const MAX_SIZE_MB = 2 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
-    let acceptedImageFiles: File[] = []
+    const acceptedImageFiles: File[] = []
     if (files.length === 0) return
     files.forEach((newFile) => {
       const fileType = newFile.type.startsWith('image/')
@@ -80,7 +80,7 @@ export default function GalleryForm({
     const MAX_SIZE_MB = 2 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
-    let acceptedVideoFiles: File[] = []
+    const acceptedVideoFiles: File[] = []
     if (files.length === 0) return
     files.forEach((newFile) => {
       const fileType = newFile.type.startsWith('video/')
@@ -130,7 +130,7 @@ export default function GalleryForm({
           },
         })
       }
-    } catch (error: any) {
+    } catch {
       setIsLoading(false)
       toast.error('Upload Failed. Please try again')
     } finally {

@@ -44,11 +44,11 @@ export default function ServiceProviderProfileForm() {
     address: 'No.19 IyeruOkin Street, Tanke Ilorin',
     about: user?.serviceProviderInfo?.about,
     gallery: null,
-    services: [...user?.serviceProviderInfo?.services],
-    comments: [...user?.serviceProviderInfo?.comments],
+    services: [...(user?.serviceProviderInfo?.services ?? [])],
+    comments: [...(user?.serviceProviderInfo?.comments ?? [])],
     accountNumber: '1234567890',
-    posts: [...user?.serviceProviderInfo?.posts],
-    postsImages: [...user?.serviceProviderInfo?.postImages],
+    posts: [...(user?.serviceProviderInfo?.posts ?? [])],
+    postsImages: [...(user?.serviceProviderInfo?.postImages ?? [])],
   })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

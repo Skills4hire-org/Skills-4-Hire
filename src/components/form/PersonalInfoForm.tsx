@@ -5,7 +5,7 @@ import { useRef, useState, type FormEvent } from 'react'
 import FormFile from '../form-fields/FormFile'
 import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { personalInfoFormSchema } from '@/utils/schemas'
 import { useDispatch, useSelector } from 'react-redux'
 import { addPersonalInfo } from '@/features/registration/registrationSlice'
@@ -131,7 +131,7 @@ export default function PersonalInfoForm() {
       toast.warning('Please upload the file(s) chosen.')
       return
     }
-    const validateData = useValidateSchema(personalInfoFormSchema, personalInfo)
+    const validateData = validateSchema(personalInfoFormSchema, personalInfo)
     if (!validateData) return
 
     navigate('/onboarding/professional/experience')

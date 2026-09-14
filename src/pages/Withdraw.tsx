@@ -13,7 +13,7 @@ import {
   Loader2,
 } from 'lucide-react'
 import { withdrawSchema } from '@/utils/schemas'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import type { WithdrawalDetails } from '@/types/withdrawal'
 import { useBanks, useWallet } from '@/hooks/useWallet'
 import type { WalletBalance } from '@/types/wallet.types'
@@ -110,7 +110,7 @@ export default function Withdraw() {
   }
 
   const handleWithdraw = async () => {
-    const validatedData = useValidateSchema(withdrawSchema, {
+    const validatedData = validateSchema(withdrawSchema, {
       accountName,
       amount,
       accountNumber,

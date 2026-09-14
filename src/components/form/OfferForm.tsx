@@ -7,7 +7,7 @@ import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Check, ImageIcon, Paperclip, Plus } from 'lucide-react'
 import { timeFrameOptions } from '@/assets/data'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { useServiceCategories } from '@/hooks/useServices'
 import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
@@ -169,7 +169,7 @@ export default function OfferForm({
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const validatedData = useValidateSchema(createOfferSchema, formData)
+    const validatedData = validateSchema(createOfferSchema, formData)
     if (!validatedData) {
       return
     }
@@ -197,7 +197,7 @@ export default function OfferForm({
         ...(validatedData.state ? { state: validatedData.state } : {}),
       }
       onSubmit(allData)
-    } catch (error: any) {
+    } catch {
       setIsSubmitting(false)
       toast.error('Uploading of photos failed. Please try again')
     }

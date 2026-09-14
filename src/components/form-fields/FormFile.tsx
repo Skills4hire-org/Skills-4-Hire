@@ -84,9 +84,11 @@ export default function FormFile({
           type="button"
           className={`border px-1 py-2 text-center font-normal space-y-1 cursor-pointer disabled:no-cursor `}
           onClick={() => {
-            file
-              ? handleFileUpload(name, file)
-              : toast.warning('Please choose a file')
+            if (file) {
+              handleFileUpload(name, file)
+            } else {
+              toast.warning('Please choose a file')
+            }
           }}
         >
           <Upload className="mx-auto w-4 h-4" />

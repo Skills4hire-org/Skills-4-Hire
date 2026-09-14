@@ -3,7 +3,7 @@ import ProfileImage from '../global/ProfileImage'
 import FormTextArea from '../form-fields/FormTextArea'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { usePostReplies } from '@/hooks/usePosts'
-import { useValidateSchema } from '@/hooks/useValidateSchema'
+import { validateSchema } from '@/hooks/validateSchema'
 import { commentFormSchema } from '@/utils/schemas'
 import { toast } from 'sonner'
 import { useMyProfile } from '@/hooks/useUsers'
@@ -31,7 +31,7 @@ export default function CommentReplyForm({
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const validatedData = useValidateSchema(commentFormSchema, formData)
+    const validatedData = validateSchema(commentFormSchema, formData)
     if (!validatedData) {
       return
     }

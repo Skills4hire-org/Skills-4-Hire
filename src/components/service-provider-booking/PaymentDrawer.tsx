@@ -102,7 +102,7 @@ export default function PaymentDrawer({
       if (info.new_address) {
         await addAddress(newAddress)
       }
-    } catch (error) {
+    } catch {
       toast.error('An error occured.')
       return
     }
