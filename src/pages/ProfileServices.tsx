@@ -3,7 +3,7 @@ import Error from '@/components/global/Error'
 import Loading from '@/components/global/Loading'
 import HeaderWithBackNavigation from '@/components/header/HeaderWithBackNavigation'
 import ServicesDialog from '@/components/profile/ServicesDialog'
-import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
+import CompactProviderCard from '@/components/service-provider/CompactProviderCard'
 import ServiceProviderServicesCard from '@/components/service-provider/ServiceProviderServicesCard'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { useAllProviders, useMyServices } from '@/hooks/useUsers'
@@ -47,7 +47,7 @@ export default function ProfileServices() {
     providersRefetch()
   }
   return (
-    <div className="space-y-2 md:space-y-6 relative">
+    <div className="space-y-2 md:space-y-6 relative lg:ml-17 md:ml-17">
       <HeaderWithBackNavigation title="My Services" />
       <Container>
         <div className="grid grid-cols gap-4 md:gap-6 xl:grid-cols-7 xl:gap-10 ">
@@ -129,9 +129,9 @@ export default function ProfileServices() {
                       </div>
                     ) : (
                       <>
-                        <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                           {professionals?.slice(0, 6)?.map((professional) => (
-                            <ServiceProviderCard
+                            <CompactProviderCard
                               key={professional.provider_id}
                               {...professional}
                             />
