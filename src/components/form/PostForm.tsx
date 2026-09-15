@@ -16,6 +16,8 @@ import type { CreatePost, Post } from '@/types/post.types'
 import { uploadToCloudinary } from '@/utils/cloudinary'
 import ImageEditor from '../global/ImageEditor'
 import VideoPlayer from '../global/VideoPlayer'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/store'
 
 type PostFormProps = {
   post?: Post
@@ -31,6 +33,8 @@ export default function PostForm({
   setIsSubmitting,
 }: PostFormProps) {
   const isEdit = !!post
+  const { userType } = useSelector((state: RootState) => state.userState)
+  const postType = userType === 'customer' ? 'JOB' : 'GENERAL'
   const [formData, setFormData] = useState<{
     post: string
     photos: File[]
@@ -182,7 +186,7 @@ export default function PostForm({
     if (isEdit) {
       const allData: CreatePost = {
         post_content: formData.post,
-        post_type: 'GENERAL',
+        post_type: postType,
       }
       onSubmit(allData)
       return
@@ -200,7 +204,7 @@ export default function PostForm({
 
       const allData: CreatePost = {
         post_content: formData.post,
-        post_type: 'GENERAL',
+        post_type: postType,
         attachments: formatUrls,
       }
 

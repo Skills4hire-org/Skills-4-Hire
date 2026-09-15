@@ -17,19 +17,30 @@ function AttachmentCell({
   className,
   overlay,
   fillCell = false,
+  capHeight = false,
 }: {
   attachment: PostAttachment
   onClick: () => void
   className?: string
   overlay?: number
   fillCell?: boolean
+  capHeight?: boolean
 }) {
-  const [imageAspectRatio, setImageAspectRatio] = useState<string>('4 / 5')
+  const [aspectRatio, setAspectRatio] = useState('4 / 5')
 
   const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
     const { naturalWidth, naturalHeight } = event.currentTarget
     if (naturalWidth > 0 && naturalHeight > 0) {
-      setImageAspectRatio(`${naturalWidth} / ${naturalHeight}`)
+      setAspectRatio(`${naturalWidth} / ${naturalHeight}`)
+    }
+  }
+
+  const handleVideoMetadata = (meta: {
+    width: number
+    height: number
+  }) => {
+    if (meta.width > 0 && meta.height > 0) {
+      setAspectRatio(`${meta.width} / ${meta.height}`)
     }
   }
 
@@ -41,13 +52,10 @@ function AttachmentCell({
       className={cn(
         'group relative w-full overflow-hidden bg-neutral-100 cursor-pointer focus:outline-none',
         fillCell && 'h-full',
+        capHeight && 'md:max-h-[560px]',
         className,
       )}
-      style={
-        attachment.attachment_type !== 'VIDEO' && !fillCell
-          ? { aspectRatio: imageAspectRatio }
-          : undefined
-      }
+      style={!fillCell ? { aspectRatio } : undefined}
     >
       {attachment.attachment_type === 'VIDEO' ? (
         <VideoPlayer
@@ -57,15 +65,19 @@ function AttachmentCell({
           muted
           loop
           controls={false}
-          fit="cover"
+          fit={capHeight ? 'contain' : 'cover'}
           className="h-full"
+          onMetadata={handleVideoMetadata}
         />
       ) : (
         <img
           src={compressCloudinaryUrl(attachment.attachmentURL, POST_IMAGE_WIDTH)}
           alt={attachment.post_attachment_id}
           loading="lazy"
-          className="w-full h-full object-cover"
+          className={cn(
+            'w-full h-full',
+            capHeight ? 'object-contain' : 'object-cover',
+          )}
           onLoad={handleImageLoad}
           onError={(e) => {
             e.currentTarget.style.display = 'none'
@@ -147,6 +159,7 @@ function ImageCarousel({
             onClick={() => openAt(i)}
             className={count === 3 && i === 0 ? 'row-span-2' : undefined}
             fillCell={count > 2}
+            capHeight={count === 1}
             overlay={i === MAX_VISIBLE - 1 ? overflow : undefined}
           />
         ))}

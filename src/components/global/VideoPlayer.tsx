@@ -36,6 +36,7 @@ type VideoPlayerProps = {
   controls?: boolean
   fit?: 'contain' | 'cover'
   className?: string
+  onMetadata?: (meta: { width: number; height: number }) => void
 }
 
 export default function VideoPlayer({
@@ -47,6 +48,7 @@ export default function VideoPlayer({
   controls = true,
   fit = 'contain',
   className,
+  onMetadata,
 }: VideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -214,6 +216,7 @@ export default function VideoPlayer({
           setDuration(video.duration || 0)
           setVolume(video.volume || 1)
           setIsMuted(video.muted)
+          onMetadata?.({ width: video.videoWidth, height: video.videoHeight })
         }}
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         onProgress={(e) => {
