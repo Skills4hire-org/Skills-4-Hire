@@ -13,3 +13,10 @@ I've saved this as a ready-to-apply patch at C:\Users\isaac\AppData\Local\Temp\o
 
 
 The AvailableServices.tsx no longer calls the /api/v1/services-categories/ endpoint at all. If the CEO later wants real backend data to show here, that'll need to be wired back in.
+
+
+
+
+
+
+commented the search for skills/services onboarding in "src\components\form\ApplicationProfileForm.tsx"
