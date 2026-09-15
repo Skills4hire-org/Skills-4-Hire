@@ -1,6 +1,7 @@
 import { useDeleteFromGallery } from '@/hooks/useUsers'
 import { Loader2, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ServiceProviderGallery({
   image,
@@ -26,7 +27,7 @@ export default function ServiceProviderGallery({
   return (
     <figure className=" rounded-lg relative">
       <img
-        src={image}
+        src={compressCloudinaryUrl(image, 400)}
         alt="uploads"
         className="aspect-square object-cover rounded-lg w-full"
         loading="lazy"

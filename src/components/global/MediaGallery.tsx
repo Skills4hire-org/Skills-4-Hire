@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { Loader2, PlayIcon, Trash2 } from 'lucide-react'
 import VideoPlayer from './VideoPlayer'
 import VideoViewer from './VideoViewer'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function MediaGallery({
   media,
@@ -30,7 +31,7 @@ export default function MediaGallery({
   const slides = useMemo(
     () =>
       imageItems?.map((item) => ({
-        src: item.image_url,
+        src: compressCloudinaryUrl(item.image_url, 1200),
         alt: item.description,
       })),
     [imageItems],
@@ -75,7 +76,7 @@ export default function MediaGallery({
               {item.type === 'video' ? (
                 <>
                   <img
-                    src={item.thumbnail_url}
+                    src={compressCloudinaryUrl(item.thumbnail_url, 400)}
                     alt={item.description}
                     className="aspect-square object-cover rounded-lg w-full"
                   />
@@ -88,7 +89,7 @@ export default function MediaGallery({
                 </>
               ) : (
                 <img
-                  src={item.image_url}
+                  src={compressCloudinaryUrl(item.image_url, 800)}
                   alt={item.description}
                   className="aspect-square object-cover rounded-lg w-full"
                 />
@@ -124,7 +125,7 @@ export default function MediaGallery({
         {activeVideo && (
           <VideoPlayer
             src={activeVideo.image_url}
-            poster={activeVideo.thumbnail_url}
+            poster={compressCloudinaryUrl(activeVideo.thumbnail_url, 800)}
             autoPlay
             fit="contain"
             className="h-full"

@@ -1,6 +1,7 @@
 import { User } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import placeholder from '../../assets/images/profile.jpg'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ProfileImage({
   noStatus,
@@ -16,7 +17,7 @@ export default function ProfileImage({
   return (
     <div className="relative w-max cursor-pointer">
       <Avatar className={`${size ? size : 'size-12'}`}>
-        <AvatarImage src={avatar ?? placeholder} />
+        <AvatarImage src={compressCloudinaryUrl(avatar, 200) ?? placeholder} />
         <AvatarFallback className="w-full">
           <User className="w-4 h-4" />
         </AvatarFallback>
