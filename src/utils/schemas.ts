@@ -7,6 +7,7 @@ export const personalInfoFormSchema = z.object({
 })
 
 export const applicationProfileFormSchema = z.object({
+  service: z.string().min(1, 'Please select a skill or service.'),
   headline: z
     .string()
     .min(25, 'Headline must be at least 25 characters.')

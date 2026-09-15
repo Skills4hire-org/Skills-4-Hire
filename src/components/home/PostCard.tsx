@@ -8,6 +8,7 @@ import {
   Pencil,
   Trash2,
   Briefcase,
+  Share2,
 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
@@ -46,6 +47,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useEffect, useRef } from 'react'
 import { formatLinks } from '@/utils/linkify'
+import { toast } from 'sonner'
 
 export default function PostCard({
   post_id,
@@ -90,6 +92,38 @@ export default function PostCard({
       unlikePost({ post_id })
     } else {
       likePost({ post_id })
+    }
+  }
+
+  const handleSharePost = async () => {
+    if (!post_id) return
+
+    const postUrl = new URL(window.location.href)
+    postUrl.search = ''
+    postUrl.searchParams.set('post', post_id)
+    const shareUrl = postUrl.toString()
+    const shareText = `Check out this post on Skills4Hire${post_content ? `: ${post_content.slice(0, 100)}` : ''}`
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Skills4Hire post',
+          text: shareText,
+          url: shareUrl,
+        })
+        return
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          return
+        }
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      toast.success('Post link copied to clipboard')
+    } catch {
+      toast.error('Unable to share or copy the post link')
     }
   }
 
@@ -313,6 +347,16 @@ export default function PostCard({
             queryKey={queryKey}
           />
         </div>
+        <button
+          type="button"
+          onClick={handleSharePost}
+          className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer"
+          aria-label="Share post"
+          title="Share post"
+        >
+          <Share2 className="w-5 h-5 md:h-6 md:w-6" />
+          <span>Share</span>
+        </button>
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
           <BarChart2 className="w-5 h-5 md:h-6 md:w-6" />
           <span>{impression_count ?? 0}</span>
