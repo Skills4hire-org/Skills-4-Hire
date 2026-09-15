@@ -93,7 +93,6 @@ export default function FormSelectGroup({
   labelSize,
 }: FormSelectFieldProp) {
   const [query, setQuery] = useState('')
-  const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const filteredData = useMemo(
@@ -113,15 +112,12 @@ export default function FormSelectGroup({
         </Label>
       )}
       <Select
-        key={value === undefined ? 'undefined' : 'defined'}
         value={value}
         onValueChange={(value) => handleInputChange(name, value)}
         required={required}
         disabled={disabled}
         name={name}
-        open={open}
         onOpenChange={(isOpen) => {
-          setOpen(isOpen)
           if (isOpen && searchable) {
             requestAnimationFrame(() => inputRef.current?.focus())
           } else {
@@ -149,7 +145,10 @@ export default function FormSelectGroup({
           className={cn('max-h-80', selectContentClassName)}
         >
           {searchable && (
-            <div className="sticky top-0 z-10 -mx-1 mb-1 border-b bg-popover p-1.5 px-2.5">
+            <div
+              className="sticky top-0 z-10 -mx-1 mb-1 border-b bg-popover p-1.5 px-2.5"
+              onPointerDown={(event) => event.stopPropagation()}
+            >
               <div className="relative">
                 <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
@@ -159,7 +158,6 @@ export default function FormSelectGroup({
                   placeholder={searchPlaceholder}
                   className="h-9 pl-8 pr-8"
                   onKeyDown={(e) => e.stopPropagation()}
-                  onPointerDown={(e) => e.stopPropagation()}
                   role="combobox"
                   aria-expanded="true"
                 />

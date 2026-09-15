@@ -92,8 +92,8 @@ export default function ApplicationProfileForm() {
         className="capitalize bg-transparent pb-1 pl-3 pr-6 h-9 pt-0 [&>svg]:hidden"
         indicator
         required
-        searchable
-        searchPlaceholder="Search for your skill or service..."
+        // searchable
+        // searchPlaceholder="Search for your skill or service..."
       />
       <FormInput
         name="country"
