@@ -45,6 +45,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { useEffect, useRef } from 'react'
+import { formatLinks } from '@/utils/linkify'
 
 export default function PostCard({
   post_id,
@@ -252,7 +253,7 @@ export default function PostCard({
         <p
           className={`text-gray-900 text-[14px] md:text-base leading-snug md:leading-relaxed whitespace-pre-line ${isTextLong && !viewMore ? 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4' : ''}`}
         >
-          {post_content}
+          {formatLinks(post_content ?? '')}
         </p>
         {isTextLong && (
           <button

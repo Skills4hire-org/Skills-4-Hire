@@ -23,7 +23,7 @@ export default function ServiceProviderServiceCard({
       <div className="relative w-full overflow-visible rounded-2xl">
         <img
           src={
-            compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200) ?? defaultImage
+            compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200) || defaultImage
           }
           alt={user?.profile?.display_name}
           className="w-[99%] md:w-[98.5%] mx-auto rounded-2xl object-cover h-40 sm:h-60 md:h-72 lg:h-80"

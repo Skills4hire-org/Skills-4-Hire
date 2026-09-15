@@ -170,7 +170,7 @@ function PeopleCurrentlyHiring() {
                 >
                   <img
                     src={
-                      compressCloudinaryUrl(post.user?.profile?.avatar?.avatar, 200) ??
+                      compressCloudinaryUrl(post.user?.profile?.avatar?.avatar, 200) ||
                       defaultImage
                     }
                     alt={name}

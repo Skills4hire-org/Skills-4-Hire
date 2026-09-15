@@ -134,8 +134,8 @@ function ImageCarousel({
       : count === 2
         ? 'grid-cols-2 auto-rows-fr'
         : count === 3
-          ? 'grid-cols-2 grid-rows-2 aspect-[4/5]'
-          : 'grid-cols-2 grid-rows-2 auto-rows-fr'
+          ? 'grid-cols-2 grid-rows-2 aspect-square'
+          : 'grid-cols-2 grid-rows-2 auto-rows-fr aspect-square'
 
   return (
     <>
@@ -146,7 +146,7 @@ function ImageCarousel({
             attachment={attachment}
             onClick={() => openAt(i)}
             className={count === 3 && i === 0 ? 'row-span-2' : undefined}
-            fillCell={count === 3}
+            fillCell={count > 2}
             overlay={i === MAX_VISIBLE - 1 ? overflow : undefined}
           />
         ))}

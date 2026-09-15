@@ -26,6 +26,7 @@ export default function ProviderProfileOverviewForm({
     address: professional?.user?.profile.location,
     city: professional?.user?.profile.city,
     state: professional?.user?.profile.state,
+    country: professional?.user?.profile.country,
   })
 
   const handleInputChange = (field: string, value: string) => {
@@ -48,6 +49,7 @@ export default function ProviderProfileOverviewForm({
       profile: {
         city: formData.city,
         state: formData.state,
+        country: formData.country,
         location: formData.address,
         user: {
           first_name: formData.firstName,
@@ -138,7 +140,7 @@ export default function ProviderProfileOverviewForm({
           />
         </div>
         <FormInput
-          name="Address"
+          name="address"
           value={formData.address}
           handleInputChange={handleInputChange}
           type="text"
@@ -147,9 +149,19 @@ export default function ProviderProfileOverviewForm({
           placeholder="Address"
           label="Address"
         />
+        <FormInput
+          name="country"
+          value={formData.country}
+          handleInputChange={handleInputChange}
+          type="text"
+          required
+          className="bg-gray-300 capitalize h-11 pl-4 pr-6"
+          placeholder="Country"
+          label="Country"
+        />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
           <FormInput
-            name="City"
+            name="city"
             value={formData.city}
             handleInputChange={handleInputChange}
             type="text"

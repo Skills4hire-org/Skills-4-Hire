@@ -1,3 +1,5 @@
+import { formatLinks } from '@/utils/linkify'
+
 export default function ServiceProviderAbout({
   about,
 }: {
@@ -6,7 +8,9 @@ export default function ServiceProviderAbout({
   return (
     <>
       {about && (
-        <p className="text-sm md:text-base whitespace-pre-line">{about}</p>
+        <p className="text-sm md:text-base whitespace-pre-line">
+          {formatLinks(about)}
+        </p>
       )}
     </>
   )

@@ -80,7 +80,7 @@ export const getMyServices = async (pageParam: string | undefined) => {
       const response = await api.get(pageParam)
       return response?.data
     }
-    const response = await api.get('/api/v1/services/')
+    const response = await api.get('/api/v1/services/auth_user_services/')
     return response?.data
   } catch (error) {
     handleApiError(error)

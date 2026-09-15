@@ -44,7 +44,7 @@ export default function CompactProviderCard({
           >
             <img
               src={
-                compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200) ??
+                compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200) ||
                 defaultImage
               }
               alt={user?.profile?.display_name || 'Service Provider'}

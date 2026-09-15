@@ -55,7 +55,7 @@ export default function CustomerBookingCard({
           <figure className="w-24 h-24 md:w-30 md:h-30">
             <img
               src={
-                compressCloudinaryUrl(provider?.user?.profile?.avatar?.avatar, 200) ??
+                compressCloudinaryUrl(provider?.user?.profile?.avatar?.avatar, 200) ||
                 defaultImage
               }
               alt={provider?.user?.profile?.display_name}

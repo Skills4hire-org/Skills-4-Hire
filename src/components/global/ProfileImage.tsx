@@ -17,7 +17,7 @@ export default function ProfileImage({
   return (
     <div className="relative w-max cursor-pointer">
       <Avatar className={`${size ? size : 'size-12'}`}>
-        <AvatarImage src={compressCloudinaryUrl(avatar, 200) ?? placeholder} />
+        <AvatarImage src={compressCloudinaryUrl(avatar, 200) || placeholder} />
         <AvatarFallback className="w-full">
           <User className="w-4 h-4" />
         </AvatarFallback>

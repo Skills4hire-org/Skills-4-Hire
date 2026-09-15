@@ -33,7 +33,7 @@ export default function ServiceProviderOverview({
         <figure className=" -mt-13 md:-mt-18.5  mb-1 md:mb-2 w-max rounded-full border-4 border-background">
           <img
             src={
-              compressCloudinaryUrl(profile?.user?.profile?.avatar?.avatar, 200) ??
+              compressCloudinaryUrl(profile?.user?.profile?.avatar?.avatar, 200) ||
               defaultImage
             }
             alt={profile?.user?.profile?.display_name}

@@ -92,7 +92,7 @@ export default function BookingRequestCard({
         <figure>
           <img
             src={
-              compressCloudinaryUrl(provider?.user?.profile?.avatar?.avatar, 200) ??
+              compressCloudinaryUrl(provider?.user?.profile?.avatar?.avatar, 200) ||
               defaultImage
             }
             alt={provider?.user?.profile?.display_name}

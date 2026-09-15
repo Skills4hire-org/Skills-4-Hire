@@ -93,7 +93,7 @@ export const useUpdateMyProfile = () => {
 
 export const useMyServices = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['profile-services', 'me'],
+    queryKey: ['profile-services', 'me', 'mine'],
     queryFn: ({ pageParam }) => {
       return getMyServices(pageParam)
     },

@@ -187,6 +187,7 @@ export type ProfileOverviewFormData = {
   address?: string
   city?: string
   state?: string
+  country?: string
 }
 
 export type ServiceProviderServiceCard = {
