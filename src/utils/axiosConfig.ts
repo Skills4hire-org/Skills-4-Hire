@@ -51,24 +51,26 @@ api.interceptors.request.use(async (config) => {
   const state = store.getState()
   let token = state.userState.access
 
-  if (token) {
-    if (isTokenExpired(token)) {
-      if (state.userState.refresh) {
-        try {
-          token = await refreshAccessToken()
-        } catch (err) {
-          return Promise.reject(err) // logout already handled, abort the request
-        }
-      } else {
-        // Stale or partial session: no refresh token to renew the access
-        // token with. Clear the leftover session so public requests such as
-        // registration, OTP verification, or onboarding are not blocked, and
-        // protected requests simply fail as unauthenticated.
-        store.dispatch(logoutUser())
-        return config
+  if (token && isTokenExpired(token)) {
+    if (state.userState.refresh) {
+      try {
+        token = await refreshAccessToken()
+      } catch (err) {
+        return Promise.reject(err) // logout already handled, abort the request
       }
+    } else {
+      store.dispatch(logoutUser())
+      return config
     }
+  } else if (!token && state.userState.refresh) {
+    try {
+      token = await refreshAccessToken()
+    } catch (err) {
+      return Promise.reject(err) // logout already handled, abort the request
+    }
+  }
 
+  if (token) {
     config.headers = config.headers || {}
     config.headers.Authorization = `Bearer ${token}`
   }
@@ -88,7 +90,7 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config
 
-    const noTokenRefreshUrls = /(\/auth\/|\/onboard\/)/
+    const noTokenRefreshUrls = /\/auth\//
 
     if (
       error.response?.status === 401 &&
