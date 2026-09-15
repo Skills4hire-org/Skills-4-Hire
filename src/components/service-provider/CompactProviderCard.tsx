@@ -7,6 +7,7 @@ import type { RootState } from '@/store'
 import { Badge } from '../ui/badge'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
 import defaultImage from '../../assets/images/profile.jpg'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function CompactProviderCard({
   provider_id,
@@ -30,7 +31,9 @@ export default function CompactProviderCard({
           to={`/${userType}/professionals/${provider_id}`}
           className="block h-20 lg:h-24 bg-slate-100 bg-cover bg-center shrink-0"
           style={{
-            backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : undefined,
+            backgroundImage: coverImageUrl
+              ? `url(${compressCloudinaryUrl(coverImageUrl, 600)})`
+              : undefined,
           }}
         />
 
@@ -40,7 +43,10 @@ export default function CompactProviderCard({
             className="w-12 h-12 rounded-full border-4 border-white bg-white shadow-sm overflow-hidden block"
           >
             <img
-              src={user?.profile?.avatar?.avatar ?? defaultImage}
+              src={
+                compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200) ??
+                defaultImage
+              }
               alt={user?.profile?.display_name || 'Service Provider'}
               className="w-full h-full object-cover rounded-full"
               loading="lazy"

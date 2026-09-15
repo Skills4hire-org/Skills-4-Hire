@@ -36,9 +36,7 @@ export default function ImageEditor({
   onCancel,
   onConfirm,
 }: ImageEditorProps) {
-  const [mode, setMode] = useState<'crop' | 'original'>(
-    originalFile ? 'original' : 'crop',
-  )
+  const [mode, setMode] = useState<'crop' | 'original'>('crop')
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [rotation, setRotation] = useState(0)
@@ -47,7 +45,7 @@ export default function ImageEditor({
 
   useEffect(() => {
     if (open) {
-      setMode(originalFile ? 'original' : 'crop')
+      setMode('crop')
       setCrop({ x: 0, y: 0 })
       setZoom(1)
       setRotation(0)

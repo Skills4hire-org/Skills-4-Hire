@@ -5,6 +5,9 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom'
 import { cn } from '@/lib/utils'
 import VideoPlayer from '../global/VideoPlayer'
 import VideoViewer from '../global/VideoViewer'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
+
+const POST_IMAGE_WIDTH = 1000
 
 const MAX_VISIBLE = 4
 
@@ -49,7 +52,7 @@ function AttachmentCell({
       {attachment.attachment_type === 'VIDEO' ? (
         <VideoPlayer
           src={attachment.attachmentURL}
-          poster={attachment.thumbnail_url}
+          poster={compressCloudinaryUrl(attachment.thumbnail_url, POST_IMAGE_WIDTH)}
           autoPlay
           muted
           loop
@@ -59,7 +62,7 @@ function AttachmentCell({
         />
       ) : (
         <img
-          src={attachment.attachmentURL}
+          src={compressCloudinaryUrl(attachment.attachmentURL, POST_IMAGE_WIDTH)}
           alt={attachment.post_attachment_id}
           loading="lazy"
           className="w-full h-full object-cover"
@@ -98,7 +101,7 @@ function ImageCarousel({
   const slides = useMemo(
     () =>
       imageAttachments?.map((item) => ({
-        src: item.attachmentURL,
+        src: compressCloudinaryUrl(item.attachmentURL, POST_IMAGE_WIDTH),
         alt: item.post_attachment_id,
       })),
     [imageAttachments],
@@ -159,7 +162,7 @@ function ImageCarousel({
         {activeVideo && (
           <VideoPlayer
             src={activeVideo.attachmentURL}
-            poster={activeVideo.thumbnail_url}
+            poster={compressCloudinaryUrl(activeVideo.thumbnail_url, POST_IMAGE_WIDTH)}
             autoPlay
             fit="contain"
             className="h-full"

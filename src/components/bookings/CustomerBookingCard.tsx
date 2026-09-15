@@ -7,6 +7,7 @@ import ProfileImage from '../global/ProfileImage'
 import Ratings from '../global/Ratings'
 import defaultImage from '../../assets/images/profile.jpg'
 import { Link, useNavigate } from 'react-router-dom'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 import type { Booking } from '@/types/bookings.type'
 
 export default function CustomerBookingCard({
@@ -53,7 +54,10 @@ export default function CustomerBookingCard({
         <Link to={`/customer/professionals/${provider?.provider_id}`}>
           <figure className="w-24 h-24 md:w-30 md:h-30">
             <img
-              src={provider?.user?.profile?.avatar?.avatar ?? defaultImage}
+              src={
+                compressCloudinaryUrl(provider?.user?.profile?.avatar?.avatar, 200) ??
+                defaultImage
+              }
               alt={provider?.user?.profile?.display_name}
               className="aspect-square object-cover h-full w-full"
               loading="lazy"

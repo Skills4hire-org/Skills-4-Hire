@@ -6,6 +6,7 @@ import { Briefcase } from 'lucide-react'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
 import type { Provider, UserType } from '@/types/user.types'
 import { useSelector } from 'react-redux'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ServiceProviderCard({
   provider_id,
@@ -49,7 +50,9 @@ export default function ServiceProviderCard({
           to={`/${userType}/professionals/${provider_id}`}
           className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-100 bg-cover bg-center shrink-0"
           style={{
-            backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : undefined,
+            backgroundImage: coverImageUrl
+              ? `url(${compressCloudinaryUrl(coverImageUrl, 600)})`
+              : undefined,
           }}
         />
 
@@ -64,7 +67,10 @@ export default function ServiceProviderCard({
               className="w-20 h-20 rounded-full border-4 border-white lg:border-2 lg:border-slate-100 bg-white shadow-sm overflow-hidden block"
             >
               <img
-                src={user?.profile?.avatar?.avatar ?? defaultImage}
+                src={
+                  compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200) ??
+                  defaultImage
+                }
                 alt={user?.profile?.display_name || 'Service Provider'}
                 className="w-full h-full object-cover rounded-full"
                 loading="lazy"

@@ -5,6 +5,7 @@ import {
 } from '@/utils/format'
 import ProfileImage from '../global/ProfileImage'
 import defaultImage from '../../assets/images/profile.jpg'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 import type { Booking } from '@/types/bookings.type'
 import { useBookingAction } from '@/hooks/useBookings'
 import { toast } from 'sonner'
@@ -90,7 +91,10 @@ export default function BookingRequestCard({
         </div>
         <figure>
           <img
-            src={provider?.user?.profile?.avatar?.avatar ?? defaultImage}
+            src={
+              compressCloudinaryUrl(provider?.user?.profile?.avatar?.avatar, 200) ??
+              defaultImage
+            }
             alt={provider?.user?.profile?.display_name}
             className="aspect-square object-cover h-full max-w-24 md:max-w-42"
             loading="lazy"

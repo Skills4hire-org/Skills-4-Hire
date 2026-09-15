@@ -3,6 +3,7 @@ import { Badge } from '../ui/badge'
 import { currencyFormatter, formatSpaceToString } from '@/utils/format'
 import { Link } from 'react-router-dom'
 import type { Profile } from '@/types/user.types'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ServiceProviderBookingCard({
   provider_id,
@@ -18,7 +19,7 @@ export default function ServiceProviderBookingCard({
       <Link to={`/customer/professionals/${provider_id}`}>
         <figure className="rounded-tr-4xl h-full ">
           <img
-            src={user?.profile?.avatar?.avatar}
+            src={compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200)}
             alt={user?.profile?.display_name}
             className="w-24 md:w-42 aspect-square object-cover  rounded-tr-4xl"
             loading="lazy"

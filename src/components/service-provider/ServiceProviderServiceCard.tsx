@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import ProfileImage from '../global/ProfileImage'
 import AddToFavoriteButton from '../buttons/AddToFavoriteButton'
 import defaultImage from '../../assets/images/profile.jpg'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ServiceProviderServiceCard({
   user,
@@ -21,7 +22,9 @@ export default function ServiceProviderServiceCard({
     <div className="relative bg-white border border-neutral-100 lg:rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-3">
       <div className="relative w-full overflow-visible rounded-2xl">
         <img
-          src={user?.profile?.avatar?.avatar ?? defaultImage}
+          src={
+            compressCloudinaryUrl(user?.profile?.avatar?.avatar, 200) ?? defaultImage
+          }
           alt={user?.profile?.display_name}
           className="w-[99%] md:w-[98.5%] mx-auto rounded-2xl object-cover h-40 sm:h-60 md:h-72 lg:h-80"
         />

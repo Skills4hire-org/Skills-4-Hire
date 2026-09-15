@@ -27,7 +27,7 @@ export default function UploadPhoto() {
   const [editingFile, setEditingFile] = useState<File | null>(null)
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 2 * 1024 * 1024
+    const MAX_SIZE_MB = 10 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files = Array.from(selectedFiles)
     if (files.length === 0) return
@@ -38,7 +38,7 @@ export default function UploadPhoto() {
       return
     }
     if (isOverSize) {
-      toast.warning('Image size must not exceed 2MB')
+      toast.warning('Image size must not exceed 10MB')
       return
     }
     if (e.target) {

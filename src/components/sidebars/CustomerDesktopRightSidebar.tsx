@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import defaultImage from '../../assets/images/profile.jpg'
 import Error from '../global/Error'
 import Loading from '../global/Loading'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 import { useAllProviders } from '@/hooks/useUsers'
 import { useHireRequests } from '@/hooks/usePosts'
 import type { RootState } from '@/store'
@@ -168,7 +169,10 @@ function PeopleCurrentlyHiring() {
                   className="flex items-center gap-3"
                 >
                   <img
-                    src={post.user?.profile?.avatar?.avatar ?? defaultImage}
+                    src={
+                      compressCloudinaryUrl(post.user?.profile?.avatar?.avatar, 200) ??
+                      defaultImage
+                    }
                     alt={name}
                     className="h-8 w-8 rounded-full object-cover"
                   />

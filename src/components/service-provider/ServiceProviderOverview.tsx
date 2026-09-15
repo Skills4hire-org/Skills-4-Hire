@@ -8,6 +8,7 @@ import type { Profile } from '@/types/user.types'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/store'
 import type { UserType } from '@/types/user.types'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ServiceProviderOverview({
   profile,
@@ -22,13 +23,19 @@ export default function ServiceProviderOverview({
       <div
         className={` w-full bg-cover bg-center h-[20vh] md:h-[25vh] -mt-2 md:-mt-6`}
         style={{
-          backgroundImage: `url(${profile?.user?.profile?.cover_photo?.image_url})`,
+          backgroundImage: `url(${compressCloudinaryUrl(
+            profile?.user?.profile?.cover_photo?.image_url,
+            1200,
+          )})`,
         }}
       />
       <Container className="border-b-8 relative">
         <figure className=" -mt-13 md:-mt-18.5  mb-1 md:mb-2 w-max rounded-full border-4 border-background">
           <img
-            src={profile?.user?.profile?.avatar?.avatar ?? defaultImage}
+            src={
+              compressCloudinaryUrl(profile?.user?.profile?.avatar?.avatar, 200) ??
+              defaultImage
+            }
             alt={profile?.user?.profile?.display_name}
             className="aspect-square object-cover w-24 md:w-34 rounded-full"
           />

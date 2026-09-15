@@ -5,6 +5,7 @@ import type { Service } from '@/types/user.types'
 import { useDispatch, useSelector } from 'react-redux'
 import { addService, removeService } from '@/features/booking/bookingSlice'
 import DeleteServiceDialog from '../profile/DeleteServiceDialog'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ServiceProviderServicesCard({
   service_id,
@@ -52,7 +53,7 @@ export default function ServiceProviderServicesCard({
           />
         )}
         <img
-          src={attachments[0]?.image_url}
+          src={compressCloudinaryUrl(attachments[0]?.image_url, 400)}
           alt="service image"
           className="aspect-square object-cover w-20 md:w-22 rounded-l-md"
           loading="lazy"

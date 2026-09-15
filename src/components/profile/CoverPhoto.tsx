@@ -1,4 +1,5 @@
 import CoverPhotoDialog from './CoverPhotoDialog'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function CoverPhoto({ cover_photo }: { cover_photo?: string }) {
   return (
@@ -6,7 +7,7 @@ export default function CoverPhoto({ cover_photo }: { cover_photo?: string }) {
       <div
         className={`w-full bg-cover bg-center bg-gray-200 h-[20vh] md:h-[25vh]`}
         style={{
-          backgroundImage: `url(${cover_photo})`,
+          backgroundImage: `url(${compressCloudinaryUrl(cover_photo, 1200)})`,
         }}
       />
       <CoverPhotoDialog cover_photo={cover_photo} />

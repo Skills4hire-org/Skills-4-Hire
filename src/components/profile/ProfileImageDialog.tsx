@@ -10,6 +10,7 @@ import type { Profile } from '@/types/user.types'
 import ProfileImageForm from '../form/ProfileImageForm'
 import defaultImage from '../../assets/images/profile.jpg'
 import { useState } from 'react'
+import { compressCloudinaryUrl } from '@/utils/imageTransform'
 
 export default function ProfileImageDialog({
   professional,
@@ -22,7 +23,12 @@ export default function ProfileImageDialog({
       <DialogTrigger asChild>
         <figure className="bg-gray-100 -mt-13 md:-mt-18.5  mb-1 md:mb-2 w-max rounded-full border-4 border-background">
           <img
-            src={professional?.user?.profile?.avatar?.avatar ?? defaultImage}
+            src={
+              compressCloudinaryUrl(
+                professional?.user?.profile?.avatar?.avatar,
+                200,
+              ) ?? defaultImage
+            }
             alt={professional?.user?.profile?.display_name}
             className="aspect-square object-cover w-24 md:w-34 rounded-full"
           />
