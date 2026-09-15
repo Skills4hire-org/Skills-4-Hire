@@ -8,7 +8,7 @@ import {
   Pencil,
   Trash2,
   Briefcase,
-  Share2,
+  Send,
 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import ProfileImage from '@/components/global/ProfileImage'
@@ -354,7 +354,7 @@ export default function PostCard({
           aria-label="Share post"
           title="Share post"
         >
-          <Share2 className="w-5 h-5 md:h-6 md:w-6" />
+          <Send className="w-5 h-5 md:h-6 md:w-6" />
           <span>Share</span>
         </button>
         <button className="flex items-center gap-1 text-xs md:text-sm lg:text-base hover:text-blue-600 transition cursor-pointer">
