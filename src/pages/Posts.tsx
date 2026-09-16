@@ -5,6 +5,8 @@ import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import type { Post } from '@/types/post.types'
+import { useEffect, useRef } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export default function Posts() {
   const {
@@ -22,6 +24,49 @@ export default function Posts() {
     (data?.pages.flatMap((page) => page.results) ?? []).filter(
       (post) => !(post.post_type === 'JOB' && post.user?.is_provider === false),
     ) ?? []
+
+  const [searchParams] = useSearchParams()
+  const deepLinkPostId = searchParams.get('post')
+  const highlighted = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!deepLinkPostId) return
+
+    const element = document.getElementById(`post-${deepLinkPostId}`)
+    if (!element) return
+
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    element.classList.add(
+      'ring-2',
+      'ring-primary/50',
+      'rounded-2xl',
+      'transition-all',
+      'duration-500',
+    )
+    highlighted.current = element as HTMLDivElement
+
+    const timeout = setTimeout(() => {
+      element.classList.remove(
+        'ring-2',
+        'ring-primary/50',
+        'rounded-2xl',
+        'transition-all',
+        'duration-500',
+      )
+      highlighted.current = null
+    }, 3000)
+
+    return () => {
+      clearTimeout(timeout)
+      highlighted.current?.classList.remove(
+        'ring-2',
+        'ring-primary/50',
+        'rounded-2xl',
+        'transition-all',
+        'duration-500',
+      )
+    }
+  }, [deepLinkPostId, data])
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,

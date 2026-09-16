@@ -260,6 +260,7 @@ export default function ProfileActivity() {
                                 <CommentCard
                                   key={comment.comment_id}
                                   {...comment}
+                                  queryKey={['my-comments']}
                                 />
                               ))
                             )}

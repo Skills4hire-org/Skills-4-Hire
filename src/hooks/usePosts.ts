@@ -211,7 +211,7 @@ export const useMyPosts = ({ user_id }: { user_id?: string } = {}) => {
 }
 export const useUserPosts = ({ id }: { id?: string }) => {
   const queryData = useInfiniteQuery({
-    queryKey: ['user-posts'],
+    queryKey: ['user-posts', id],
     queryFn: ({ pageParam }) => getUserPosts({ pageParam, id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -223,7 +223,7 @@ export const useUserPosts = ({ id }: { id?: string }) => {
 }
 export const useMyComments = () => {
   const queryData = useInfiniteQuery({
-    queryKey: ['comments'],
+    queryKey: ['my-comments'],
     queryFn: ({ pageParam }) => getMyComments(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -236,7 +236,7 @@ export const useMyComments = () => {
 
 export const useUserComments = ({ id }: { id?: string }) => {
   const queryData = useInfiniteQuery({
-    queryKey: ['comments'],
+    queryKey: ['user-comments', id],
     queryFn: ({ pageParam }) => getUserComments({ pageParam, id }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
@@ -316,6 +316,10 @@ export const useLikePost = (queryKey: string[]) => {
         queryClient.setQueryData(queryKey, context.previousPosts)
       }
     },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
+    },
   })
 }
 
@@ -359,6 +363,10 @@ export const useUnlikePost = (queryKey: string[]) => {
       if (context?.previousPosts) {
         queryClient.setQueryData(queryKey, context.previousPosts)
       }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
     },
   })
 }
@@ -600,6 +608,10 @@ export const useLikeComment = ({
         queryClient.setQueryData(queryKey, context.previousData)
       }
     },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
+    },
   })
 }
 
@@ -647,6 +659,10 @@ export const useUnlikeComment = ({
       if (context?.previousData) {
         queryClient.setQueryData(queryKey, context.previousData)
       }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
     },
   })
 }

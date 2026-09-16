@@ -47,7 +47,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useEffect, useRef } from 'react'
 import { formatLinks } from '@/utils/linkify'
-import { toast } from 'sonner'
+import ShareDialog from './ShareDialog'
 
 export default function PostCard({
   post_id,
@@ -68,6 +68,8 @@ export default function PostCard({
   const [showComment, setShowComment] = useState(false)
   const [viewMore, setViewMore] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [showShareDialog, setShowShareDialog] = useState(false)
+  const [shareUrl, setShareUrl] = useState('')
   const navigate = useNavigate()
 
   const {
@@ -101,15 +103,15 @@ export default function PostCard({
     const postUrl = new URL(window.location.href)
     postUrl.search = ''
     postUrl.searchParams.set('post', post_id)
-    const shareUrl = postUrl.toString()
-    const shareText = `Check out this post on Skills4Hire${post_content ? `: ${post_content.slice(0, 100)}` : ''}`
+    const url = postUrl.toString()
+    const text = `Check out this post on Skills4Hire${post_content ? `: ${post_content.slice(0, 100)}` : ''}`
 
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'Skills4Hire post',
-          text: shareText,
-          url: shareUrl,
+          text,
+          url,
         })
         return
       } catch (error) {
@@ -119,12 +121,8 @@ export default function PostCard({
       }
     }
 
-    try {
-      await navigator.clipboard.writeText(shareUrl)
-      toast.success('Post link copied to clipboard')
-    } catch {
-      toast.error('Unable to share or copy the post link')
-    }
+    setShareUrl(url)
+    setShowShareDialog(true)
   }
 
   const postRef = useRef<HTMLDivElement | null>(null)
@@ -177,7 +175,8 @@ export default function PostCard({
   return (
     <div
       ref={postRef}
-      className="bg-white lg:rounded-2xl md:rounded-2xl md:shadow lg:shadow p-3 md:p-4 space-y-2.5 md:space-y-3"
+      id={post_id ? `post-${post_id}` : undefined}
+      className="bg-white lg:rounded-2xl md:rounded-2xl md:shadow lg:shadow p-3 md:p-4 space-y-2.5 md:space-y-3 scroll-mt-20"
     >
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
@@ -391,6 +390,12 @@ export default function PostCard({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <ShareDialog
+        open={showShareDialog}
+        onOpenChange={setShowShareDialog}
+        shareUrl={shareUrl}
+        shareText={`Check out this post on Skills4Hire${post_content ? `: ${post_content.slice(0, 100)}` : ''}`}
+      />
     </div>
   )
 }
