@@ -55,7 +55,7 @@ export default function ServiceProviderActivity({
                     <PostCard
                       key={post.post_id}
                       {...post}
-                      queryKey={['user-posts']}
+                      queryKey={['user-posts', user_id].filter((key): key is string => Boolean(key))}
                     />
                   ))}
 
@@ -105,7 +105,7 @@ export default function ServiceProviderActivity({
                     <CommentCard
                       key={singleComment.comment_id}
                       {...singleComment}
-                      queryKey={['comments']}
+                      queryKey={['user-comments', user_id]}
                     />
                   ))}
                   {comments?.length == 0 || !comments ? (

@@ -128,7 +128,7 @@ export default function ServiceProviderActivity() {
                                 <PostCard
                                   key={post.post_id}
                                   {...post}
-                                  queryKey={['user-posts']}
+                                  queryKey={['user-posts', id]}
                                 />
                               ))
                             )}
@@ -243,6 +243,7 @@ export default function ServiceProviderActivity() {
                                 <CommentCard
                                   key={comment.comment_id}
                                   {...comment}
+                                  queryKey={['user-comments', id]}
                                 />
                               ))
                             )}

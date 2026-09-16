@@ -63,5 +63,8 @@ export const getApiErrorMessage = (error: unknown): string => {
 }
 
 export const handleApiError = (error: unknown): never => {
+  if (axios.isCancel(error)) {
+    throw error
+  }
   throw new Error(getApiErrorMessage(error))
 }

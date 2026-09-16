@@ -1,6 +1,8 @@
 import type { AuthUser } from '@/types/user.types'
 import { createSlice } from '@reduxjs/toolkit'
 
+const STORAGE_KEY = 'user'
+
 const defaultState: AuthUser = {
   userType: null,
   access: null,
@@ -9,8 +11,17 @@ const defaultState: AuthUser = {
 }
 
 const getUserFromLocalStorage: () => AuthUser = () => {
-  const user = sessionStorage.getItem('user')
-  return user ? JSON.parse(user) : defaultState
+  const stored = localStorage.getItem(STORAGE_KEY)
+  if (!stored) return defaultState
+  try {
+    const parsed = JSON.parse(stored)
+    return parsed?.user_data
+      ? { ...defaultState, ...parsed }
+      : defaultState
+  } catch {
+    localStorage.removeItem(STORAGE_KEY)
+    return defaultState
+  }
 }
 
 const userSlice = createSlice({
@@ -23,15 +34,15 @@ const userSlice = createSlice({
       state.refresh = refresh
       state.user_data = user_data
       state.userType = user_data.is_customer ? 'customer' : 'professional'
-      sessionStorage.setItem('user', JSON.stringify(state))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     },
     setAccessToken: (state, action) => {
       const accessToken = action.payload
       state.access = accessToken
-      sessionStorage.setItem('user', JSON.stringify(state))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     },
     logoutUser: () => {
-      sessionStorage.setItem('user', JSON.stringify(defaultState))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultState))
       return defaultState
     },
   },
