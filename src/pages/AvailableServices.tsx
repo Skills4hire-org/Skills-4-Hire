@@ -59,7 +59,7 @@ function CategoryGrid({ categories }: { categories: ServiceCategory[] }) {
 
 export default function AvailableServices() {
   return (
-    <div className="space-y-2 md:space-y-6 lg:ml-17">
+    <div className="space-y-2 md:space-y-6 lg:ml-17 md:ml-17">
       <HeaderWithBackNavigation title="Available services" />
       <Container>
         <div className="space-y-4 md:space-y-6">

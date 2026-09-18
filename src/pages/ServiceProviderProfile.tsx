@@ -56,7 +56,7 @@ export default function ServiceProviderProfile() {
   }
 
   return (
-    <div className="lg:ml-17">
+    <div className="lg:ml-17 md:ml-17">
       <HeaderWithBackNavigation title="Profile" />
       <div className="pb-10 lg:pb-16">
         {isLoading ? (
