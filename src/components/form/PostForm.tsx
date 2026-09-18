@@ -26,6 +26,42 @@ type PostFormProps = {
   setIsSubmitting: (value: boolean) => void
 }
 
+function PhotoThumb({
+  file,
+  onRemove,
+}: {
+  file: File
+  onRemove: () => void
+}) {
+  const [preview, setPreview] = useState<string | null>(null)
+
+  useEffect(() => {
+    const url = URL.createObjectURL(file)
+    setPreview(url)
+    return () => URL.revokeObjectURL(url)
+  }, [file])
+
+  return (
+    <div className="relative overflow-hidden rounded-lg bg-black/5 border">
+      {preview && (
+        <img
+          src={preview}
+          alt="Selected photo"
+          className="w-full h-24 md:h-28 object-cover"
+        />
+      )}
+      <button
+        type="button"
+        aria-label="Remove photo"
+        onClick={onRemove}
+        className="absolute top-1 right-1 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-1 cursor-pointer transition-colors"
+      >
+        <X className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  )
+}
+
 export default function PostForm({
   post,
   onSubmit,
@@ -302,6 +338,23 @@ export default function PostForm({
               >
                 <X className="w-4 h-4" />
               </button>
+            </div>
+          )}
+
+          {formData.photos.length > 0 && (
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+              {formData.photos.map((file, index) => (
+                <PhotoThumb
+                  key={index}
+                  file={file}
+                  onRemove={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      photos: prev.photos.filter((_, i) => i !== index),
+                    }))
+                  }
+                />
+              ))}
             </div>
           )}
 
