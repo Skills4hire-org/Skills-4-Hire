@@ -80,7 +80,7 @@ export default function ServiceProviderOverview({
               <MapPin className="w-4 h-4" />
               <span>
                 {profile?.user?.profile?.location},{' '}
-                {profile?.user?.profile?.city}, {profile?.user?.profile?.state}
+                {profile?.user?.profile?.city}, {profile?.user?.profile?.state}, {' '}
                 {profile?.user?.profile?.country}
               </span>
             </p>

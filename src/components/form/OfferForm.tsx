@@ -151,6 +151,12 @@ export default function OfferForm({
         fileRef.current.value = ''
         return toast.warning('File type is not acceptable.')
       }
+      if (field == 'photo' && newFile.size > 10 * 1024 * 1024) {
+        if (fileRef.current) fileRef.current.value = ''
+        return toast.warning(
+          `${newFile.name}'s size exceeds maximum upload size (10MB)`,
+        )
+      }
       acceptedImageFiles.push(newFile)
     })
     if (fileRef.current) {

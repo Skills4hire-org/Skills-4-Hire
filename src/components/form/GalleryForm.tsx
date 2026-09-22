@@ -77,7 +77,7 @@ export default function GalleryForm({
   }
 
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 2 * 1024 * 1024
+    const MAX_SIZE_MB = 100 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
     const acceptedVideoFiles: File[] = []

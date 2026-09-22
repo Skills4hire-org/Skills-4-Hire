@@ -29,7 +29,7 @@ export default function CompactProviderCard({
       <div className="flex flex-col bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-md hover:border-slate-300 transition-all">
         <Link
           to={`/${userType}/professionals/${provider_id}`}
-          className="block h-20 lg:h-24 bg-slate-100 bg-cover bg-center shrink-0"
+          className="block h-20 lg:h-24 bg-slate-200 bg-cover bg-center shrink-0"
           style={{
             backgroundImage: coverImageUrl
               ? `url(${compressCloudinaryUrl(coverImageUrl, 600)})`

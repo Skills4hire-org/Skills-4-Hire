@@ -63,8 +63,8 @@ export default function UploadPhoto() {
     try {
       const uploadedUrls = await uploadToCloudinary(formData.image_file)
       const data = {
-        avatar: uploadedUrls && uploadedUrls[0]?.url,
-        avatar_public_id: uploadedUrls && uploadedUrls[0]?.public_id,
+        avatar: uploadedUrls?.[0]?.url ?? '',
+        avatar_public_id: uploadedUrls?.[0]?.public_id ?? '',
         description: 'profile image',
       }
       updateAvatar(data, {

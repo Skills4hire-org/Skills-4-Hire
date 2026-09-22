@@ -2,7 +2,7 @@ import type { Profile, ProfileOverviewFormData } from '@/types/user.types'
 import { useState, type FormEvent } from 'react'
 import FormInput from '../form-fields/FormInput'
 import { Minus } from 'lucide-react'
-import { skillsTypes } from '@/assets/data'
+import { useProfessionOptions } from '@/hooks/useProfessionOptions'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Button } from '../ui/button'
 import { useUpdateMyProfile } from '../../hooks/useUsers'
@@ -28,6 +28,7 @@ export default function ProviderProfileOverviewForm({
     state: professional?.user?.profile.state,
     country: professional?.user?.profile.country,
   })
+  const { selectGroupData: professionSelectData } = useProfessionOptions()
 
   const handleInputChange = (field: string, value: string) => {
     if (field === 'minCharge' || field === 'maxCharge') {
@@ -97,7 +98,7 @@ export default function ProviderProfileOverviewForm({
           name="profession"
           value={formData.profession}
           handleInputChange={handleInputChange}
-          selectGroupData={skillsTypes}
+          selectGroupData={professionSelectData}
           className="capitalize bg-gray-300 h-[44px] pr-6 disabled:cursor-auto"
           required
           placeholder="Profession"

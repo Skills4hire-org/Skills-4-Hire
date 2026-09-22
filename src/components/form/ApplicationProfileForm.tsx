@@ -9,7 +9,7 @@ import { applicationProfileFormSchema } from '@/utils/schemas'
 import { completeOnboard, selectRole } from '@/api/onboard'
 import { updateMyProfile } from '@/api/profile'
 import type { Registration } from '@/types/onboard.types'
-import { skillsTypes } from '@/assets/data'
+import { useProfessionOptions } from '@/hooks/useProfessionOptions'
 import {
   clearForm,
   completeProfile,
@@ -27,6 +27,7 @@ export default function ApplicationProfileForm() {
   const { service, country, city, address, dateOfBirth, headline, state } =
     additionalInfo
   const [submitting, setSubmitting] = useState(false)
+  const { selectGroupData: professionSelectData } = useProfessionOptions()
 
   const handleInputChange = (field: string, value: string) => {
     dispatch(
@@ -88,7 +89,7 @@ export default function ApplicationProfileForm() {
         name="service"
         value={service}
         handleInputChange={handleInputChange}
-        selectGroupData={skillsTypes}
+        selectGroupData={professionSelectData}
         className="capitalize bg-transparent pb-1 pl-3 pr-6 h-9 pt-0 [&>svg]:hidden"
         indicator
         required

@@ -7,6 +7,7 @@ import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import type { Post } from '@/types/post.types'
 import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import CompleteProfileBanner from '@/components/home/CompleteProfileBanner'
 
 export default function Posts() {
   const {
@@ -84,6 +85,7 @@ export default function Posts() {
 
   return (
     <div className="lg:px-4 space-y-1 md:space-y-4">
+      <CompleteProfileBanner />
       <PostComposer />
       <div>
         {isLoading ? (
