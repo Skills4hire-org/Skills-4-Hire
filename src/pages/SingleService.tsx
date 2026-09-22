@@ -70,7 +70,13 @@ function RoleCard({ role, image }: { role: string; image?: string }) {
 
 // ─── Provider list view ────────────────────────────────────────────────────────
 
-function ProviderList({ profession }: { profession: string }) {
+function ProviderList({
+  profession,
+  role,
+}: {
+  profession: string
+  role: string
+}) {
   const [open, setOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [providerSearchQuery, setProviderSearchQuery] = useState('')
@@ -104,7 +110,8 @@ function ProviderList({ profession }: { profession: string }) {
     const all = data?.pages.flatMap((page) => page?.results ?? []) ?? []
     return all.filter(
       (provider) =>
-        matchesProfession(provider, profession) &&
+        (matchesProfession(provider, profession) ||
+          matchesProfession(provider, role)) &&
         matchesProviderFilters(
           provider,
           filters.service,
@@ -112,7 +119,7 @@ function ProviderList({ profession }: { profession: string }) {
           filters.rating,
         ),
     )
-  }, [data, profession, filters.service, filters.price, filters.rating])
+  }, [data, profession, role, filters.service, filters.price, filters.rating])
 
   const loadMoreRef = useInfiniteScroll({
     hasNextPage,
@@ -318,7 +325,7 @@ export default function SingleService() {
       </div>
       <Container>
         <div className="space-y-4">
-          <ProviderList profession={matchProfession} />
+          <ProviderList profession={matchProfession} role={formatService} />
         </div>
       </Container>
     </div>

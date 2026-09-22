@@ -194,12 +194,6 @@ export default function PostCard({
                   {user?.profile?.display_name}
                 </h3>
               </Link>
-              {userType == 'customer' && !user?.profile?.has_endorsed && (
-                <Dot
-                  className="w-4 h-4 text-black self-center ml-1"
-                  strokeWidth={6}
-                />
-              )}
             </div>
             <div className="flex items-center gap-0.5 text-[12px] md:text-sm font-medium ">
               {provider_service && (

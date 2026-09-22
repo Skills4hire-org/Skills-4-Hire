@@ -48,7 +48,7 @@ export default function ServiceProviderCard({
         {/* Cover Photo Header: Top on mobile/tablet, Left side on laptop */}
         <Link
           to={`/${userType}/professionals/${provider_id}`}
-          className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-100 bg-cover bg-center shrink-0"
+          className="block w-full lg:w-48 h-24 lg:h-auto bg-slate-200 bg-cover bg-center shrink-0"
           style={{
             backgroundImage: coverImageUrl
               ? `url(${compressCloudinaryUrl(coverImageUrl, 600)})`
@@ -64,7 +64,7 @@ export default function ServiceProviderCard({
           <div className="-mt-10 lg:-mt-0 shrink-0 z-0">
             <Link
               to={`/${userType}/professionals/${provider_id}`}
-              className="w-20 h-20 rounded-full border-4 border-white lg:border-2 lg:border-slate-100 bg-white shadow-sm overflow-hidden block"
+              className="w-20 h-20 rounded-full border-4 border-white lg:border-2 lg:border-slate-100 bg-white shadow-xl lg:shadow-sm overflow-hidden block"
             >
               <img
                 src={

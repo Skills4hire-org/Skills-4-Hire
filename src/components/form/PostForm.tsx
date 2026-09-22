@@ -148,7 +148,7 @@ export default function PostForm({
 
       if (isOverSize && imageRef.current) {
         toast.warning(
-          `${newFile.name}'s size exceeds maximum upload size (2MB)`,
+          `${newFile.name}'s size exceeds maximum upload size (10MB)`,
         )
         return
       }
@@ -165,7 +165,7 @@ export default function PostForm({
   }
 
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const MAX_SIZE_MB = 250 * 1024 * 1024
+    const MAX_SIZE_MB = 100 * 1024 * 1024
     const selectedFiles = e.target.files || []
     const files: File[] = Array.from(selectedFiles)
     const acceptedVideoFiles: File[] = []

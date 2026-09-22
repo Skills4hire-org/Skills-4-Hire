@@ -79,7 +79,7 @@ export default function ServiceProviderActivity() {
   }
 
   return (
-    <div className="space-y-2 md:space-y-6">
+    <div className="space-y-2 md:space-y-6 lg:ml-17">
       <HeaderWithBackNavigation title="All Activity" />
       <Container>
         <Tabs defaultValue="posts" className="space-y-1 relative ">

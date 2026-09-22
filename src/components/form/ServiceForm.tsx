@@ -51,7 +51,7 @@ export default function ServiceForm({
 
       if (isOverSize) {
         toast.warning(
-          `${newFile.name}'s size exceeds maximum upload size (2MB)`,
+          `${newFile.name}'s size exceeds maximum upload size (10MB)`,
         )
         return
       }
