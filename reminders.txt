@@ -1,3 +1,4 @@
 The AvailableServices.tsx no longer calls the /api/v1/services-categories/ endpoint at all. If the CEO later wants real backend data to show here, that'll need to be wired back in.
 
 commented the search for skills/services onboarding in "src\components\form\ApplicationProfileForm.tsx"
+testing github
