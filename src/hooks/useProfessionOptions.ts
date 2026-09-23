@@ -1,36 +1,49 @@
 import { useQuery } from '@tanstack/react-query'
-import { serviceTypes } from '@/assets/data'
+import { skillsTypes } from '@/assets/data'
 import { getServiceCategories } from '@/api/services'
 import type { ServiceCategory } from '@/types/services.types'
 import type { SelectItems } from '@/utils/types'
 
-const fallbackOptions: SelectItems[] = serviceTypes.map(({ label }) => ({
-  label,
-  value: label,
-}))
-
-function categorizeNames(list: ServiceCategory[]): string[] {
-  const names: string[] = []
-  for (const item of list) {
-    const candidate = item.category?.name ?? item.name ?? item.category_name
-    const name = typeof candidate === 'string' ? candidate.trim() : ''
-    if (name && !names.includes(name)) names.push(name)
-  }
-  return names.slice().sort((a, b) => a.localeCompare(b))
+type SkillGroup = {
+  label: string
+  options: { label: string; options: SelectItems[] }[]
 }
 
-function toSelectGroupData(options: SelectItems[]) {
-  return [
-    {
-      label: 'Profession',
-      options: [
-        {
-          label: 'Professions',
-          options,
-        },
-      ],
-    },
-  ]
+function flattenSkills(types: SkillGroup[]): SelectItems[] {
+  return types.flatMap((group) =>
+    group.options.flatMap((sub) => sub.options),
+  )
+}
+
+function groupSkills(list: ServiceCategory[]): SkillGroup {
+  const categoryMap = new Map<string, Set<string>>()
+
+  for (const item of list) {
+    const skill = typeof item.name === 'string' ? item.name.trim() : ''
+    if (!skill) continue
+
+    const rawCategory = item.category?.name
+    const categoryName =
+      typeof rawCategory === 'string' && rawCategory.trim()
+        ? rawCategory.trim()
+        : 'Other'
+
+    if (!categoryMap.has(categoryName)) {
+      categoryMap.set(categoryName, new Set())
+    }
+    categoryMap.get(categoryName)?.add(skill)
+  }
+
+  const subgroups = Array.from(categoryMap.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([categoryName, skills]) => ({
+      label: categoryName,
+      options: Array.from(skills)
+        .sort((a, b) => a.localeCompare(b))
+        .map((skill) => ({ label: skill, value: skill })),
+    }))
+
+  return { label: 'Profession', options: subgroups }
 }
 
 export function useProfessionOptions() {
@@ -41,15 +54,20 @@ export function useProfessionOptions() {
     retry: 1,
   })
 
-  const apiNames = categorizeNames(categories ?? [])
-  const options: SelectItems[] =
-    apiNames.length > 0
-      ? apiNames.map((name) => ({ label: name, value: name }))
-      : fallbackOptions
+  const grouped =
+    categories && categories.length > 0 ? groupSkills(categories) : null
+
+  if (!grouped || grouped.options.length === 0) {
+    return {
+      options: flattenSkills(skillsTypes),
+      selectGroupData: skillsTypes,
+      isUsingApi: false,
+    }
+  }
 
   return {
-    options,
-    selectGroupData: toSelectGroupData(options),
-    isUsingApi: apiNames.length > 0,
+    options: flattenSkills([grouped]),
+    selectGroupData: [grouped],
+    isUsingApi: true,
   }
 }
