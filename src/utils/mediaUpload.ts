@@ -30,6 +30,7 @@ async function getUploadSpec(file: File): Promise<UploadSpec> {
     return spec as UploadSpec
   } catch (error) {
     handleApiError(error)
+    throw error
   }
 }
 

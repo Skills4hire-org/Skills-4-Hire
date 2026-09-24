@@ -2,3 +2,67 @@ The AvailableServices.tsx no longer calls the /api/v1/services-categories/ endpo
 
 commented the search for skills/services onboarding in "src\components\form\ApplicationProfileForm.tsx"
 testing github
+
+------------------------------------------------------------------
+MEDIA UPLOAD MIGRATION: CLOUDINARY -> CLOUDFLARE R2 (PRESIGNED PUT)
+Status: contract confirmed by backend dev; NOT implemented yet. Frontend still uses Cloudinary.
+------------------------------------------------------------------
+
+CURRENT FLOW (still live):
+  browser -> POST https://api.cloudinary.com/v1_1/dt4anfgzy/auto/upload
+             (multipart: file + upload_preset=skills4hire_unsigned)
+  backend never sees the file; only stores the returned secure_url.
+  All in src/utils/cloudinary.ts; callers: PostForm, GalleryForm,
+  OfferForm, ServiceForm, ProfileImageForm, CoverPhotoForm, UploadPhoto.
+
+NEW FLOW (R2, presigned PUT):
+  STEP 1 - frontend asks backend for a one-time upload URL:
+     POST /api/v1/media/upload-url/
+     body (json): { filename, content_type, size, folder }
+  STEP 2 - backend responds (confirmed shape):
+     HTTP 200 -> api (interceptor unwraps .data by default since success=data present):
+     {
+       success: true,
+       message: "Operation successful",
+       data: {
+         "upload_url":  "<presigned PUT target>",      // 15-min expiry (expires_in: 900)
+         "method":      "PUT",
+         "headers":     { "Content-Type": "<content_type>" },
+         "object_key":  "uploads/<uuid>.<ext>",
+         "public_url":  "<base host e.g. https://r2.dev>",
+         "expires_in":  900
+       }
+     }
+  STEP 3 - frontend uploads: fetch(upload_url, { method: data.method,
+            headers: data.headers, body: rawFileBytes })  <- send raw binary, no multipart
+  STEP 4 - store the permanent link = data.public_url + '/' + data.object_key
+            (need confirm: is public_url already the full URL, or base host to concat object_key?)
+
+BACKEND ENFORCEMENT (per backend dev):
+  - 100MB max for ANY content type (our client caps 10MB img / 100MB video fit inside).
+  - Videos use the same endpoint (no separate "auto" resource-type needed, it's raw bytes).
+  - CORS NOT done yet: R2 bucket CORS must allow PUT + OPTIONS preflight from
+    http://localhost:5173 and the prod domain. ONLY the CEO can do this (no R2 access for
+    backend dev). Preflight not whitelisted = uploads silently fail in browser.
+
+FRONTEND IMPLEMENTATION PLAN (not started):
+  - New src/utils/mediaUpload.ts replacing cloudinary.ts:
+      upload(files) -> POST upload-url -> PUT each file (sequential) ->
+      ONE retry on 429 -> generic toast + console.error real detail ->
+      return { url: `${public_url}/${object_key}` } snapshot.
+  - Update the 6 callers (see current-flow list) to use it; keep size caps;
+    keep generic "Upload failed. Please try again." user toasts.
+  - Keep old Cloudinary secure_urls rendering: they're just stored links via
+    <img>/<video>, works regardless of upload provider.
+  - getMediaType(url) guesses image vs video from URL extension; object_key keeps
+    the extension (e.g. .mp4), so <video> playback keeps working with R2.
+  - Request body fields (filename/content_type/size/folder): sizes = bytes, folder
+    currently "uploads".
+  - Verification after wiring: onboarding avatar, post w/ image, post w/ video,
+    gallery, offer, service, cover photo.
+
+OPEN QUESTIONS FOR BACKEND DEV:
+  1. Is public_url the COMPLETE permanent URL, or the base host to concat with
+     object_key? (sample shows a base host "https://r2.dev")
+  2. Do we need GET allowed in R2 CORS from the same origins, or only PUT?
+  3. Confirm folder string(s) - fixed "uploads" or per-context (avatars/gallery/posts)?
