@@ -7,7 +7,7 @@ import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Button } from '../ui/button'
 import { useAddServices } from '@/hooks/useUsers'
 import { toast } from 'sonner'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import { uploadToR2 } from '@/utils/mediaUpload'
 
 export default function ServiceForm({
   setIsOpen,
@@ -63,7 +63,7 @@ export default function ServiceForm({
     e.preventDefault()
     setIsLoading(true)
     try {
-      const uploadedUrls = await uploadToCloudinary(formData.photo)
+      const uploadedUrls = await uploadToR2(formData.photo)
 
       if (uploadedUrls) {
         const data = {

@@ -13,7 +13,7 @@ import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import type { CreatePost, Post } from '@/types/post.types'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import { uploadToR2 } from '@/utils/mediaUpload'
 import ImageEditor from '../global/ImageEditor'
 import VideoPlayer from '../global/VideoPlayer'
 import { useSelector } from 'react-redux'
@@ -229,7 +229,7 @@ export default function PostForm({
     }
     const files = [...formData.videos, ...formData.photos]
     try {
-      const uploadedUrls = await uploadToCloudinary(files)
+      const uploadedUrls = await uploadToR2(files)
       const formatUrls = uploadedUrls?.map((url) => {
         return {
           public_id: url.public_id,

@@ -12,7 +12,7 @@ import { Button } from '../ui/button'
 import FormSubmitButton from '../buttons/FormSubmitButton'
 import { Label } from '../ui/label'
 import { toast } from 'sonner'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import { uploadToR2 } from '@/utils/mediaUpload'
 import { useAddToGallery } from '@/hooks/useUsers'
 import VideoPlayer from '../global/VideoPlayer'
 
@@ -106,7 +106,7 @@ export default function GalleryForm({
     setIsLoading(true)
     try {
       const files = [...formData.photos, ...formData.videos]
-      const uploadedUrls = await uploadToCloudinary(files)
+      const uploadedUrls = await uploadToR2(files)
       const formatUrls = uploadedUrls?.map((url) => {
         return {
           image_url: url.url,
