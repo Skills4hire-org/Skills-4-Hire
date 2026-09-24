@@ -4,7 +4,7 @@ import AuthLogo from '@/components/global/AuthLogo'
 import Container from '@/components/global/Container'
 import { Camera } from 'lucide-react'
 import { toast } from 'sonner'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import { uploadToR2 } from '@/utils/mediaUpload'
 import { selectRole } from '@/api/onboard'
 import { useUpdateProfileImage } from '@/hooks/useUsers'
 import ImageEditor from '@/components/global/ImageEditor'
@@ -61,7 +61,7 @@ export default function UploadPhoto() {
     event.preventDefault()
     setLoading(true)
     try {
-      const uploadedUrls = await uploadToCloudinary(formData.image_file)
+      const uploadedUrls = await uploadToR2(formData.image_file)
       const data = {
         avatar: uploadedUrls?.[0]?.url ?? '',
         avatar_public_id: uploadedUrls?.[0]?.public_id ?? '',

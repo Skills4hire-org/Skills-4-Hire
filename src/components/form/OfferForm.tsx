@@ -13,7 +13,7 @@ import { toast } from 'sonner'
 import { createOfferSchema } from '@/utils/schemas'
 import type { CreatePost, OfferFormType, Post } from '@/types/post.types'
 import ImageEditor from '../global/ImageEditor'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import { uploadToR2 } from '@/utils/mediaUpload'
 import {
   Select,
   SelectContent,
@@ -184,7 +184,7 @@ export default function OfferForm({
     try {
       let attachments: CreatePost['attachments'] = []
       if (formData.photo.length !== 0) {
-        const uploadedPhotos = await uploadToCloudinary(formData.photo)
+        const uploadedPhotos = await uploadToR2(formData.photo)
         attachments = uploadedPhotos?.map((url) => ({
           public_id: url.public_id,
           attachment_type: 'PHOTO',

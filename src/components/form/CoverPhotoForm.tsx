@@ -4,7 +4,7 @@ import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { useDeleteCoverPhoto, useUpdateCoverPhoto } from '@/hooks/useUsers'
 import { toast } from 'sonner'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import { uploadToR2 } from '@/utils/mediaUpload'
 import ImageEditor from '../global/ImageEditor'
 
 export default function CoverPhotoForm({
@@ -76,7 +76,7 @@ export default function CoverPhotoForm({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const uploadedUrls = await uploadToCloudinary(formData.image_file)
+      const uploadedUrls = await uploadToR2(formData.image_file)
       if (uploadedUrls) {
         const data = {
           image_url: uploadedUrls[0].url,

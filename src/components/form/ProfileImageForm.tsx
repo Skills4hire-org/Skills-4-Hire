@@ -4,7 +4,7 @@ import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { toast } from 'sonner'
 import { useDeleteProfileImage, useUpdateProfileImage } from '@/hooks/useUsers'
-import { uploadToCloudinary } from '@/utils/cloudinary'
+import { uploadToR2 } from '@/utils/mediaUpload'
 import ImageEditor from '../global/ImageEditor'
 
 export default function ProfileImageForm({
@@ -78,7 +78,7 @@ export default function ProfileImageForm({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const uploadedUrls = await uploadToCloudinary(formData.image_file)
+      const uploadedUrls = await uploadToR2(formData.image_file)
       if (uploadedUrls) {
         const data = {
           avatar: uploadedUrls[0].url,
