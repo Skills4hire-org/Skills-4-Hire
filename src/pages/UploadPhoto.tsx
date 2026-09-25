@@ -6,10 +6,13 @@ import { Camera } from 'lucide-react'
 import { toast } from 'sonner'
 import { uploadToR2 } from '@/utils/mediaUpload'
 import { selectRole } from '@/api/onboard'
+import { setUserType } from '@/features/user/userSlice'
 import { useUpdateProfileImage } from '@/hooks/useUsers'
+import { useDispatch } from 'react-redux'
 import ImageEditor from '@/components/global/ImageEditor'
 
 export default function UploadPhoto() {
+  const dispatch = useDispatch()
   const { mutate: updateAvatar } = useUpdateProfileImage()
   const { role } = useParams()
   const [formData, setFormData] = useState<{
@@ -76,6 +79,7 @@ export default function UploadPhoto() {
 
       if (role === 'customer') {
         await selectRole('CUSTOMER')
+        dispatch(setUserType('customer'))
         toast.success('Registration successful')
         navigate('/customer/home')
       } else {
@@ -93,6 +97,7 @@ export default function UploadPhoto() {
     try {
       if (role === 'customer') {
         await selectRole('CUSTOMER')
+        dispatch(setUserType('customer'))
         toast.success('Registration successful')
         navigate('/customer/home')
       } else {

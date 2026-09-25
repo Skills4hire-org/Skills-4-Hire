@@ -7,6 +7,7 @@ import { Button } from '../ui/button'
 import { validateSchema } from '@/hooks/validateSchema'
 import { applicationProfileFormSchema } from '@/utils/schemas'
 import { completeOnboard, selectRole } from '@/api/onboard'
+import { setUserType } from '@/features/user/userSlice'
 import { updateMyProfile } from '@/api/profile'
 import type { Registration } from '@/types/onboard.types'
 import { useProfessionOptions } from '@/hooks/useProfessionOptions'
@@ -75,6 +76,7 @@ export default function ApplicationProfileForm() {
       })
       toast.success('Registration successful!')
       dispatch(clearForm())
+      dispatch(setUserType('professional'))
       navigate('/professional/home')
     } catch (error: any) {
       toast.error(error?.message || 'Registration failed. Please try again.')

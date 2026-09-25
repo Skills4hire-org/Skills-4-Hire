@@ -68,7 +68,7 @@ export default function RequestCard({ post }: RequestCardProp) {
         />
       )}
 
-      <div className="shadow-md border border-gray-200 overflow-hidden">
+      <div className="shadow-md border border-gray-200 overflow-hidden bg-gray-100">
       <div className="px-3 md:px-6 py-4 md:py-6 flex flex-col gap-2">
         <div className="flex items-start gap-3">
           <div className="shrink-0">

@@ -103,10 +103,10 @@ export default function Request() {
   const services = carouselServices.map((service) => service.text)
 
   return (
-    <div className="lg:px-4">
+    <div className="lg:px-4 bg-gray-100">
       <Container>
         <div className="w-full flex flex-col gap-2 md:gap-4 max-w-xl mx-auto">
-          <div className="flex items-center justify-between gap-2 w-full">
+          <div className="flex items-center justify-between gap-2 w-full mt-5 lg:mt-0 md:mt-3">
             <h2 className="font-bold text-sm md:text-base text-gray-900 ml-1 lg:ml-0">
               Hire Requests
             </h2>

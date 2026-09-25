@@ -446,3 +446,7 @@ export function categoryNameForRole(role: string): string | undefined {
   if (!catId) return undefined
   return categoryBySlug[catId]?.name
 }
+
+export function categoryIdForRole(role: string): string | undefined {
+  return roleToCategory[role.toLowerCase()]
+}
