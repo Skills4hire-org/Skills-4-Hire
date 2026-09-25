@@ -88,6 +88,7 @@ function ProviderList({
     data,
     isLoading,
     isError,
+    isFetching,
     refetch,
     fetchNextPage,
     hasNextPage,
@@ -205,7 +206,7 @@ function ProviderList({
                 ))}
               </div>
 
-              {professionals?.length === 0 && (
+              {!isFetching && professionals?.length === 0 && (
                 hasActiveFilters || providerSearchQuery ? (
                   <NoResultFound
                     icon={Sliders}

@@ -1,5 +1,6 @@
 import { serviceTypes } from '@/assets/data'
 import {
+  categoryIdForRole,
   categoryNameForRole,
   serviceTypeLabelForRole,
 } from '@/data/staticServices'
@@ -63,13 +64,23 @@ export function matchesProfession(
   const normalized = profession.toLowerCase().trim()
   if (!normalized) return true
   const title = (provider.professional_title || '').toLowerCase()
-  if (!title) return false
-  if (title.includes(normalized)) return true
-  const professionTokens = normalized.split(/\s+/).filter((t) => t.length > 2)
-  if (professionTokens.length === 0) return false
   const titleTokens = title.split(/\s+/).filter(Boolean)
+  if (titleTokens.length === 0) return false
+  const professionTokens = normalized.split(/\s+/).filter(Boolean)
+  if (professionTokens.length === 0) return false
+  if (professionTokens.length === 1) {
+    const titleCategory = categoryIdForRole(title)
+    const professionCategory = categoryIdForRole(normalized)
+    if (
+      titleCategory &&
+      professionCategory &&
+      titleCategory !== professionCategory
+    )
+      return false
+  }
+  if (title.includes(normalized)) return true
   return professionTokens.every((pt) =>
-    titleTokens.some((tt) => tt.includes(pt) || pt.includes(tt)),
+    titleTokens.some((tt) => (pt.length <= 2 ? tt === pt : tt.includes(pt))),
   )
 }
 

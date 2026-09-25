@@ -41,6 +41,15 @@ const userSlice = createSlice({
       state.access = accessToken
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     },
+    setUserType: (state, action) => {
+      const userType = action.payload as 'customer' | 'professional'
+      state.userType = userType
+      if (state.user_data) {
+        state.user_data.is_customer = userType === 'customer'
+        state.user_data.is_provider = userType === 'professional'
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    },
     logoutUser: () => {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultState))
       return defaultState
@@ -48,7 +57,7 @@ const userSlice = createSlice({
   },
 })
 
-export const { setUserCredentials, setAccessToken, logoutUser } =
+export const { setUserCredentials, setAccessToken, setUserType, logoutUser } =
   userSlice.actions
 
 export default userSlice.reducer
