@@ -4,6 +4,8 @@ import { register } from '@/api/auth'
 import { validateSchema } from '@/hooks/validateSchema'
 import { registerSchema } from '@/utils/schemas'
 import FormInput from '@/components/form-fields/FormInput'
+import FormSelect from '@/components/form-fields/FormSelect'
+import { countryCallingCodes } from '@/assets/data'
 
 import { toast } from 'sonner'
 import { Eye, EyeClosed } from 'lucide-react'
@@ -84,14 +86,13 @@ export default function SignUpForm({
       />
 
       <div className="relative flex items-center gap-1">
-        <FormInput
+        <FormSelect
           name="countryCode"
           value={formData.countryCode}
           handleInputChange={handleChange}
-          type="text"
-          required
-          className="w-19 disabled:opacity-100"
-          disabled
+          selectItems={countryCallingCodes}
+          className="bg-gray-300 h-9 w-19 disabled:opacity-100"
+          placeholder="+234"
         />
         <div className="flex-1">
           <FormInput
@@ -99,7 +100,7 @@ export default function SignUpForm({
             value={formData.phone}
             handleInputChange={handleChange}
             type="tel"
-            maxLength={10}
+            inputMode="numeric"
             required
             className=" "
             placeholder="Phone Number"

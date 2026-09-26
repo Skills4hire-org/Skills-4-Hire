@@ -45,6 +45,7 @@ import heroCarousel1 from './images/hero-carousel-1.jpg'
 import heroCarousel2 from './images/hero-carousel2.jpg'
 import heroCarousel3 from './images/hero-carousel3.png'
 import { digitalCategories, vocationalCategories } from '@/data/staticServices'
+import type { SelectItems } from '@/utils/types'
 
 export const images = [img1, img2, img1]
 
@@ -618,6 +619,50 @@ export const genderOptions = [
     label: 'Female',
     value: 'female',
   },
+]
+
+export const countryCallingCodes: SelectItems[] = [
+  { value: '+234', label: '🇳🇬 +234' },
+  { value: '+1', label: '🇺🇸 +1' },
+  { value: '+44', label: '🇬🇧 +44' },
+  { value: '+233', label: '🇬🇭 +233' },
+  { value: '+27', label: '🇿🇦 +27' },
+  { value: '+254', label: '🇰🇪 +254' },
+  { value: '+256', label: '🇺🇬 +256' },
+  { value: '+255', label: '🇹🇿 +255' },
+  { value: '+20', label: '🇪🇬 +20' },
+  { value: '+971', label: '🇦🇪 +971' },
+  { value: '+966', label: '🇸🇦 +966' },
+  { value: '+49', label: '🇩🇪 +49' },
+  { value: '+33', label: '🇫🇷 +33' },
+  { value: '+61', label: '🇦🇺 +61' },
+  { value: '+91', label: '🇮🇳 +91' },
+  { value: '+86', label: '🇨🇳 +86' },
+  { value: '+92', label: '🇵🇰 +92' },
+  { value: '+880', label: '🇧🇩 +880' },
+  { value: '+81', label: '🇯🇵 +81' },
+  { value: '+82', label: '🇰🇷 +82' },
+  { value: '+55', label: '🇧🇷 +55' },
+  { value: '+52', label: '🇲🇽 +52' },
+  { value: '+31', label: '🇳🇱 +31' },
+  { value: '+32', label: '🇧🇪 +32' },
+  { value: '+41', label: '🇨🇭 +41' },
+  { value: '+39', label: '🇮🇹 +39' },
+  { value: '+34', label: '🇪🇸 +34' },
+  { value: '+351', label: '🇵🇹 +351' },
+  { value: '+46', label: '🇸🇪 +46' },
+  { value: '+47', label: '🇳🇴 +47' },
+  { value: '+45', label: '🇩🇰 +45' },
+  { value: '+358', label: '🇫🇮 +358' },
+  { value: '+353', label: '🇮🇪 +353' },
+  { value: '+7', label: '🇷🇺 +7' },
+  { value: '+90', label: '🇹🇷 +90' },
+  { value: '+216', label: '🇹🇳 +216' },
+  { value: '+212', label: '🇲🇦 +212' },
+  { value: '+213', label: '🇩🇿 +213' },
+  { value: '+221', label: '🇸🇳 +221' },
+  { value: '+269', label: '🇰🇲 +269' },
+  { value: '+882', label: '🇰🇮 +882' },
 ]
 
 export const jobOffers = [
