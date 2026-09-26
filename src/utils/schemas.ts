@@ -31,7 +31,9 @@ export const registerSchema = z
     phone: z
       .string()
       .min(1, { message: 'Phone number is required' })
-      .length(10, { message: 'Please enter a valid phone number' }),
+      .regex(/^\d{7,15}$/, {
+        message: 'Please enter a valid phone number',
+      }),
 
     email: z.email({ message: 'Enter a valid email address' }),
 
