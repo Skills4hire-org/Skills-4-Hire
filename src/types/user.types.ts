@@ -199,3 +199,56 @@ export type ServiceProviderServiceCard = {
     image_url: string
   }[]
 }
+
+export type ProfileOverview = {
+  profile: {
+    professional_title: string;
+    gender: string;
+    display_name: string;
+    trust_score: number;
+    has_endorsed: boolean;
+    has_conversation: boolean;
+    country: string;
+    city: string;
+    state: string;
+    location: string;
+    created_at: string;
+    avatar: {
+      avatar_id: string;
+      description: string;
+      avatar: string;
+      avatar_public_id: string;
+      created_at: string;
+    };
+    customer_id: string | null;
+    provider_id: string;
+    cover_photo: {
+      image_url: string;
+      created_at: string;
+    };
+  };
+
+  total_bookings: number;
+  completed_bookings: number;
+  in_progress_bookings: number;
+  pending_bookings: number;
+  cancelled_bookings: number;
+  funded_bookings: number;
+
+  latest_bookings: unknown[];
+
+  booking_earnings: {
+    total_amount: number;
+    provider_amount: number;
+    message: string;
+  };
+
+  wallet: {
+    balance: number;
+  };
+
+  revenue: {
+    deposits: Record<string, number>;
+    withdrawals: Record<string, number>;
+  };
+};

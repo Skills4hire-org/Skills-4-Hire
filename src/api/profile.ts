@@ -1,6 +1,11 @@
 import { api } from '@/utils/axiosConfig'
 import { handleApiError } from './error'
-import type { Gallery, ProviderParams, Service } from '@/types/user.types'
+import type {
+  Gallery,
+  ProfileOverview,
+  ProviderParams,
+  Service,
+} from "@/types/user.types";
 
 export const getMyProfile = async () => {
   try {
@@ -11,14 +16,16 @@ export const getMyProfile = async () => {
   }
 }
 
-export const getMyProfileOverview = async () => {
+export const getMyProfileOverview = async (): Promise<
+  ProfileOverview | undefined
+> => {
   try {
-    const response = await api.get('/api/v1/profile/overview/')
-    return response?.data
+    const response = await api.get("/api/v1/profile/overview/");
+    return response?.data;
   } catch (error) {
-    handleApiError(error)
+    handleApiError(error);
   }
-}
+};
 
 export const updateMyProfile = async (data: any) => {
   try {

@@ -5,86 +5,114 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts'
-import { providerOverviewData } from '@/assets/data'
-import Container from '@/components/global/Container'
-import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
-import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
-import { Link } from 'react-router-dom'
-import NoReviewCard from '@/components/reviews/NoReviewCard'
-import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
-import { useBookings } from '@/hooks/useBookings'
-import type { UserData } from '@/types/user.types'
-import { useSelector } from 'react-redux'
-import { currencyFormatter, formatSpaceToString } from '@/utils/format'
-import BookingRequestCard from '@/components/bookings/BookingRequestCard'
-import Loading from '@/components/global/Loading'
-import Error from '@/components/global/Error'
-import type { Booking } from '@/types/bookings.type'
-import { useMyProfile, useMyProfileOverview } from '@/hooks/useUsers'
-import { useReviews } from '@/hooks/useReviews'
-import ReviewCard from '@/components/reviews/ReviewCard'
-import { BookOpen } from 'lucide-react'
-import { User } from 'lucide-react'
-import { Wallet } from 'lucide-react'
-import { Skeleton } from '@/components/ui/skeleton'
+} from "recharts";
+import { useMemo } from "react";
+import Container from "@/components/global/Container";
+import MobileServicesOverviewHeader from "@/components/header/MobileServicesOverviewHeader";
+import DesktopServicesOverviewHeader from "@/components/header/DesktopServicesOverviewHeader";
+import { Link } from "react-router-dom";
+import NoReviewCard from "@/components/reviews/NoReviewCard";
+import ReferAndEarnBanner from "@/components/services/ReferAndEarnBanner";
+import { useBookings } from "@/hooks/useBookings";
+import type { UserData } from "@/types/user.types";
+import { useSelector } from "react-redux";
+import { currencyFormatter, formatSpaceToString } from "@/utils/format";
+import BookingRequestCard from "@/components/bookings/BookingRequestCard";
+import Loading from "@/components/global/Loading";
+import Error from "@/components/global/Error";
+import type { Booking } from "@/types/bookings.type";
+import { useMyProfile, useMyProfileOverview } from "@/hooks/useUsers";
+import { useReviews } from "@/hooks/useReviews";
+import ReviewCard from "@/components/reviews/ReviewCard";
+import { BookOpen } from "lucide-react";
+import { User } from "lucide-react";
+import { Wallet } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProviderOverview() {
-  const { chart } = providerOverviewData
-
   const { user_data }: { user_data: UserData } = useSelector(
     (state: any) => state.userState,
-  )
+  );
 
   const {
     data: reviewData,
     isLoading: reviewLoading,
     isError: reviewError,
     refetch: reviewRefetch,
-  } = useReviews()
+  } = useReviews();
 
-  const reviews = reviewData?.pages.flatMap((page) => page.result) ?? []
+  const reviews = reviewData?.pages.flatMap((page) => page.result) ?? [];
 
-  const {
-    data: myProfile,
-  } = useMyProfile()
+  const { data: myProfile } = useMyProfile();
 
   const {
     data: statData,
     isLoading: statLoading,
     isError: statError,
-  } = useMyProfileOverview()
+  } = useMyProfileOverview();
+
+  const months = [
+    { key: "January", name: "Jan" },
+    { key: "February", name: "Feb" },
+    { key: "March", name: "Mar" },
+    { key: "April", name: "Apr" },
+    { key: "May", name: "May" },
+    { key: "June", name: "Jun" },
+    { key: "July", name: "Jul" },
+    { key: "August", name: "Aug" },
+    { key: "September", name: "Sep" },
+    { key: "October", name: "Oct" },
+    { key: "November", name: "Nov" },
+    { key: "December", name: "Dec" },
+  ];
+
+  const revenueChartData = useMemo(() => {
+    const deposits = statData?.revenue?.deposits ?? {};
+    const withdrawals = statData?.revenue?.withdrawals ?? {};
+
+    const currentYear = new Date().getFullYear();
+
+    return months.map((month) => {
+      const key = `${currentYear}-${month.key}`;
+
+      return {
+        name: month.name,
+        deposits: deposits[key] ?? 0,
+        withdrawals: withdrawals[key] ?? 0,
+      };
+    });
+  }, [statData?.revenue]);
 
   const stats = [
-    { label: 'Total Booking', value: statData?.total_bookings, icon: BookOpen },
-    { label: 'Total Service', value: statData?.completed_bookings, icon: User },
+    { label: "Total Booking", value: statData?.total_bookings, icon: BookOpen },
+    { label: "Total Service", value: statData?.completed_bookings, icon: User },
     {
-      label: 'Total Earning',
+      label: "Total Earning",
       value: statData?.booking_earnings?.total_amount,
       icon: Wallet,
     },
-    { label: 'Wallet', value: statData?.wallet?.balance, icon: Wallet },
-  ]
+    { label: "Wallet", value: statData?.wallet?.balance, icon: Wallet },
+  ];
 
   const {
     data: bookingsData,
     isLoading: bookingsLoading,
     isError: bookingsError,
     refetch: bookingsRefetch,
-  } = useBookings({ booking_status: 'Funded' })
+  } = useBookings({ booking_status: "Funded" });
   const latestBookings: Booking[] =
-    bookingsData?.pages.flatMap((page) => page.results) ?? []
+    bookingsData?.pages.flatMap((page) => page.results) ?? [];
 
   const handleBookingRequestFetchingError = () => {
-    bookingsRefetch()
-  }
+    bookingsRefetch();
+  };
 
   const handleReviewsFetchingError = () => {
-    reviewRefetch()
-  }
+    reviewRefetch();
+  };
   const handleBookingRefetch = () => {
-    bookingsRefetch()
-  }
+    bookingsRefetch();
+  };
 
   return (
     <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17 lg:ml-[4.2rem]">
@@ -96,7 +124,7 @@ export default function ProviderOverview() {
         <div className="space-y-8">
           <div className="bg-gray-100 rounded-md p-3 text-sm md:text-base text-gray-700 w-full space-y-1 md:max-w-xs ">
             <p>
-              Professional Skill:{' '}
+              Professional Skill:{" "}
               <span className="font-semibold capitalize">
                 {formatSpaceToString(
                   myProfile?.professional_title ??
@@ -105,14 +133,14 @@ export default function ProviderOverview() {
               </span>
             </p>
             <p>
-              App Commission: {''}
+              App Commission: {""}
               <span className="font-semibold">8%</span>
             </p>
           </div>
           <section className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4">
             <h2 className="sr-only">Stat</h2>
             {stats.map((item, index) => {
-              const Icon = item.icon
+              const Icon = item.icon;
               return (
                 <div
                   key={index}
@@ -123,9 +151,9 @@ export default function ProviderOverview() {
                       {statLoading ? (
                         <Skeleton className="w-10 h-3 md:h-4 rounded-sm" />
                       ) : statError ? (
-                        '---'
-                      ) : item.label == 'Total Earning' ||
-                        item.label == 'Wallet' ? (
+                        "---"
+                      ) : item.label == "Total Earning" ||
+                        item.label == "Wallet" ? (
                         currencyFormatter(item.value)
                       ) : (
                         item.value
@@ -140,7 +168,7 @@ export default function ProviderOverview() {
                     {item.label}
                   </h3>
                 </div>
-              )
+              );
             })}
           </section>
           <section className="bg-white rounded-lg px-2 py-4 md:px-3 md:py-6 space-y-4 md:space-y-6 shadow-md ">
@@ -196,25 +224,29 @@ export default function ProviderOverview() {
             <h2 className="font-semibold text-gray-900 mb-4 text-center">
               Monthly Revenue (₦)
             </h2>
+
             <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={chart}>
+              <BarChart data={revenueChartData}>
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: 'hsl(var(--primary))', fontSize: 12 }}
+                  tick={{ fill: "hsl(var(--primary))", fontSize: 12 }}
                 />
+
                 <YAxis
                   tickFormatter={(val) => val.toLocaleString()}
-                  tick={{ fill: '#111', fontSize: 12 }}
-                  domain={[0, 500000]}
-                  ticks={[
-                    0, 50000, 100000, 150000, 200000, 250000, 300000, 350000,
-                    400000, 450000, 500000,
+                  tick={{ fill: "#111", fontSize: 12 }}
+                />
+
+                <Tooltip
+                  formatter={(value, name) => [
+                    `₦${Number(value).toLocaleString()}`,
+                    name === "deposits" ? "Deposit" : "Withdrawal",
                   ]}
                 />
-                <Tooltip
-                  formatter={(val) => `₦${val?.toLocaleString() ?? 0}`}
-                />
-                <Bar dataKey="revenue" fill="#222BDE" radius={[6, 6, 0, 0]} />
+
+                <Bar dataKey="deposits" fill="#222BDE" radius={[6, 6, 0, 0]} />
+
+                <Bar dataKey="withdrawals" fill="#888" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </section>
@@ -262,5 +294,5 @@ export default function ProviderOverview() {
         </div>
       </Container>
     </div>
-  )
+  );
 }
