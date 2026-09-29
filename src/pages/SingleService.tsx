@@ -151,7 +151,7 @@ function ProviderList({
   }
 
   return (
-    <div className="lg:grid lg:grid-cols-5 gap-6">
+    <div className="lg:grid lg:grid-cols-5 gap-6 md:ml-17">
       <div className="lg:col-span-3 space-y-4">
         <div className="flex gap-2">
           <div className="flex-1">
@@ -298,7 +298,7 @@ export default function SingleService() {
   // If it's a category → show sub-role cards
   if (category) {
     return (
-      <div className="min-h-screen lg:ml-17">
+      <div className="min-h-screen lg:ml-17 md:ml-17">
         <HeaderWithBackNavigation title={category.name} />
         <Container>
           <div className="py-4 md:py-6">
