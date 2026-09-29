@@ -9,6 +9,12 @@ import { queryClient } from './utils/queryClientConfig.ts'
 import ErrorBoundary from './components/global/ErrorBoundary'
 import { NotificationSeenProvider } from './contexts/notification-seen'
 import { logoutUser, setUserCredentials } from './features/user/userSlice'
+import { registerSW } from 'virtual:pwa-register'
+
+registerSW({
+  onNeedRefresh() {},
+  onOfflineReady() {},
+})
 
 window.addEventListener('storage', (event) => {
   if (event.key !== 'user' || event.storageArea !== localStorage) return
