@@ -13,7 +13,6 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordConfirm from './pages/ResetPasswordConfirm'
 import JobOffers from './pages/JobOffers'
 import Jobs from './pages/Jobs'
-import Landing from './pages/Landing'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import ProviderOverview from './pages/ProviderOverview'
 import Referral from './pages/Referral'
@@ -59,6 +58,7 @@ import ProfileActivity from './pages/ProfileActivity'
 import ProfileServices from './pages/ProfileServices'
 import ProfileGallery from './pages/ProfileGallery'
 import AuthProtectedRoute from './components/global/AuthProtectedRoute'
+import IndexRedirect from './components/global/IndexRedirect'
 import ProfileEndorsers from './pages/ProfileEndorsers'
 import BookingRequest from './pages/BookinRequests'
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Landing />,
+        element: <IndexRedirect />,
       },
       {
         path: 'legal',
