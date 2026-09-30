@@ -64,7 +64,9 @@ export default function Referral() {
     setSearch(searchQuery)
   }
   const filteredReferrals = referrals?.filter((referral) =>
-    referral.profile.display_name.toLowerCase().includes(search.toLowerCase()),
+    referral.referred?.profile?.display_name
+      ?.toLowerCase()
+      .includes(search.toLowerCase()),
   )
   const handleCopy = (text: string, value: string) => {
     navigator.clipboard.writeText(value)

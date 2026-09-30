@@ -7,10 +7,10 @@ export default function ReferralCard({ referred }: Referral) {
       <ProfileImage
         noStatus
         size="size-10"
-        avatar={referred.profile.avatar?.avatar}
+        avatar={referred?.profile?.avatar?.avatar}
       />
       <h3 className="font-medium text-sm text-gray-900">
-        {referred.profile.display_name}
+        {referred?.profile?.display_name}
       </h3>
     </div>
   )
