@@ -46,8 +46,12 @@ export const api = axios.create({
     'The request timed out. Kindly try again or refresh your page',
 })
 
+const noTokenRefreshUrls = /\/auth\//
+
 /* REQUEST INTERCEPTOR */
 api.interceptors.request.use(async (config) => {
+  if (noTokenRefreshUrls.test(config.url ?? '')) return config
+
   const state = store.getState()
   let token = state.userState.access
 
@@ -89,8 +93,6 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config
-
-    const noTokenRefreshUrls = /\/auth\//
 
     if (
       error.response?.status === 401 &&
