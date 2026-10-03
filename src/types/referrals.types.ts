@@ -9,6 +9,8 @@ export type Referral = {
       }
     }
   }
+  valid_hires?: number
+  required_hires?: number
 }
 
 export type ReferralDetails = {
@@ -18,4 +20,6 @@ export type ReferralDetails = {
   balance: number
   total_referrals: number
   referrals: Referral[]
+  total_earnings?: number
+  withdrawable_balance?: number
 }

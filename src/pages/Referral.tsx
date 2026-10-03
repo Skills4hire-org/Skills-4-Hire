@@ -29,10 +29,17 @@ import {
 import ShareButtons from '@/components/referrals/ShareButtons'
 import ReferralCard from '@/components/referrals/ReferralCard'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import {
+  MIN_BOOKING_VALUE,
+  REFERRAL_BONUS,
+  getReferralBalances,
+} from '@/utils/referral'
 
 export default function Referral() {
   const { data, isLoading, isError, refetch } = useReferrals()
   const referralsDetails: ReferralDetails = data?.referrals
+  const { total, withdrawable, pending } =
+    getReferralBalances(referralsDetails)
   const {
     data: userReferrals,
     isLoading: userReferralLoading,
@@ -81,7 +88,7 @@ export default function Referral() {
 
   const handleReferralEarning = () => {
     withdraw(
-      { amount: referralsDetails?.balance },
+      { amount: withdrawable },
       {
         onSuccess: () => {
           toast.success('Withdrawal successful')
@@ -109,18 +116,37 @@ export default function Referral() {
               </div>
             ) : (
               <>
-                <p className="text-2xl font-semibold text-gray-900">
-                  + {currencyFormatter(referralsDetails?.balance)}{' '}
-                </p>
-                <p className="text-sm text-gray-600 mb-3">
+                <div className="grid grid-cols-2 gap-3 w-full max-w-sm mx-auto">
+                  <div className="bg-gray-400 rounded-lg px-4 py-3 text-left">
+                    <p className="text-xs font-medium text-gray-700">
+                      Referral Earnings
+                    </p>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {currencyFormatter(total)}
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      {currencyFormatter(pending)} pending unlock
+                    </p>
+                  </div>
+                  <div className="bg-green-100 rounded-lg px-4 py-3 text-left">
+                    <p className="text-xs font-medium text-green-700">
+                      Withdrawable Amount
+                    </p>
+                    <p className="text-2xl font-semibold text-green-900">
+                      {currencyFormatter(withdrawable)}
+                    </p>
+                    <p className="text-xs text-green-700 mt-1">Ready to withdraw</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 mb-3 mt-3">
                   {referralsDetails?.total_referrals} invitee,{' '}
-                  {currencyFormatter(1000)} per invite
+                  {currencyFormatter(REFERRAL_BONUS)} per invite
                 </p>
                 <div className="flex flex-col items-center gap-4">
                   <div>
                     <Button
                       className="bg-gray-400 text-black font-medium hover:bg-gray-500 px-5 py-1 rounded-lg"
-                      disabled={referralsDetails?.balance > 0 || isPending}
+                      disabled={withdrawable <= 0 || isPending}
                       onClick={handleReferralEarning}
                     >
                       Withdraw
@@ -185,8 +211,9 @@ export default function Referral() {
                   <div className="flex items-start justify-center gap-2 text-xs text-gray-700 mt-2 px-4">
                     <Info className="w-4 h-4 shrink-0 mt-[2px]" />
                     <p className="max-w-sm">
-                      Note: Your referrals must have 3 hires before you can
-                      withdraw.
+                      Each invite earns you{' '}
+                      {currencyFormatter(REFERRAL_BONUS)} once they complete 3
+                      hires of over {currencyFormatter(MIN_BOOKING_VALUE)} each.
                     </p>
                   </div>
                 </div>
