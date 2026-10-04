@@ -30,8 +30,8 @@ function GoogleSignInButton({
       const response = await googleSignIn(data)
 
       const userData = {
-        access: response?.access_token,
-        refresh: response?.refresh_token,
+        access: response?.access ?? response?.access_token,
+        refresh: response?.refresh ?? response?.refresh_token,
         user_data: response?.user_data,
       }
 

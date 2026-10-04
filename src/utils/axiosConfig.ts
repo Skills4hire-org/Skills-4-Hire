@@ -1,4 +1,4 @@
-import { logoutUser, setAccessToken } from '@/features/user/userSlice'
+import { logoutUser, setAccessToken, setRefreshToken } from '@/features/user/userSlice'
 import { store } from '@/store'
 import axios from 'axios'
 import { isTokenExpired } from './helpers'
@@ -22,9 +22,16 @@ const refreshAccessToken = async (): Promise<string> => {
       { refresh: refreshToken },
     )
     .then((res) => {
-      const newAccess = res.data.access
+      const data = res.data?.data ?? res.data
+      const newAccess = data.access ?? data.access_token
+      const newRefresh = data.refresh ?? data.refresh_token
 
-      store.dispatch(setAccessToken(newAccess))
+      if (newAccess) {
+        store.dispatch(setAccessToken(newAccess))
+      }
+      if (newRefresh) {
+        store.dispatch(setRefreshToken(newRefresh))
+      }
 
       return newAccess
     })
