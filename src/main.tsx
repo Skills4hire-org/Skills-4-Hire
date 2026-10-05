@@ -27,7 +27,7 @@ window.addEventListener('storage', (event) => {
 
   try {
     const parsed = JSON.parse(stored)
-    if (parsed?.user_data) {
+    if (parsed?.user_data && (parsed.refresh || parsed.access)) {
       store.dispatch(
         setUserCredentials({
           access: parsed.access,
