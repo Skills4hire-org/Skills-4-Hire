@@ -10,6 +10,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: null,
       includeAssets: ['icons/pwa-192.png', 'icons/pwa-512.png'],
       manifest: {
         name: 'Skills4Hire',
@@ -38,6 +39,39 @@ export default defineConfig({
             purpose: 'maskable',
           },
         ],
+      },
+      workbox: {
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
+        navigateFallback: '/index.html',
+        globPatterns: ['**/*.{js,css,html,png,svg,ico,webp}'],
+        runtimeCaching: [
+          {
+            // Never serve a stale app shell/index from cache: always go to network first.
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'app-shell',
+              networkTimeoutSeconds: 5,
+              expiration: { maxEntries: 10 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+          {
+            // Hashed build assets: cache-first is fine (filename changes each build).
+            urlPattern: ({ request }) =>
+              request.destination === 'script' ||
+              request.destination === 'style',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'build-assets',
+              expiration: { maxEntries: 60 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+        ],
+        navigateFallbackDenylist: [/^\/api\//],
       },
     }),
   ],

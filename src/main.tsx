@@ -12,8 +12,15 @@ import { logoutUser, setUserCredentials } from './features/user/userSlice'
 import { registerSW } from 'virtual:pwa-register'
 
 registerSW({
-  onNeedRefresh() {},
+  immediate: true,
+  onNeedRefresh() {
+    // A new build is ready: take it now so nobody stays on a stale bundle.
+    window.location.reload()
+  },
   onOfflineReady() {},
+  onRegisterError(error) {
+    console.error('Service worker registration failed:', error)
+  },
 })
 
 window.addEventListener('storage', (event) => {
