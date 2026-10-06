@@ -1,5 +1,6 @@
 import { MapPin, Clock, Building2, ExternalLink, Wallet, X } from "lucide-react";
 import { useState } from "react";
+import { formatCurrency } from "@/utils/format";
 
 export type JobListing = {
   application_id: string;
@@ -10,8 +11,9 @@ export type JobListing = {
   job_type?: string;
   company_name: string;
   job_link?: string;
-  min_charge?: string;
-  max_charge?: string;
+  min_charge?: string | null;
+  max_charge?: string | null;
+  currency?: string | null;
   category?: {
     category_id: string;
     name: string;
@@ -31,17 +33,20 @@ export default function JobListingCard({
   job_link,
   min_charge,
   max_charge,
+  currency,
   category,
   created_at,
 }: JobListing) {
   const [viewMore, setViewMore] = useState(false);
 
-  const formatSalary = (min?: string, max?: string) => {
+  const formatSalary = (min?: string | null, max?: string | null) => {
     const minNum = min ? parseFloat(min) : null;
     const maxNum = max ? parseFloat(max) : null;
-    if (minNum && maxNum) return `₦${minNum.toLocaleString()} - ₦${maxNum.toLocaleString()}`;
-    if (minNum) return `₦${minNum.toLocaleString()}+`;
-    if (maxNum) return `Up to ₦${maxNum.toLocaleString()}`;
+    const fmt = (value: number) => formatCurrency(value, currency);
+
+    if (minNum && maxNum) return `${fmt(minNum)} - ${fmt(maxNum)}`;
+    if (minNum) return `${fmt(minNum)}+`;
+    if (maxNum) return `Up to ${fmt(maxNum)}`;
     return null;
   };
 

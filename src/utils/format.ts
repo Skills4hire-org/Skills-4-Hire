@@ -42,6 +42,36 @@ export const currencyFormatter = (price: number | undefined) => {
     return amount
   }
 }
+
+/**
+ * Formats an amount using the ISO 4217 code supplied by the API (e.g. "USD",
+ * "NGN", "GBP"). Falls back to NGN when the code is missing or unusable.
+ */
+export const formatCurrency = (
+  value: number | null | undefined,
+  currencyCode?: string | null,
+) => {
+  if (value === null || value === undefined || Number.isNaN(value)) return ''
+
+  const code = (currencyCode ?? '').trim().toUpperCase()
+
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: code || 'NGN',
+      maximumFractionDigits: 0,
+      currencyDisplay: 'narrowSymbol',
+    }).format(value)
+  } catch {
+    // Not a well-formed ISO 4217 code (e.g. a raw symbol) — use NGN.
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      maximumFractionDigits: 0,
+      currencyDisplay: 'symbol',
+    }).format(value)
+  }
+}
 export const dateFormatter = (timestamp: string | undefined | number) => {
   if (timestamp) {
     const date = new Date(timestamp)
