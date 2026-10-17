@@ -31,6 +31,11 @@ export type MessagesData = {
   participant_two: string
 }
 
+export type MessageAttachment = {
+  url: string
+  type?: string
+}
+
 export type Message = {
   message_id: string
   content: string
@@ -39,6 +44,7 @@ export type Message = {
   is_sender: boolean
   created_at: string
   conversation: string
+  attachments?: MessageAttachment | MessageAttachment[] | null
   receiver: {
     email: string
     first_name: string
@@ -98,6 +104,7 @@ export type Conversation = {
     content: string
     created_at: string
     is_read: boolean
+    attachments?: MessageAttachment | MessageAttachment[] | null
   }
   created_at: string
   updated_at: string

@@ -39,9 +39,29 @@ export default function SignInForm({ initialEmail }: SignInFormProps) {
 
     try {
       const response = await login(validatedData)
+
+      const access = response?.access ?? response?.access_token
+      const refresh = response?.refresh ?? response?.refresh_token
+
+      // Unverified accounts are authenticated but receive no tokens — the
+      // backend expects the user to complete email OTP verification first.
+      // Do not create a broken session; send them to the verification screen.
+      if (!access || !refresh) {
+        const email = response?.user_data?.email ?? formData.email
+        if (email) {
+          localStorage.setItem('pendingVerificationEmail', email)
+        }
+        toast.info(
+          response?.message ||
+            'Your account is not verified. Enter the OTP sent to your email.',
+        )
+        navigate('/verification', { state: email ? { email } : undefined })
+        return
+      }
+
       const credentials = {
-        access: response?.access ?? response?.access_token,
-        refresh: response?.refresh ?? response?.refresh_token,
+        access,
+        refresh,
         user_data: response?.user_data,
       }
       dispatch(setUserCredentials(credentials))

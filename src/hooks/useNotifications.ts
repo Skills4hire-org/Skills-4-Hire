@@ -1,6 +1,7 @@
 import { deleteNotification, getNotifications, markNotificationRead } from '@/api/notifications'
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNotificationSeenContext } from '@/contexts/notification-seen'
+import { useProfileCompletionNotification } from '@/hooks/useProfileNotification'
 
 export type AppNotification = { notification_id: string; event?: string | null; content?: string | null; created_at: string; is_read: boolean }
 
@@ -31,11 +32,12 @@ export const useUnreadNotificationCount = () => {
   const notifications: AppNotification[] = query.data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const { lastSeen } = useNotificationSeenContext()
   const filtered = seenFilter(notifications, lastSeen.notifications)
-  return { ...query, count: filtered.length }
+  const profileNotification = useProfileCompletionNotification()
+  return { ...query, count: filtered.length + (profileNotification ? 1 : 0) }
 }
 
 export const useHireRequestNotificationCount = () => {
-  const query = useNotifications({ unreadOnly: true, event: 'New job posted' })
+  const query = useNotifications({ unreadOnly: true, event: 'New hire request' })
   const notifications: AppNotification[] = query.data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const { lastSeen } = useNotificationSeenContext()
   const filtered = seenFilter(notifications, lastSeen.hireRequests)
@@ -43,7 +45,7 @@ export const useHireRequestNotificationCount = () => {
 }
 
 export const useJobNotificationCount = () => {
-  const query = useNotifications({ unreadOnly: true, event: 'New hire request' })
+  const query = useNotifications({ unreadOnly: true, event: 'New job posted' })
   const notifications: AppNotification[] = query.data?.pages.flatMap((page) => page?.results ?? []) ?? []
   const { lastSeen } = useNotificationSeenContext()
   const filtered = seenFilter(notifications, lastSeen.jobs)

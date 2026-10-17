@@ -3,22 +3,10 @@ import { useState } from 'react'
 import { AlertCircle, ArrowRight, X } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/store'
-import type { Profile } from '@/types/user.types'
 import { useMyProfile } from '@/hooks/useUsers'
+import { getMissingProfileFields } from '@/utils/profileCompletion'
 
 const DISMISSED_KEY = 'complete-profile-banner-dismissed'
-
-function getMissingProfileFields(profile: Profile | undefined): string[] {
-  if (!profile) return []
-  const missing: string[] = []
-  if (!profile.professional_title) missing.push('profession')
-  if (!profile.headline) missing.push('headline')
-  if (!profile.user?.profile?.country) missing.push('country')
-  if (!profile.user?.profile?.state) missing.push('state')
-  if (!profile.user?.profile?.city) missing.push('city')
-  if (!profile.user?.profile?.location) missing.push('address')
-  return missing
-}
 
 export default function CompleteProfileBanner() {
   const userType = useSelector((state: RootState) => state.userState.userType)

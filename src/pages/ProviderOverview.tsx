@@ -22,6 +22,7 @@ import Loading from "@/components/global/Loading";
 import Error from "@/components/global/Error";
 import type { Booking } from "@/types/bookings.type";
 import { useMyProfile, useMyProfileOverview } from "@/hooks/useUsers";
+import CompleteProfileBanner from "@/components/home/CompleteProfileBanner";
 import { useReviews } from "@/hooks/useReviews";
 import ReviewCard from "@/components/reviews/ReviewCard";
 import { BookOpen } from "lucide-react";
@@ -122,6 +123,7 @@ export default function ProviderOverview() {
       </Container>
       <Container>
         <div className="space-y-8">
+          <CompleteProfileBanner />
           <div className="bg-gray-100 rounded-md p-3 text-sm md:text-base text-gray-700 w-full space-y-1 md:max-w-xs ">
             <p>
               Professional Skill:{" "}

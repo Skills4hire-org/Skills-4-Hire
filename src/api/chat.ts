@@ -53,6 +53,10 @@ export const createMessage = async ({
   conversation_id: string
   data: {
     content: string
+    attachments?: {
+      url: string
+      type?: string
+    }[]
   }
 }) => {
   try {

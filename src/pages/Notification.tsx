@@ -9,6 +9,7 @@ import Loading from '@/components/global/Loading'
 import { useDeleteNotification, useMarkNotificationRead, useNotifications, type AppNotification } from '@/hooks/useNotifications'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { useNotificationSeenContext } from '@/contexts/notification-seen'
+import { useProfileCompletionNotification, PROFILE_NOTIFICATION_ID } from '@/hooks/useProfileNotification'
 
 export default function Notification() {
   const { markSeen } = useNotificationSeenContext()
@@ -28,7 +29,11 @@ export default function Notification() {
   } = useNotifications()
   const { mutate: markRead } = useMarkNotificationRead()
   const { mutate: deleteNotification } = useDeleteNotification()
-  const notifications: AppNotification[] = data?.pages.flatMap((page) => page?.results ?? []) ?? []
+  const profileNotification = useProfileCompletionNotification()
+  const notifications: AppNotification[] = [
+    ...(profileNotification ? [profileNotification] : []),
+    ...(data?.pages.flatMap((page) => page?.results ?? []) ?? []),
+  ]
   const notificationMap = new Map(notifications.map((n) => [n.notification_id, n]))
   const groupedNotifications = groupNotificationsByDay(
     notifications.map((item) => ({ id: item.notification_id, type: item.event || 'notification', createdAt: item.created_at })),
@@ -48,7 +53,7 @@ export default function Notification() {
         <TitleOnlyDesktopHeader title="Notification" />
       </Container>
       <Container>
-        {isLoading ? <div className="h-24"><Loading /></div> : isError ? <Error text="Failed to load notifications" buttonFunc={refetch} /> : groupedNotificationsArray.length === 0 ? <p className="py-8 text-center text-gray-500">You have no notifications yet.</p> : groupedNotificationsArray.map(([day, items]) => {
+        {isLoading ? <div className="h-24"><Loading /></div> : isError && groupedNotificationsArray.length === 0 ? <Error text="Failed to load notifications" buttonFunc={refetch} /> : groupedNotificationsArray.length === 0 ? <p className="py-8 text-center text-gray-500">You have no notifications yet.</p> : groupedNotificationsArray.map(([day, items]) => {
           return (
             <div key={day} className="space-y-3 md:space-y-4">
               <h3 className="text-base md:text-lg font-semibold capitalize">
@@ -58,7 +63,33 @@ export default function Notification() {
               <div className="grid grid-cols-1 gap-2 md:gap-3">
                 {items.map((item) => {
                   const apiNotification = notificationMap.get(String(item.id))
-                  return apiNotification ? <NotificationCard key={item.id} event={apiNotification.event} content={apiNotification.content} createdAt={apiNotification.created_at} isRead={apiNotification.is_read} onRead={() => !apiNotification.is_read && markRead(apiNotification.notification_id)} onDelete={() => deleteNotification(apiNotification.notification_id)} /> : null
+                  if (!apiNotification) return null
+
+                  const isProfileNotification =
+                    apiNotification.notification_id === PROFILE_NOTIFICATION_ID
+
+                  return (
+                    <NotificationCard
+                      key={item.id}
+                      event={apiNotification.event}
+                      content={apiNotification.content}
+                      createdAt={apiNotification.created_at}
+                      isRead={apiNotification.is_read}
+                      onRead={
+                        isProfileNotification
+                          ? undefined
+                          : () =>
+                              !apiNotification.is_read &&
+                              markRead(apiNotification.notification_id)
+                      }
+                      onDelete={
+                        isProfileNotification
+                          ? undefined
+                          : () =>
+                              deleteNotification(apiNotification.notification_id)
+                      }
+                    />
+                  )
                 })}
               </div>
             </div>

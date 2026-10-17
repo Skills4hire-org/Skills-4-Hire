@@ -2,6 +2,7 @@ import { GoogleLogin } from '@react-oauth/google'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import { jwtDecode } from 'jwt-decode'
 import { googleSignIn } from '@/api/auth'
 import { setUserCredentials } from '@/features/user/userSlice'
 
@@ -21,6 +22,14 @@ function GoogleSignInButton({
         toast.error('Google authentication failed')
         return
       }
+
+      let credentialEmail: string | undefined
+      try {
+        credentialEmail = jwtDecode<{ email?: string }>(googleToken)?.email
+      } catch {
+        credentialEmail = undefined
+      }
+
       const data = referral_code
         ? { token: googleToken, referral_code: referral_code }
         : {
@@ -29,13 +38,33 @@ function GoogleSignInButton({
 
       const response = await googleSignIn(data)
 
-      const userData = {
-        access: response?.access ?? response?.access_token,
-        refresh: response?.refresh ?? response?.refresh_token,
-        user_data: response?.user_data,
+      const access = response?.access ?? response?.access_token
+      const refresh = response?.refresh ?? response?.refresh_token
+
+      // No tokens returned means the account exists but still needs email OTP
+      // verification. Do not create a broken session — send the user to the
+      // verification screen (same flow as email sign-up) so they can enter or
+      // resend the OTP instead of being stuck looping back to sign-in.
+      if (!access || !refresh) {
+        const email = response?.user_data?.email ?? credentialEmail
+        if (email) {
+          localStorage.setItem('pendingVerificationEmail', email)
+        }
+        toast.info(
+          response?.message ||
+            'Your account needs verification. Please enter the OTP sent to your email.',
+        )
+        navigate('/verification', { state: email ? { email } : undefined })
+        return
       }
 
-      dispatch(setUserCredentials(userData))
+      dispatch(
+        setUserCredentials({
+          access,
+          refresh,
+          user_data: response?.user_data,
+        }),
+      )
 
       if (
         !response?.user_data?.is_customer &&

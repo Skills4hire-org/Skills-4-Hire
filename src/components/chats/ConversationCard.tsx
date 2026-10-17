@@ -22,6 +22,13 @@ export default function ConversationCard({ conversation }: ConversationProps) {
 
   const isActive = conversationId === conversation.conversation_id
 
+  const lastMessage = conversation.last_message
+  const lastMessagePreview = !lastMessage
+    ? 'No messages yet'
+    : lastMessage.content?.trim()
+      ? decodeHtmlEntities(lastMessage.content)
+      : 'Attachment'
+
   const navigate = useNavigate()
 
   const handleReadMessages = () => {
@@ -53,7 +60,7 @@ export default function ConversationCard({ conversation }: ConversationProps) {
               formatSpaceToString(isParticipantTwo.profile.professional_title)}
           </p>
           <p className="text-sm md:text-base break-all line-clamp-1 w-full">
-            {decodeHtmlEntities(conversation.last_message?.content || 'No messages yet')}
+            {lastMessagePreview}
           </p>
         </div>
         <div className="flex flex-col items-center justify-between shrink-0">

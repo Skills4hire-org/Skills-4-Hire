@@ -98,10 +98,8 @@ export default function Verification() {
       navigate('/sign-in', { state: { email } })
       localStorage.removeItem('pendingVerificationEmail')
     } catch (error: any) {
-      console.error('Verify OTP error:', error.response?.data || error.message)
-      toast.error(
-        error.response?.data?.message || 'Verification failed. Check code.',
-      )
+      console.error('Verify OTP error:', error)
+      toast.error(error?.message || 'Verification failed. Check code.')
     } finally {
       setLoading(false)
     }
