@@ -6,6 +6,9 @@ export function getMissingProfileFields(
   if (!profile) return []
   const missing: string[] = []
   if (!profile.user?.profile?.avatar?.avatar) missing.push('profile photo')
+  if (!profile.user?.profile?.cover_photo?.image_url)
+    missing.push('cover photo')
+  if (!profile.overview) missing.push('bio')
   if (!profile.professional_title) missing.push('profession')
   if (!profile.headline) missing.push('headline')
   if (!profile.user?.profile?.country) missing.push('country')
