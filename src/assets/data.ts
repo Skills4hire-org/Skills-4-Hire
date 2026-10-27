@@ -199,11 +199,11 @@ export const serviceProviderMobileNavLinks = [
     activeIcon: 'si:home-fill',
   },
   {
-    key: 'overview',
-    label: 'Overview',
-    icon: 'fluent:briefcase-medical-16-regular',
-    url: '/professional/overview',
-    activeIcon: 'fluent:briefcase-medical-16-filled',
+    key: 'network',
+    label: 'Network',
+    icon: 'lucide:users-round',
+    url: '/professional/network',
+    activeIcon: 'lucide:users-round',
   },
   {
     label: 'bookings',
@@ -233,11 +233,11 @@ export const serviceProviderDesktopNavLinks = [
     url: '/professional/home',
   },
   {
-    key: 'overview',
-    label: 'Overview',
-    icon: 'fluent:briefcase-medical-20-regular',
-    activeIcon: 'fluent:briefcase-medical-20-filled',
-    url: '/professional/overview',
+    key: 'network',
+    label: 'Network',
+    icon: 'lucide:users-round',
+    activeIcon: 'lucide:users-round',
+    url: '/professional/network',
   },
   {
     label: 'bookings',

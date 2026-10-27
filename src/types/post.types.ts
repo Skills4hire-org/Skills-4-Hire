@@ -65,6 +65,7 @@ export type Post = {
         avatar: string
       }
       professional_title: string
+      headline?: string
       provider_id: string
     }
     avg_rating?: number | null

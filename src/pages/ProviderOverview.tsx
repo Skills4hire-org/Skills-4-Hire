@@ -29,6 +29,7 @@ import { BookOpen } from "lucide-react";
 import { User } from "lucide-react";
 import { Wallet } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import ProfessionalSectionTabs from "@/components/global/ProfessionalSectionTabs";
 
 export default function ProviderOverview() {
   const { user_data }: { user_data: UserData } = useSelector(
@@ -118,6 +119,19 @@ export default function ProviderOverview() {
   return (
     <div className="space-y-2 md:space-y-6  max-[1023px]:min-[768px]:ml-17 lg:ml-[4.2rem]">
       <Container className="bg-white">
+
+        <div className="overflow-hidden rounded-lg  bg-white">
+          <div className="px-4 pt-5 md:px-6 md:pt-6">
+            <h1 className="text-2xl font-bold text-gray-950 md:text-3xl">
+              Overview
+            </h1>
+            <p className="mt-1 text-sm text-gray-600 md:text-base">
+              Check your stats. Keep track of bookings, referals, reviews and other activities.
+            </p>
+          </div>
+          </div>
+
+        <ProfessionalSectionTabs />
         <MobileServicesOverviewHeader />
         <DesktopServicesOverviewHeader />
       </Container>

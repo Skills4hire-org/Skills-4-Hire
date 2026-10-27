@@ -3,11 +3,9 @@ import {
   MessageCircle,
   BarChart2,
   MapPin,
-  Dot,
   MoreVertical,
   Pencil,
   Trash2,
-  Briefcase,
   Send,
 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -81,6 +79,7 @@ export default function PostCard({
   } = useSelector((state: RootState) => state.userState)
   const provider_id = user?.profile?.provider_id
   const provider_service = user?.profile?.professional_title
+  const provider_headline = user?.profile?.headline
 
   const isOwner = user_data?.user_id === user?.user_id
 
@@ -184,68 +183,52 @@ export default function PostCard({
             <ProfileImage noStatus avatar={user?.profile?.avatar?.avatar} />
           </Link>
 
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center">
-              <Link
-                to={`/${userType}/professionals/${provider_id}`}
-                className="no-underline hover:no-underline"
-              >
-                <h3 className="text-[15px] md:text-base  font-semibold text-gray-900 leading-tight">
-                  {user?.profile?.display_name}
-                </h3>
-              </Link>
-            </div>
-            <div className="flex items-center gap-0.5 text-[12px] md:text-sm font-medium ">
+          <div className="min-w-0 space-y-0.5">
+            <Link
+              to={`/${userType}/professionals/${provider_id}`}
+              className="no-underline hover:no-underline"
+            >
+              <h3 className="truncate text-[15px] font-semibold leading-tight text-gray-900 md:text-base">
+                {user?.profile?.display_name}
+              </h3>
+            </Link>
+            {provider_headline && (
+              <p className="line-clamp-1 text-xs text-gray-600 md:text-sm">
+                {provider_headline}
+              </p>
+            )}
+            <div className="flex flex-wrap items-center gap-1 text-xs text-gray-500">
               {provider_service && (
-                <Link
-                  to={`/customer/professionals/${provider_id}`}
-                  className="text-xs md:text-sm bg-primary/10 text-primary rounded-sm px-2 lg:px-2 md:px-6 py-1 w-max mb-1 mt-1 font-medium"
-                >
+                <span className="capitalize">
                   {provider_service.replace(/([A-Z])/g, ' $1').trim()}
-                </Link>
+                </span>
               )}
-              <Dot className="w-3 h-3 text-muted-foreground" strokeWidth={6} />
-              <span className="text-gray-600">
-                {formatCommentTime(created_at as string)}
-              </span>
-            </div>
-            <div className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-gray-500 my-0.5">
-              <span className="inline-flex items-center gap-1 capitalize">
-                <MapPin size={13.5} className="md:w-[14px]" />{' '}
-                <span className="flex items-center gap-1">
-                  <span>{user?.profile?.city},</span>
-                  <span>{user?.profile?.state}</span>
-                </span>
-              </span>
-
-              {/* {user?.avg_rating && (
+              {provider_service && (user?.profile?.city || user?.profile?.state) && (
+                <span aria-hidden="true">·</span>
+              )}
+              {(user?.profile?.city || user?.profile?.state) && (
                 <span className="inline-flex items-center gap-1">
-                  <Star
-                    size={13.5}
-                    className="fill-yellow-400 text-yellow-400"
-                  />
-                  <span className="font-semibold text-gray-700">
-                    {user?.avg_rating}
-                  </span>
-                  {user?.total_reviews && (
-                    <span className="text-gray-500">
-                      ({user?.total_reviews} review
-                      {user?.total_reviews > 1 && 's'})
-                    </span>
-                  )}
+                  <MapPin size={12} />
+                  {[user?.profile?.city, user?.profile?.state]
+                    .filter(Boolean)
+                    .join(', ')}
                 </span>
-               )} */}
+              )}
             </div>
+            <p className="text-[11px] text-gray-500">
+              {formatCommentTime(created_at as string)}
+            </p>
           </div>
         </div>
-        {!isOwner && userType == 'customer' && provider_id && (
-          <Link
-            to={`/customer/professionals/${provider_id}/booking`}
-            className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm hover:bg-primary/90 transition-colors shrink-0"
+        {!isOwner && provider_id && (
+          <button
+            type="button"
+            disabled
+            title="Follow actions are not available until the follow API is enabled"
+            className="shrink-0 rounded-full bg-primary px-3 py-2 text-xs font-semibold text-white opacity-60 disabled:cursor-not-allowed md:text-sm"
           >
-            <Briefcase className="w-3.5 h-3.5" />
-            Hire Now
-          </Link>
+            + Follow
+          </button>
         )}
         {isOwner && (
           <DropdownMenu>

@@ -66,6 +66,7 @@ import SupportConversationList from './components/chats/SupportConversationList'
 import ChatSupport from './pages/ChatSupport'
 import SupportChatWindow from './components/chats/SupportChatWindow'
 import Deposit from './pages/Deposit'
+import Network from './pages/Network'
 
 const router = createBrowserRouter([
   {
@@ -188,6 +189,10 @@ const router = createBrowserRouter([
       {
         path: 'overview',
         element: <ProviderOverview />,
+      },
+      {
+        path: 'network',
+        element: <Network />,
       },
       {
         path: 'booking-requests',
