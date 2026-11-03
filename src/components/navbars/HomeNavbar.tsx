@@ -5,7 +5,7 @@ import {
 import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { useHireRequestNotificationCount, useJobNotificationCount } from '@/hooks/useNotifications'
+import { useJobNotificationCount } from '@/hooks/useNotifications'
 
 export default function HomeNavbar() {
   const { userType }: { userType: UserType } = useSelector(
@@ -14,11 +14,9 @@ export default function HomeNavbar() {
   const navLinks =
     userType == 'customer' ? customerHomeNavLinks : serviceProviderHomeNavLinks
 
-  const { count: hireRequestCount } = useHireRequestNotificationCount()
   const { count: jobCount } = useJobNotificationCount()
 
   const countForLabel = (label: string): number => {
-    if (label === 'Hire requests') return hireRequestCount
     if (label === 'Jobs') return jobCount
     return 0
   }

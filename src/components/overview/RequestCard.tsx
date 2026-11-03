@@ -7,12 +7,8 @@ import {
   RefreshCw,
   Wallet,
 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
 import ProfileImage from '@/components/global/ProfileImage'
 import ImageCarousel from '@/components/home/ImageCarousel'
-import NegotiationDialog from '@/components/home/NegotiationDialog'
-import { useCreateConversation } from '@/hooks/useChats'
 import { Button } from '../ui/button'
 import type { Post } from '@/types/post.types'
 import { currencyFormatter, formatRelativeTime } from '@/utils/format'
@@ -23,10 +19,6 @@ interface RequestCardProp {
 
 export default function RequestCard({ post }: RequestCardProp) {
   const [viewMore, setViewMore] = useState(false)
-  const [isNegotiateOpen, setIsNegotiateOpen] = useState(false)
-  const { mutate: createConversation, isPending: isOpeningConversation } =
-    useCreateConversation()
-  const navigate = useNavigate()
   const name =
     post.user?.profile?.display_name ||
     `${post.user?.first_name ?? ''} ${post.user?.last_name ?? ''}`.trim() ||
@@ -42,32 +34,8 @@ export default function RequestCard({ post }: RequestCardProp) {
   const isPending = status.toLowerCase() === 'pending'
   const statusColor = isPending ? 'bg-red-500' : 'bg-primary'
 
-  const handleApply = () => {
-    if (!post.user?.user_id)
-      return toast.error('This request is missing customer details.')
-    createConversation(
-      { participant_two_id: post.user.user_id },
-      {
-        onSuccess: (conversation) => {
-          const conversationId = conversation?.conversation_id
-          if (!conversationId)
-            return toast.error('Unable to open a conversation for this request.')
-          navigate(`/professional/messages/${conversationId}`)
-        },
-      },
-    )
-  }
-
   return (
     <>
-      {isNegotiateOpen && (
-        <NegotiationDialog
-          setIsNegotiateOpen={setIsNegotiateOpen}
-          customerUserId={post.user?.user_id}
-          postTitle={post.post_title ?? undefined}
-        />
-      )}
-
       <div className="shadow-md border border-gray-200 overflow-hidden bg-white">
       <div className="px-3 md:px-6 py-4 md:py-6 flex flex-col gap-2">
         <div className="flex items-start gap-3">
@@ -163,23 +131,27 @@ export default function RequestCard({ post }: RequestCardProp) {
 
         <div className="flex gap-2 flex-nowrap mt-1">
           <Button
-            onClick={() => setIsNegotiateOpen(true)}
-            className="flex-1 min-w-0 flex items-center justify-center gap-1.5 bg-yellow-400 text-white rounded-md py-1 md:py-1.5 text-sm md:text-base hover:opacity-90"
+            disabled
+            title="Messaging is available after the customer follows you back"
+            className="flex-1 min-w-0 flex items-center justify-center gap-1.5 bg-yellow-400 text-white rounded-md py-1 md:py-1.5 text-sm md:text-base opacity-60"
           >
             <RefreshCw className="w-4 h-4" />
             Negotiate
           </Button>
 
           <Button
-            onClick={handleApply}
-            disabled={isOpeningConversation}
+            disabled
+            title="Messaging is available after the customer follows you back"
             variant="outline"
-            className="flex-1 min-w-0 flex items-center justify-center gap-1.5 border-gray-200 text-gray-700 rounded-md py-1 md:py-1.5 text-sm md:text-base hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex-1 min-w-0 flex items-center justify-center gap-1.5 border-gray-200 text-gray-700 rounded-md py-1 md:py-1.5 text-sm md:text-base disabled:cursor-not-allowed disabled:opacity-60"
           >
             <MessageSquare className="w-4 h-4" />
-            {isOpeningConversation ? 'Opening…' : 'Apply'}
+            Apply
           </Button>
         </div>
+        <p className="mt-2 text-center text-xs text-gray-500">
+          You can message this customer after they follow you back.
+        </p>
       </div>
     </div>
     </>

@@ -9,6 +9,7 @@ import Loading from '../global/Loading'
 import Error from '../global/Error'
 import SignOutButton from '../buttons/SignOutButton'
 import type { Post } from '@/types/post.types'
+import FollowCounts from './FollowCounts'
 
 export default function ServiceProviderProfile() {
   const { data, isLoading, isError, refetch } = useMyProfile()
@@ -42,6 +43,7 @@ export default function ServiceProviderProfile() {
                   }
                 />
                 <Overview professional={professional} />
+                <FollowCounts />
                 <div>
                   <AboutGallery
                     about={professional?.overview}

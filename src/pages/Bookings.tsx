@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import CustomerBookingsTabContent from '@/components/bookings/CustomerBookingsTabContent'
 import ServiceProviderBookingsTabContent from '@/components/bookings/ServiceProviderBookingsTabContent'
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { useBookings } from '@/hooks/useBookings'
 import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
@@ -16,12 +17,17 @@ import {
   customerBookingsTabsList,
   providerBookingsTabsList,
 } from '@/assets/data'
+import { useNotificationSeenContext } from '@/contexts/notification-seen'
 
 export default function Bookings() {
   const { userType }: { userType: UserType } = useSelector(
     (state: any) => state.userState,
   )
-  const status = userType == 'customer' ? 'Funded' : 'In_progress'
+  const { markSeen } = useNotificationSeenContext()
+  useEffect(() => {
+    if (userType === 'service_provider') markSeen('hireRequests')
+  }, [markSeen, userType])
+  const status = 'Funded'
   const [bookingStatus, setBookingStatus] = useState(status)
   const {
     data,

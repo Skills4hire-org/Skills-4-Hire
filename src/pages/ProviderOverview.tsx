@@ -13,14 +13,11 @@ import DesktopServicesOverviewHeader from "@/components/header/DesktopServicesOv
 import { Link } from "react-router-dom";
 import NoReviewCard from "@/components/reviews/NoReviewCard";
 import ReferAndEarnBanner from "@/components/services/ReferAndEarnBanner";
-import { useBookings } from "@/hooks/useBookings";
 import type { UserData } from "@/types/user.types";
 import { useSelector } from "react-redux";
 import { currencyFormatter, formatSpaceToString } from "@/utils/format";
-import BookingRequestCard from "@/components/bookings/BookingRequestCard";
 import Loading from "@/components/global/Loading";
 import Error from "@/components/global/Error";
-import type { Booking } from "@/types/bookings.type";
 import { useMyProfile, useMyProfileOverview } from "@/hooks/useUsers";
 import CompleteProfileBanner from "@/components/home/CompleteProfileBanner";
 import { useReviews } from "@/hooks/useReviews";
@@ -96,24 +93,8 @@ export default function ProviderOverview() {
     { label: "Wallet", value: statData?.wallet?.balance, icon: Wallet },
   ];
 
-  const {
-    data: bookingsData,
-    isLoading: bookingsLoading,
-    isError: bookingsError,
-    refetch: bookingsRefetch,
-  } = useBookings({ booking_status: "Funded" });
-  const latestBookings: Booking[] =
-    bookingsData?.pages.flatMap((page) => page.results) ?? [];
-
-  const handleBookingRequestFetchingError = () => {
-    bookingsRefetch();
-  };
-
   const handleReviewsFetchingError = () => {
     reviewRefetch();
-  };
-  const handleBookingRefetch = () => {
-    bookingsRefetch();
   };
 
   return (
@@ -186,54 +167,6 @@ export default function ProviderOverview() {
                 </div>
               );
             })}
-          </section>
-          <section className="bg-white rounded-lg px-2 py-4 md:px-3 md:py-6 space-y-4 md:space-y-6 shadow-md ">
-            <div className="flex items-center justify-between">
-              <h2 className="font-semibold text-gray-900">
-                Booking Requests ({latestBookings?.length})
-              </h2>
-              <Link
-                to="/professional/booking-requests"
-                className="text-xs md:text-sm text-primary hover:underline"
-              >
-                View all
-              </Link>
-            </div>
-            <div>
-              {bookingsLoading ? (
-                <div className="h-24">
-                  <Loading />
-                </div>
-              ) : (
-                <>
-                  {bookingsError ? (
-                    <div className="py-6">
-                      <Error
-                        text="Failed to load your booking requests"
-                        buttonFunc={handleBookingRequestFetchingError}
-                      />
-                    </div>
-                  ) : (
-                    <>
-                      <div className="w-full">
-                        {latestBookings && latestBookings.length !== 0 && (
-                          <BookingRequestCard
-                            {...latestBookings[0]}
-                            handleRefetch={handleBookingRefetch}
-                          />
-                        )}
-                      </div>
-
-                      {latestBookings?.length === 0 && (
-                        <p className="text-base md:text-lg font-medium text-center h-24 flex items-center justify-center">
-                          No booking requests yet.
-                        </p>
-                      )}
-                    </>
-                  )}
-                </>
-              )}
-            </div>
           </section>
           <ReferAndEarnBanner />
           <section className="bg-white rounded-lg p-4 shadow-md">

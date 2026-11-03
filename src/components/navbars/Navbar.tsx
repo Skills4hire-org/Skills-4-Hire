@@ -9,6 +9,7 @@ import type { UserType } from '@/utils/types'
 import { useSelector } from 'react-redux'
 import NavLinks from './NavLinks'
 import { useUnreadMessageCount } from '@/hooks/useChats'
+import { useHireRequestNotificationCount } from '@/hooks/useNotifications'
 
 export default function Navbar() {
   const { userType }: { userType: UserType } = useSelector(
@@ -17,6 +18,7 @@ export default function Navbar() {
   const pathname = useLocation().pathname
   const basePath = getBasePath(pathname)
   const { count: unreadMessageCount } = useUnreadMessageCount()
+  const { count: hireRequestCount } = useHireRequestNotificationCount()
 
   const navLinks =
     userType == 'customer'
@@ -28,7 +30,12 @@ export default function Navbar() {
         <div className="relative bg-white border-t flex items-center justify-evenly pb-1.5 pt-0">
           {navLinks.map(({ url, icon, label, activeIcon }) => {
             const active = basePath === url
-            const badge = label === 'messages' ? unreadMessageCount : 0
+            const badge =
+              label === 'messages'
+                ? unreadMessageCount
+                : userType === 'service_provider' && label === 'bookings'
+                  ? hireRequestCount
+                  : 0
             const props = { url, icon, label, active, activeIcon, badge }
             return <NavLinks key={label} {...props} />
           })}

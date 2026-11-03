@@ -5,9 +5,10 @@ import Loading from '@/components/global/Loading'
 import Error from '@/components/global/Error'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import type { Post } from '@/types/post.types'
-import { useEffect, useRef } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import CompleteProfileBanner from '@/components/home/CompleteProfileBanner'
+import NetworkSuggestions from '@/components/home/NetworkSuggestions'
 
 export default function Posts() {
   const {
@@ -25,6 +26,14 @@ export default function Posts() {
     (data?.pages.flatMap((page) => page.results) ?? []).filter(
       (post) => !(post.post_type === 'JOB' && post.user?.is_provider === false),
     ) ?? []
+  const [suggestionPosition, setSuggestionPosition] = useState<number | null>(
+    null,
+  )
+
+  useEffect(() => {
+    if (isLoading || posts.length === 0 || suggestionPosition !== null) return
+    setSuggestionPosition(1 + Math.floor(Math.random() * posts.length))
+  }, [isLoading, posts.length, suggestionPosition])
 
   const [searchParams] = useSearchParams()
   const deepLinkPostId = searchParams.get('post')
@@ -104,12 +113,13 @@ export default function Posts() {
             ) : (
               <>
                 <div className="grid grid-cols-1 gap-1 md:gap-4">
-                  {posts?.map((post) => (
-                    <PostCard
-                      key={post.post_id}
-                      {...post}
-                      queryKey={['posts']}
-                    />
+                  {posts?.map((post, index) => (
+                    <Fragment key={post.post_id}>
+                      <PostCard {...post} queryKey={['posts']} />
+                      {suggestionPosition === index + 1 && (
+                        <NetworkSuggestions />
+                      )}
+                    </Fragment>
                   ))}
                 </div>
 

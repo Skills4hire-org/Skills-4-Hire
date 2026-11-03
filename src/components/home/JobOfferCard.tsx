@@ -1,10 +1,6 @@
 import ProfileImage from '@/components/global/ProfileImage'
 import { MapPin, Clock, Wallet, RefreshCw, MessageSquare } from 'lucide-react'
 import { useState } from 'react'
-import NegotiationDialog from './NegotiationDialog'
-import { useCreateConversation } from '@/hooks/useChats'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
 import type { Post } from '@/types/post.types'
 import { currencyFormatter, formatCommentTime } from '@/utils/format'
 import ImageCarousel from './ImageCarousel'
@@ -21,30 +17,10 @@ export default function JobOfferCard({
   user,
 }: Post) {
   const [viewMore, setViewMore] = useState(false)
-  const [isNegotiateOpen, setIsNegotiateOpen] = useState(false)
-  const { mutate: createConversation, isPending } = useCreateConversation()
-  const navigate = useNavigate()
-  const handleApply = () => {
-    if (!user?.user_id) return toast.error('This offer is missing customer details.')
-    createConversation({ participant_two_id: user.user_id }, { onSuccess: (conversation) => {
-      const conversationId = conversation?.conversation_id
-      if (!conversationId) return toast.error('Unable to open a conversation for this offer.')
-      navigate(`/professional/messages/${conversationId}`)
-    } })
-  }
-
   const isTextLong = post_content && post_content.length > 200
 
   return (
     <>
-      {isNegotiateOpen && (
-        <NegotiationDialog
-          setIsNegotiateOpen={setIsNegotiateOpen}
-          customerUserId={user?.user_id}
-          postTitle={post_title ?? undefined}
-        />
-      )}
-
       <div className="bg-white rounded-lg shadow p-2.5 md:p-4 space-y-2 md:space-y-3 w-full">
         <p className="text-xs md:text-sm font-medium text-gray-600">
           Posted {formatCommentTime(updated_at as string)}
@@ -132,18 +108,28 @@ export default function JobOfferCard({
         <div className="mt-2">
           <div className="flex gap-2 flex-nowrap">
             <button
-              onClick={() => setIsNegotiateOpen(true)}
-              className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md bg-yellow-400 text-white text-sm md:text-base hover:opacity-90 transition font-medium cursor-pointer hover:opacity-90"
+              type="button"
+              disabled
+              title="Messaging is available after the customer follows you back"
+              className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md bg-yellow-400 text-white text-sm md:text-base font-medium opacity-60 disabled:cursor-not-allowed"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Negotiate</span>
             </button>
 
-            <button onClick={handleApply} disabled={isPending} className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base hover:bg-gray-50 transition font-medium cursor-pointer hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-60">
+            <button
+              type="button"
+              disabled
+              title="Messaging is available after the customer follows you back"
+              className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-3 py-1 md:py-1.5 rounded-md border border-gray-200 text-gray-700 text-sm md:text-base font-medium disabled:cursor-not-allowed disabled:opacity-60"
+            >
               <MessageSquare className="w-4 h-4" />
-              <span>{isPending ? 'Opening…' : 'Apply'}</span>
+              <span>Apply</span>
             </button>
           </div>
+          <p className="mt-2 text-center text-xs text-gray-500">
+            You can message this customer after they follow you back.
+          </p>
         </div>
       </div>
     </>

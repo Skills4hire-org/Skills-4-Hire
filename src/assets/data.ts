@@ -275,6 +275,10 @@ export const serviceProviderDesktopNavLinks = [
 
 export const providerBookingsTabsList = [
   {
+    status: 'Funded',
+    label: 'Booking Requests',
+  },
+  {
     status: 'In_progress',
     label: 'Ongoing',
   },

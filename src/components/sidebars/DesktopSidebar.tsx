@@ -23,6 +23,7 @@ import { useMyProfile } from '@/hooks/useUsers'
 import type { Profile } from '@/types/user.types'
 import { useUnreadMessageCount } from '@/hooks/useChats'
 import { useUnreadNotificationCount } from '@/hooks/useNotifications'
+import { useHireRequestNotificationCount } from '@/hooks/useNotifications'
 
 export default function DesktopSidebar() {
   const { userType }: { userType: UserType } = useSelector(
@@ -35,6 +36,7 @@ export default function DesktopSidebar() {
   const pathname = useLocation().pathname
   const { count: unreadMessageCount } = useUnreadMessageCount()
   const { count: unreadNotificationCount } = useUnreadNotificationCount()
+  const { count: hireRequestCount } = useHireRequestNotificationCount()
 
   const desktopNavLinks =
     userType == 'customer'
@@ -73,6 +75,13 @@ export default function DesktopSidebar() {
                             {unreadMessageCount > 99 ? '99+' : unreadMessageCount}
                           </span>
                         )}
+                        {label === 'bookings' &&
+                          userType === 'service_provider' &&
+                          hireRequestCount > 0 && (
+                            <span className="bg-red-600 text-white text-[10px] leading-3.5 min-w-4 h-4 px-1 rounded-full inline-flex items-center justify-center font-semibold">
+                              {hireRequestCount > 99 ? '99+' : hireRequestCount}
+                            </span>
+                          )}
                         {label === 'notification' && unreadNotificationCount > 0 && (
                           <span className="bg-red-600 text-white text-[10px] leading-3.5 min-w-4 h-4 px-1 rounded-full inline-flex items-center justify-center font-semibold">
                             {unreadNotificationCount > 99 ? '99+' : unreadNotificationCount}

@@ -203,21 +203,21 @@ export default function PostCard({
                   {provider_service.replace(/([A-Z])/g, ' $1').trim()}
                 </span>
               )}
-              {provider_service && (user?.profile?.city || user?.profile?.state) && (
+              {provider_service && created_at && (
                 <span aria-hidden="true">·</span>
               )}
-              {(user?.profile?.city || user?.profile?.state) && (
-                <span className="inline-flex items-center gap-1">
-                  <MapPin size={12} />
-                  {[user?.profile?.city, user?.profile?.state]
-                    .filter(Boolean)
-                    .join(', ')}
-                </span>
+              {created_at && (
+                <span>{formatCommentTime(created_at)}</span>
               )}
             </div>
-            <p className="text-[11px] text-gray-500">
-              {formatCommentTime(created_at as string)}
-            </p>
+            {(user?.profile?.city || user?.profile?.state) && (
+              <p className="inline-flex items-center gap-1 text-xs text-gray-500">
+                <MapPin size={12} />
+                {[user?.profile?.city, user?.profile?.state]
+                  .filter(Boolean)
+                  .join(', ')}
+              </p>
+            )}
           </div>
         </div>
         {!isOwner && provider_id && (
