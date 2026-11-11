@@ -12,11 +12,16 @@ import { useHireRequests } from '@/hooks/usePosts'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import type { Provider } from '@/types/user.types'
 import type { Post } from '@/types/post.types'
+import NetworkProfessionalCard from '@/components/service-provider/NetworkProfessionalCard'
+import { useSelector } from 'react-redux'
+import type { UserType } from '@/types/user.types'
 
 type NetworkList = 'discover' | 'following' | 'followers'
 type NetworkCategory = 'all' | 'professionals' | 'customers'
 
 export default function Network() {
+  const { userType }: { userType: UserType } = useSelector((state: any) => state.userState)
+  const basePath = userType === 'customer' ? '/customer' : '/professional'
   const [searchParams, setSearchParams] = useSearchParams()
   const [activeList, setActiveList] = useState<NetworkList>(() => {
     const list = searchParams.get('list')
@@ -236,49 +241,7 @@ export default function Network() {
               <>
                 <div className="divide-y divide-gray-200">
                   {showProfessionals && filteredProviders.map((provider) => (
-                    <article
-                      key={provider.provider_id}
-                      className="flex items-center gap-3 py-4 first:pt-1"
-                    >
-                      <Link
-                        to={`/professional/professionals/${provider.provider_id}`}
-                        aria-label={`View ${provider.user?.profile?.display_name ?? 'professional'} profile`}
-                        className="shrink-0"
-                      >
-                        <ProfileImage
-                          noStatus
-                          size="size-14"
-                          avatar={provider.user?.profile?.avatar?.avatar}
-                        />
-                      </Link>
-                      <div className="min-w-0 flex-1">
-                        <Link
-                          to={`/professional/professionals/${provider.provider_id}`}
-                          className="font-semibold text-gray-950 hover:text-primary"
-                        >
-                          {provider.user?.profile?.display_name}
-                        </Link>
-                        <p className="text-sm text-gray-600">
-                          {provider.professional_title}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {provider.headline}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {[provider.user?.profile?.city, provider.user?.profile?.state]
-                            .filter(Boolean)
-                            .join(', ')}
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        disabled
-                        title="Follow actions are not available until the follow API is enabled"
-                        className="shrink-0 rounded-full border border-primary px-3 py-1.5 text-sm font-semibold text-primary opacity-60 disabled:cursor-not-allowed"
-                      >
-                        + Follow
-                      </button>
-                    </article>
+                    <NetworkProfessionalCard key={provider.provider_id} provider={provider} />
                   ))}
                   {showCustomers && customers.map((post) => {
                     const customer = post.user
@@ -292,15 +255,11 @@ export default function Network() {
                         className="rounded-lg border border-gray-200 py-4 sm:px-3"
                       >
                         <div className="flex items-center gap-3">
-                          <ProfileImage
-                            noStatus
-                            size="size-14"
-                            avatar={customer?.profile?.avatar?.avatar}
-                          />
+                          <Link to={`${basePath}/customers/${customer?.user_id}`} aria-label={`View ${customerName}'s profile`} className="shrink-0">
+                            <ProfileImage noStatus size="size-14" avatar={customer?.profile?.avatar?.avatar} />
+                          </Link>
                           <div className="min-w-0 flex-1">
-                            <h3 className="truncate font-semibold text-gray-950">
-                              {customerName}
-                            </h3>
+                            <Link to={`${basePath}/customers/${customer?.user_id}`} className="truncate font-semibold text-gray-950 hover:text-primary">{customerName}</Link>
                             <p className="text-sm text-gray-600">
                               {[customer?.profile?.city, customer?.profile?.state]
                                 .filter(Boolean)

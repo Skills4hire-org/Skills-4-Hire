@@ -67,6 +67,8 @@ import ChatSupport from './pages/ChatSupport'
 import SupportChatWindow from './components/chats/SupportChatWindow'
 import Deposit from './pages/Deposit'
 import Network from './pages/Network'
+import OnboardingAuthRoute from './components/global/OnboardingAuthRoute'
+import CustomerProfile from './pages/CustomerProfile'
 
 const router = createBrowserRouter([
   {
@@ -117,15 +119,15 @@ const router = createBrowserRouter([
   },
   {
     path: 'onboarding',
-    element: <OnboardingRole />,
+    element: <OnboardingAuthRoute><OnboardingRole /></OnboardingAuthRoute>,
   },
   {
     path: 'onboarding/:role/upload',
-    element: <UploadPhoto />,
+    element: <OnboardingAuthRoute><UploadPhoto /></OnboardingAuthRoute>,
   },
   {
     path: 'onboarding/professional/complete-registration',
-    element: <ApplicationProfile />,
+    element: <OnboardingAuthRoute><ApplicationProfile /></OnboardingAuthRoute>,
   },
   {
     path: ':userType',
@@ -193,6 +195,10 @@ const router = createBrowserRouter([
       {
         path: 'network',
         element: <Network />,
+      },
+      {
+        path: 'customers/:id',
+        element: <CustomerProfile />,
       },
       {
         path: 'booking-requests',

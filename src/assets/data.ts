@@ -437,13 +437,13 @@ export const nigerianBanks = [
 
 export const customerHomeNavLinks = [
   {
-    url: 'posts',
-    label: 'For You',
+    url: '/customer/services',
+    label: 'Services',
     hasNotification: false,
   },
   {
-    url: 'my-offers',
-    label: 'Your Offers',
+    url: '/customer/network',
+    label: 'Network',
     hasNotification: false,
   },
 ]

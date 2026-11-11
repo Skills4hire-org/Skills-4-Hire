@@ -94,6 +94,16 @@ export default function ServiceProviderCard({
                   {formatSpaceToString(professional_title)}
                 </Badge>
               </div>
+              {userType === 'customer' && (
+                <button
+                  type="button"
+                  disabled
+                  title="Follow actions are not available until the follow API is enabled"
+                  className="w-max rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary disabled:cursor-not-allowed"
+                >
+                  + Follow
+                </button>
+              )}
             </div>
 
             <Link

@@ -78,6 +78,12 @@ export default function PostCard({
     user_data: UserData | null
   } = useSelector((state: RootState) => state.userState)
   const provider_id = user?.profile?.provider_id
+  const customer_id = user?.is_customer ? user.user_id : undefined
+  const profilePath = customer_id
+    ? `/${userType}/customers/${customer_id}`
+    : provider_id
+      ? `/${userType}/professionals/${provider_id}`
+      : undefined
   const provider_service = user?.profile?.professional_title
   const provider_headline = user?.profile?.headline
 
@@ -179,19 +185,38 @@ export default function PostCard({
     >
       <div className="flex items-center justify-between">
         <div className="flex gap-2 md:gap-3">
-          <Link to={`/${userType}/professionals/${provider_id}`}>
+          {profilePath ? (
+            <Link to={profilePath} aria-label={`View ${user?.profile?.display_name ?? 'user'} profile`}>
+              <ProfileImage noStatus avatar={user?.profile?.avatar?.avatar} />
+            </Link>
+          ) : (
             <ProfileImage noStatus avatar={user?.profile?.avatar?.avatar} />
-          </Link>
+          )}
 
           <div className="min-w-0 space-y-0.5">
-            <Link
-              to={`/${userType}/professionals/${provider_id}`}
-              className="no-underline hover:no-underline"
-            >
-              <h3 className="truncate text-[15px] font-semibold leading-tight text-gray-900 md:text-base">
-                {user?.profile?.display_name}
-              </h3>
-            </Link>
+            <div className="flex items-center gap-2">
+              {profilePath ? (
+                <Link to={profilePath} className="min-w-0 no-underline hover:no-underline">
+                  <h3 className="truncate text-[15px] font-semibold leading-tight text-gray-900 md:text-base">
+                    {user?.profile?.display_name}
+                  </h3>
+                </Link>
+              ) : (
+                <h3 className="truncate text-[15px] font-semibold leading-tight text-gray-900 md:text-base">
+                  {user?.profile?.display_name}
+                </h3>
+              )}
+              {!isOwner && provider_id && (
+                <button
+                  type="button"
+                  disabled
+                  title="Follow actions are not available until the follow API is enabled"
+                  className="shrink-0 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white opacity-60 disabled:cursor-not-allowed md:text-sm"
+                >
+                  + Follow
+                </button>
+              )}
+            </div>
             {provider_headline && (
               <p className="line-clamp-1 text-xs text-gray-600 md:text-sm">
                 {provider_headline}
@@ -220,16 +245,6 @@ export default function PostCard({
             )}
           </div>
         </div>
-        {!isOwner && provider_id && (
-          <button
-            type="button"
-            disabled
-            title="Follow actions are not available until the follow API is enabled"
-            className="shrink-0 rounded-full bg-primary px-3 py-2 text-xs font-semibold text-white opacity-60 disabled:cursor-not-allowed md:text-sm"
-          >
-            + Follow
-          </button>
-        )}
         {isOwner && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

@@ -1,10 +1,7 @@
-import MobileServicesOverviewHeader from '@/components/header/MobileServicesOverviewHeader'
 import SectionHeading from '@/components/services/SectionHeading'
 import { Link } from 'react-router-dom'
 import Container from '@/components/global/Container'
-import ServiceProviderCard from '@/components/service-provider/ServiceProviderCard'
-import ReferAndEarnBanner from '@/components/services/ReferAndEarnBanner'
-import DesktopServicesOverviewHeader from '@/components/header/DesktopServicesOverviewHeader'
+import NetworkProfessionalCard from '@/components/service-provider/NetworkProfessionalCard'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import Loading from '@/components/global/Loading'
@@ -87,12 +84,7 @@ export default function Services() {
   }
 
   return (
-    <div className="space-y-2 md:space-y-6 lg:ml-17 max-[1023px]:min-[768px]:ml-17">
-      <Container className="bg-white">
-        <MobileServicesOverviewHeader />
-        <DesktopServicesOverviewHeader />
-      </Container>
-
+    <div className="space-y-2 md:space-y-6 lg:ml-17 max-[1023px]:min-[768px]:ml-17 pt-7">
       <Container>
         <div className="space-y-4 md:space-y-6">
           <div>
@@ -137,8 +129,6 @@ export default function Services() {
             </div>
           </section>
 
-          <ReferAndEarnBanner />
-
           <section className="space-y-3">
             <div className="flex items-center justify-between gap-6">
               <SectionHeading heading="Professionals for you" />
@@ -164,13 +154,13 @@ export default function Services() {
                     />
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 gap-1">
+                  <div className="divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white px-4">
                     {professionals?.slice(0, 4).map((professional) => {
                       if (!professional?.provider_id) return null
                       return (
-                        <ServiceProviderCard
+                        <NetworkProfessionalCard
                           key={professional.provider_id}
-                          {...professional}
+                          provider={professional}
                           providerIDs={providersID}
                           favouriteID={favoriteID[0]}
                         />
